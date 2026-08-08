@@ -54,10 +54,42 @@ nav {
     display: flex;
     gap: 20px;
     font-size: 13px;
+    align-items: flex-start;
+}.menu-projetos {
+    position: relative;
 }
-nav a {
+
+.subcategorias {
+    position: absolute;
+    top: 22px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-5px);
+    transition:
+        opacity 0.15s ease,
+        transform 0.15s ease,
+        visibility 0.15s ease;
+}
+
+.menu-projetos:hover .subcategorias {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.subcategorias a {
     color: #111111;
     text-decoration: none;
+}
+
+.subcategorias a:hover {
+    text-decoration: underline;
+}
 }
 
 nav a:hover {

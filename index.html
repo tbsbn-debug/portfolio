@@ -121,21 +121,24 @@
             }
 
 
-            const rastro = document.createElement('div');
+if (!elemento) {
 
-            rastro.classList.add('cursor-rastro');
+    const rastro = document.createElement('div');
 
-            rastro.style.left = event.clientX + 'px';
-            rastro.style.top = event.clientY + 'px';
+    rastro.classList.add('cursor-rastro');
 
-            document.body.appendChild(rastro);
+    rastro.style.left = event.clientX + 'px';
+    rastro.style.top = event.clientY + 'px';
 
+    document.body.appendChild(rastro);
 
-            setTimeout(function() {
+    setTimeout(function() {
 
-                rastro.remove();
+        rastro.remove();
 
-            }, 1000);
+    }, 1000);
+
+}
 
         });
 

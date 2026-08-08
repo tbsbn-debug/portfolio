@@ -2,127 +2,114 @@
 <html lang="pt-BR">
 
 <head>
-<head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>opus</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
-    <script>
-    if (history.scrollRestoration) {
-        history.scrollRestoration = 'manual';
-    }
 
-    window.scrollTo(0, 0);
-</script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<script>
-    window.addEventListener('mousemove', function(event) {
 
-        const cursor = document.querySelector('.cursor');
-
-        cursor.style.left = event.clientX + 'px';
-        cursor.style.top = event.clientY + 'px';
-
-        const elemento = event.target.closest('a, button, [role="button"]');
-
-        if (elemento) {
-            cursor.classList.add('clicavel');
-        } else {
-            cursor.classList.remove('clicavel');
-        }
-
-        const rastro = document.createElement('div');
-
-        rastro.classList.add('cursor-rastro');
-
-        rastro.style.left = event.clientX + 'px';
-        rastro.style.top = event.clientY + 'px';
-
-        document.body.appendChild(rastro);
-
-        setTimeout(function() {
-            rastro.remove();
-        }, 1000);
-
-    });
-</script>
-    <script>
-    window.addEventListener('load', function() {
-        window.scrollTo(0, 0);
-    });
-</script>
 <body>
-<div class="cursor"></div>
+
+    <div class="cursor"></div>
+
+
     <header>
 
-      <div class="identidade">
+        <div class="identidade">
 
-    <img src="imagens/simbolo-opus.png" alt="símbolo da opus">
+            <img
+                src="imagens/simbolo-opus.png"
+                alt="símbolo da opus"
+            >
 
-    <div class="descricao">
-        <p>pesquisa em design e artesania.</p>
-        <p>processos multidisciplinares.</p>
-    </div>
+            <div class="descricao">
 
-</div>
+                <p>pesquisa em design e artesania.</p>
+                <p>processos multidisciplinares.</p>
 
-     <nav>
-    <a href="projetos.html">projetos</a>
-    <a href="#sobre">sobre</a>
-    <a href="#contato">contato</a>
-</nav>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a href="projetos.html">projetos</a>
+            <a href="#sobre">sobre</a>
+            <a href="#contato">contato</a>
+
+        </nav>
 
     </header>
 
 
     <main>
 
+
         <section id="trabalhos">
 
             <div class="cabecalho-secao">
+
                 <h2>trabalhos</h2>
+
             </div>
+
 
             <div class="trabalhos">
 
+
                 <article class="trabalho">
+
                     <div class="imagem">
                         <span>imagem</span>
                     </div>
 
                     <div class="informacoes">
+
                         <h3>opus i</h3>
                         <p>2023</p>
+
                     </div>
+
                 </article>
 
 
                 <article class="trabalho">
+
                     <div class="imagem">
                         <span>imagem</span>
                     </div>
 
                     <div class="informacoes">
+
                         <h3>o rio flui</h3>
                         <p>2023</p>
+
                     </div>
+
                 </article>
 
 
                 <article class="trabalho">
+
                     <div class="imagem">
                         <span>imagem</span>
                     </div>
 
                     <div class="informacoes">
+
                         <h3>op.1 no.1</h3>
                         <p>2023</p>
+
                     </div>
+
                 </article>
+
 
             </div>
 
@@ -134,10 +121,12 @@
             <h2>sobre</h2>
 
             <div class="texto-sobre">
+
                 <p>
                     a opus é um ateliê dedicado à pesquisa em design
                     e artesania através de processos multidisciplinares.
                 </p>
+
             </div>
 
         </section>
@@ -151,7 +140,64 @@
 
         </section>
 
+
     </main>
+
+
+    <script>
+
+        window.addEventListener('load', function() {
+
+            window.scrollTo(0, 0);
+
+        });
+
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+
+            cursor.style.left = event.clientX + 'px';
+            cursor.style.top = event.clientY + 'px';
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (elemento) {
+
+                cursor.classList.add('clicavel');
+
+            } else {
+
+                cursor.classList.remove('clicavel');
+
+            }
+
+
+            const rastro = document.createElement('div');
+
+            rastro.classList.add('cursor-rastro');
+
+            rastro.style.left = event.clientX + 'px';
+            rastro.style.top = event.clientY + 'px';
+
+            document.body.appendChild(rastro);
+
+
+            setTimeout(function() {
+
+                rastro.remove();
+
+            }, 1000);
+
+        });
+
+    </script>
+
 
 </body>
 

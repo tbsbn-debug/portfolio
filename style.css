@@ -148,6 +148,23 @@ section {
         opacity: 0;
     }
 }
+
+.categorias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-bottom: 80px;
+}
+
+.categorias a {
+    color: #111111;
+    text-decoration: none;
+}
+
+.categorias a:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 700px) {
 
     body {

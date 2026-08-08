@@ -31,17 +31,26 @@ header {
 }
 
 .identidade img {
-    display: block;
-    width: 180px;
+    position: absolute;
+    width: min(90vw, 1100px);
     height: auto;
-    margin-bottom: 32px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
 }
 
 .descricao {
+    position: absolute;
+    left: 0;
+    bottom: 0;
     max-width: 320px;
 }
-
+}
 nav {
+    position: absolute;
+    top: 0;
+    right: 0;
     display: flex;
     gap: 24px;
 }
@@ -109,6 +118,14 @@ section {
 
     body {
         padding: 20px;
+    }
+
+    .identidade img {
+        width: 100vw;
+    }
+
+    nav {
+        gap: 16px;
     }
 
     .trabalhos {

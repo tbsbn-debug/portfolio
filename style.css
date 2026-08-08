@@ -51,9 +51,9 @@ header {
 /* texto inferior esquerdo */
 
 .descricao {
-    position: absolute;
-    left: 0;
-    bottom: -50px;
+    position: fixed;
+    left: 32px;
+    bottom: 32px;
     font-family: monospace;
     font-size: 13px;
 }

@@ -10,10 +10,20 @@
 </head>
 <script>
     window.addEventListener('mousemove', function(event) {
+
         const cursor = document.querySelector('.cursor');
 
         cursor.style.left = event.clientX + 'px';
         cursor.style.top = event.clientY + 'px';
+
+        const elemento = event.target.closest('a, button, [role="button"]');
+
+        if (elemento) {
+            cursor.classList.add('clicavel');
+        } else {
+            cursor.classList.remove('clicavel');
+        }
+
     });
 </script>
 <body>

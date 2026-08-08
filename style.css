@@ -50,23 +50,24 @@ header {
     .descricao p {
     margin: 0;
 
-}
-header nav {
+.menu-principal {
     position: absolute;
     top: 0;
     right: 0;
     display: flex;
-    gap: 20px;
     align-items: flex-start;
+    gap: 20px;
     font-family: monospace;
     font-size: 13px;
 }
 
-header nav > a,
-header nav .projetos-link {
+.menu-principal > a,
+.menu-principal .projetos-link {
     color: #111111;
     text-decoration: none;
     font-family: monospace;
+    font-size: 13px;
+}
 
 }
 }.menu-projetos {

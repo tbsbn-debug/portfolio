@@ -48,6 +48,7 @@ header {
     font-size: 13px;
 }
 nav {
+nav {
     position: absolute;
     top: 0;
     right: 0;
@@ -55,6 +56,8 @@ nav {
     gap: 20px;
     font-size: 13px;
     align-items: flex-start;
+    font-family: monospace;
+}
 }.menu-projetos {
     position: relative;
 }
@@ -85,6 +88,7 @@ nav {
 .subcategorias a {
     color: #111111;
     text-decoration: none;
+    font-family: monospace;
 }
 
 .subcategorias a:hover {

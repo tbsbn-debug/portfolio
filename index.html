@@ -9,14 +9,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <script>
+    window.addEventListener('mousemove', function(event) {
+        const cursor = document.querySelector('.cursor');
 
-    const cursor = document.querySelector('.cursor');
-
-    document.addEventListener('mousemove', (event) => {
         cursor.style.left = event.clientX + 'px';
         cursor.style.top = event.clientY + 'px';
     });
-
 </script>
 <body>
 <div class="cursor"></div>

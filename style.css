@@ -2,19 +2,22 @@
     box-sizing: border-box;
 }
 
+
 html {
     scroll-behavior: smooth;
 }
+
 
 body {
     margin: 0;
     padding: 32px;
     background: #ffffff;
     color: #111111;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-family: monospace;
+    font-size: 13px;
     line-height: 1.35;
 }
+
 
 h1,
 h2,
@@ -24,12 +27,16 @@ p {
     font-weight: normal;
 }
 
+
+/* abertura */
+
 header {
     min-height: 100vh;
     position: relative;
+}
 
-}
-}
+
+/* símbolo */
 
 .identidade img {
     position: absolute;
@@ -41,25 +48,38 @@ header {
 }
 
 
+/* texto inferior esquerdo */
+
 .descricao {
     position: absolute;
     left: 0;
     bottom: 0;
     font-family: monospace;
     font-size: 13px;
-    .descricao p {
+}
+
+.descricao p {
     margin: 0;
+}
+
+
+/* categorias superiores */
 
 .menu-principal {
     position: absolute;
     top: 0;
     right: 0;
+
     display: flex;
     align-items: flex-start;
     gap: 20px;
+
     font-family: monospace;
     font-size: 13px;
 }
+
+
+/* links principais */
 
 .menu-principal > a,
 .menu-principal .projetos-link {
@@ -69,27 +89,38 @@ header {
     font-size: 13px;
 }
 
-}
-}.menu-projetos {
+
+/* projetos */
+
+.menu-projetos {
     position: relative;
 }
+
+
+/* subcategorias */
 
 .subcategorias {
     position: absolute;
     top: 22px;
     left: 0;
+
     display: flex;
     flex-direction: column;
     gap: 6px;
+
     white-space: nowrap;
+
     opacity: 0;
     visibility: hidden;
+
     transform: translateY(-5px);
+
     transition:
         opacity 0.15s ease,
         transform 0.15s ease,
         visibility 0.15s ease;
 }
+
 
 .menu-projetos:hover .subcategorias {
     opacity: 1;
@@ -97,20 +128,25 @@ header {
     transform: translateY(0);
 }
 
+
 .subcategorias a {
     color: #111111;
     text-decoration: none;
     font-family: monospace;
 }
 
+
 .subcategorias a:hover {
     text-decoration: underline;
 }
-}
+
 
 nav a:hover {
     text-decoration: underline;
 }
+
+
+/* conteúdo */
 
 main {
     display: flex;
@@ -118,13 +154,16 @@ main {
     gap: 240px;
 }
 
+
 section {
     min-height: 80vh;
 }
 
+
 .cabecalho-secao {
     margin-bottom: 48px;
 }
+
 
 .trabalhos {
     display: grid;
@@ -132,22 +171,27 @@ section {
     gap: 80px 24px;
 }
 
+
 .trabalho:nth-child(3) {
     grid-column: span 2;
 }
+
 
 .imagem {
     width: 100%;
     aspect-ratio: 4 / 3;
     background: #eeeeee;
+
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+
 .imagem span {
     color: #777777;
 }
+
 
 .informacoes {
     display: flex;
@@ -155,39 +199,60 @@ section {
     margin-top: 10px;
 }
 
+
 .texto-sobre {
     max-width: 600px;
     margin-top: 48px;
     font-size: 28px;
     line-height: 1.15;
 }
+
+
+/* cursor */
+
 .cursor {
     position: fixed;
     width: 15px;
     height: 15px;
-   background: #ffd400;
+
+    background: #ffd400;
+
     border-radius: 50%;
+
     pointer-events: none;
     z-index: 9999;
+
     transform: translate(-50%, -50%);
 }
+
+
 .cursor.clicavel {
     background: #000000;
 }
+
+
 .cursor-rastro {
     position: fixed;
     width: 15px;
     height: 15px;
+
     background: #ffd400;
+
     border-radius: 50%;
+
     pointer-events: none;
     z-index: 9998;
+
     transform: translate(-50%, -50%);
+
     opacity: 0.15;
+
     animation: desaparecer 0.4s linear forwards;
 }
 
+
 @keyframes desaparecer {
+
     from {
         opacity: 0.15;
     }
@@ -195,7 +260,11 @@ section {
     to {
         opacity: 0;
     }
+
 }
+
+
+/* categorias internas */
 
 .categorias {
     display: flex;
@@ -204,14 +273,19 @@ section {
     margin-bottom: 80px;
 }
 
+
 .categorias a {
     color: #111111;
     text-decoration: none;
 }
 
+
 .categorias a:hover {
     text-decoration: underline;
 }
+
+
+/* mobile */
 
 @media (max-width: 700px) {
 
@@ -219,21 +293,26 @@ section {
         padding: 20px;
     }
 
+
     .identidade img {
         width: 100vw;
     }
 
-    nav {
+
+    .menu-principal {
         gap: 16px;
     }
+
 
     .trabalhos {
         grid-template-columns: 1fr;
     }
 
+
     .trabalho:nth-child(3) {
         grid-column: span 1;
     }
+
 
     .texto-sobre {
         font-size: 22px;

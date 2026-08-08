@@ -53,7 +53,7 @@ header {
 .descricao {
     position: absolute;
     left: 0;
-    bottom: -4px;
+    bottom: -15px;
     font-family: monospace;
     font-size: 13px;
 }

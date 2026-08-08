@@ -31,8 +31,15 @@ header {
     justify-content: space-between;
 }
 
-.identidade h1 {
-    margin-bottom: 24px;
+.identidade img {
+    display: block;
+    width: 180px;
+    height: auto;
+    margin-bottom: 32px;
+}
+
+.descricao {
+    max-width: 320px;
 }
 
 nav {

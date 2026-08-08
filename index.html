@@ -24,6 +24,19 @@
             cursor.classList.remove('clicavel');
         }
 
+        const rastro = document.createElement('div');
+
+        rastro.classList.add('cursor-rastro');
+
+        rastro.style.left = event.clientX + 'px';
+        rastro.style.top = event.clientY + 'px';
+
+        document.body.appendChild(rastro);
+
+        setTimeout(function() {
+            rastro.remove();
+        }, 1000);
+
     });
 </script>
 <body>

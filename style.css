@@ -27,6 +27,7 @@ p {
 header {
     min-height: 100vh;
     position: relative;
+
 }
 }
 
@@ -44,19 +45,29 @@ header {
     position: absolute;
     left: 0;
     bottom: 0;
-    max-width: 280px;
+    font-family: monospace;
     font-size: 13px;
+    .descricao p {
+    margin: 0;
+
 }
-nav {
-nav {
+header nav {
     position: absolute;
     top: 0;
     right: 0;
     display: flex;
     gap: 20px;
-    font-size: 13px;
     align-items: flex-start;
     font-family: monospace;
+    font-size: 13px;
+}
+
+header nav > a,
+header nav .projetos-link {
+    color: #111111;
+    text-decoration: none;
+    font-family: monospace;
+
 }
 }.menu-projetos {
     position: relative;

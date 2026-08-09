@@ -492,208 +492,22 @@ section {
     .logo-projetos {
         width: 120px;
     }
-    
+
     .subcategorias-projetos {
-
         width: calc(100% - 60px);
-
         flex-wrap: wrap;
-
         gap: 8px 16px;
-
         line-height: 1.2;
-
     }
-    
-    .galeria-projetos {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 45px 18px;
-        padding-top: 25px;
-    }
-/* composição dispersa da galeria */
-
-.galeria-projetos .projeto:nth-child(2) {
-    transform: translateY(35px);
-}
-
-.galeria-projetos .projeto:nth-child(3) {
-    transform: translateY(-10px);
-}
-
-.galeria-projetos .projeto:nth-child(5) {
-    transform: translateY(45px);
-}
-
-.galeria-projetos .projeto:nth-child(6) {
-    transform: translateY(20px);
-}
-
-.galeria-projetos .projeto:nth-child(7) {
-    transform: translateY(-25px);
-}
-
-.galeria-projetos .projeto:nth-child(9) {
-    transform: translateY(35px);
-}
-
-.galeria-projetos .projeto:nth-child(10) {
-    transform: translateY(-15px);
-}
-
-.galeria-projetos .projeto:nth-child(12) {
-    transform: translateY(40px);
-}
-
-.galeria-projetos .projeto:nth-child(13) {
-    transform: translateY(-20px);
-}
-
-.galeria-projetos .projeto:nth-child(14) {
-    transform: translateY(30px);
-}
-
-
-@media (max-width: 700px) {
-
-    .galeria-projetos .projeto {
-        transform: none;
-    }
-
-    .galeria-projetos .projeto:nth-child(2) {
-        transform: translateY(25px);
-    }
-
-    .galeria-projetos .projeto:nth-child(5) {
-        transform: translateY(30px);
-    }
-
-    .galeria-projetos .projeto:nth-child(8) {
-        transform: translateY(20px);
-    }
-
-    .galeria-projetos .projeto:nth-child(11) {
-        transform: translateY(30px);
-    }
-
-    .galeria-projetos .projeto:nth-child(14) {
-        transform: translateY(20px);
-    }
-    /* ajustes finais da galeria de projetos */
-
-.galeria-projetos .projeto-hover a {
-    display: block;
-    width: 80%;
-    max-width: 90%;
-
-    color: #111111;
-    text-decoration: none;
-
-    font-family: monospace;
-    font-size: 13px;
-    line-height: 1.25;
-
-    text-align: center;
-}
-
-    /* composição editorial da galeria */
-
-.galeria-projetos {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    column-gap: 32px;
-    row-gap: 120px;
-
-    padding-top: 80px;
-    padding-bottom: 180px;
-}
-
-
-/* posição individual dos projetos */
-
-.galeria-projetos .projeto:nth-child(1) {
-    transform: translate(-35px, 20px);
-}
-
-.galeria-projetos .projeto:nth-child(2) {
-    transform: translate(20px, -55px);
-}
-
-.galeria-projetos .projeto:nth-child(3) {
-    transform: translate(-10px, 85px);
-}
-
-.galeria-projetos .projeto:nth-child(4) {
-    transform: translate(45px, -20px);
-}
-
-.galeria-projetos .projeto:nth-child(5) {
-    transform: translate(-30px, 120px);
-}
-
-.galeria-projetos .projeto:nth-child(6) {
-    transform: translate(25px, 40px);
-}
-
-.galeria-projetos .projeto:nth-child(7) {
-    transform: translate(-50px, -40px);
-}
-
-.galeria-projetos .projeto:nth-child(8) {
-    transform: translate(35px, 100px);
-}
-
-.galeria-projetos .projeto:nth-child(9) {
-    transform: translate(-20px, 15px);
-}
-
-.galeria-projetos .projeto:nth-child(10) {
-    transform: translate(50px, 135px);
-}
-
-.galeria-projetos .projeto:nth-child(11) {
-    transform: translate(-40px, 35px);
-}
-
-.galeria-projetos .projeto:nth-child(12) {
-    transform: translate(30px, -45px);
-}
-
-.galeria-projetos .projeto:nth-child(13) {
-    transform: translate(-25px, 105px);
-}
-
-.galeria-projetos .projeto:nth-child(14) {
-    transform: translate(40px, 25px);
-}
-
-
-/* títulos */
-
-.galeria-projetos .projeto-hover a {
-    display: block;
-
-    width: 75%;
-
-    color: #111111;
-
-    font-family: monospace;
-    font-size: 13px;
-    line-height: 1.25;
-
-    text-align: center;
-    text-decoration: none;
-}
-
-
-/* celular */
-
-@media (max-width: 700px) {
 
     .galeria-projetos {
         grid-template-columns: repeat(2, 1fr);
         column-gap: 20px;
         row-gap: 80px;
+        padding-top: 25px;
     }
+
+    /* dispersão no celular */
 
     .galeria-projetos .projeto:nth-child(1) {
         transform: translate(-10px, 15px);
@@ -750,7 +564,11 @@ section {
     .galeria-projetos .projeto:nth-child(14) {
         transform: translate(12px, 15px);
     }
-    /* composição dispersa — desktop */
+
+}
+
+
+/* composição dispersa no computador */
 
 @media (min-width: 701px) {
 
@@ -763,7 +581,6 @@ section {
         padding-top: 100px;
         padding-bottom: 250px;
     }
-
 
     .galeria-projetos .projeto {
         position: relative;
@@ -840,8 +657,14 @@ section {
         left: 40px;
     }
 
-}.galeria-projetos .projeto-hover a {
+}
+
+
+/* centralização dos títulos */
+
+.galeria-projetos .projeto-hover a {
     display: block;
+
     width: 80%;
     margin: 0 auto;
 
@@ -853,6 +676,4 @@ section {
     line-height: 1.25;
 
     text-align: center;
-}
-
 }

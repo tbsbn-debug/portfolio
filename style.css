@@ -595,63 +595,93 @@ section {
     text-align: center;
 }
 
+    /* composição editorial da galeria */
 
-/* dispersão */
+.galeria-projetos {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 32px;
+    row-gap: 120px;
+
+    padding-top: 80px;
+    padding-bottom: 180px;
+}
+
+
+/* posição individual dos projetos */
 
 .galeria-projetos .projeto:nth-child(1) {
-    transform: translate(-18px, 35px);
+    transform: translate(-35px, 20px);
 }
 
 .galeria-projetos .projeto:nth-child(2) {
-    transform: translate(22px, -20px);
+    transform: translate(20px, -55px);
 }
 
 .galeria-projetos .projeto:nth-child(3) {
-    transform: translate(-8px, 75px);
+    transform: translate(-10px, 85px);
 }
 
 .galeria-projetos .projeto:nth-child(4) {
-    transform: translate(30px, 5px);
+    transform: translate(45px, -20px);
 }
 
 .galeria-projetos .projeto:nth-child(5) {
-    transform: translate(-25px, 95px);
+    transform: translate(-30px, 120px);
 }
 
 .galeria-projetos .projeto:nth-child(6) {
-    transform: translate(15px, 30px);
+    transform: translate(25px, 40px);
 }
 
 .galeria-projetos .projeto:nth-child(7) {
-    transform: translate(-35px, -35px);
+    transform: translate(-50px, -40px);
 }
 
 .galeria-projetos .projeto:nth-child(8) {
-    transform: translate(28px, 80px);
+    transform: translate(35px, 100px);
 }
 
 .galeria-projetos .projeto:nth-child(9) {
-    transform: translate(-12px, 10px);
+    transform: translate(-20px, 15px);
 }
 
 .galeria-projetos .projeto:nth-child(10) {
-    transform: translate(35px, 105px);
+    transform: translate(50px, 135px);
 }
 
 .galeria-projetos .projeto:nth-child(11) {
-    transform: translate(-28px, 25px);
+    transform: translate(-40px, 35px);
 }
 
 .galeria-projetos .projeto:nth-child(12) {
-    transform: translate(18px, -30px);
+    transform: translate(30px, -45px);
 }
 
 .galeria-projetos .projeto:nth-child(13) {
-    transform: translate(-20px, 85px);
+    transform: translate(-25px, 105px);
 }
 
 .galeria-projetos .projeto:nth-child(14) {
-    transform: translate(30px, 15px);
+    transform: translate(40px, 25px);
+}
+
+
+/* títulos */
+
+.galeria-projetos .projeto-hover a {
+    display: block;
+
+    width: 75%;
+
+    color: #111111;
+
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.25;
+
+    text-align: center;
+    text-decoration: none;
 }
 
 
@@ -659,46 +689,66 @@ section {
 
 @media (max-width: 700px) {
 
-    .galeria-projetos .projeto {
-        transform: none;
+    .galeria-projetos {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 20px;
+        row-gap: 80px;
     }
 
     .galeria-projetos .projeto:nth-child(1) {
-        transform: translate(-8px, 20px);
+        transform: translate(-10px, 15px);
     }
 
     .galeria-projetos .projeto:nth-child(2) {
-        transform: translate(10px, -10px);
+        transform: translate(12px, -20px);
+    }
+
+    .galeria-projetos .projeto:nth-child(3) {
+        transform: translate(-5px, 45px);
     }
 
     .galeria-projetos .projeto:nth-child(4) {
-        transform: translate(8px, 25px);
+        transform: translate(10px, -10px);
     }
 
     .galeria-projetos .projeto:nth-child(5) {
-        transform: translate(-10px, 35px);
+        transform: translate(-12px, 55px);
+    }
+
+    .galeria-projetos .projeto:nth-child(6) {
+        transform: translate(8px, 15px);
     }
 
     .galeria-projetos .projeto:nth-child(7) {
-        transform: translate(10px, -15px);
+        transform: translate(-15px, -25px);
     }
 
     .galeria-projetos .projeto:nth-child(8) {
-        transform: translate(-8px, 30px);
+        transform: translate(12px, 45px);
+    }
+
+    .galeria-projetos .projeto:nth-child(9) {
+        transform: translate(-8px, 10px);
     }
 
     .galeria-projetos .projeto:nth-child(10) {
-        transform: translate(10px, 35px);
+        transform: translate(15px, 60px);
+    }
+
+    .galeria-projetos .projeto:nth-child(11) {
+        transform: translate(-10px, 20px);
     }
 
     .galeria-projetos .projeto:nth-child(12) {
-        transform: translate(-8px, -15px);
+        transform: translate(10px, -20px);
+    }
+
+    .galeria-projetos .projeto:nth-child(13) {
+        transform: translate(-8px, 50px);
     }
 
     .galeria-projetos .projeto:nth-child(14) {
-        transform: translate(8px, 25px);
+        transform: translate(12px, 15px);
     }
-
-}
 
 }

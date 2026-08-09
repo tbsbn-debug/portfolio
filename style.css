@@ -677,3 +677,308 @@ section {
 
     text-align: center;
 }
+/* =========================================================
+PÁGINA INDIVIDUAL DE PROJETO
+========================================================= */
+
+.projeto-header {
+position: relative;
+
+```
+width: 100%;
+
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+
+font-family: monospace;
+font-size: 13px;
+```
+
+}
+
+.projeto-voltar {
+color: #111111;
+text-decoration: none;
+}
+
+.projeto-voltar:hover {
+text-decoration: underline;
+}
+
+.projeto-categoria {
+font-family: monospace;
+}
+
+/* título */
+
+.pagina-projeto {
+padding-top: 110px;
+padding-bottom: 160px;
+}
+
+.projeto-titulo {
+display: flex;
+align-items: baseline;
+gap: 25px;
+
+```
+margin-bottom: 100px;
+```
+
+}
+
+.projeto-titulo h1 {
+margin: 0;
+
+```
+font-family: monospace;
+font-size: clamp(32px, 5vw, 72px);
+font-weight: normal;
+line-height: 1;
+```
+
+}
+
+.projeto-titulo span {
+font-family: monospace;
+font-size: 13px;
+}
+
+/* texto */
+
+.texto-introducao,
+.texto-desenvolvimento {
+font-family: monospace;
+font-size: 14px;
+line-height: 1.45;
+}
+
+.texto-introducao p,
+.texto-desenvolvimento p {
+margin: 0;
+}
+
+/* primeira relação texto + imagem */
+
+.projeto-introducao {
+display: grid;
+grid-template-columns: 5fr 3fr;
+gap: 80px;
+
+```
+align-items: start;
+
+margin-bottom: 140px;
+```
+
+}
+
+.texto-introducao {
+max-width: 620px;
+padding-top: 20px;
+}
+
+/* segunda relação imagem + texto */
+
+.projeto-desenvolvimento {
+display: grid;
+grid-template-columns: 3fr 4fr;
+gap: 100px;
+
+```
+align-items: center;
+
+margin-bottom: 150px;
+```
+
+}
+
+.texto-desenvolvimento {
+max-width: 500px;
+}
+
+/* mídia */
+
+.midia {
+position: relative;
+}
+
+.midia img,
+.midia video {
+display: block;
+
+```
+width: 100%;
+height: auto;
+
+object-fit: contain;
+```
+
+}
+
+/* tamanhos */
+
+.midia-pequena {
+width: 100%;
+max-width: 420px;
+}
+
+.midia-media {
+width: 100%;
+max-width: 560px;
+}
+
+.midia-video {
+width: 100%;
+max-width: 650px;
+}
+
+/* combinação de mídias */
+
+.projeto-midia {
+display: grid;
+grid-template-columns: 5fr 3fr;
+gap: 100px;
+
+```
+align-items: end;
+
+margin-bottom: 170px;
+```
+
+}
+
+.projeto-midia .midia-deslocada {
+margin-bottom: 80px;
+}
+
+.projeto-video-final {
+width: 65%;
+
+```
+margin-left: auto;
+margin-bottom: 200px;
+```
+
+}
+
+/* ficha técnica */
+
+.ficha-tecnica {
+margin-top: 100px;
+}
+
+.ficha-tecnica h2 {
+margin: 0 0 60px;
+
+```
+font-family: monospace;
+font-size: 18px;
+font-weight: normal;
+```
+
+}
+
+.creditos {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+column-gap: 100px;
+row-gap: 55px;
+
+```
+max-width: 900px;
+```
+
+}
+
+.credito {
+font-family: monospace;
+font-size: 12px;
+line-height: 1.45;
+}
+
+.credito h3 {
+margin: 0 0 8px;
+
+```
+font-family: monospace;
+font-size: 12px;
+font-weight: normal;
+text-transform: lowercase;
+```
+
+}
+
+.credito p {
+margin: 0;
+}
+
+/* celular */
+
+@media (max-width: 700px) {
+
+```
+.pagina-projeto {
+    padding-top: 70px;
+    padding-bottom: 100px;
+}
+
+
+.projeto-titulo {
+    margin-bottom: 70px;
+
+    gap: 15px;
+}
+
+.projeto-titulo h1 {
+    font-size: 32px;
+}
+
+
+.projeto-introducao,
+.projeto-desenvolvimento,
+.projeto-midia {
+    display: flex;
+    flex-direction: column;
+
+    gap: 45px;
+
+    margin-bottom: 100px;
+}
+
+
+.texto-introducao,
+.texto-desenvolvimento {
+    max-width: none;
+    padding-top: 0;
+}
+
+
+.midia-pequena,
+.midia-media,
+.midia-video {
+    max-width: 100%;
+}
+
+
+.projeto-midia .midia-deslocada {
+    margin-bottom: 0;
+    align-self: flex-end;
+    width: 80%;
+}
+
+
+.projeto-video-final {
+    width: 100%;
+    margin: 0 0 120px;
+}
+
+
+.creditos {
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+```
+
+}

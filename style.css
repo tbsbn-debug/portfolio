@@ -678,52 +678,28 @@ section {
     text-align: center;
 }
 /* =========================================================
-PÁGINA INDIVIDUAL — OPUS
+WAYS OF NOT SEEING — COMPOSIÇÃO CONTÍNUA
 ========================================================= */
-
-.projeto-header {
-width: 100%;
-
-```
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-
-font-family: monospace;
-font-size: 13px;
-```
-
-}
-
-.projeto-voltar {
-color: #111111;
-text-decoration: none;
-}
-
-.projeto-voltar:hover {
-text-decoration: underline;
-}
-
-.projeto-categoria {
-font-family: monospace;
-}
-
-/* página */
 
 .pagina-projeto {
 width: 100%;
-max-width: 1000px;
+max-width: 900px;
 
 ```
 margin: 0 auto;
 
-padding-top: 18px;
-padding-bottom: 80px;
+padding: 0 0 60px;
+
+overflow: hidden;
 ```
 
 }
 
-/* título */
+/* cabeçalho imediatamente seguido pelo título */
+
+.projeto-header {
+margin-bottom: 18px;
+}
 
 .projeto-titulo {
 display: flex;
@@ -731,7 +707,7 @@ align-items: baseline;
 gap: 14px;
 
 ```
-margin-bottom: 38px;
+margin: 0 0 28px;
 ```
 
 }
@@ -754,14 +730,14 @@ font-size: 12px;
 }
 
 /* =========================================================
-COMPOSIÇÃO
+TODOS OS ELEMENTOS FAZEM PARTE DE UMA ÚNICA COMPOSIÇÃO
 ========================================================= */
 
 .projeto-bloco {
 width: 100%;
 
 ```
-margin: 0 0 45px;
+margin: 0;
 ```
 
 }
@@ -769,12 +745,12 @@ margin: 0 0 45px;
 /* texto */
 
 .texto-projeto {
-max-width: 390px;
-
-```
 font-family: monospace;
 font-size: 12px;
-line-height: 1.45;
+line-height: 1.4;
+
+```
+max-width: 360px;
 ```
 
 }
@@ -783,10 +759,9 @@ line-height: 1.45;
 margin: 0;
 }
 
-/* imagens e vídeos */
+/* mídia */
 
 .midia-projeto {
-width: 100%;
 min-width: 0;
 }
 
@@ -796,143 +771,123 @@ display: block;
 
 ```
 width: 100%;
-max-width: 100%;
 height: auto;
-
-object-fit: contain;
+max-width: 100%;
 ```
 
 }
 
 /* =========================================================
-PRIMEIRO CONJUNTO
-texto + imagem próximos
+PRIMEIRO TRECHO
 ========================================================= */
 
 .bloco-01 {
 display: grid;
 
 ```
-grid-template-columns: 1fr 320px;
+grid-template-columns: 360px 240px;
 
-column-gap: 35px;
+gap: 28px;
 
 align-items: end;
+
+margin-left: 20px;
 ```
 
 }
 
-.bloco-01 .texto-projeto {
-margin-bottom: 8px;
-}
-
 .bloco-01 .midia-projeto {
-width: 320px;
+width: 240px;
 }
 
 /* =========================================================
-SEGUNDO CONJUNTO
-imagem + texto
+SEGUNDO TRECHO
 ========================================================= */
 
 .bloco-02 {
 display: grid;
 
 ```
-grid-template-columns: 300px 1fr;
+grid-template-columns: 220px 360px;
 
-column-gap: 35px;
+gap: 28px;
 
 align-items: start;
 
-margin-left: 120px;
-
-width: calc(100% - 120px);
+margin-top: -20px;
+margin-left: 180px;
 ```
 
 }
 
 .bloco-02 .midia-projeto {
-width: 300px;
+width: 220px;
 }
 
 .bloco-02 .texto-projeto {
-max-width: 350px;
-
-```
-padding-top: 25px;
-```
-
+padding-top: 18px;
 }
 
 /* =========================================================
-PRIMEIRO VÍDEO
+VÍDEO
 ========================================================= */
 
 .bloco-03 {
-margin-top: -10px;
-margin-left: 45px;
-
-```
-width: 430px;
-```
-
+margin-top: -5px;
+margin-left: 70px;
 }
 
 .bloco-03 .midia-projeto {
-width: 430px;
+width: 330px;
 }
 
 /* =========================================================
-IMAGEM + VÍDEO
+FOTO + VÍDEO
 ========================================================= */
 
 .bloco-04 {
 display: grid;
 
 ```
-grid-template-columns: 260px 360px;
+grid-template-columns: 210px 280px;
 
-column-gap: 75px;
+gap: 35px;
 
 align-items: start;
 
-margin-left: 230px;
-
-width: calc(100% - 230px);
-
-margin-top: -5px;
+margin-top: -15px;
+margin-left: 300px;
 ```
 
 }
 
 .bloco-04 .midia-projeto:first-child {
-width: 260px;
+width: 210px;
 }
 
 .bloco-04 .video-projeto {
-width: 360px;
+width: 280px;
 
 ```
-margin-top: 55px;
+margin-top: 45px;
 ```
 
 }
 
 /* =========================================================
-FICHA TÉCNICA
+CRÉDITOS — CONTINUAM PRÓXIMOS DA COMPOSIÇÃO
 ========================================================= */
 
 .ficha-tecnica {
-margin-top: 75px;
+margin-top: 45px;
 }
 
 .ficha-tecnica h2 {
-margin: 0 0 30px;
+margin: 0 0 20px;
 
 ```
 font-family: monospace;
-font-size: 14px;
+font-size: 13px;
 font-weight: normal;
 ```
 
@@ -942,12 +897,12 @@ font-weight: normal;
 display: grid;
 
 ```
-grid-template-columns: repeat(3, minmax(0, 1fr));
+grid-template-columns: repeat(3, 1fr);
 
-column-gap: 45px;
-row-gap: 30px;
+column-gap: 35px;
+row-gap: 25px;
 
-max-width: 850px;
+max-width: 800px;
 ```
 
 }
@@ -957,20 +912,19 @@ min-width: 0;
 
 ```
 font-family: monospace;
-font-size: 10px;
-line-height: 1.4;
+font-size: 9px;
+line-height: 1.35;
 ```
 
 }
 
 .credito h3 {
-margin: 0 0 5px;
+margin: 0 0 4px;
 
 ```
 font-family: monospace;
-font-size: 10px;
+font-size: 9px;
 font-weight: normal;
-text-transform: lowercase;
 ```
 
 }
@@ -987,15 +941,22 @@ CELULAR
 
 ```
 .pagina-projeto {
+    width: 100%;
     max-width: 100%;
 
-    padding-top: 15px;
-    padding-bottom: 60px;
+    padding-bottom: 40px;
+
+    overflow: hidden;
+}
+
+
+.projeto-header {
+    margin-bottom: 15px;
 }
 
 
 .projeto-titulo {
-    margin-bottom: 35px;
+    margin-bottom: 25px;
 }
 
 
@@ -1007,12 +968,13 @@ CELULAR
 .projeto-bloco {
     display: flex;
 
-    width: 100%;
-    margin: 0 0 45px;
-
     flex-direction: column;
 
-    gap: 22px;
+    width: 100%;
+
+    margin: 0;
+
+    gap: 18px;
 }
 
 
@@ -1020,7 +982,20 @@ CELULAR
     width: 100%;
     max-width: 100%;
 
-    font-size: 12px;
+    font-size: 11px;
+}
+
+
+.bloco-01,
+.bloco-02,
+.bloco-04 {
+
+    display: flex;
+
+    margin-left: 0;
+    margin-top: 0;
+
+    gap: 18px;
 }
 
 
@@ -1030,8 +1005,8 @@ CELULAR
 .bloco-04 .midia-projeto,
 .bloco-04 .video-projeto {
 
-    width: 75%;
-    max-width: 75%;
+    width: 72%;
+    max-width: 72%;
 
     margin: 0;
 }
@@ -1049,6 +1024,8 @@ CELULAR
 
 .bloco-03 .midia-projeto {
     align-self: center;
+
+    margin: 0;
 }
 
 
@@ -1059,19 +1036,23 @@ CELULAR
 
 .bloco-04 .video-projeto {
     align-self: flex-end;
+}
 
-    margin-top: 0;
+
+.ficha-tecnica {
+    margin-top: 40px;
 }
 
 
 .creditos {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    column-gap: 25px;
-    row-gap: 30px;
+    column-gap: 20px;
+    row-gap: 22px;
 }
 ```
 
 }
+
 
 

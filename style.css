@@ -679,7 +679,7 @@ section {
 }
 /* =========================================================
 OPUS — PÁGINA INDIVIDUAL DE PROJETO
-composição horizontal / mínima / sem sobreposição
+composição horizontal / sem sobreposição
 ========================================================= */
 
 /* =========================================================
@@ -749,7 +749,7 @@ gap: 20px;
 ```
 width: 100%;
 
-margin: 30px 0 150px;
+margin: 30px 0 110px;
 padding: 0;
 
 position: relative;
@@ -763,7 +763,7 @@ margin: 0;
 
 ```
 font-family: monospace;
-font-size: clamp(58px, 8vw, 100px);
+font-size: clamp(60px, 8vw, 100px);
 font-weight: normal;
 line-height: 0.88;
 letter-spacing: -0.06em;
@@ -777,7 +777,7 @@ font-size: 13px;
 }
 
 /* =========================================================
-BASE DOS BLOCOS
+BASE
 ========================================================= */
 
 .projeto-bloco {
@@ -790,7 +790,6 @@ margin: 0;
 padding: 0;
 
 position: relative;
-z-index: 1;
 ```
 
 }
@@ -844,185 +843,145 @@ object-fit: contain;
 
 /* =========================================================
 BLOCO 01
-PRIMEIRO: IMAGEM
-SEGUNDO: TEXTO
+SOMENTE A PRIMEIRA IMAGEM
 ========================================================= */
 
 .bloco-01 {
-display: grid;
+display: flex;
 
 ```
-grid-template-columns: minmax(280px, 1fr) minmax(430px, 1.35fr);
-
-column-gap: 90px;
-
-align-items: start;
+justify-content: flex-end;
+align-items: flex-start;
 
 width: 100%;
 
 margin: 0;
-
-position: relative;
+padding: 0;
 ```
 
 }
-
-/* imagem à direita */
 
 .bloco-01 .midia-projeto {
-grid-column: 2;
-grid-row: 1;
-
-```
-width: 100%;
-max-width: 450px;
-
-justify-self: end;
-```
-
-}
-
-/* texto à esquerda */
-
-.bloco-01 .texto-projeto {
-grid-column: 1;
-grid-row: 1;
-
-```
-padding-top: 10px;
-```
-
+width: 440px;
+max-width: 440px;
 }
 
 /* =========================================================
 BLOCO 02
-IMAGEM / TEXTO
+DOIS TEXTOS
+ambos à esquerda
 ========================================================= */
 
 .bloco-02 {
 display: grid;
 
 ```
-grid-template-columns: minmax(280px, 1fr) minmax(430px, 1.35fr);
+grid-template-columns: 300px 300px 1fr;
 
-column-gap: 90px;
+column-gap: 55px;
 
 align-items: start;
 
 width: 100%;
 
 margin: 75px 0 0;
-```
-
-}
-
-.bloco-02 .midia-projeto {
-grid-column: 2;
-grid-row: 1;
-
-```
-width: 100%;
-max-width: 390px;
-
-justify-self: end;
+padding: 0;
 ```
 
 }
 
 .bloco-02 .texto-projeto {
+width: 300px;
+max-width: 300px;
+}
+
+.bloco-02 .texto-projeto:first-child {
 grid-column: 1;
-grid-row: 1;
+}
 
-```
-padding-top: 15px;
-```
-
+.bloco-02 .texto-projeto:nth-child(2) {
+grid-column: 2;
 }
 
 /* =========================================================
 BLOCO 03
-VÍDEO 1
+SEGUNDA IMAGEM + VÍDEO 1
 ========================================================= */
 
 .bloco-03 {
 display: grid;
 
 ```
-grid-template-columns: minmax(280px, 1fr) minmax(430px, 1.35fr);
+grid-template-columns: 300px 1fr;
 
-column-gap: 90px;
-
-width: 100%;
-
-margin: 75px 0 0;
-```
-
-}
-
-.bloco-03 .midia-projeto {
-grid-column: 2;
-
-```
-width: 100%;
-max-width: 520px;
-
-justify-self: end;
-```
-
-}
-
-/* =========================================================
-BLOCO 04
-FOTO + VÍDEO 2
-========================================================= */
-
-.bloco-04 {
-display: grid;
-
-```
-grid-template-columns: minmax(280px, 1fr) minmax(430px, 1.35fr);
-
-column-gap: 90px;
+column-gap: 80px;
 
 align-items: start;
 
 width: 100%;
 
 margin: 75px 0 0;
+padding: 0;
 ```
 
 }
 
-/* foto */
+/* imagem */
 
-.bloco-04 .midia-projeto:first-child {
+.bloco-03 .midia-projeto:first-child {
 grid-column: 2;
-grid-row: 1;
 
 ```
-width: 42%;
+width: 330px;
 max-width: 330px;
 
 justify-self: start;
-
-margin: 0;
 ```
 
 }
 
-/* vídeo 2 — maior */
+/* vídeo 1 */
 
-.bloco-04 .video-projeto {
+.bloco-03 .video-projeto {
 grid-column: 2;
-grid-row: 1;
 
 ```
-width: 72%;
-max-width: 650px;
+width: 500px;
+max-width: 500px;
 
 justify-self: end;
 
-margin: 100px 0 0;
+margin-top: 80px;
+```
+
+}
+
+/* =========================================================
+BLOCO 04
+SOMENTE VÍDEO 2
+========================================================= */
+
+.bloco-04 {
+display: flex;
+
+```
+justify-content: flex-end;
+align-items: flex-start;
+
+width: 100%;
+
+margin: 90px 0 0;
+padding: 0;
+```
+
+}
+
+.bloco-04 .video-projeto {
+width: 72%;
+max-width: 700px;
+
+```
+margin: 0;
 ```
 
 }
@@ -1054,7 +1013,10 @@ font-weight: normal;
 
 }
 
-/* duas colunas horizontais */
+/* =========================================================
+CRÉDITOS
+DUAS COLUNAS REAIS
+========================================================= */
 
 .creditos {
 display: grid !important;
@@ -1077,7 +1039,7 @@ padding: 0;
 }
 
 .credito {
-display: block;
+display: block !important;
 
 ```
 width: 100%;
@@ -1147,7 +1109,7 @@ CELULAR
 }
 
 
-/* blocos */
+/* todos os blocos tornam-se verticais */
 
 .projeto-bloco {
     display: flex;
@@ -1157,8 +1119,9 @@ CELULAR
     width: 100%;
 
     margin: 0 0 45px;
+    padding: 0;
 
-    gap: 20px;
+    gap: 25px;
 }
 
 
@@ -1172,67 +1135,64 @@ CELULAR
 }
 
 
-/* mídias */
+/* =====================================================
+   BLOCO 01 — PRIMEIRA IMAGEM
+   ===================================================== */
 
-.bloco-01 .midia-projeto,
-.bloco-02 .midia-projeto,
-.bloco-03 .midia-projeto,
-.bloco-04 .midia-projeto,
-.bloco-04 .video-projeto {
-
+.bloco-01 .midia-projeto {
     width: 82%;
     max-width: 82%;
+
+    align-self: flex-end;
+}
+
+
+/* =====================================================
+   BLOCO 02 — DOIS TEXTOS
+   ===================================================== */
+
+.bloco-02 .texto-projeto {
+    width: 300px;
+    max-width: 85%;
+}
+
+
+/* =====================================================
+   BLOCO 03 — FOTO + VÍDEO 1
+   ===================================================== */
+
+.bloco-03 .midia-projeto:first-child {
+    width: 68%;
+    max-width: 68%;
+
+    align-self: flex-start;
+}
+
+.bloco-03 .video-projeto {
+    width: 88%;
+    max-width: 88%;
+
+    align-self: flex-end;
 
     margin: 0;
 }
 
 
-/* primeira imagem */
-
-.bloco-01 .midia-projeto {
-    order: 1;
-    align-self: flex-end;
-}
-
-.bloco-01 .texto-projeto {
-    order: 2;
-}
-
-
-/* segundo bloco */
-
-.bloco-02 .midia-projeto {
-    align-self: flex-start;
-}
-
-
-/* vídeo 1 */
-
-.bloco-03 .midia-projeto {
-    align-self: flex-end;
-}
-
-
-/* foto + vídeo 2 */
-
-.bloco-04 .midia-projeto:first-child {
-    width: 65%;
-    max-width: 65%;
-
-    align-self: flex-start;
-}
+/* =====================================================
+   BLOCO 04 — VÍDEO 2
+   ===================================================== */
 
 .bloco-04 .video-projeto {
-    width: 95%;
-    max-width: 95%;
+    width: 96%;
+    max-width: 96%;
 
     align-self: flex-end;
-
-    margin-top: 20px;
 }
 
 
-/* créditos */
+/* =====================================================
+   CRÉDITOS
+   ===================================================== */
 
 .ficha-tecnica {
     margin-top: 50px;

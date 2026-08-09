@@ -1303,7 +1303,9 @@ display: block;
 max-width: 100%;
 height: auto;
 }
-
+.pagina-projeto {
+    background: yellow !important;
+}
 
 
 

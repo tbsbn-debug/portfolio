@@ -96,7 +96,6 @@ header {
     position: relative;
 }
 
-
 /* subcategorias */
 
 .subcategorias {
@@ -329,12 +328,36 @@ section {
     width: 100%;
     min-height: 80px;
 }
+
+/* símbolo do cabeçalho das páginas internas */
+
 .logo-projetos {
     position: absolute;
+
     top: 0;
     left: 0;
+
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    text-decoration: none;
+
+    overflow: hidden;
+}
+
+
+.logo-projetos img {
     display: block;
-    width: 90px;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    object-position: left top;
 }
 
 /* subcategorias */

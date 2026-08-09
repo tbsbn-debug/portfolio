@@ -1166,17 +1166,29 @@ CELULAR
 }
 
 
-/* =====================================================
-   BLOCO 04 — VÍDEO 2
-   ===================================================== */
+/* =========================================================
+   BLOCO 04
+   SOMENTE VÍDEO 2
+   ========================================================= */
 
-.bloco-04 .video-projeto {
-    width: 96%;
-    max-width: 96%;
+.bloco-04 {
+    display: flex;
 
-    align-self: flex-end;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    width: 100%;
+
+    margin: 90px 0 0;
+    padding: 0;
 }
 
+.bloco-04 .video-projeto {
+    width: 82%;
+    max-width: 820px;
+
+    margin: 0;
+}
 
 /* =====================================================
    CRÉDITOS

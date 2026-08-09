@@ -990,85 +990,73 @@ margin: 0;
 FICHA TÉCNICA
 ========================================================= */
 
+/* =========================================================
+   FICHA TÉCNICA
+   ========================================================= */
+
 .ficha-tecnica {
-min-height: 0;
+    width: 100%;
 
-```
-width: 100%;
-
-margin: 90px 0 0;
-padding: 0;
-```
-
+    margin: 90px 0 0;
+    padding: 0;
 }
 
 .ficha-tecnica h2 {
-margin: 0 0 30px;
+    margin: 0 0 30px;
 
-```
-font-family: monospace;
-font-size: 14px;
-font-weight: normal;
-```
-
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: normal;
 }
 
+
 /* =========================================================
-CRÉDITOS
-DUAS COLUNAS REAIS
-========================================================= */
+   CRÉDITOS
+   A FICHA INTEIRA É UMA GRADE DE DUAS COLUNAS
+   ========================================================= */
 
 .creditos {
-display: grid !important;
+    display: grid !important;
 
-```
-grid-template-columns:
-    minmax(0, 1fr)
-    minmax(0, 1fr) !important;
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr) !important;
 
-column-gap: 100px;
-row-gap: 30px;
+    column-gap: 80px;
+    row-gap: 28px;
 
-width: 100%;
-max-width: none;
+    width: 100% !important;
+    max-width: 100% !important;
 
-margin: 0;
-padding: 0;
-```
-
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .credito {
-display: block !important;
+    display: block !important;
 
-```
-width: 100%;
-min-width: 0;
+    width: 100% !important;
+    min-width: 0 !important;
 
-margin: 0;
-padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
 
-font-family: monospace;
-font-size: 10px;
-line-height: 1.35;
-```
-
+    font-family: monospace;
+    font-size: 10px;
+    line-height: 1.35;
 }
 
 .credito h3 {
-margin: 0 0 5px;
+    margin: 0 0 5px;
 
-```
-font-family: monospace;
-font-size: 10px;
-font-weight: normal;
-```
-
+    font-family: monospace;
+    font-size: 10px;
+    font-weight: normal;
 }
 
 .credito p {
-margin: 0;
-padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 /* =========================================================

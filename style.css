@@ -768,7 +768,7 @@ letter-spacing: -0.06em;
 
 .projeto-titulo span {
 font-family: monospace;
-font-size: 13px;
+font-size: 25px;
 }
 
 /* =========================================================
@@ -973,7 +973,7 @@ margin: 70px 0 0;
 .bloco-04 .midia-projeto:first-child {
     grid-column: 2;
 
-    width: 30%;
+    width: 40%;
     max-width: 260px;
 
     justify-self: start;

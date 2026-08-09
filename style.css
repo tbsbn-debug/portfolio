@@ -388,11 +388,9 @@ section {
 /* projeto */
 
 .projeto {
-
     position: relative;
-
     width: 100%;
-
+    aspect-ratio: 1 / 1;
     overflow: hidden;
 }
 
@@ -400,11 +398,10 @@ section {
 /* imagem */
 
 .projeto img {
-
     display: block;
 
     width: 100%;
-    height: auto;
+    height: 100%;
 
     object-fit: cover;
 

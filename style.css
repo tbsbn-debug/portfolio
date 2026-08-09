@@ -710,20 +710,30 @@ text-decoration: underline;
 font-family: monospace;
 }
 
-/* título */
+/* página */
 
 .pagina-projeto {
-padding-top: 110px;
-padding-bottom: 160px;
+width: 100%;
+max-width: 1100px;
+
+```
+margin: 0 auto;
+
+padding-top: 45px;
+padding-bottom: 140px;
+```
+
 }
+
+/* título */
 
 .projeto-titulo {
 display: flex;
 align-items: baseline;
-gap: 25px;
+gap: 18px;
 
 ```
-margin-bottom: 100px;
+margin-bottom: 65px;
 ```
 
 }
@@ -733,7 +743,7 @@ margin: 0;
 
 ```
 font-family: monospace;
-font-size: clamp(32px, 5vw, 72px);
+font-size: clamp(28px, 4vw, 52px);
 font-weight: normal;
 line-height: 1;
 ```
@@ -745,71 +755,58 @@ font-family: monospace;
 font-size: 13px;
 }
 
-/* texto */
+/* blocos */
 
-.texto-introducao,
-.texto-desenvolvimento {
-font-family: monospace;
-font-size: 14px;
-line-height: 1.45;
-}
-
-.texto-introducao p,
-.texto-desenvolvimento p {
-margin: 0;
-}
-
-/* primeira relação texto + imagem */
-
-.projeto-introducao {
+.projeto-bloco {
 display: grid;
-grid-template-columns: 5fr 3fr;
-gap: 80px;
-
-```
-align-items: start;
-
-margin-bottom: 140px;
-```
-
-}
-
-.texto-introducao {
-max-width: 620px;
-padding-top: 20px;
-}
-
-/* segunda relação imagem + texto */
-
-.projeto-desenvolvimento {
-display: grid;
-grid-template-columns: 3fr 4fr;
-gap: 100px;
 
 ```
 align-items: center;
 
-margin-bottom: 150px;
+width: 100%;
+
+margin-bottom: 90px;
 ```
 
 }
 
-.texto-desenvolvimento {
-max-width: 500px;
+/* texto */
+
+.texto-projeto {
+width: 100%;
+max-width: 430px;
+
+```
+font-family: monospace;
+font-size: 13px;
+line-height: 1.45;
+```
+
+}
+
+.texto-projeto p {
+margin: 0;
 }
 
 /* mídia */
 
-.midia {
-position: relative;
+.midia-projeto {
+width: 100%;
+max-width: 420px;
+
+```
+min-width: 0;
+```
+
 }
 
-.midia img,
-.midia video {
+.midia-projeto img,
+.midia-projeto video {
 display: block;
 
 ```
 width: 100%;
+max-width: 100%;
 height: auto;
 
 object-fit: contain;
@@ -817,64 +814,93 @@ object-fit: contain;
 
 }
 
-/* tamanhos */
+/* primeiro bloco */
 
-.midia-pequena {
-width: 100%;
-max-width: 420px;
-}
-
-.midia-media {
-width: 100%;
-max-width: 560px;
-}
-
-.midia-video {
-width: 100%;
-max-width: 650px;
-}
-
-/* combinação de mídias */
-
-.projeto-midia {
-display: grid;
-grid-template-columns: 5fr 3fr;
-gap: 100px;
+.bloco-01 {
+grid-template-columns: 1fr 1fr;
 
 ```
+column-gap: 70px;
+```
+
+}
+
+.bloco-01 .midia-projeto {
+justify-self: end;
+}
+
+/* segundo bloco */
+
+.bloco-02 {
+grid-template-columns: 1fr 1fr;
+
+```
+column-gap: 70px;
+```
+
+}
+
+.bloco-02 .midia-projeto {
+justify-self: start;
+}
+
+.bloco-02 .texto-projeto {
+justify-self: start;
+}
+
+/* vídeo */
+
+.bloco-03 {
+display: block;
+}
+
+.bloco-03 .midia-projeto {
+max-width: 520px;
+
+```
+margin-left: 18%;
+```
+
+}
+
+/* imagem + vídeo */
+
+.bloco-04 {
+grid-template-columns: 1fr 1fr;
+
+```
+column-gap: 70px;
+
 align-items: end;
-
-margin-bottom: 170px;
 ```
 
 }
 
-.projeto-midia .midia-deslocada {
-margin-bottom: 80px;
+.bloco-04 .midia-projeto:first-child {
+justify-self: start;
 }
 
-.projeto-video-final {
-width: 65%;
-
-```
-margin-left: auto;
-margin-bottom: 200px;
-```
-
+.bloco-04 .video-projeto {
+justify-self: end;
 }
 
-/* ficha técnica */
+/* ficha */
 
 .ficha-tecnica {
-margin-top: 100px;
+width: 100%;
+
+```
+margin-top: 130px;
+```
+
 }
 
 .ficha-tecnica h2 {
-margin: 0 0 60px;
+margin: 0 0 45px;
 
 ```
 font-family: monospace;
-font-size: 18px;
+font-size: 16px;
 font-weight: normal;
 ```
 
@@ -882,28 +908,36 @@ font-weight: normal;
 
 .creditos {
 display: grid;
-grid-template-columns: repeat(2, 1fr);
-column-gap: 100px;
-row-gap: 55px;
 
 ```
-max-width: 900px;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+
+column-gap: 80px;
+row-gap: 45px;
+
+width: 100%;
+max-width: 850px;
 ```
 
 }
 
 .credito {
-font-family: monospace;
-font-size: 12px;
-line-height: 1.45;
-}
-
-.credito h3 {
-margin: 0 0 8px;
+min-width: 0;
 
 ```
 font-family: monospace;
-font-size: 12px;
+font-size: 11px;
+line-height: 1.45;
+```
+
+}
+
+.credito h3 {
+margin: 0 0 7px;
+
+```
+font-family: monospace;
+font-size: 11px;
 font-weight: normal;
 text-transform: lowercase;
 ```
@@ -914,71 +948,89 @@ text-transform: lowercase;
 margin: 0;
 }
 
-/* celular */
+/* =========================================================
+CELULAR
+========================================================= */
 
 @media (max-width: 700px) {
 
 ```
 .pagina-projeto {
-    padding-top: 70px;
-    padding-bottom: 100px;
+    width: 100%;
+
+    padding-top: 35px;
+    padding-bottom: 90px;
 }
 
 
 .projeto-titulo {
-    margin-bottom: 70px;
+    margin-bottom: 55px;
 
-    gap: 15px;
+    gap: 14px;
 }
 
 .projeto-titulo h1 {
-    font-size: 32px;
+    font-size: 28px;
 }
 
 
-.projeto-introducao,
-.projeto-desenvolvimento,
-.projeto-midia {
+.projeto-bloco {
     display: flex;
     flex-direction: column;
 
-    gap: 45px;
+    width: 100%;
 
-    margin-bottom: 100px;
+    gap: 35px;
+
+    margin-bottom: 75px;
 }
 
 
-.texto-introducao,
-.texto-desenvolvimento {
-    max-width: none;
-    padding-top: 0;
-}
-
-
-.midia-pequena,
-.midia-media,
-.midia-video {
+.texto-projeto {
+    width: 100%;
     max-width: 100%;
 }
 
 
-.projeto-midia .midia-deslocada {
-    margin-bottom: 0;
-    align-self: flex-end;
-    width: 80%;
+.midia-projeto {
+    width: 100%;
+    max-width: 100%;
 }
 
 
-.projeto-video-final {
-    width: 100%;
-    margin: 0 0 120px;
+.bloco-01 .midia-projeto,
+.bloco-02 .midia-projeto,
+.bloco-03 .midia-projeto,
+.bloco-04 .midia-projeto,
+.bloco-04 .video-projeto {
+    margin: 0;
+    justify-self: auto;
+}
+
+
+.bloco-03 .midia-projeto {
+    width: 90%;
+    align-self: center;
+}
+
+
+.bloco-04 .midia-projeto {
+    width: 90%;
+    align-self: center;
+}
+
+
+.ficha-tecnica {
+    margin-top: 90px;
 }
 
 
 .creditos {
     grid-template-columns: 1fr;
-    gap: 40px;
+
+    row-gap: 35px;
 }
 ```
 
 }
+

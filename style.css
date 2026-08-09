@@ -319,3 +319,204 @@ section {
     }
 
 }
+/* =========================================
+   página projetos
+   ========================================= */
+
+
+.cabecalho-projetos {
+    position: relative;
+    width: 100%;
+    min-height: 80px;
+}
+
+
+/* símbolo */
+
+.logo-projetos {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: block;
+
+    width: 24px;
+}
+
+
+.logo-projetos img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+/* subcategorias */
+
+.subcategorias-projetos {
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    white-space: nowrap;
+
+    font-family: monospace;
+    font-size: 13px;
+}
+
+
+.subcategorias-projetos a {
+    color: #111111;
+    text-decoration: none;
+}
+
+
+.subcategorias-projetos a:hover {
+    text-decoration: underline;
+}
+
+
+/* galeria */
+
+.galeria-projetos {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    column-gap: 28px;
+    row-gap: 70px;
+
+    padding-top: 45px;
+}
+
+
+/* projeto */
+
+.projeto {
+
+    position: relative;
+
+    width: 100%;
+
+    overflow: hidden;
+}
+
+
+/* imagem */
+
+.projeto img {
+
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    object-fit: cover;
+
+    transition: opacity 0.15s ease;
+}
+
+
+/* área amarela */
+
+.projeto-hover {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #ffd400;
+
+    opacity: 0;
+
+    transition: opacity 0.15s ease;
+}
+
+
+/* título */
+
+.projeto-hover a {
+
+    color: #111111;
+
+    text-decoration: none;
+
+    font-family: monospace;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+
+/* hover */
+
+.projeto:hover .projeto-hover {
+    opacity: 1;
+}
+
+
+.projeto-hover a:hover {
+    text-decoration: underline;
+}
+
+
+/* celular */
+
+@media (max-width: 700px) {
+
+    .cabecalho-projetos {
+        min-height: 100px;
+    }
+
+
+    .logo-projetos {
+        width: 22px;
+    }
+
+
+    .subcategorias-projetos {
+
+        width: calc(100% - 60px);
+
+        flex-wrap: wrap;
+
+        gap: 8px 16px;
+
+        line-height: 1.2;
+
+    }
+
+
+    .galeria-projetos {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        column-gap: 18px;
+        row-gap: 45px;
+
+        padding-top: 25px;
+
+    }
+
+
+    .projeto-hover a {
+        font-size: 12px;
+    }
+
+}

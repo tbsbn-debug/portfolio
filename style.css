@@ -459,11 +459,19 @@ section {
 /* título */
 
 .galeria-projetos .projeto-hover a {
+    display: block;
+
+    width: 80%;
+    max-width: 90%;
+
     color: #111111;
     text-decoration: none;
 
     font-family: monospace;
     font-size: 13px;
+    line-height: 1.25;
+
+    text-align: center;
 }
 
 

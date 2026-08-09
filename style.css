@@ -678,32 +678,70 @@ section {
     text-align: center;
 }
 /* =========================================================
-WAYS OF NOT SEEING — TESTE COMPACTO
+PÁGINA INDIVIDUAL DE PROJETO — OPUS
+========================================================= */
+
+.projeto-header {
+min-height: 0;
+height: auto;
+
+```
+position: relative;
+
+margin: 0;
+padding: 0;
+
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+
+font-family: monospace;
+font-size: 13px;
+```
+
+}
+
+.projeto-voltar {
+color: #111111;
+text-decoration: none;
+}
+
+.projeto-voltar:hover {
+text-decoration: underline;
+}
+
+.projeto-categoria {
+font-family: monospace;
+}
+
+/* =========================================================
+ÁREA PRINCIPAL
 ========================================================= */
 
 .pagina-projeto {
 width: 100%;
-max-width: 100px;
+max-width: 1050px;
+
+```
 margin: 0 auto;
-padding: 0;
+padding: 0 0 70px;
+
+overflow: hidden;
+```
+
 }
 
-/* cabeçalho */
-
-.projeto-header {
-margin: -1000;
-padding: -100;
-}
-
-/* título imediatamente abaixo */
+/* =========================================================
+TÍTULO
+========================================================= */
 
 .projeto-titulo {
 display: flex;
 align-items: baseline;
-gap: 1px;
+gap: 20px;
 
 ```
-margin: 1px 0 2px;
+margin: 22px 0 42px;
 padding: 0;
 ```
 
@@ -714,54 +752,56 @@ margin: 0;
 
 ```
 font-family: monospace;
-font-size: 50px;
+font-size: clamp(42px, 7vw, 86px);
 font-weight: normal;
-line-height: 1;
+line-height: 0.92;
+letter-spacing: -0.055em;
 ```
 
 }
 
 .projeto-titulo span {
 font-family: monospace;
-font-size: 30px;
+font-size: 13px;
 }
 
-/* absolutamente nenhum espaço entre blocos */
+/* =========================================================
+BASE DOS ELEMENTOS
+========================================================= */
 
 .projeto-bloco {
-margin: -20;
-padding: -20;
+min-height: 0;
+
+```
+margin: 0;
+padding: 0;
+```
+
 }
 
-/* textos */
-
 .texto-projeto {
-margin: -20;
-padding: -20;
+margin: 0;
+padding: 0;
 
 ```
 font-family: monospace;
 font-size: 13px;
-line-height: 1.3;
+line-height: 1.4;
+
+max-width: 390px;
 ```
 
 }
 
 .texto-projeto p {
-margin: -20;
-padding: -20;
-}
-
-/* mídias */
-
-.midia-projeto {
 margin: 0;
 padding: 0;
+}
 
-```
+.midia-projeto {
 min-width: 0;
-```
-
+margin: 0;
+padding: 0;
 }
 
 .midia-projeto img,
@@ -770,99 +810,119 @@ display: block;
 
 ```
 width: 100%;
-height: auto;
 max-width: 100%;
+height: auto;
 
 margin: 0;
 padding: 0;
+
+object-fit: contain;
 ```
 
 }
 
 /* =========================================================
-COMPOSIÇÃO — TUDO COLADO
+PRIMEIRA RELAÇÃO
+texto grande + imagem
 ========================================================= */
 
 .bloco-01 {
 display: grid;
 
 ```
-grid-template-columns: 30px 90px;
+grid-template-columns: minmax(300px, 390px) 330px;
 
-gap: 1px;
+column-gap: 55px;
 
 align-items: end;
 
-margin: 0;
-padding: 0;
+margin-left: 35px;
 ```
 
 }
 
-.bloco-01 .midia-projeto {
-width: 10px;
+.bloco-01 .texto-projeto {
+padding-bottom: 8px;
 }
+
+.bloco-01 .midia-projeto {
+width: 330px;
+}
+
+/* =========================================================
+SEGUNDA RELAÇÃO
+imagem entrando no campo do texto
+========================================================= */
 
 .bloco-02 {
 display: grid;
 
 ```
-grid-template-columns: 10px 30px;
+grid-template-columns: 300px 360px;
 
-gap: 1px;
+column-gap: 45px;
 
 align-items: start;
 
-margin: -50px 0 0 10px;
-padding: 0;
+margin-top: -35px;
+margin-left: 180px;
 ```
 
 }
 
 .bloco-02 .midia-projeto {
-width: 19px;
+width: 300px;
 }
 
 .bloco-02 .texto-projeto {
-padding-top: 1px;
+max-width: 360px;
+padding-top: 48px;
 }
 
-/* vídeo */
+/* =========================================================
+VÍDEO
+========================================================= */
 
 .bloco-03 {
-margin: -50px 0 0 4px;
-padding: 0;
+margin-top: -15px;
+margin-left: 80px;
 }
 
 .bloco-03 .midia-projeto {
-width: 28px;
+width: 480px;
 }
 
-/* foto + vídeo */
+/* =========================================================
+ÚLTIMO CONJUNTO
+========================================================= */
 
 .bloco-04 {
 display: grid;
 
 ```
-grid-template-columns: 17px 23px;
+grid-template-columns: 280px 380px;
 
-gap: 1px;
+column-gap: 65px;
 
 align-items: start;
 
-margin: -5px 0 0 22px;
-padding: 0;
+margin-top: -45px;
+margin-left: 300px;
 ```
 
 }
 
 .bloco-04 .midia-projeto:first-child {
-width: 17px;
+width: 280px;
 }
 
 .bloco-04 .video-projeto {
-width: 23px;
-margin: 2px 0 0;
+width: 380px;
+
+```
+margin-top: 75px;
+```
+
 }
 
 /* =========================================================
@@ -870,16 +930,21 @@ FICHA TÉCNICA
 ========================================================= */
 
 .ficha-tecnica {
-margin: 20px 0 0;
+min-height: 0;
+
+```
+margin: 55px 0 0;
 padding: 0;
+```
+
 }
 
 .ficha-tecnica h2 {
-margin: 0 0 10px;
+margin: 0 0 22px;
 
 ```
 font-family: monospace;
-font-size: 13px;
+font-size: 14px;
 font-weight: normal;
 ```
 
@@ -889,9 +954,12 @@ font-weight: normal;
 display: grid;
 
 ```
-grid-template-columns: repeat(3, 1fr);
+grid-template-columns: repeat(3, minmax(0, 1fr));
 
-gap: 15px;
+column-gap: 45px;
+row-gap: 28px;
+
+max-width: 900px;
 
 margin: 0;
 padding: 0;
@@ -900,23 +968,25 @@ padding: 0;
 }
 
 .credito {
+min-width: 0;
+
+```
 margin: 0;
 padding: 0;
 
-```
 font-family: monospace;
-font-size: 13px;
-line-height: 1.25;
+font-size: 10px;
+line-height: 1.35;
 ```
 
 }
 
 .credito h3 {
-margin: 0 0 3px;
+margin: 0 0 5px;
 
 ```
 font-family: monospace;
-font-size: 13px;
+font-size: 10px;
 font-weight: normal;
 ```
 
@@ -937,39 +1007,47 @@ CELULAR
 .pagina-projeto {
     width: 100%;
     max-width: 100%;
-    margin: 0;
-    padding: 0;
+
+    padding-bottom: 50px;
 }
 
 
 .projeto-titulo {
-    margin: 5px 0 10px;
+    margin: 18px 0 30px;
+
+    gap: 12px;
 }
 
 
 .projeto-titulo h1 {
-    font-size: 26px;
+    font-size: 43px;
+    letter-spacing: -0.055em;
+}
+
+
+.projeto-titulo span {
+    font-size: 11px;
 }
 
 
 .projeto-bloco {
     display: flex;
-    flex-direction: column;
 
-    gap: 8px;
+    flex-direction: column;
 
     width: 100%;
 
+    gap: 16px;
+
     margin: 0;
-    padding: 0;
 }
 
 
 .texto-projeto {
     width: 100%;
-    max-width: 100%;
+    max-width: 390px;
 
-    font-size: 10px;
+    font-size: 11px;
 }
 
 
@@ -979,21 +1057,19 @@ CELULAR
 .bloco-04 .midia-projeto,
 .bloco-04 .video-projeto {
 
-    width: 65%;
-    max-width: 65%;
+    width: 78%;
+    max-width: 78%;
 
     margin: 0;
 }
 
 
-.bloco-01 .midia-projeto,
-.bloco-04 .video-projeto {
+.bloco-01 .midia-projeto {
     align-self: flex-end;
 }
 
 
-.bloco-02 .midia-projeto,
-.bloco-04 .midia-projeto:first-child {
+.bloco-02 .midia-projeto {
     align-self: flex-start;
 }
 
@@ -1003,18 +1079,36 @@ CELULAR
 }
 
 
+.bloco-04 .midia-projeto:first-child {
+    align-self: flex-start;
+}
+
+
+.bloco-04 .video-projeto {
+    align-self: flex-end;
+}
+
+
+.bloco-02 .texto-projeto {
+    padding-top: 0;
+}
+
+
 .ficha-tecnica {
-    margin-top: 15px;
+    margin-top: 45px;
 }
 
 
 .creditos {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    column-gap: 22px;
+    row-gap: 24px;
 }
 ```
 
 }
+
 /* =========================================================
 CORREÇÃO — PÁGINA INDIVIDUAL DE PROJETO
 remove as alturas obrigatórias do site principal

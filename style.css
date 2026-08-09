@@ -777,6 +777,25 @@ padding: 0;
 
 }
 
+}
+
+.midia-projeto img,
+.midia-projeto video {
+display: block;
+
+```
+width: 100%;
+max-width: 100%;
+height: auto;
+
+margin: 0;
+padding: 0;
+
+object-fit: contain;
+```
+
+}
+
 .texto-projeto {
     margin: 0;
     padding: 0;
@@ -801,25 +820,6 @@ min-width: 0;
 margin: 0;
 padding: 0;
 ```
-
-}
-
-.midia-projeto img,
-.midia-projeto video {
-display: block;
-
-```
-width: 100%;
-max-width: 100%;
-height: auto;
-
-margin: 0;
-padding: 0;
-
-object-fit: contain;
-```
-
-}
 
 /* =========================================================
 BLOCO 01
@@ -973,8 +973,8 @@ duas mídias lado a lado na metade direita
 .bloco-04 .video-projeto {
     grid-column: 2;
 
-    width: 48%;
-    max-width: 500px;
+    width: 63%;
+    max-width: 600px;
 
     justify-self: end;
 

@@ -929,14 +929,13 @@ padding: 0;
 /* imagem */
 
 .bloco-03 .midia-projeto:first-child {
-grid-column: 2;
+    grid-column: 2;
 
-```
-width: 330px;
-max-width: 330px;
+    width: 220px;
+    max-width: 220px;
 
-justify-self: start;
-```
+    justify-self: start;
+}
 
 }
 

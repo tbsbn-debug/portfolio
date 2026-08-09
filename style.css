@@ -678,634 +678,458 @@ section {
     text-align: center;
 }
 /* =========================================================
-OPUS — PÁGINA INDIVIDUAL DE PROJETO
-========================================================= */
-
-* {
-  box-sizing: border-box;
-  }
+   OPUS — PÁGINA INDIVIDUAL DE PROJETO
+   versão limpa
+   ========================================================= */
 
 html,
 body {
-overflow-x: hidden;
+    overflow-x: hidden;
 }
 
+
 /* =========================================================
-CABEÇALHO
-========================================================= */
+   CABEÇALHO
+   ========================================================= */
 
 .projeto-header {
-width: 100%;
+    width: 100%;
+    min-height: 0;
+    height: auto;
 
-```
-margin: 0;
-padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
+    margin: 0;
+    padding: 0;
 
-font-family: monospace;
-font-size: 13px;
+    position: relative;
+    z-index: 10;
 
-position: relative;
-z-index: 10;
-```
-
+    font-family: monospace;
+    font-size: 13px;
 }
 
 .projeto-header a {
-color: #111111;
-text-decoration: none;
+    color: #111111;
+    text-decoration: none;
 }
 
 .projeto-header a:hover {
-text-decoration: underline;
+    text-decoration: underline;
 }
+
 
 /* =========================================================
-PÁGINA
-========================================================= */
+   PÁGINA
+   ========================================================= */
 
-.pagina-projeto {
-width: 100%;
-max-width: 1200px;
-
-```
-margin: 0 auto;
-padding: 0 0 70px;
-
-overflow-x: hidden;
-```
-
-}
-
-/* =========================================================
-TÍTULO
-========================================================= */
-
-.projeto-titulo {
-width: 100%;
-
-```
-display: flex;
-align-items: baseline;
-justify-content: flex-start;
-
-gap: 24px;
-
-margin: 28px 0 0;
-padding: 0;
-
-position: relative;
-z-index: 20;
-```
-
-}
-
-.projeto-titulo h1 {
-margin: 0;
-
-```
-font-family: monospace;
-font-size: clamp(62px, 8vw, 105px);
-font-weight: normal;
-line-height: 0.88;
-letter-spacing: -0.06em;
-
-white-space: nowrap;
-```
-
-}
-
-.projeto-titulo span {
-display: block;
-
-```
-margin-left: auto;
-
-font-family: monospace;
-font-size: 13px;
-line-height: 1;
-```
-
-}
-
-/* =========================================================
-LINHA VAZIA DEPOIS DO TÍTULO
-========================================================= */
-
-.projeto-titulo::after {
-content: "";
-
-```
-display: block;
-
-width: 1px;
-height: 55px;
-
-position: absolute;
-
-left: 0;
-top: 100%;
-```
-
-}
-
-/* =========================================================
-BASE
-========================================================= */
-
-.projeto-bloco {
-width: 100%;
-
-```
-margin: 0;
-padding: 0;
-
-position: relative;
-```
-
-}
-
-.texto-projeto {
-width: 300px;
-max-width: 300px;
-
-```
-margin: 0;
-padding: 0;
-
-font-family: monospace;
-font-size: 13px;
-line-height: 1.4;
-```
-
-}
-
-.texto-projeto p {
-margin: 0;
-padding: 0;
-}
-
-.midia-projeto {
-margin: 0;
-padding: 0;
-
-```
-min-width: 0;
-```
-
-}
-
-.midia-projeto img,
-.midia-projeto video {
-display: block;
-
-```
-width: 100%;
-height: auto;
-
-margin: 0;
-padding: 0;
-
-object-fit: contain;
-```
-
-}
-
-/* =========================================================
-BLOCO 01
-PRIMEIRA IMAGEM — SOZINHA
-À DIREITA
-========================================================= */
-
-.bloco-01 {
-width: 100%;
-
-```
-display: flex;
-justify-content: flex-end;
-align-items: flex-start;
-
-margin: 85px 0 0;
-padding: 0;
-```
-
-}
-
-.bloco-01 .midia-projeto {
-width: 390px;
-max-width: 390px;
-
-```
-margin-right: 40px;
-```
-
-}
-
-/* =========================================================
-BLOCO 02
-DOIS TEXTOS
-MAIS ABAIXO E À ESQUERDA
-========================================================= */
-
-.bloco-02 {
-width: 100%;
-
-```
-display: flex;
-align-items: flex-start;
-
-gap: 90px;
-
-margin: 180px 0 0;
-padding: 0;
-```
-
-}
-
-.bloco-02 .texto-projeto {
-flex: 0 0 300px;
-
-```
-width: 300px;
-max-width: 300px;
-```
-
-}
-
-/* =========================================================
-BLOCO 03
-IMAGEM PEQUENA + VÍDEO 1 GRANDE
-AMBOS À DIREITA
-========================================================= */
-
-.bloco-03 {
-width: 100%;
-
-```
-display: flex;
-align-items: flex-start;
-justify-content: flex-end;
-
-gap: 60px;
-
-margin: 110px 0 0;
-padding: 0;
-```
-
-}
-
-/* imagem secundária */
-
-.bloco-03 .midia-projeto:first-child {
-flex: 0 0 150px;
-
-```
-width: 150px;
-max-width: 150px;
-
-margin-top: 25px;
-```
-
-}
-
-/* vídeo 1 */
-
-.bloco-03 .video-projeto {
-flex: 0 0 570px;
-
-```
-width: 570px;
-max-width: 570px;
-
-margin: 0;
-```
-
-}
-
-/* =========================================================
-BLOCO 04
-VÍDEO 2 — ELEMENTO PRINCIPAL
-CENTRALIZADO
-========================================================= */
-
-.bloco-04 {
-width: 100%;
-
-```
-display: flex;
-justify-content: center;
-align-items: flex-start;
-
-margin: 130px 0 0;
-padding: 0;
-```
-
-}
-
-.bloco-04 .video-projeto {
-width: 780px;
-max-width: 80vw;
-
-```
-margin: 0 auto;
-```
-
-}
-
-/* =========================================================
-FICHA TÉCNICA
-========================================================= */
-
-.ficha-tecnica {
-width: 100%;
-
-```
-margin: 130px 0 0;
-padding: 0;
-```
-
-}
-
-.ficha-tecnica h2 {
-margin: 0 0 35px;
-
-```
-font-family: monospace;
-font-size: 14px;
-font-weight: normal;
-```
-
-}
-
-/* =========================================================
-CRÉDITOS
-SEMPRE DUAS COLUNAS
-========================================================= */
-
-.ficha-tecnica .creditos {
-width: 100% !important;
-max-width: 100% !important;
-
-```
-display: grid !important;
-
-grid-template-columns:
-    minmax(0, 1fr)
-    minmax(0, 1fr) !important;
-
-column-gap: 90px;
-row-gap: 28px;
-
-margin: 0 !important;
-padding: 0 !important;
-```
-
-}
-
-.ficha-tecnica .credito {
-width: 100% !important;
-min-width: 0 !important;
-
-```
-display: block !important;
-
-margin: 0 !important;
-padding: 0 !important;
-
-font-family: monospace;
-font-size: 10px;
-line-height: 1.35;
-```
-
-}
-
-.ficha-tecnica .credito h3 {
-margin: 0 0 5px;
-
-```
-font-family: monospace;
-font-size: 10px;
-font-weight: normal;
-```
-
-}
-
-.ficha-tecnica .credito p {
-margin: 0;
-padding: 0;
-}
-
-/* =========================================================
-CELULAR
-========================================================= */
-
-@media (max-width: 700px) {
-
-```
 .pagina-projeto {
     width: 100%;
-    max-width: 100%;
+    max-width: 1200px;
 
-    margin: 0;
-    padding: 0 0 50px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+
+    display: block;
 }
 
 
-/* título */
+/* =========================================================
+   TÍTULO
+   ========================================================= */
 
 .projeto-titulo {
-    margin: 20px 0 0;
+    width: 100%;
 
-    gap: 12px;
+    display: flex;
+    align-items: baseline;
+
+    margin: 28px 0 0;
+    padding: 0;
+
+    position: relative;
 }
 
 .projeto-titulo h1 {
-    font-size: 42px;
+    margin: 0;
 
-    white-space: normal;
+    font-family: monospace;
+    font-size: clamp(64px, 8vw, 105px);
+    font-weight: normal;
+    line-height: 0.88;
+    letter-spacing: -0.06em;
+
+    white-space: nowrap;
 }
 
 .projeto-titulo span {
     margin-left: auto;
 
-    font-size: 11px;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1;
 }
 
 
-/* linha vazia */
+/* linha vazia deliberada abaixo do título */
 
-.projeto-titulo::after {
-    height: 35px;
+.projeto-titulo {
+    margin-bottom: 85px;
 }
 
 
-/* =====================================================
+/* =========================================================
+   BASE
+   ========================================================= */
+
+.projeto-bloco {
+    width: 100%;
+
+    min-height: 0 !important;
+    height: auto !important;
+
+    margin-left: 0;
+    margin-right: 0;
+
+    padding: 0;
+}
+
+.texto-projeto {
+    width: 280px;
+    max-width: 280px;
+
+    margin: 0;
+    padding: 0;
+
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.texto-projeto p {
+    margin: 0;
+    padding: 0;
+}
+
+.midia-projeto {
+    margin: 0;
+    padding: 0;
+
+    min-width: 0;
+}
+
+.midia-projeto img,
+.midia-projeto video {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    margin: 0;
+    padding: 0;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
    BLOCO 01
-   ===================================================== */
+   PRIMEIRA IMAGEM — SOZINHA
+   DIREITA
+   ========================================================= */
 
 .bloco-01 {
-    margin-top: 65px;
-}
-
-.bloco-01 .midia-projeto {
-    width: 82%;
-    max-width: 82%;
-
-    margin-right: 0;
-}
-
-
-/* =====================================================
-   BLOCO 02
-   ===================================================== */
-
-.bloco-02 {
-    flex-direction: column;
-
-    gap: 35px;
-
-    margin-top: 100px;
-}
-
-.bloco-02 .texto-projeto {
-    flex: none;
-
-    width: 300px;
-    max-width: 85%;
-}
-
-
-/* =====================================================
-   BLOCO 03
-   ===================================================== */
-
-.bloco-03 {
-    flex-direction: column;
-
-    align-items: flex-end;
-
-    gap: 35px;
-
-    margin-top: 70px;
-}
-
-.bloco-03 .midia-projeto:first-child {
-    flex: none;
-
-    width: 42%;
-    max-width: 42%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
 
     margin-top: 0;
 }
 
-.bloco-03 .video-projeto {
-    flex: none;
+.bloco-01 .midia-projeto {
+    width: 390px;
+    max-width: 390px;
 
-    width: 94%;
-    max-width: 94%;
+    margin-right: 50px;
 }
 
 
-/* =====================================================
+/* =========================================================
+   BLOCO 02
+   OS DOIS TEXTOS
+   ESQUERDA / CENTRO
+   ========================================================= */
+
+.bloco-02 {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 90px;
+
+    margin-top: 180px;
+    padding-left: 30px;
+}
+
+.bloco-02 .texto-projeto {
+    flex: 0 0 280px;
+}
+
+
+/* =========================================================
+   BLOCO 03
+   VÍDEO 1 — DIREITA
+   ========================================================= */
+
+.bloco-03 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    margin-top: 110px;
+    padding-right: 50px;
+}
+
+.bloco-03 .video-projeto {
+    width: 620px;
+    max-width: 620px;
+}
+
+
+/* =========================================================
    BLOCO 04
-   ===================================================== */
+   FOTO PEQUENA + VÍDEO 2
+   ========================================================= */
 
 .bloco-04 {
-    margin-top: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    gap: 70px;
+
+    margin-top: 120px;
+    padding-right: 50px;
 }
+
+
+/* foto secundária */
+
+.bloco-04 > .midia-projeto:first-child {
+    width: 150px;
+    max-width: 150px;
+
+    margin-top: 35px;
+}
+
+
+/* vídeo 2 — grande */
 
 .bloco-04 .video-projeto {
-    width: 96%;
-    max-width: 96%;
+    width: 820px;
+    max-width: 820px;
+}
+
+.bloco-04 .video-projeto video {
+    width: 100%;
 }
 
 
-/* =====================================================
+/* =========================================================
    FICHA TÉCNICA
-   ===================================================== */
+   SEMPRE A ÚLTIMA COISA
+   ========================================================= */
 
 .ficha-tecnica {
-    margin-top: 90px;
+    width: 100%;
+
+    margin: 130px 0 0;
+    padding: 0;
 }
 
+.ficha-tecnica h2 {
+    margin: 0 0 35px;
+
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+
+/* =========================================================
+   CRÉDITOS — SEMPRE DUAS COLUNAS
+   ========================================================= */
+
 .ficha-tecnica .creditos {
+    width: 100% !important;
+
     display: grid !important;
 
     grid-template-columns:
         minmax(0, 1fr)
         minmax(0, 1fr) !important;
 
-    column-gap: 20px;
-    row-gap: 25px;
+    column-gap: 100px;
+    row-gap: 28px;
+
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .ficha-tecnica .credito {
-    font-size: 9px;
-}
-```
+    width: 100% !important;
+    min-width: 0 !important;
 
+    display: block !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    font-family: monospace;
+    font-size: 10px;
+    line-height: 1.35;
 }
+
+.ficha-tecnica .credito h3 {
+    margin: 0 0 5px;
+
+    font-family: monospace;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+.ficha-tecnica .credito p {
+    margin: 0;
+    padding: 0;
+}
+
 
 /* =========================================================
-CORREÇÃO — PÁGINA INDIVIDUAL DE PROJETO
-remove as alturas obrigatórias do site principal
-========================================================= */
+   CELULAR
+   ========================================================= */
 
-.projeto-header {
-min-height: 0;
-height: auto;
+@media (max-width: 700px) {
 
-```
-position: relative;
+    body {
+        padding: 20px;
+    }
 
-margin: 0;
-padding: 0;
-```
+    .pagina-projeto {
+        width: 100%;
+        padding-bottom: 50px;
+    }
+
+
+    /* título */
+
+    .projeto-titulo {
+        margin-top: 20px;
+        margin-bottom: 55px;
+    }
+
+    .projeto-titulo h1 {
+        font-size: 42px;
+        white-space: normal;
+    }
+
+    .projeto-titulo span {
+        font-size: 11px;
+    }
+
+
+    /* primeira imagem */
+
+    .bloco-01 {
+        justify-content: flex-end;
+    }
+
+    .bloco-01 .midia-projeto {
+        width: 82%;
+        max-width: 82%;
+
+        margin-right: 0;
+    }
+
+
+    /* textos */
+
+    .bloco-02 {
+        flex-direction: column;
+
+        gap: 35px;
+
+        margin-top: 100px;
+        padding-left: 0;
+    }
+
+    .bloco-02 .texto-projeto {
+        width: 290px;
+        max-width: 85%;
+    }
+
+
+    /* vídeo 1 */
+
+    .bloco-03 {
+        justify-content: flex-end;
+
+        margin-top: 70px;
+        padding-right: 0;
+    }
+
+    .bloco-03 .video-projeto {
+        width: 94%;
+        max-width: 94%;
+    }
+
+
+    /* foto + vídeo 2 */
+
+    .bloco-04 {
+        flex-direction: column;
+        align-items: flex-end;
+
+        gap: 35px;
+
+        margin-top: 80px;
+        padding-right: 0;
+    }
+
+    .bloco-04 > .midia-projeto:first-child {
+        width: 40%;
+        max-width: 40%;
+
+        margin-top: 0;
+    }
+
+    .bloco-04 .video-projeto {
+        width: 96%;
+        max-width: 96%;
+    }
+
+
+    /* ficha técnica */
+
+    .ficha-tecnica {
+        margin-top: 90px;
+    }
+
+    .ficha-tecnica .creditos {
+        display: grid !important;
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr) !important;
+
+        column-gap: 20px;
+        row-gap: 25px;
+    }
+
+    .ficha-tecnica .credito {
+        font-size: 9px;
+    }
 
 }
-
-.pagina-projeto {
-min-height: 0;
-
-```
-margin: 0;
-padding-top: 0;
-```
-
-}
-
-/* as sections da página de projeto não ocupam 80vh */
-
-.pagina-projeto section {
-min-height: 0;
-height: auto;
-
-```
-margin-top: 0;
-margin-bottom: 0;
-```
-
-}
-
-/* garante que o main também não crie espaços */
-
-.pagina-projeto {
-display: block;
-}
-
-/* mantém as mídias em tamanho razoável */
-
-.pagina-projeto img,
-.pagina-projeto video {
-max-width: 100%;
-height: auto;
-}
-.pagina-projeto {
-    background: yellow !important;
-}
-
 
 

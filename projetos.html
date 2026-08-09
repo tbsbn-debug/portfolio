@@ -2,50 +2,146 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>projetos — opus</title>
+    <title>projetos</title>
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-    <header class="cabecalho-pagina">
+    <div class="cursor"></div>
 
-        <a href="index.html" class="voltar">opus</a>
-<nav>
 
-    <a href="roupas.html">roupas</a>
-    <a href="projetos.html">projetos</a>
-    <a href="textos.html">textos</a>
-    <a href="pesquisa.html">pesquisa</a>
-    <a href="sobre.html">sobre</a>
-    <a href="contato.html">contato</a>
+    <header class="cabecalho-projetos">
 
-</nav>
-        
+
+        <!-- símbolo -->
+
+        <a href="index.html" class="logo-projetos">
+
+            <img
+                src="imagens/simbolo-opus.png"
+                alt="opus"
+            >
+
+        </a>
+
+
+        <!-- subcategorias -->
+
+        <nav class="subcategorias-projetos">
+
+            <a href="editorial-de-moda.html">
+                editorial de moda
+            </a>
+
+            <a href="design-grafico.html">
+                design gráfico
+            </a>
+
+            <a href="objetos.html">
+                objetos
+            </a>
+
+            <a href="texteis.html">
+                têxteis
+            </a>
+
+            <a href="etc.html">
+                etc.
+            </a>
+
+        </nav>
+
+
     </header>
 
 
-    <main>
+    <main class="galeria-projetos">
 
-        <section class="arquivo">
 
-            <h1>projetos</h1>
-            
-    <a href="editorial-de-moda.html">editorial de moda</a>
-    <a href="design-grafico.html">design gráfico</a>
-    <a href="objetos.html">objetos</a>
-    <a href="texteis.html">têxteis</a>
-    <a href="etc.html">etc.</a>
+        <!-- ways of not seeing -->
 
-</nav>
+        <article class="projeto">
 
-        </section>
+            <img
+                src="imagens/ways-of-not-seeing-02.jpg"
+                alt="ways of not seeing"
+            >
+
+            <div class="projeto-hover">
+
+                <a href="projetos/ways-of-not-seeing.html">
+                    ways of not seeing
+                </a>
+
+            </div>
+
+        </article>
+
 
     </main>
 
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            cursor.style.left = event.clientX + 'px';
+            cursor.style.top = event.clientY + 'px';
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (elemento) {
+
+                cursor.classList.add('clicavel');
+
+            } else {
+
+                cursor.classList.remove('clicavel');
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
+
+
 </body>
+
+</html>
 
 </html>

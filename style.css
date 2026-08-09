@@ -706,7 +706,7 @@ color: #111111;
 text-decoration: none;
 }
 
-.projeto-voltar:hover {
+.projeto-voltar {
 text-decoration: underline;
 }
 
@@ -720,13 +720,13 @@ font-family: monospace;
 
 .pagina-projeto {
 width: 100%;
-max-width: 1050px;
+max-width: 1100px;
 
 ```
 margin: 0 auto;
 padding: 0 0 60px;
 
-overflow: hidden;
+overflow-x: hidden;
 ```
 
 }
@@ -741,7 +741,7 @@ align-items: baseline;
 gap: 20px;
 
 ```
-margin: 22px 0 42px;
+margin: 28px 0 70px;
 padding: 0;
 ```
 
@@ -752,10 +752,10 @@ margin: 0;
 
 ```
 font-family: monospace;
-font-size: clamp(44px, 7vw, 88px);
+font-size: clamp(48px, 7vw, 92px);
 font-weight: normal;
-line-height: 0.92;
-letter-spacing: -0.055em;
+line-height: 0.9;
+letter-spacing: -0.06em;
 ```
 
 }
@@ -773,6 +773,8 @@ BASE
 min-height: 0;
 
 ```
+width: 100%;
+
 margin: 0;
 padding: 0;
 ```
@@ -784,11 +786,11 @@ margin: 0;
 padding: 0;
 
 ```
+max-width: 390px;
+
 font-family: monospace;
 font-size: 13px;
 line-height: 1.4;
-
-max-width: 400px;
 ```
 
 }
@@ -827,125 +829,184 @@ object-fit: contain;
 
 /* =========================================================
 BLOCO 01
-texto + imagem
+texto fixado à esquerda
+imagem ocupando a direita
 ========================================================= */
 
 .bloco-01 {
 display: grid;
 
 ```
-grid-template-columns: 400px 360px;
+grid-template-columns: minmax(260px, 390px) minmax(400px, 1fr);
 
 column-gap: 80px;
 
-align-items: end;
+align-items: start;
 
-margin-left: 30px;
+width: 100%;
+
+margin: 0;
 ```
 
 }
 
 .bloco-01 .texto-projeto {
-padding-bottom: 4px;
+padding-top: 0;
 }
 
 .bloco-01 .midia-projeto {
-width: 360px;
+width: 100%;
+max-width: 430px;
+
+```
+justify-self: end;
+```
+
 }
 
 /* =========================================================
 BLOCO 02
-imagem + texto
+mídia novamente à direita
+texto permanece à esquerda
 ========================================================= */
 
 .bloco-02 {
 display: grid;
 
 ```
-grid-template-columns: 330px 400px;
+grid-template-columns: minmax(260px, 390px) minmax(400px, 1fr);
 
-column-gap: 70px;
+column-gap: 80px;
 
 align-items: start;
 
-margin-top: 55px;
-margin-left: 130px;
+width: 100%;
+
+margin: 70px 0 0;
+```
+
+}
+
+.bloco-02 .texto-projeto {
+grid-column: 1;
+grid-row: 1;
+
+```
+padding-top: 15px;
 ```
 
 }
 
 .bloco-02 .midia-projeto {
-width: 330px;
-}
+grid-column: 2;
+grid-row: 1;
 
-.bloco-02 .texto-projeto {
-padding-top: 5px;
+```
+width: 100%;
+max-width: 390px;
+
+justify-self: end;
+```
+
 }
 
 /* =========================================================
 BLOCO 03
-VÍDEO
+vídeo maior à direita
 ========================================================= */
 
 .bloco-03 {
-margin-top: 60px;
-margin-left: 50px;
+display: grid;
+
+```
+grid-template-columns: minmax(260px, 390px) minmax(400px, 1fr);
+
+column-gap: 80px;
+
+width: 100%;
+
+margin: 70px 0 0;
+```
+
 }
 
 .bloco-03 .midia-projeto {
-width: 500px;
+grid-column: 2;
+
+```
+width: 100%;
+max-width: 500px;
+
+justify-self: end;
+```
+
 }
 
 /* =========================================================
 BLOCO 04
-duas mídias independentes
+duas mídias lado a lado na metade direita
 ========================================================= */
 
 .bloco-04 {
 display: grid;
 
 ```
-grid-template-columns: 300px 390px;
+grid-template-columns: minmax(260px, 390px) minmax(400px, 1fr);
 
 column-gap: 80px;
 
-align-items: start;
+width: 100%;
 
-margin-top: 65px;
-margin-left: 220px;
+margin: 70px 0 0;
 ```
 
 }
 
-.bloco-04 .midia-projeto:first-child {
-width: 300px;
+/* a área direita contém as duas mídias */
+
+.bloco-04 .midia-projeto {
+grid-column: 2;
+
+```
+width: 45%;
+
+justify-self: start;
+```
+
 }
 
 .bloco-04 .video-projeto {
-width: 390px;
+grid-column: 2;
 
 ```
-margin-top: 55px;
+width: 48%;
+
+justify-self: end;
+
+margin-top: 100px;
 ```
 
 }
 
 /* =========================================================
 FICHA TÉCNICA
+duas colunas reais
 ========================================================= */
 
 .ficha-tecnica {
 min-height: 0;
 
 ```
-margin: 70px 0 0;
+width: 100%;
+
+margin: 90px 0 0;
 padding: 0;
 ```
 
 }
 
 .ficha-tecnica h2 {
-margin: 0 0 25px;
+margin: 0 0 30px;
 
 ```
 font-family: monospace;
@@ -955,19 +1016,22 @@ font-weight: normal;
 
 }
 
-/* duas colunas largas */
+/*
+IMPORTANTE:
+duas colunas ocupando toda a largura
+*/
 
 .creditos {
-display: grid;
+display: grid !important;
 
 ```
-grid-template-columns: repeat(2, minmax(0, 1fr));
+grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
 
 column-gap: 80px;
-row-gap: 28px;
+row-gap: 32px;
 
 width: 100%;
-max-width: 1000px;
+max-width: none;
 
 margin: 0;
 padding: 0;
@@ -976,9 +1040,12 @@ padding: 0;
 }
 
 .credito {
-min-width: 0;
+display: block;
 
 ```
+width: 100%;
+min-width: 0;
+
 margin: 0;
 padding: 0;
 
@@ -1017,11 +1084,13 @@ CELULAR
     max-width: 100%;
 
     padding-bottom: 45px;
+
+    overflow-x: hidden;
 }
 
 
 .projeto-titulo {
-    margin: 18px 0 30px;
+    margin: 20px 0 40px;
 
     gap: 12px;
 }
@@ -1029,7 +1098,7 @@ CELULAR
 
 .projeto-titulo h1 {
     font-size: 42px;
-    letter-spacing: -0.055em;
+    line-height: 0.92;
 }
 
 
@@ -1045,9 +1114,9 @@ CELULAR
 
     width: 100%;
 
-    margin: 0 0 35px;
+    margin: 0 0 45px;
 
-    gap: 18px;
+    gap: 20px;
 }
 
 
@@ -1065,35 +1134,23 @@ CELULAR
 .bloco-04 .midia-projeto,
 .bloco-04 .video-projeto {
 
-    width: 78%;
-    max-width: 78%;
+    width: 82%;
+    max-width: 82%;
 
     margin: 0;
 }
 
 
-.bloco-01 .midia-projeto {
-    align-self: flex-end;
-}
-
-
-.bloco-02 .midia-projeto {
-    align-self: flex-start;
-}
-
-
-.bloco-03 .midia-projeto {
-    align-self: center;
-}
-
-
-.bloco-04 .midia-projeto:first-child {
-    align-self: flex-start;
-}
-
-
+.bloco-01 .midia-projeto,
+.bloco-03 .midia-projeto,
 .bloco-04 .video-projeto {
     align-self: flex-end;
+}
+
+
+.bloco-02 .midia-projeto,
+.bloco-04 .midia-projeto:first-child {
+    align-self: flex-start;
 }
 
 
@@ -1103,15 +1160,17 @@ CELULAR
 
 
 .ficha-tecnica {
-    margin-top: 45px;
+    margin-top: 50px;
 }
 
 
 .creditos {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: grid !important;
 
-    column-gap: 25px;
-    row-gap: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    column-gap: 20px;
+    row-gap: 25px;
 }
 ```
 

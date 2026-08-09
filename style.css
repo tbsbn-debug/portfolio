@@ -747,30 +747,20 @@ TÍTULO
     z-index: 2;
 }
 
-.bloco-01 {
-    position: relative;
-    z-index: 1;
-}
-}
-
 .projeto-titulo h1 {
-margin: 0;
+    margin: 0;
 
-```
-font-family: monospace;
-font-size: clamp(48px, 7vw, 92px);
-font-weight: normal;
-line-height: 0.9;
-letter-spacing: -0.06em;
-```
-
+    font-family: monospace;
+    font-size: clamp(58px, 8vw, 100px);
+    font-weight: normal;
+    line-height: 0.9;
+    letter-spacing: -0.06em;
 }
 
 .projeto-titulo span {
-font-family: monospace;
-font-size: 25px;
+    font-family: monospace;
+    font-size: 13px;
 }
-
 /* =========================================================
 BASE
 ========================================================= */
@@ -788,22 +778,20 @@ padding: 0;
 }
 
 .texto-projeto {
-margin: 0;
-padding: 0;
+    margin: 0;
+    padding: 0;
 
-```
-max-width: 390px;
+    width: 300px;
+    max-width: 300px;
 
-font-family: monospace;
-font-size: 13px;
-line-height: 1.4;
-```
-
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.4;
 }
 
 .texto-projeto p {
-margin: 0;
-padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .midia-projeto {
@@ -954,46 +942,44 @@ duas mídias lado a lado na metade direita
 ========================================================= */
 
 .bloco-04 {
-display: grid;
+    display: grid;
 
-```
-grid-template-columns: minmax(260px, 390px) minmax(400px, 1fr);
+    grid-template-columns: minmax(260px, 390px) minmax(400px, 1fr);
 
-column-gap: 80px;
+    column-gap: 80px;
 
-width: 100%;
+    width: 100%;
 
-margin: 70px 0 0;
-```
-
+    margin: 55px 0 0;
 }
 
-/* a área direita contém as duas mídias */
+
+/* foto */
 
 .bloco-04 .midia-projeto:first-child {
     grid-column: 2;
 
-    width: 40%;
-    max-width: 260px;
+    width: 42%;
+    max-width: 330px;
 
     justify-self: start;
+
+    margin-top: 0;
 }
 
-}
+
+/* segundo vídeo */
 
 .bloco-04 .video-projeto {
-grid-column: 2;
+    grid-column: 2;
 
-```
-width: 48%;
+    width: 48%;
+    max-width: 500px;
 
-justify-self: end;
+    justify-self: end;
 
-margin-top: 100px;
-```
-
+    margin-top: 70px;
 }
-
 /* =========================================================
 FICHA TÉCNICA
 duas colunas reais

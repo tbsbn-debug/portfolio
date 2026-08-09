@@ -502,3 +502,73 @@ section {
         gap: 45px 18px;
         padding-top: 25px;
     }
+/* composição dispersa da galeria */
+
+.galeria-projetos .projeto:nth-child(2) {
+    transform: translateY(35px);
+}
+
+.galeria-projetos .projeto:nth-child(3) {
+    transform: translateY(-10px);
+}
+
+.galeria-projetos .projeto:nth-child(5) {
+    transform: translateY(45px);
+}
+
+.galeria-projetos .projeto:nth-child(6) {
+    transform: translateY(20px);
+}
+
+.galeria-projetos .projeto:nth-child(7) {
+    transform: translateY(-25px);
+}
+
+.galeria-projetos .projeto:nth-child(9) {
+    transform: translateY(35px);
+}
+
+.galeria-projetos .projeto:nth-child(10) {
+    transform: translateY(-15px);
+}
+
+.galeria-projetos .projeto:nth-child(12) {
+    transform: translateY(40px);
+}
+
+.galeria-projetos .projeto:nth-child(13) {
+    transform: translateY(-20px);
+}
+
+.galeria-projetos .projeto:nth-child(14) {
+    transform: translateY(30px);
+}
+
+
+@media (max-width: 700px) {
+
+    .galeria-projetos .projeto {
+        transform: none;
+    }
+
+    .galeria-projetos .projeto:nth-child(2) {
+        transform: translateY(25px);
+    }
+
+    .galeria-projetos .projeto:nth-child(5) {
+        transform: translateY(30px);
+    }
+
+    .galeria-projetos .projeto:nth-child(8) {
+        transform: translateY(20px);
+    }
+
+    .galeria-projetos .projeto:nth-child(11) {
+        transform: translateY(30px);
+    }
+
+    .galeria-projetos .projeto:nth-child(14) {
+        transform: translateY(20px);
+    }
+
+}

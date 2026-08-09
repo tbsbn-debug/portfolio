@@ -678,15 +678,13 @@ section {
     text-align: center;
 }
 /* =========================================================
-PÁGINA INDIVIDUAL DE PROJETO
+PÁGINA INDIVIDUAL — OPUS
 ========================================================= */
 
 .projeto-header {
-position: relative;
-
-```
 width: 100%;
 
+```
 display: flex;
 justify-content: space-between;
 align-items: flex-start;
@@ -714,13 +712,13 @@ font-family: monospace;
 
 .pagina-projeto {
 width: 100%;
-max-width: 1100px;
+max-width: 1000px;
 
 ```
 margin: 0 auto;
 
-padding-top: 45px;
-padding-bottom: 140px;
+padding-top: 18px;
+padding-bottom: 80px;
 ```
 
 }
@@ -730,10 +728,10 @@ padding-bottom: 140px;
 .projeto-titulo {
 display: flex;
 align-items: baseline;
-gap: 18px;
+gap: 14px;
 
 ```
-margin-bottom: 65px;
+margin-bottom: 38px;
 ```
 
 }
@@ -743,7 +741,7 @@ margin: 0;
 
 ```
 font-family: monospace;
-font-size: clamp(28px, 4vw, 52px);
+font-size: clamp(28px, 4vw, 48px);
 font-weight: normal;
 line-height: 1;
 ```
@@ -752,20 +750,18 @@ line-height: 1;
 
 .projeto-titulo span {
 font-family: monospace;
-font-size: 13px;
+font-size: 12px;
 }
 
-/* blocos */
+/* =========================================================
+COMPOSIÇÃO
+========================================================= */
 
 .projeto-bloco {
-display: grid;
-
-```
-align-items: center;
-
 width: 100%;
 
-margin-bottom: 90px;
+```
+margin: 0 0 45px;
 ```
 
 }
@@ -773,12 +769,11 @@ margin-bottom: 90px;
 /* texto */
 
 .texto-projeto {
-width: 100%;
-max-width: 430px;
+max-width: 390px;
 
 ```
 font-family: monospace;
-font-size: 13px;
+font-size: 12px;
 line-height: 1.45;
 ```
 
@@ -788,16 +783,11 @@ line-height: 1.45;
 margin: 0;
 }
 
-/* mídia */
+/* imagens e vídeos */
 
 .midia-projeto {
 width: 100%;
-max-width: 420px;
-
-```
 min-width: 0;
-```
-
 }
 
 .midia-projeto img,
@@ -814,93 +804,135 @@ object-fit: contain;
 
 }
 
-/* primeiro bloco */
+/* =========================================================
+PRIMEIRO CONJUNTO
+texto + imagem próximos
+========================================================= */
 
 .bloco-01 {
-grid-template-columns: 1fr 1fr;
+display: grid;
 
 ```
-column-gap: 70px;
-```
+grid-template-columns: 1fr 320px;
 
-}
-
-.bloco-01 .midia-projeto {
-justify-self: end;
-}
-
-/* segundo bloco */
-
-.bloco-02 {
-grid-template-columns: 1fr 1fr;
-
-```
-column-gap: 70px;
-```
-
-}
-
-.bloco-02 .midia-projeto {
-justify-self: start;
-}
-
-.bloco-02 .texto-projeto {
-justify-self: start;
-}
-
-/* vídeo */
-
-.bloco-03 {
-display: block;
-}
-
-.bloco-03 .midia-projeto {
-max-width: 520px;
-
-```
-margin-left: 18%;
-```
-
-}
-
-/* imagem + vídeo */
-
-.bloco-04 {
-grid-template-columns: 1fr 1fr;
-
-```
-column-gap: 70px;
+column-gap: 35px;
 
 align-items: end;
 ```
 
 }
 
+.bloco-01 .texto-projeto {
+margin-bottom: 8px;
+}
+
+.bloco-01 .midia-projeto {
+width: 320px;
+}
+
+/* =========================================================
+SEGUNDO CONJUNTO
+imagem + texto
+========================================================= */
+
+.bloco-02 {
+display: grid;
+
+```
+grid-template-columns: 300px 1fr;
+
+column-gap: 35px;
+
+align-items: start;
+
+margin-left: 120px;
+
+width: calc(100% - 120px);
+```
+
+}
+
+.bloco-02 .midia-projeto {
+width: 300px;
+}
+
+.bloco-02 .texto-projeto {
+max-width: 350px;
+
+```
+padding-top: 25px;
+```
+
+}
+
+/* =========================================================
+PRIMEIRO VÍDEO
+========================================================= */
+
+.bloco-03 {
+margin-top: -10px;
+margin-left: 45px;
+
+```
+width: 430px;
+```
+
+}
+
+.bloco-03 .midia-projeto {
+width: 430px;
+}
+
+/* =========================================================
+IMAGEM + VÍDEO
+========================================================= */
+
+.bloco-04 {
+display: grid;
+
+```
+grid-template-columns: 260px 360px;
+
+column-gap: 75px;
+
+align-items: start;
+
+margin-left: 230px;
+
+width: calc(100% - 230px);
+
+margin-top: -5px;
+```
+
+}
+
 .bloco-04 .midia-projeto:first-child {
-justify-self: start;
+width: 260px;
 }
 
 .bloco-04 .video-projeto {
-justify-self: end;
+width: 360px;
+
+```
+margin-top: 55px;
+```
+
 }
 
-/* ficha */
+/* =========================================================
+FICHA TÉCNICA
+========================================================= */
 
 .ficha-tecnica {
-width: 100%;
-
-```
-margin-top: 130px;
-```
-
+margin-top: 75px;
 }
 
 .ficha-tecnica h2 {
-margin: 0 0 45px;
+margin: 0 0 30px;
 
 ```
 font-family: monospace;
-font-size: 16px;
+font-size: 14px;
 font-weight: normal;
 ```
 
@@ -910,12 +942,11 @@ font-weight: normal;
 display: grid;
 
 ```
-grid-template-columns: repeat(2, minmax(0, 1fr));
+grid-template-columns: repeat(3, minmax(0, 1fr));
 
-column-gap: 80px;
-row-gap: 45px;
+column-gap: 45px;
+row-gap: 30px;
 
-width: 100%;
 max-width: 850px;
 ```
 
@@ -926,18 +957,18 @@ min-width: 0;
 
 ```
 font-family: monospace;
-font-size: 11px;
-line-height: 1.45;
+font-size: 10px;
+line-height: 1.4;
 ```
 
 }
 
 .credito h3 {
-margin: 0 0 7px;
+margin: 0 0 5px;
 
 ```
 font-family: monospace;
-font-size: 11px;
+font-size: 10px;
 font-weight: normal;
 text-transform: lowercase;
 ```
@@ -956,45 +987,40 @@ CELULAR
 
 ```
 .pagina-projeto {
-    width: 100%;
+    max-width: 100%;
 
-    padding-top: 35px;
-    padding-bottom: 90px;
+    padding-top: 15px;
+    padding-bottom: 60px;
 }
 
 
 .projeto-titulo {
-    margin-bottom: 55px;
-
-    gap: 14px;
+    margin-bottom: 35px;
 }
 
+
 .projeto-titulo h1 {
-    font-size: 28px;
+    font-size: 27px;
 }
 
 
 .projeto-bloco {
     display: flex;
-    flex-direction: column;
 
     width: 100%;
+    margin: 0 0 45px;
 
-    gap: 35px;
+    flex-direction: column;
 
-    margin-bottom: 75px;
+    gap: 22px;
 }
 
 
 .texto-projeto {
     width: 100%;
     max-width: 100%;
-}
 
-
-.midia-projeto {
-    width: 100%;
-    max-width: 100%;
+    font-size: 12px;
 }
 
 
@@ -1003,34 +1029,49 @@ CELULAR
 .bloco-03 .midia-projeto,
 .bloco-04 .midia-projeto,
 .bloco-04 .video-projeto {
+
+    width: 75%;
+    max-width: 75%;
+
     margin: 0;
-    justify-self: auto;
+}
+
+
+.bloco-01 .midia-projeto {
+    align-self: flex-end;
+}
+
+
+.bloco-02 .midia-projeto {
+    align-self: flex-start;
 }
 
 
 .bloco-03 .midia-projeto {
-    width: 90%;
     align-self: center;
 }
 
 
-.bloco-04 .midia-projeto {
-    width: 90%;
-    align-self: center;
+.bloco-04 .midia-projeto:first-child {
+    align-self: flex-start;
 }
 
 
-.ficha-tecnica {
-    margin-top: 90px;
+.bloco-04 .video-projeto {
+    align-self: flex-end;
+
+    margin-top: 0;
 }
 
 
 .creditos {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    row-gap: 35px;
+    column-gap: 25px;
+    row-gap: 30px;
 }
 ```
 
 }
+
 

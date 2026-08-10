@@ -1,1 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>o novo rio</title>
+
+    <link rel="stylesheet" href="style.css?v=8">
+
+</head>
+
+
+<body>
+
+    <div class="cursor"></div>
+
+
+    <header class="projeto-header">
+
+        <a href="projetos.html" class="projeto-voltar">
+            projetos
+        </a>
+
+        <div class="projeto-categoria">
+            etc.
+        </div>
+
+    </header>
+
+
+    <main class="pagina-projeto">
+
+
+        <!-- título -->
+
+        <section class="projeto-titulo">
+
+            <h1>o novo rio</h1>
+
+            <span>2024</span>
+
+        </section>
+
+
+        <!-- imagem 01 -->
+
+        <section class="projeto-bloco bloco-01">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/o-novo-rio/o-novo-rio-01.jpg"
+                    alt="o novo rio"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- imagem 02 -->
+
+        <section class="projeto-bloco bloco-02">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/o-novo-rio/o-novo-rio-02.jpg"
+                    alt="o novo rio"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- vídeo 01 -->
+
+        <section class="projeto-bloco bloco-03">
+
+            <div class="midia-projeto video-projeto">
+
+                <video
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    class="video-com-som"
+                >
+
+                    <source
+                        src="imagens/projetos/o-novo-rio/o-novo-rio-03.mp4"
+                        type="video/mp4"
+                    >
+
+                </video>
+
+            </div>
+
+        </section>
+
+
+        <!-- vídeo 02 -->
+
+        <section class="projeto-bloco bloco-04">
+
+            <div class="midia-projeto video-projeto">
+
+                <video
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    class="video-com-som"
+                >
+
+                    <source
+                        src="imagens/projetos/o-novo-rio/o-novo-rio-04.mp4"
+                        type="video/mp4"
+                    >
+
+                </video>
+
+            </div>
+
+        </section>
+
+
+        <!-- rodapé -->
+
+        <footer class="projeto-footer">
+
+            <span>® ATELIÊ OPUS ALL RIGHTS RESERVED</span>
+
+        </footer>
+
+
+    </main>
+
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            if (cursor) {
+
+                cursor.style.left = event.clientX + 'px';
+                cursor.style.top = event.clientY + 'px';
+
+            }
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (cursor) {
+
+                if (elemento) {
+
+                    cursor.classList.add('clicavel');
+
+                } else {
+
+                    cursor.classList.remove('clicavel');
+
+                }
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+
+        /* -------------------------------------------------
+           VÍDEOS
+           começam mudos e ativam/desativam o som ao clicar
+           ------------------------------------------------- */
+
+        const videosComSom = document.querySelectorAll('.video-com-som');
+
+        videosComSom.forEach(function(video) {
+
+            video.addEventListener('click', function() {
+
+                video.muted = !video.muted;
+
+            });
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

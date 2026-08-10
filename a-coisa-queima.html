@@ -1,1 +1,234 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>a coisa queima!</title>
+
+    <link rel="stylesheet" href="style.css?v=8">
+
+</head>
+
+
+<body>
+
+    <div class="cursor"></div>
+
+
+    <header class="projeto-header">
+
+        <a href="projetos.html" class="projeto-voltar">
+            projetos
+        </a>
+
+        <div class="projeto-categoria">
+            etc.
+        </div>
+
+    </header>
+
+
+    <main class="pagina-projeto">
+
+
+        <!-- título -->
+
+        <section class="projeto-titulo">
+
+            <h1>a coisa queima!</h1>
+
+            <span>2025</span>
+
+        </section>
+
+
+        <!-- primeira imagem -->
+
+        <section class="projeto-bloco bloco-01">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/a-coisa-queima!/a-coisa-queima!-01.jpg"
+                    alt="a coisa queima!"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- texto + segunda imagem -->
+
+        <section class="projeto-bloco bloco-02">
+
+            <div class="texto-projeto">
+
+                <p>
+                    Camiseta. def 1: peça de roupa de mangas
+                    longas, curtas ou sem mangas que cobre o
+                    tronco de uma pessoa. não possui fraldas,
+                    gola ou abertura na frente, feita geralmente
+                    de malha, usada em contato direto com a
+                    pele, ou debaixo de uma blusa ou camisa,
+                    como traje informal.
+                    <br><br>
+                    100% papel couro.
+                    <br><br>
+                    “Camiseta” para exposição coletiva
+                    “A coisa queima!”, em São Paulo.
+                </p>
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/a-coisa-queima!/a-coisa-queima!-02.jpg"
+                    alt="a coisa queima!"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- terceira imagem -->
+
+        <section class="projeto-bloco bloco-03">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/a-coisa-queima!/a-coisa-queima!-03.jpg"
+                    alt="a coisa queima!"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- ficha técnica -->
+
+        <section class="ficha-tecnica">
+
+            <h2>team</h2>
+
+
+            <div class="creditos">
+
+
+                <div class="credito">
+
+                    <h3>curadoria</h3>
+
+                    <p>@felipa.queiroz</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>foto</h3>
+
+                    <p>@estudioemobra</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>agradecimento</h3>
+
+                    <p>@totoespaco</p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- rodapé -->
+
+        <footer class="projeto-footer">
+
+            <span>® ATELIÊ OPUS ALL RIGHTS RESERVED</span>
+
+        </footer>
+
+
+    </main>
+
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            if (cursor) {
+
+                cursor.style.left = event.clientX + 'px';
+                cursor.style.top = event.clientY + 'px';
+
+            }
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (cursor) {
+
+                if (elemento) {
+
+                    cursor.classList.add('clicavel');
+
+                } else {
+
+                    cursor.classList.remove('clicavel');
+
+                }
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>
+```
 

@@ -1,1 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vogue Portugal — the innocence issue</title>
+
+    <link rel="stylesheet" href="style.css?v=8">
+
+</head>
+
+
+<body>
+
+    <div class="cursor"></div>
+
+
+    <header class="projeto-header">
+
+        <a href="projetos.html" class="projeto-voltar">
+            projetos
+        </a>
+
+        <div class="projeto-categoria">
+            editorial de moda
+        </div>
+
+    </header>
+
+
+    <main class="pagina-projeto">
+
+
+        <section class="projeto-titulo">
+
+            <h1>Vogue Portugal — the innocence issue</h1>
+
+            <span>2023</span>
+
+        </section>
+
+
+        <section class="projeto-bloco bloco-01">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/vogue-portugal/vogue-portugal-01.png"
+                    alt="Vogue Portugal — the innocence issue"
+                >
+
+            </div>
+
+        </section>
+
+
+        <section class="projeto-bloco bloco-02">
+
+            <div class="texto-projeto">
+
+                <p>
+                    Calça Op. 1 No. 1 para “The Innocence Issue”,
+                    matéria de capa da Vogue Portugal. Edição
+                    fevereiro 2023.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="ficha-tecnica">
+
+            <h2>team</h2>
+
+
+            <div class="creditos">
+
+
+                <div class="credito">
+
+                    <h3>direção criativa / styling</h3>
+
+                    <p>@adornellas com assistência @miladeltreggia</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>vídeo</h3>
+
+                    <p>@marcoscavallaria</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>fotos</h3>
+
+                    <p>@ivanerick</p>
+                    <p>@pedrovilaca</p>
+                    <p>_filipealecrim</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>produção</h3>
+
+                    <p>@cacagodoi</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>beleza</h3>
+
+                    <p>@willvieirabeauty com assistência @guvrocha @camehame</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>modelos</h3>
+
+                    <p>@driesvansteen</p>
+                    <p>@marcelaohio</p>
+                    <p>@jullioreis</p>
+                    <p>@iamlindseyhilario</p>
+                    <p>@rosario._____</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>design de set</h3>
+
+                    <p>@lucasteixeirabarros com assistência @carilcaril</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>tratamento de fotos</h3>
+
+                    <p>@philipemortosa</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>apoio</h3>
+
+                    <p>@becksbeerbr</p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <footer class="projeto-footer">
+
+            <span>® ATELIÊ OPUS ALL RIGHTS RESERVED</span>
+
+        </footer>
+
+
+    </main>
+
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            if (cursor) {
+
+                cursor.style.left = event.clientX + 'px';
+                cursor.style.top = event.clientY + 'px';
+
+            }
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (cursor) {
+
+                if (elemento) {
+
+                    cursor.classList.add('clicavel');
+
+                } else {
+
+                    cursor.classList.remove('clicavel');
+
+                }
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>
 

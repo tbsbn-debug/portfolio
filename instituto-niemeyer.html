@@ -1,1 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>instituto niemeyer</title>
+
+    <link rel="stylesheet" href="style.css?v=8">
+
+</head>
+
+
+<body>
+
+    <div class="cursor"></div>
+
+
+    <header class="projeto-header">
+
+        <a href="projetos.html" class="projeto-voltar">
+            projetos
+        </a>
+
+        <div class="projeto-categoria">
+            etc.
+        </div>
+
+    </header>
+
+
+    <main class="pagina-projeto">
+
+
+        <!-- título -->
+
+        <section class="projeto-titulo">
+
+            <h1>instituto niemeyer</h1>
+
+            <span>2024</span>
+
+        </section>
+
+
+        <!-- primeira imagem -->
+
+        <section class="projeto-bloco bloco-01">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/instituto-niemeyer/instituto-niemeyer-01.jpg"
+                    alt="instituto niemeyer"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- texto + segunda imagem -->
+
+        <section class="projeto-bloco bloco-02">
+
+            <div class="texto-projeto">
+
+                <p>
+                    editorial “Niemeyer” para Festival Cidades Eco
+                    Criativas, que promove a sustentabilidade e a
+                    economia criativa nas cidades e reúne especialistas
+                    e público para debates sobre cultura, moda,
+                    tecnologia, entre outras disciplinas.
+                </p>
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/instituto-niemeyer/instituto-niemeyer-02.png"
+                    alt="instituto niemeyer"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- terceira imagem -->
+
+        <section class="projeto-bloco bloco-03">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/instituto-niemeyer/instituto-niemeyer-03.jpg"
+                    alt="instituto niemeyer"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- segundo texto + quarta imagem -->
+
+        <section class="projeto-bloco bloco-04">
+
+            <div class="texto-projeto">
+
+                <p>
+                    o evento, realizado pelo Instituto Niemeyer,
+                    tem patrocínio da Prefeitura de Niterói e da
+                    Delta Thinkers, organização da Contato Eventos
+                    e apoio dos BRICS e Sebrae.
+                </p>
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/instituto-niemeyer/instituto-niemeyer-04.jpg"
+                    alt="instituto niemeyer"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- quinta imagem -->
+
+        <section class="projeto-bloco bloco-05">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/instituto-niemeyer/instituto-niemeyer-05.jpg"
+                    alt="instituto niemeyer"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- ficha técnica -->
+
+        <section class="ficha-tecnica">
+
+            <h2>team</h2>
+
+
+            <div class="creditos">
+
+
+                <div class="credito">
+
+                    <h3>direção criativa</h3>
+
+                    <p>@savory________</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>foto</h3>
+
+                    <p>@davidarrais @studiodavidarrais</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>assistência</h3>
+
+                    <p>@fabricia_arrais</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>filmmaker</h3>
+
+                    <p>@itsraelserafim</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>making of</h3>
+
+                    <p>@clar4araujo</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>styling e produção de moda</h3>
+
+                    <p>@savory________ @francisco46martins</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>ass. produção de moda</h3>
+
+                    <p>@frz.adri @kamila_viiih</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>beauty</h3>
+
+                    <p>@karinacorrea.sm</p>
+
+                    <h3>ass. beauty</h3>
+
+                    <p>@pamelapdias</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>modelos</h3>
+
+                    <p>
+                        @dudaborges_021
+                        @cacaubporto
+                        @giulianapastura
+                    </p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>apoio</h3>
+
+                    <p>
+                        @schoolmodels
+                        @schoolmodelsfashion
+                        @studiodavidarrais
+                        @sa.vo.ry
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- rodapé -->
+
+        <footer class="projeto-footer">
+
+            <span>® ATELIÊ OPUS ALL RIGHTS RESERVED</span>
+
+        </footer>
+
+
+    </main>
+
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            if (cursor) {
+
+                cursor.style.left = event.clientX + 'px';
+                cursor.style.top = event.clientY + 'px';
+
+            }
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (cursor) {
+
+                if (elemento) {
+
+                    cursor.classList.add('clicavel');
+
+                } else {
+
+                    cursor.classList.remove('clicavel');
+
+                }
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

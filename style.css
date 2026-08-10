@@ -1662,16 +1662,31 @@ height: auto;
     display: block;
 }
 
+.carrossel-controles {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
 
-.carrossel-anterior {
-    left: 0;
+    margin-top: 10px;
 }
 
 
+.carrossel-anterior,
 .carrossel-proximo {
-    right: 0;
-}
+    position: static;
 
+    border: none;
+    background: transparent;
+
+    padding: 0;
+
+    font-family: inherit;
+    font-size: 40px;
+    line-height: 1;
+
+    cursor: pointer;
+}
 
 .carrossel-anterior:hover,
 .carrossel-proximo:hover {

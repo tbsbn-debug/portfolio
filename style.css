@@ -1637,22 +1637,29 @@ height: auto;
 
 /* carrossel */
 
-.carrossel-anterior,
-.carrossel-proximo {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
+.carrossel-projeto {
+    position: relative;
+    width: 100%;
+}
 
-    border: none;
-    background: transparent;
 
-    padding: 20px;
+.carrossel-imagens {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    cursor: none;
+}
 
-    font-family: inherit;
-    font-size: 18px;
 
-    cursor: pointer;
+.carrossel-imagem {
+    display: none;
+    width: 100%;
+    height: auto;
+}
+
+
+.carrossel-imagem.ativa {
+    display: block;
 }
 
 

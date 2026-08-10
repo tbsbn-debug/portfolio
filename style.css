@@ -1238,5 +1238,52 @@ max-width: 100%;
 height: auto;
 }
 
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
+.site-footer {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    margin: 80px 0 25px;
+    padding: 0;
+
+    color: #b5b5b5;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+}
+
+.site-footer-symbol {
+    font-size: 8px;
+}
+
+.site-footer-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8px;
+}
+@media (max-width: 700px) {
+
+    .site-footer {
+        margin-top: 60px;
+        margin-bottom: 20px;
+
+        font-size: 7px;
+    }
+
+    .site-footer-symbol,
+    .site-footer-text {
+        font-size: 7px;
+    }
+
+}
 
 

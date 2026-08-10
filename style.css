@@ -1702,38 +1702,52 @@ height: auto;
     min-height: 100vh;
 }
 
+.cabecalho-contato {
+    position: relative;
+    width: 100%;
+    min-height: 80px;
+}
+
+/* símbolo do cabeçalho das páginas internas */
+
+.logo-contato {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    text-decoration: none;
+
+    overflow: hidden;
+}
+
+
+.logo-contato img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    object-position: left top;
+}
 
 .texto-contato {
     position: absolute;
 
     left: 30px;
-    bottom: 60px;
+    top: 150px;
 
     width: 520px;
 
     font-family: monospace;
     font-size: 14px;
     line-height: 1.45;
-}
-
-
-.texto-contato p {
-    margin: 0 0 28px 0;
-}
-
-
-.texto-contato a {
-    color: inherit;
-    text-decoration: none;
-}
-
-
-.texto-contato a:hover {
-    text-decoration: underline;
-}
-
-
-.texto-contato .leia-sobre {
-    margin-top: 70px;
-    margin-bottom: 10px;
 }

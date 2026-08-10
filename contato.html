@@ -6,171 +6,217 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>contato</title>
+    <title>opus</title>
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
 
 <body>
 
-    <div class="cursor"></div>
+<div class="cursor"></div>
 
 
-    <header class="cabecalho-contato">
+<header>
 
-        <a href="index.html" class="logo-contato">
+    <div class="identidade">
 
-            <img
-                src="imagens/simbolo-opus.png"
-                alt="opus"
+        <img
+            src="imagens/simbolo-opus.png"
+            alt="símbolo da opus"
+        >
+
+        <div class="descricao">
+
+            <p>pesquisa em design e artesania.</p>
+            <p>processos multidisciplinares.</p>
+
+        </div>
+
+    </div>
+
+
+    <nav class="menu-principal">
+
+        <a href="roupas.html">roupas</a>
+
+        <div class="menu-projetos">
+
+            <a href="projetos.html" class="projetos-link">
+                projetos
+            </a>
+
+            <div class="subcategorias">
+
+                <a href="editorial-de-moda.html">
+                    editorial de moda
+                </a>
+
+                <a href="design-grafico.html">
+                    design gráfico
+                </a>
+
+                <a href="objetos.html">
+                    objetos
+                </a>
+
+                <a href="texteis.html">
+                    têxteis
+                </a>
+
+                <a href="etc.html">
+                    etc.
+                </a>
+
+            </div>
+
+        </div>
+
+        <a href="textos.html">textos</a>
+        <a href="pesquisa.html">pesquisa</a>
+        <a href="sobre.html">sobre</a>
+        <a href="contato.html">contato</a>
+
+    </nav>
+
+</header>
+
+
+<main class="pagina-contato">
+
+
+    <div class="texto-contato">
+
+
+        <p>
+            nós fazemos coisas.<br>
+            geralmente roupas.<br>
+            casualmente figurinos.<br>
+            frequentemente projetos gráficos.<br>
+            ocasionalmente objetos.<br>
+            às vezes outras coisas.
+        </p>
+
+
+        <p>
+            se tiver algo em mente:
+        </p>
+
+
+        <p>
+            <a href="mailto:contato@atelieopus.com">
+                contato@atelieopus.com
+            </a>
+        </p>
+
+
+        <p>
+            aos mais informais:
+        </p>
+
+
+        <p>
+            <a
+                href="https://www.instagram.com/opus_____/"
+                target="_blank"
+                rel="noopener noreferrer"
             >
-
-        </a>
-
-    </header>
-
-
-    <main class="carta-contato">
-
-        <div class="carta-data">
-            opus
-        </div>
+                @opus_____
+            </a>
+        </p>
 
 
-        <div class="carta-corpo">
-
-            <p>
-                nós fazemos coisas.<br>
-                geralmente roupas.<br>
-                casualmente figurinos.<br>
-                frequentemente projetos gráficos.<br>
-                ocasionalmente objetos.<br>
-                às vezes outras coisas.
-            </p>
+        <p>
+            abertos para colaborações, encomendas,<br>
+            pesquisas, publicações, produções,<br>
+            exibições e +
+        </p>
 
 
-            <p>
-                se tiver algo em mente:
-            </p>
+        <p class="leia-sobre">
+            leia sobre nós em
+        </p>
 
 
-            <p class="contato-principal">
+        <p>
 
-                <a href="mailto:contato@atelieopus.com">
-                    contato@atelieopus.com
-                </a>
+            <a
+                href="https://ffw.com.br/noticias/radar/ffw-radar-conheca-a-opus/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                FFW
+            </a>
 
-            </p>
+            <br>
 
+            <a
+                href="https://www.revistalofficiel.com.br/moda/a-dupla-criativa-da-opus-se-coloca-como-atelie-de-experimentacoes"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                L'Officiel
+            </a>
 
-            <p>
-                aos mais informais:
-            </p>
-
-
-            <p>
-
-                <a
-                    href="https://www.instagram.com/opus_____/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    @opus_____
-                </a>
-
-            </p>
+        </p>
 
 
-            <p>
-                abertos para colaborações, encomendas,<br>
-                pesquisas, publicações, produções,<br>
-                exibições e +
-            </p>
+    </div>
 
 
-            <p class="leia-sobre">
-                leia sobre nós em
-            </p>
+</main>
 
 
-            <p>
+<script>
 
-                <a
-                    href="https://ffw.com.br/noticias/radar/ffw-radar-conheca-a-opus/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    FFW
-                </a>
+    window.addEventListener('mousemove', function(event) {
 
-                <br>
+        const cursor = document.querySelector('.cursor');
 
-                <a
-                    href="https://www.revistalofficiel.com.br/moda/a-dupla-criativa-da-opus-se-coloca-como-atelie-de-experimentacoes"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    L'Officiel
-                </a>
-
-            </p>
-
-        </div>
-
-    </main>
+        cursor.style.left = event.clientX + 'px';
+        cursor.style.top = event.clientY + 'px';
 
 
-    <script>
-
-        window.addEventListener('mousemove', function(event) {
-
-            const cursor = document.querySelector('.cursor');
-
-            cursor.style.left = event.clientX + 'px';
-            cursor.style.top = event.clientY + 'px';
+        const elemento = event.target.closest(
+            'a, button, [role="button"]'
+        );
 
 
-            const elemento = event.target.closest(
-                'a, button, [role="button"]'
-            );
+        if (elemento) {
+
+            cursor.classList.add('clicavel');
+
+        } else {
+
+            cursor.classList.remove('clicavel');
+
+        }
 
 
-            if (elemento) {
+        if (!elemento) {
 
-                cursor.classList.add('clicavel');
+            const rastro = document.createElement('div');
 
-            } else {
+            rastro.classList.add('cursor-rastro');
 
-                cursor.classList.remove('clicavel');
+            rastro.style.left = event.clientX + 'px';
+            rastro.style.top = event.clientY + 'px';
 
-            }
-
-
-            if (!elemento) {
-
-                const rastro = document.createElement('div');
-
-                rastro.classList.add('cursor-rastro');
-
-                rastro.style.left = event.clientX + 'px';
-                rastro.style.top = event.clientY + 'px';
-
-                document.body.appendChild(rastro);
+            document.body.appendChild(rastro);
 
 
-                setTimeout(function() {
+            setTimeout(function() {
 
-                    rastro.remove();
+                rastro.remove();
 
-                }, 1000);
+            }, 1000);
 
-            }
+        }
 
-        });
+    });
 
-    </script>
+</script>
 
 
 </body>

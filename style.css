@@ -1566,7 +1566,6 @@ height: auto;
     }
 
 }
-
 /* =========================================================
    RODAPÉ
    ========================================================= */
@@ -1584,7 +1583,7 @@ height: auto;
 
     color: #b5b5b5;
 
-    text-align: left;
+    text-align: center;
 }
 
 .projeto-footer span {
@@ -1602,6 +1601,7 @@ height: auto;
     .projeto-footer {
         margin-top: 70px;
         font-size: 8px;
+        text-align: center;
     }
 
     .projeto-footer span {
@@ -1609,5 +1609,3 @@ height: auto;
     }
 
 }
-
-

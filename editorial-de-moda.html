@@ -1,226 +1,240 @@
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-<title>editorial de moda</title>
-```
+<head>
 
-```html
-<div class="cursor"></div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>editoriais de moda</title>
 
-<header class="cabecalho-projetos">
+<link rel="stylesheet" href="style.css?v=2">
 
-
-    <a href="index.html" class="logo-projetos">
-
-        <img
-            src="imagens/simbolo-opus.png"
-            alt="opus"
-        >
-
-    </a>
+</head>
 
 
-    <nav class="subcategorias-projetos">
+<body>
 
-        <a href="editorial-de-moda.html">
-            editorial de moda
+    <div class="cursor"></div>
+
+
+    <header class="cabecalho-projetos">
+
+
+        <a href="index.html" class="logo-projetos">
+
+            <img
+                src="imagens/simbolo-opus.png"
+                alt="opus"
+            >
+
         </a>
 
-        <a href="design-grafico.html">
-            design gráfico
-        </a>
 
-        <a href="objetos.html">
-            objetos
-        </a>
+        <nav class="subcategorias-projetos">
 
-        <a href="texteis.html">
-            têxteis
-        </a>
-
-        <a href="etc.html">
-            etc.
-        </a>
-
-    </nav>
-
-
-</header>
-
-
-<main class="galeria-projetos">
-
-
-    <!-- 01 — o rio flui -->
-
-    <article class="projeto">
-
-        <img
-            src="imagens/projetos/o-rio-flui/o-rio-flui-01.png"
-            alt="o rio flui"
-        >
-
-        <div class="projeto-hover">
-
-            <a href="o-rio-flui.html">
-                o rio flui
+            <a href="editorial-de-moda.html">
+                editorial de moda
             </a>
 
-        </div>
-
-    </article>
-
-
-    <!-- 02 — narcissus -->
-
-    <article class="projeto">
-
-        <img
-            src="imagens/projetos/narcissus/narcissus-01.jpg"
-            alt="narcissus"
-        >
-
-        <div class="projeto-hover">
-
-            <a href="narcissus.html">
-                narcissus
+            <a href="design-grafico.html">
+                design gráfico
             </a>
 
-        </div>
-
-    </article>
-
-
-    <!-- 03 — o novo rio -->
-
-    <article class="projeto">
-
-        <img
-            src="imagens/projetos/o-novo-rio/o-novo-rio-01.jpg"
-            alt="o novo rio"
-        >
-
-        <div class="projeto-hover">
-
-            <a href="o-novo-rio.html">
-                o novo rio
+            <a href="objetos.html">
+                objetos
             </a>
 
-        </div>
-
-    </article>
-
-
-    <!-- 04 — vogue portugal -->
-
-    <article class="projeto">
-
-        <img
-            src="imagens/projetos/vogue-portugal/vogue-portugal-01.png"
-            alt="vogue portugal"
-        >
-
-        <div class="projeto-hover">
-
-            <a href="vogue-portugal.html">
-                vogue portugal
+            <a href="texteis.html">
+                têxteis
             </a>
 
-        </div>
-
-    </article>
-
-
-    <!-- 05 — stories collective organic extravaganza -->
-
-    <article class="projeto">
-
-        <img
-            src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-01.jpg"
-            alt="stories collective organic extravaganza"
-        >
-
-        <div class="projeto-hover">
-
-            <a href="stories-collective-organic-extravaganza.html">
-                stories collective organic extravaganza
+            <a href="etc.html">
+                etc.
             </a>
 
-        </div>
-
-    </article>
+        </nav>
 
 
-    <!-- 06 — retrato -->
-
-    <article class="projeto">
-
-        <img
-            src="imagens/projetos/retrato/retrato-01.jpg"
-            alt="retrato"
-        >
-
-        <div class="projeto-hover">
-
-            <a href="retrato.html">
-                retrato
-            </a>
-
-        </div>
-
-    </article>
+    </header>
 
 
-</main>
+    <main class="galeria-projetos">
 
 
-<script>
+        <!-- 01 — o rio flui -->
 
-    window.addEventListener('mousemove', function(event) {
+        <article class="projeto">
 
-        const cursor = document.querySelector('.cursor');
+            <img
+                src="imagens/projetos/o-rio-flui/o-rio-flui-01.png"
+                alt="o rio flui"
+            >
 
-        cursor.style.left = event.clientX + 'px';
-        cursor.style.top = event.clientY + 'px';
+            <div class="projeto-hover">
 
+                <a href="o-rio-flui.html">
+                    o rio flui
+                </a>
 
-        const elemento = event.target.closest(
-            'a, button, [role="button"]'
-        );
+            </div>
 
-
-        if (elemento) {
-
-            cursor.classList.add('clicavel');
-
-        } else {
-
-            cursor.classList.remove('clicavel');
-
-        }
+        </article>
 
 
-        if (!elemento) {
+        <!-- 02 — narcissus -->
 
-            const rastro = document.createElement('div');
+        <article class="projeto">
 
-            rastro.classList.add('cursor-rastro');
+            <img
+                src="imagens/projetos/narcissus/narcissus-01.jpg"
+                alt="narcissus"
+            >
 
-            rastro.style.left = event.clientX + 'px';
-            rastro.style.top = event.clientY + 'px';
+            <div class="projeto-hover">
 
-            document.body.appendChild(rastro);
+                <a href="narcissus.html">
+                    narcissus
+                </a>
+
+            </div>
+
+        </article>
 
 
-            setTimeout(function() {
+        <!-- 03 — o novo rio -->
 
-                rastro.remove();
+        <article class="projeto">
 
-            }, 1000);
+            <img
+                src="imagens/projetos/o-novo-rio/o-novo-rio-01.jpg"
+                alt="o novo rio"
+            >
 
-        }
+            <div class="projeto-hover">
 
-    });
+                <a href="o-novo-rio.html">
+                    o novo rio
+                </a>
 
-</script>
+            </div>
+
+        </article>
+
+
+        <!-- 04 — vogue portugal -->
+
+        <article class="projeto">
+
+            <img
+                src="imagens/projetos/vogue-portugal/vogue-portugal-01.png"
+                alt="vogue portugal"
+            >
+
+            <div class="projeto-hover">
+
+                <a href="vogue-portugal.html">
+                    vogue portugal
+                </a>
+
+            </div>
+
+        </article>
+
+        <!-- 07 — stories collective organic extravaganza -->
+
+        <article class="projeto">
+
+            <img
+                src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-01.jpg"
+                alt="stories collective organic extravaganza"
+            >
+
+            <div class="projeto-hover">
+
+                <a href="stories-collective-organic-extravaganza.html">
+                    stories collective organic extravaganza
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- 14 — retrato -->
+
+        <article class="projeto">
+
+            <img
+                src="imagens/projetos/retrato/retrato-01.jpg"
+                alt="retrato"
+            >
+
+            <div class="projeto-hover">
+
+                <a href="retrato.html">
+                    retrato
+                </a>
+
+            </div>
+
+        </article>
+
+
+    </main>
+
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            cursor.style.left = event.clientX + 'px';
+            cursor.style.top = event.clientY + 'px';
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (elemento) {
+
+                cursor.classList.add('clicavel');
+
+            } else {
+
+                cursor.classList.remove('clicavel');
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

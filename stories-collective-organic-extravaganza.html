@@ -12,6 +12,65 @@
 
 </head>
 
+    <script>
+
+    const imagensCarrossel =
+        document.querySelectorAll('.carrossel-imagem');
+
+    const anterior =
+        document.querySelector('.carrossel-anterior');
+
+    const proximo =
+        document.querySelector('.carrossel-proximo');
+
+
+    let imagemAtual = 0;
+
+
+    function mostrarImagem(indice) {
+
+        imagensCarrossel.forEach(function(imagem) {
+
+            imagem.classList.remove('ativa');
+
+        });
+
+
+        imagensCarrossel[indice].classList.add('ativa');
+
+    }
+
+
+    proximo.addEventListener('click', function() {
+
+        imagemAtual++;
+
+        if (imagemAtual >= imagensCarrossel.length) {
+
+            imagemAtual = 0;
+
+        }
+
+        mostrarImagem(imagemAtual);
+
+    });
+
+
+    anterior.addEventListener('click', function() {
+
+        imagemAtual--;
+
+        if (imagemAtual < 0) {
+
+            imagemAtual = imagensCarrossel.length - 1;
+
+        }
+
+        mostrarImagem(imagemAtual);
+
+    });
+
+</script>
 
 <body>
 
@@ -24,9 +83,9 @@
             projetos
         </a>
 
-        <div class="projeto-categoria">
-            editorial de moda
-        </div>
+<div class="projeto-categoria">
+    <a href="editorial-de-moda.html">editorial de moda</a>
+</div>
 
     </header>
 
@@ -131,100 +190,71 @@
         </section>
 
 
-        <!-- imagem 04 -->
+      <!-- carrossel — imagens 04 a 09 -->
 
-        <section class="projeto-bloco bloco-05">
+<section class="projeto-bloco bloco-05">
 
-            <div class="midia-projeto">
+    <div class="carrossel-projeto">
 
-                <img
-                    src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-04.jpg"
-                    alt="stories collective — organic extravaganza"
-                >
-
-            </div>
-
-        </section>
+        <button
+            class="carrossel-anterior"
+            aria-label="imagem anterior"
+        >
+            ←
+        </button>
 
 
-        <!-- imagem 05 -->
+        <div class="carrossel-imagens">
 
-        <section class="projeto-bloco bloco-06">
+            <img
+                src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-04.jpg"
+                alt="stories collective — organic extravaganza"
+                class="carrossel-imagem ativa"
+            >
 
-            <div class="midia-projeto">
+            <img
+                src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-05.jpg"
+                alt="stories collective — organic extravaganza"
+                class="carrossel-imagem"
+            >
 
-                <img
-                    src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-05.jpg"
-                    alt="stories collective — organic extravaganza"
-                >
+            <img
+                src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-06.jpg"
+                alt="stories collective — organic extravaganza"
+                class="carrossel-imagem"
+            >
 
-            </div>
+            <img
+                src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-07.jpg"
+                alt="stories collective — organic extravaganza"
+                class="carrossel-imagem"
+            >
 
-        </section>
+            <img
+                src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-08.jpg"
+                alt="stories collective — organic extravaganza"
+                class="carrossel-imagem"
+            >
 
+            <img
+                src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-09.jpg"
+                alt="stories collective — organic extravaganza"
+                class="carrossel-imagem"
+            >
 
-        <!-- imagem 06 -->
-
-        <section class="projeto-bloco bloco-07">
-
-            <div class="midia-projeto">
-
-                <img
-                    src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-06.jpg"
-                    alt="stories collective — organic extravaganza"
-                >
-
-            </div>
-
-        </section>
-
-
-        <!-- imagem 07 -->
-
-        <section class="projeto-bloco bloco-08">
-
-            <div class="midia-projeto">
-
-                <img
-                    src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-07.jpg"
-                    alt="stories collective — organic extravaganza"
-                >
-
-            </div>
-
-        </section>
+        </div>
 
 
-        <!-- imagem 08 -->
+        <button
+            class="carrossel-proximo"
+            aria-label="próxima imagem"
+        >
+            →
+        </button>
 
-        <section class="projeto-bloco bloco-09">
+    </div>
 
-            <div class="midia-projeto">
-
-                <img
-                    src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-08.jpg"
-                    alt="stories collective — organic extravaganza"
-                >
-
-            </div>
-
-        </section>
-
-
-        <!-- imagem 09 -->
-
-        <section class="projeto-bloco bloco-10">
-
-            <div class="midia-projeto">
-
-                <img
-                    src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-09.jpg"
-                    alt="stories collective — organic extravaganza"
-                >
-
-            </div>
-
-        </section>
+</section>
 
 
         <!-- ficha técnica -->

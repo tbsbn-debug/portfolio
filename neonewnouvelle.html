@@ -1,1 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>neonewnouvelle</title>
+
+    <link rel="stylesheet" href="style.css?v=8">
+
+</head>
+
+
+<body>
+
+    <div class="cursor"></div>
+
+
+    <header class="projeto-header">
+
+        <a href="projetos.html" class="projeto-voltar">
+            projetos
+        </a>
+
+        <div class="projeto-categoria">
+            etc.
+        </div>
+
+    </header>
+
+
+    <main class="pagina-projeto">
+
+
+        <!-- título -->
+
+        <section class="projeto-titulo">
+
+            <h1>neonewnouvelle</h1>
+
+            <span>2024</span>
+
+        </section>
+
+
+        <!-- imagem 01 -->
+
+        <section class="projeto-bloco bloco-01">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/neonewnouvelle/neonewnouvelle-01.png"
+                    alt="neonewnouvelle"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- imagem 02 -->
+
+        <section class="projeto-bloco bloco-02">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/neonewnouvelle/neonewnouvelle-02.png"
+                    alt="neonewnouvelle"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- imagem 03 -->
+
+        <section class="projeto-bloco bloco-03">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/neonewnouvelle/neonewnouvelle-03.png"
+                    alt="neonewnouvelle"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- rodapé -->
+
+        <footer class="projeto-footer">
+
+            <span>® ATELIÊ OPUS ALL RIGHTS RESERVED</span>
+
+        </footer>
+
+
+    </main>
+
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            if (cursor) {
+
+                cursor.style.left = event.clientX + 'px';
+                cursor.style.top = event.clientY + 'px';
+
+            }
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (cursor) {
+
+                if (elemento) {
+
+                    cursor.classList.add('clicavel');
+
+                } else {
+
+                    cursor.classList.remove('clicavel');
+
+                }
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

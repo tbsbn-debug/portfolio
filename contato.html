@@ -1,68 +1,178 @@
-<div class="contato-conteudo">
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-    <p>
-        nós fazemos coisas.<br>
-        geralmente roupas.<br>
-        casualmente figurinos.<br>
-        frequentemente projetos gráficos.<br>
-        ocasionalmente objetos.<br>
-        às vezes outras coisas.
-    </p>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>contato</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
 
 
-    <p>
-        se tiver algo em mente:
-    </p>
+<body>
 
-    <p>
-        <a href="mailto:contato@atelieopus.com">
-            contato@atelieopus.com
+    <div class="cursor"></div>
+
+
+    <header class="cabecalho-contato">
+
+        <a href="index.html" class="logo-contato">
+
+            <img
+                src="imagens/simbolo-opus.png"
+                alt="opus"
+            >
+
         </a>
-    </p>
+
+    </header>
 
 
-    <p>
-        aos mais informais:
-    </p>
+    <main class="carta-contato">
 
-    <p>
-        <a
-            href="https://www.instagram.com/opus_____/"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            @opus_____
-        </a>
-    </p>
+        <div class="carta-data">
+            opus
+        </div>
 
 
-    <p>
-        abertos para colaborações, encomendas, pesquisas,<br>
-        publicações, produções, exibições e +
-    </p>
+        <div class="carta-corpo">
+
+            <p>
+                nós fazemos coisas.<br>
+                geralmente roupas.<br>
+                casualmente figurinos.<br>
+                frequentemente projetos gráficos.<br>
+                ocasionalmente objetos.<br>
+                às vezes outras coisas.
+            </p>
 
 
-    <p>
-        leia sobre nós em
-    </p>
+            <p>
+                se tiver algo em mente:
+            </p>
 
-    <p>
-        <a
-            href="https://ffw.com.br/noticias/radar/ffw-radar-conheca-a-opus/"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            FFW
-        </a>
-        <br>
 
-        <a
-            href="https://www.revistalofficiel.com.br/moda/a-dupla-criativa-da-opus-se-coloca-como-atelie-de-experimentacoes"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            L'Officiel
-        </a>
-    </p>
+            <p class="contato-principal">
 
-</div>
+                <a href="mailto:contato@atelieopus.com">
+                    contato@atelieopus.com
+                </a>
+
+            </p>
+
+
+            <p>
+                aos mais informais:
+            </p>
+
+
+            <p>
+
+                <a
+                    href="https://www.instagram.com/opus_____/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    @opus_____
+                </a>
+
+            </p>
+
+
+            <p>
+                abertos para colaborações, encomendas,<br>
+                pesquisas, publicações, produções,<br>
+                exibições e +
+            </p>
+
+
+            <p class="leia-sobre">
+                leia sobre nós em
+            </p>
+
+
+            <p>
+
+                <a
+                    href="https://ffw.com.br/noticias/radar/ffw-radar-conheca-a-opus/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    FFW
+                </a>
+
+                <br>
+
+                <a
+                    href="https://www.revistalofficiel.com.br/moda/a-dupla-criativa-da-opus-se-coloca-como-atelie-de-experimentacoes"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    L'Officiel
+                </a>
+
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            cursor.style.left = event.clientX + 'px';
+            cursor.style.top = event.clientY + 'px';
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (elemento) {
+
+                cursor.classList.add('clicavel');
+
+            } else {
+
+                cursor.classList.remove('clicavel');
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

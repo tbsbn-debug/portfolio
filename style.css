@@ -1183,4 +1183,60 @@ body {
 
 }
 
+/* =========================================================
+CORREÇÃO — PÁGINA INDIVIDUAL DE PROJETO
+remove as alturas obrigatórias do site principal
+========================================================= */
+
+.projeto-header {
+min-height: 0;
+height: auto;
+
+```
+position: relative;
+
+margin: 0;
+padding: 0;
+```
+
+}
+
+.pagina-projeto {
+min-height: 0;
+
+```
+margin: 0;
+padding-top: 0;
+```
+
+}
+
+/* as sections da página de projeto não ocupam 80vh */
+
+.pagina-projeto section {
+min-height: 0;
+height: auto;
+
+```
+margin-top: 0;
+margin-bottom: 0;
+```
+
+}
+
+/* garante que o main também não crie espaços */
+
+.pagina-projeto {
+display: block;
+}
+
+/* mantém as mídias em tamanho razoável */
+
+.pagina-projeto img,
+.pagina-projeto video {
+max-width: 100%;
+height: auto;
+}
+
+
 

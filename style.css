@@ -1286,4 +1286,285 @@ height: auto;
 
 }
 
+/* =========================================================
+   O RIO FLUI
+   COMPOSIÇÃO ESPECÍFICA
+   ========================================================= */
+
+.projeto-rio-flui .rio-bloco-01 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    margin-top: 0;
+    padding: 0;
+}
+
+.projeto-rio-flui .rio-bloco-01 .midia-projeto {
+    width: 47%;
+    max-width: 600px;
+
+    margin-right: 7%;
+}
+
+
+/* ---------------------------------------------------------
+   TEXTO
+   --------------------------------------------------------- */
+
+.projeto-rio-flui .rio-bloco-02 {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 280px)
+        minmax(0, 340px);
+
+    column-gap: 120px;
+
+    align-items: start;
+
+    margin-top: 130px;
+    margin-left: 7%;
+    padding: 0;
+}
+
+.projeto-rio-flui .rio-bloco-02 .texto-projeto {
+    width: auto;
+    max-width: 340px;
+}
+
+.projeto-rio-flui .rio-bloco-02 .texto-projeto p {
+    margin: 0;
+}
+
+.projeto-rio-flui .texto-secundario {
+    margin-top: 28px !important;
+}
+
+
+/* ---------------------------------------------------------
+   GALERIAS
+   --------------------------------------------------------- */
+
+.projeto-rio-flui .rio-galeria {
+    width: 100%;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    margin-top: 120px;
+    padding: 0;
+}
+
+
+/* imagem 02 + 03 */
+
+.projeto-rio-flui .rio-galeria-01 {
+    justify-content: flex-end;
+
+    gap: 55px;
+
+    padding-right: 5%;
+}
+
+.projeto-rio-flui .rio-midia-02 {
+    width: 31%;
+    max-width: 390px;
+}
+
+.projeto-rio-flui .rio-midia-03 {
+    width: 39%;
+    max-width: 500px;
+
+    margin-top: 130px;
+}
+
+
+/* imagem 04 + 05 */
+
+.projeto-rio-flui .rio-galeria-02 {
+    justify-content: flex-start;
+
+    gap: 90px;
+
+    padding-left: 12%;
+}
+
+.projeto-rio-flui .rio-midia-04 {
+    width: 28%;
+    max-width: 360px;
+
+    margin-top: 70px;
+}
+
+.projeto-rio-flui .rio-midia-05 {
+    width: 43%;
+    max-width: 550px;
+}
+
+
+/* imagem 06 */
+
+.projeto-rio-flui .rio-galeria-03 {
+    justify-content: flex-end;
+
+    padding-right: 15%;
+}
+
+.projeto-rio-flui .rio-galeria-03 .midia-projeto {
+    width: 48%;
+    max-width: 610px;
+}
+
+
+/* imagem 07 + 08 */
+
+.projeto-rio-flui .rio-galeria-04 {
+    justify-content: flex-end;
+
+    gap: 65px;
+
+    padding-right: 4%;
+}
+
+.projeto-rio-flui .rio-midia-07 {
+    width: 37%;
+    max-width: 470px;
+}
+
+.projeto-rio-flui .rio-midia-08 {
+    width: 27%;
+    max-width: 350px;
+
+    margin-top: 170px;
+}
+
+
+/* imagem 09 + 10 */
+
+.projeto-rio-flui .rio-galeria-05 {
+    justify-content: flex-start;
+
+    gap: 100px;
+
+    padding-left: 9%;
+}
+
+.projeto-rio-flui .rio-midia-09 {
+    width: 42%;
+    max-width: 530px;
+
+    margin-top: 90px;
+}
+
+.projeto-rio-flui .rio-midia-10 {
+    width: 29%;
+    max-width: 370px;
+}
+
+
+/* imagem 11 */
+
+.projeto-rio-flui .rio-galeria-06 {
+    justify-content: flex-end;
+
+    padding-right: 11%;
+}
+
+.projeto-rio-flui .rio-galeria-06 .midia-projeto {
+    width: 45%;
+    max-width: 570px;
+}
+
+
+/* ---------------------------------------------------------
+   FICHA TÉCNICA
+   --------------------------------------------------------- */
+
+.projeto-rio-flui .ficha-tecnica {
+    margin-top: 150px;
+}
+
+
+/* ---------------------------------------------------------
+   CELULAR
+   --------------------------------------------------------- */
+
+@media (max-width: 700px) {
+
+    .projeto-rio-flui .rio-bloco-01 {
+        justify-content: flex-end;
+    }
+
+    .projeto-rio-flui .rio-bloco-01 .midia-projeto {
+        width: 88%;
+        max-width: 88%;
+        margin-right: 0;
+    }
+
+
+    .projeto-rio-flui .rio-bloco-02 {
+        display: flex;
+        flex-direction: column;
+
+        gap: 55px;
+
+        margin-top: 90px;
+        margin-left: 0;
+    }
+
+    .projeto-rio-flui .rio-bloco-02 .texto-projeto {
+        width: 290px;
+        max-width: 88%;
+    }
+
+
+    .projeto-rio-flui .rio-galeria {
+        display: flex;
+        flex-direction: column;
+
+        align-items: flex-end;
+
+        gap: 55px;
+
+        margin-top: 80px;
+
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+
+    .projeto-rio-flui .rio-galeria .midia-projeto {
+        width: auto;
+        max-width: none;
+
+        margin-top: 0;
+    }
+
+
+    .projeto-rio-flui .rio-midia-02,
+    .projeto-rio-flui .rio-midia-05,
+    .projeto-rio-flui .rio-midia-06,
+    .projeto-rio-flui .rio-midia-09,
+    .projeto-rio-flui .rio-galeria-06 .midia-projeto {
+        width: 88%;
+    }
+
+
+    .projeto-rio-flui .rio-midia-03,
+    .projeto-rio-flui .rio-midia-04,
+    .projeto-rio-flui .rio-midia-07,
+    .projeto-rio-flui .rio-midia-08,
+    .projeto-rio-flui .rio-midia-10 {
+        width: 65%;
+    }
+
+
+    .projeto-rio-flui .ficha-tecnica {
+        margin-top: 100px;
+    }
+
+}
+
 

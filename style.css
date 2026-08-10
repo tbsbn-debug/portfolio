@@ -677,7 +677,6 @@ section {
 
     text-align: center;
 }
-```css
 /* =========================================================
    OPUS — PÁGINA INDIVIDUAL DE PROJETO
    WAYS OF NOT SEEING
@@ -737,16 +736,15 @@ body {
 
 
 /* ---------------------------------------------------------
-   TÍTULO
+   TÍTULO + ANO
    --------------------------------------------------------- */
 
 .projeto-titulo {
     width: 100%;
 
-    display: flex;
-    align-items: baseline;
+    display: block;
 
-    margin: 28px 0 90px;
+    margin: 28px 0 35px;
     padding: 0;
 }
 
@@ -761,7 +759,9 @@ body {
 }
 
 .projeto-titulo span {
-    margin-left: auto;
+    display: block;
+
+    margin: 12px 0 0;
 
     font-family: monospace;
     font-size: 13px;
@@ -911,19 +911,25 @@ body {
 }
 
 
-/* foto — elemento secundário */
+/* ---------------------------------------------------------
+   FOTO FINAL
+   secundária, mas agora visível
+   --------------------------------------------------------- */
 
 .bloco-04 > .midia-projeto:first-child {
-    flex: 0 0 110px;
+    flex: 0 0 330px;
 
-    width: 110px;
-    max-width: 110px;
+    width: 330px;
+    max-width: 330px;
 
     margin-top: 45px;
 }
 
 
-/* vídeo 2 — elemento principal */
+/* ---------------------------------------------------------
+   VÍDEO 2
+   elemento principal
+   --------------------------------------------------------- */
 
 .bloco-04 .video-projeto {
     flex: 0 0 820px;
@@ -1026,11 +1032,13 @@ body {
     }
 
 
-    /* título */
+    /* -----------------------------------------------------
+       título + ano
+       ----------------------------------------------------- */
 
     .projeto-titulo {
         margin-top: 20px;
-        margin-bottom: 65px;
+        margin-bottom: 30px;
     }
 
     .projeto-titulo h1 {
@@ -1040,11 +1048,15 @@ body {
     }
 
     .projeto-titulo span {
+        margin-top: 10px;
+
         font-size: 11px;
     }
 
 
-    /* primeira imagem */
+    /* -----------------------------------------------------
+       primeira imagem
+       ----------------------------------------------------- */
 
     .bloco-01 {
         justify-content: flex-end;
@@ -1058,7 +1070,9 @@ body {
     }
 
 
-    /* textos */
+    /* -----------------------------------------------------
+       textos
+       ----------------------------------------------------- */
 
     .bloco-02 {
         flex-direction: column;
@@ -1077,7 +1091,9 @@ body {
     }
 
 
-    /* vídeo 1 */
+    /* -----------------------------------------------------
+       vídeo 1
+       ----------------------------------------------------- */
 
     .bloco-03 {
         justify-content: flex-end;
@@ -1092,7 +1108,9 @@ body {
     }
 
 
-    /* foto + vídeo 2 */
+    /* -----------------------------------------------------
+       foto + vídeo 2
+       ----------------------------------------------------- */
 
     .bloco-04 {
         flex-direction: column;
@@ -1107,8 +1125,8 @@ body {
     .bloco-04 > .midia-projeto:first-child {
         flex: none;
 
-        width: 28%;
-        max-width: 28%;
+        width: 42%;
+        max-width: 42%;
 
         margin-top: 0;
     }
@@ -1121,7 +1139,9 @@ body {
     }
 
 
-    /* ficha técnica */
+    /* -----------------------------------------------------
+       ficha técnica
+       ----------------------------------------------------- */
 
     .ficha-tecnica {
         margin-top: 100px;
@@ -1147,6 +1167,5 @@ body {
     }
 
 }
-```
 
 

@@ -1,1 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>terras raras</title>
+
+    <link rel="stylesheet" href="style.css?v=8">
+
+</head>
+
+
+<body>
+
+    <div class="cursor"></div>
+
+
+    <header class="projeto-header">
+
+        <a href="projetos.html" class="projeto-voltar">
+            projetos
+        </a>
+
+        <div class="projeto-categoria">
+            design gráfico
+        </div>
+
+    </header>
+
+
+    <main class="pagina-projeto">
+
+
+        <!-- título -->
+
+        <section class="projeto-titulo">
+
+            <h1>terras raras</h1>
+
+            <span>2024</span>
+
+        </section>
+
+
+        <!-- imagem 01 -->
+
+        <section class="projeto-bloco bloco-01">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/terras-raras/terras-raras-01.png"
+                    alt="terras raras"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- texto -->
+
+        <section class="projeto-bloco bloco-02">
+
+            <div class="texto-projeto">
+
+                <p>
+                    em um mercado chinês, dentro de uma delicada peça de
+                    vidro, um colar exibe um pingente de cristal composto
+                    por fios dourados reluzentes, que se cruzam em várias
+                    direções. o valor da peça impressiona: 79 mil reais.
+                    a pedra que dá vida à joia, no entanto, conta uma
+                    história muito distante de seu brilho. ela foi
+                    extraída do outro lado do globo, nas terras raras de
+                    uma remota cidade da Bahia, por mãos simples, de
+                    garimpeiros abandonados à própria sorte, que têm suas
+                    vidas abreviadas ao se arriscarem na extração das
+                    gemas.
+                </p>
+
+            </div>
+
+
+            <div class="texto-projeto">
+
+                <p>
+                    projeto gráfico desenvolvido para a publicação de
+                    Terras Raras: a presença silenciosa de chineses em
+                    busca de cristais no interior da Bahia.
+                </p>
+
+                <p>
+                    publicação desenvolvida como trabalho de conclusão
+                    do curso para graduantes de Jornalismo pela Faculdade
+                    Cásper Líbero.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- imagem 02 -->
+
+        <section class="projeto-bloco bloco-03">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/terras-raras/terras-raras-02.png"
+                    alt="terras raras"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- imagem 03 -->
+
+        <section class="projeto-bloco bloco-04">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/terras-raras/terras-raras-03.png"
+                    alt="terras raras"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- imagem 04 -->
+
+        <section class="projeto-bloco bloco-05">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/terras-raras/terras-raras-04.png"
+                    alt="terras raras"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- imagem 05 -->
+
+        <section class="projeto-bloco bloco-06">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/terras-raras/terras-raras-05.png"
+                    alt="terras raras"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- imagem 06 -->
+
+        <section class="projeto-bloco bloco-07">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/terras-raras/terras-raras-06.png"
+                    alt="terras raras"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- rodapé -->
+
+        <footer class="projeto-footer">
+
+            <span>® ATELIÊ OPUS ALL RIGHTS RESERVED</span>
+
+        </footer>
+
+
+    </main>
+
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            if (cursor) {
+
+                cursor.style.left = event.clientX + 'px';
+                cursor.style.top = event.clientY + 'px';
+
+            }
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (cursor) {
+
+                if (elemento) {
+
+                    cursor.classList.add('clicavel');
+
+                } else {
+
+                    cursor.classList.remove('clicavel');
+
+                }
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

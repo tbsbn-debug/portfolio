@@ -1645,7 +1645,7 @@ height: auto;
 
 .carrossel-imagens {
     position: relative;
-    width: 100%;
+    width: 45%;
     overflow: hidden;
     cursor: none;
 }

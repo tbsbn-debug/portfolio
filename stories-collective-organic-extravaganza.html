@@ -10,67 +10,69 @@
 
     <link rel="stylesheet" href="style.css?v=8">
 
+    /* carrossel */
+
+.carrossel-projeto {
+    position: relative;
+    width: 100%;
+}
+
+
+.carrossel-imagens {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+.carrossel-imagem {
+    display: none;
+    width: 100%;
+    height: auto;
+}
+
+
+.carrossel-imagem.ativa {
+    display: block;
+}
+
+
+.carrossel-anterior,
+.carrossel-proximo {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+
+    border: none;
+    background: transparent;
+
+    padding: 20px;
+
+    font-family: inherit;
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+
+.carrossel-anterior {
+    left: 0;
+}
+
+
+.carrossel-proximo {
+    right: 0;
+}
+
+
+.carrossel-anterior:hover,
+.carrossel-proximo:hover {
+    opacity: 0.5;
+}
+    
 </head>
 
-    <script>
-
-    const imagensCarrossel =
-        document.querySelectorAll('.carrossel-imagem');
-
-    const anterior =
-        document.querySelector('.carrossel-anterior');
-
-    const proximo =
-        document.querySelector('.carrossel-proximo');
-
-
-    let imagemAtual = 0;
-
-
-    function mostrarImagem(indice) {
-
-        imagensCarrossel.forEach(function(imagem) {
-
-            imagem.classList.remove('ativa');
-
-        });
-
-
-        imagensCarrossel[indice].classList.add('ativa');
-
-    }
-
-
-    proximo.addEventListener('click', function() {
-
-        imagemAtual++;
-
-        if (imagemAtual >= imagensCarrossel.length) {
-
-            imagemAtual = 0;
-
-        }
-
-        mostrarImagem(imagemAtual);
-
-    });
-
-
-    anterior.addEventListener('click', function() {
-
-        imagemAtual--;
-
-        if (imagemAtual < 0) {
-
-            imagemAtual = imagensCarrossel.length - 1;
-
-        }
-
-        mostrarImagem(imagemAtual);
-
-    });
-
-</script>
 
 <body>
 
@@ -426,6 +428,65 @@
 
     </script>
 
+      <script>
+
+    const imagensCarrossel =
+        document.querySelectorAll('.carrossel-imagem');
+
+    const anterior =
+        document.querySelector('.carrossel-anterior');
+
+    const proximo =
+        document.querySelector('.carrossel-proximo');
+
+
+    let imagemAtual = 0;
+
+
+    function mostrarImagem(indice) {
+
+        imagensCarrossel.forEach(function(imagem) {
+
+            imagem.classList.remove('ativa');
+
+        });
+
+
+        imagensCarrossel[indice].classList.add('ativa');
+
+    }
+
+
+    proximo.addEventListener('click', function() {
+
+        imagemAtual++;
+
+        if (imagemAtual >= imagensCarrossel.length) {
+
+            imagemAtual = 0;
+
+        }
+
+        mostrarImagem(imagemAtual);
+
+    });
+
+
+    anterior.addEventListener('click', function() {
+
+        imagemAtual--;
+
+        if (imagemAtual < 0) {
+
+            imagemAtual = imagensCarrossel.length - 1;
+
+        }
+
+        mostrarImagem(imagemAtual);
+
+    });
+
+</script>
 
 </body>
 

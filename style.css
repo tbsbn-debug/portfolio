@@ -744,12 +744,17 @@ body {
 
     display: block;
 
-    margin: 28px 0 35px;
-    padding: 0;
+    margin: 18px 0 0 !important;
+    padding: 0 !important;
+
+    position: relative;
 }
 
 .projeto-titulo h1 {
-    margin: 0;
+    display: block;
+
+    margin: 0 !important;
+    padding: 0 !important;
 
     font-family: monospace;
     font-size: clamp(72px, 8vw, 110px);
@@ -761,13 +766,23 @@ body {
 .projeto-titulo span {
     display: block;
 
-    margin: 12px 0 0;
+    margin: 10px 0 18px !important;
+    padding: 0 !important;
 
     font-family: monospace;
     font-size: 13px;
     line-height: 1;
 }
+/* ---------------------------------------------------------
+   PRIMEIRA MÍDIA — SEM ESPAÇO HERDADO
+   --------------------------------------------------------- */
 
+.projeto-titulo + .bloco-01 {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+}
 
 /* ---------------------------------------------------------
    ESTRUTURA DOS BLOCOS

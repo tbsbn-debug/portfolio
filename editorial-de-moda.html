@@ -1,0 +1,226 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>editorial de moda</title>
+```
+
+```html
+<div class="cursor"></div>
+
+
+<header class="cabecalho-projetos">
+
+
+    <a href="index.html" class="logo-projetos">
+
+        <img
+            src="imagens/simbolo-opus.png"
+            alt="opus"
+        >
+
+    </a>
+
+
+    <nav class="subcategorias-projetos">
+
+        <a href="editorial-de-moda.html">
+            editorial de moda
+        </a>
+
+        <a href="design-grafico.html">
+            design gráfico
+        </a>
+
+        <a href="objetos.html">
+            objetos
+        </a>
+
+        <a href="texteis.html">
+            têxteis
+        </a>
+
+        <a href="etc.html">
+            etc.
+        </a>
+
+    </nav>
+
+
+</header>
+
+
+<main class="galeria-projetos">
+
+
+    <!-- 01 — o rio flui -->
+
+    <article class="projeto">
+
+        <img
+            src="imagens/projetos/o-rio-flui/o-rio-flui-01.png"
+            alt="o rio flui"
+        >
+
+        <div class="projeto-hover">
+
+            <a href="o-rio-flui.html">
+                o rio flui
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- 02 — narcissus -->
+
+    <article class="projeto">
+
+        <img
+            src="imagens/projetos/narcissus/narcissus-01.jpg"
+            alt="narcissus"
+        >
+
+        <div class="projeto-hover">
+
+            <a href="narcissus.html">
+                narcissus
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- 03 — o novo rio -->
+
+    <article class="projeto">
+
+        <img
+            src="imagens/projetos/o-novo-rio/o-novo-rio-01.jpg"
+            alt="o novo rio"
+        >
+
+        <div class="projeto-hover">
+
+            <a href="o-novo-rio.html">
+                o novo rio
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- 04 — vogue portugal -->
+
+    <article class="projeto">
+
+        <img
+            src="imagens/projetos/vogue-portugal/vogue-portugal-01.png"
+            alt="vogue portugal"
+        >
+
+        <div class="projeto-hover">
+
+            <a href="vogue-portugal.html">
+                vogue portugal
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- 05 — stories collective organic extravaganza -->
+
+    <article class="projeto">
+
+        <img
+            src="imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-01.jpg"
+            alt="stories collective organic extravaganza"
+        >
+
+        <div class="projeto-hover">
+
+            <a href="stories-collective-organic-extravaganza.html">
+                stories collective organic extravaganza
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- 06 — retrato -->
+
+    <article class="projeto">
+
+        <img
+            src="imagens/projetos/retrato/retrato-01.jpg"
+            alt="retrato"
+        >
+
+        <div class="projeto-hover">
+
+            <a href="retrato.html">
+                retrato
+            </a>
+
+        </div>
+
+    </article>
+
+
+</main>
+
+
+<script>
+
+    window.addEventListener('mousemove', function(event) {
+
+        const cursor = document.querySelector('.cursor');
+
+        cursor.style.left = event.clientX + 'px';
+        cursor.style.top = event.clientY + 'px';
+
+
+        const elemento = event.target.closest(
+            'a, button, [role="button"]'
+        );
+
+
+        if (elemento) {
+
+            cursor.classList.add('clicavel');
+
+        } else {
+
+            cursor.classList.remove('clicavel');
+
+        }
+
+
+        if (!elemento) {
+
+            const rastro = document.createElement('div');
+
+            rastro.classList.add('cursor-rastro');
+
+            rastro.style.left = event.clientX + 'px';
+            rastro.style.top = event.clientY + 'px';
+
+            document.body.appendChild(rastro);
+
+
+            setTimeout(function() {
+
+                rastro.remove();
+
+            }, 1000);
+
+        }
+
+    });
+
+</script>

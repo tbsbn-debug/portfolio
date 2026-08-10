@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>projetos</title>
+
+<link rel="stylesheet" href="style.css?v=2">
+
+</head>
+
+
+<body>
+
+    <div class="cursor"></div>
+
+
+    <header class="cabecalho-projetos">
+
+
+        <a href="index.html" class="logo-projetos">
+
+            <img
+                src="imagens/simbolo-opus.png"
+                alt="opus"
+            >
+
+        </a>
+
+
+        <nav class="subcategorias-projetos">
+
+            <a href="editorial-de-moda.html">
+                editorial de moda
+            </a>
+
+            <a href="design-grafico.html">
+                design gráfico
+            </a>
+
+            <a href="objetos.html">
+                objetos
+            </a>
+
+            <a href="texteis.html">
+                têxteis
+            </a>
+
+            <a href="etc.html">
+                etc.
+            </a>
+
+        </nav>
+
+
+    </header>
+
+
+    <main class="galeria-projetos">
+
+
+        <!-- 06 — terras raras -->
+
+        <article class="projeto">
+
+            <img
+                src="imagens/projetos/terras-raras/terras-raras-01.png"
+                alt="terras raras"
+            >
+
+            <div class="projeto-hover">
+
+                <a href="terras-raras.html">
+                    terras raras
+                </a>
+
+            </div>
+
+        </article>
+
+        <!-- 09 — arranging things -->
+
+        <article class="projeto">
+
+            <img
+                src="imagens/projetos/arranging-things/arranging-things-01.png"
+                alt="arranging things"
+            >
+
+            <div class="projeto-hover">
+
+                <a href="arranging-things.html">
+                    arranging things
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- 12 — neonewnouvelle -->
+
+        <article class="projeto">
+
+            <img
+                src="imagens/projetos/neonewnouvelle/neonewnouvelle-01.png"
+                alt="neonewnouvelle"
+            >
+
+            <div class="projeto-hover">
+
+                <a href="neonewnouvelle.html">
+                    neonewnouvelle
+                </a>
+
+            </div>
+
+        </article>
+
+
+    </main>
+
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            cursor.style.left = event.clientX + 'px';
+            cursor.style.top = event.clientY + 'px';
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (elemento) {
+
+                cursor.classList.add('clicavel');
+
+            } else {
+
+                cursor.classList.remove('clicavel');
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

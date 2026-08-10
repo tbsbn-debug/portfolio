@@ -1,1 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>arranging things</title>
+
+    <link rel="stylesheet" href="style.css?v=8">
+
+</head>
+
+
+<body>
+
+    <div class="cursor"></div>
+
+
+    <header class="projeto-header">
+
+        <a href="projetos.html" class="projeto-voltar">
+            projetos
+        </a>
+
+        <div class="projeto-categoria">
+            design gráfico
+        </div>
+
+    </header>
+
+
+    <main class="pagina-projeto">
+
+
+        <!-- título -->
+
+        <section class="projeto-titulo">
+
+            <h1>arranging things</h1>
+
+            <span>2024</span>
+
+        </section>
+
+
+        <!-- imagem 01 -->
+
+        <section class="projeto-bloco bloco-01">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/arranging-things/arranging-things-01.png"
+                    alt="arranging things"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- texto + imagem 02 -->
+
+        <section class="projeto-bloco bloco-02">
+
+            <div class="texto-projeto">
+
+                <p>
+                    pequena proposta para uma nova edição de
+                    <i>Arranging Things</i> (2003), de Leonard Koren.
+                    miolo impresso em offset 120g e sobrecapa
+                    impressa em papéis variados reaproveitados
+                    e encontrados no lixo.
+                </p>
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/arranging-things/arranging-things-02.png"
+                    alt="arranging things"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- imagens 03 + 04 -->
+
+        <section class="projeto-bloco bloco-03">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/arranging-things/arranging-things-03.png"
+                    alt="arranging things"
+                >
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/arranging-things/arranging-things-04.png"
+                    alt="arranging things"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- texto + imagem 05 -->
+
+        <section class="projeto-bloco bloco-04">
+
+            <div class="texto-projeto">
+
+                <p>
+                    desenhado a partir de diversos pdfs encontrados
+                    online, com o objetivo de suprir a falta de
+                    disponibilidade física do livro nacionalmente
+                    e driblar os altos preços do mercado de usados.
+                    <br><br>
+                    sobre como arranjar as coisas.
+                </p>
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/arranging-things/arranging-things-05.jpg"
+                    alt="arranging things"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- imagens 06 + 07 -->
+
+        <section class="projeto-bloco bloco-05">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/arranging-things/arranging-things-06.jpg"
+                    alt="arranging things"
+                >
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/arranging-things/arranging-things-07.jpg"
+                    alt="arranging things"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- imagens 08 + 09 -->
+
+        <section class="projeto-bloco bloco-06">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/arranging-things/arranging-things-08.jpg"
+                    alt="arranging things"
+                >
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/arranging-things/arranging-things-09.jpg"
+                    alt="arranging things"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- rodapé -->
+
+        <footer class="projeto-footer">
+
+            <span>® ATELIÊ OPUS ALL RIGHTS RESERVED</span>
+
+        </footer>
+
+
+    </main>
+
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            if (cursor) {
+
+                cursor.style.left = event.clientX + 'px';
+                cursor.style.top = event.clientY + 'px';
+
+            }
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (cursor) {
+
+                if (elemento) {
+
+                    cursor.classList.add('clicavel');
+
+                } else {
+
+                    cursor.classList.remove('clicavel');
+
+                }
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>
 

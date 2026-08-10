@@ -25,7 +25,7 @@
         </a>
 
         <div class="projeto-categoria">
-            etc.
+            editorial de moda
         </div>
 
     </header>
@@ -61,9 +61,47 @@
         </section>
 
 
-        <!-- imagem 02 -->
+        <!-- textos -->
 
         <section class="projeto-bloco bloco-02">
+
+            <div class="texto-projeto">
+
+                <p>
+                    O NOVO RIO é uma publicação internacional em formato
+                    de photo zine. ao longo de sete anos, o fotógrafo
+                    norte-irlandês Willian Rice registrou diferentes
+                    aspectos da cultura queer no Rio de Janeiro, com
+                    jovens capturados em momentos de êxtase, intimidade
+                    e beleza.
+                </p>
+
+            </div>
+
+
+            <div class="texto-projeto">
+
+                <p>
+                    no contexto da publicação, Bruno e Cristian foram
+                    fotografados na Barra de Guaratiba com a calça
+                    Op.1 No.1. Rice colaborou neste ensaio com a stylist
+                    Rafaela Pinah, que trabalhou as roupas para criar
+                    narrativas inspiradas pelo folclore brasileiro e
+                    pela cultura carioca.
+                </p>
+
+                <p>
+                    zine disponível na Dover Street Market London.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- imagem 02 -->
+
+        <section class="projeto-bloco bloco-03">
 
             <div class="midia-projeto">
 
@@ -79,7 +117,7 @@
 
         <!-- vídeo 01 -->
 
-        <section class="projeto-bloco bloco-03">
+        <section class="projeto-bloco bloco-04">
 
             <div class="midia-projeto video-projeto">
 
@@ -89,7 +127,6 @@
                     loop
                     playsinline
                     preload="metadata"
-                    class="video-com-som"
                 >
 
                     <source
@@ -106,7 +143,7 @@
 
         <!-- vídeo 02 -->
 
-        <section class="projeto-bloco bloco-04">
+        <section class="projeto-bloco bloco-05">
 
             <div class="midia-projeto video-projeto">
 
@@ -131,7 +168,96 @@
         </section>
 
 
-        <!-- rodapé -->
+        <!-- ficha técnica -->
+
+        <section class="ficha-tecnica">
+
+            <h2>team</h2>
+
+
+            <div class="creditos">
+
+
+                <div class="credito">
+
+                    <h3>styling</h3>
+
+                    <p>@rafaelapinah</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>styling ass</h3>
+
+                    <p>@vitu_</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>photography</h3>
+
+                    <p>@williamricestudio</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>assistant producer</h3>
+
+                    <p>@rodyoli</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>hmu</h3>
+
+                    <p>@by.syloliveira</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>model</h3>
+
+                    <p>@cristiansanntos @criolofino</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>para ver mais</h3>
+
+                    <p>creative review</p>
+                    <p>
+                        https://www.creativereview.co.uk/william-rice-o-novo-rio/
+                    </p>
+
+                    <p>dazed</p>
+                    <p>
+                        https://www.dazeddigital.com/art-photography/article/61948/1/o-novo-rio-william-rice-queer-youth-culture-zine-photographs
+                    </p>
+
+                    <p>the guardian</p>
+                    <p>
+                        https://www.theguardian.com/world/gallery/2024/feb/20/the-new-rio-queer-communities-under-jair-bolsonaro-in-pictures
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
 
         <footer class="projeto-footer">
 
@@ -184,7 +310,6 @@
                 rastro.classList.add('cursor-rastro');
 
                 rastro.style.left = event.clientX + 'px';
-
                 rastro.style.top = event.clientY + 'px';
 
                 document.body.appendChild(rastro);
@@ -201,22 +326,19 @@
         });
 
 
-        /* -------------------------------------------------
-           VÍDEOS
-           começam mudos e ativam/desativam o som ao clicar
-           ------------------------------------------------- */
+        /* vídeo 2 inicia sem som e ativa/desativa o som ao clicar */
 
-        const videosComSom = document.querySelectorAll('.video-com-som');
+        const videoComSom = document.querySelector('.video-com-som');
 
-        videosComSom.forEach(function(video) {
+        if (videoComSom) {
 
-            video.addEventListener('click', function() {
+            videoComSom.addEventListener('click', function() {
 
-                video.muted = !video.muted;
+                videoComSom.muted = !videoComSom.muted;
 
             });
 
-        });
+        }
 
     </script>
 

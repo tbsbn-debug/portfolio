@@ -127,7 +127,13 @@
         <div class="midia-projeto video-projeto">
 
 
-<video autoplay muted loop playsinline class="video-com-som">
+<video
+    autoplay
+    muted
+    loop
+    playsinline
+    class="video-com-som"
+>
     
                 <source
                     src="imagens/projetos/ways-of-not-seeing/ways-of-not-seeing-02.mp4"
@@ -322,26 +328,30 @@
 
 </script>
 ```
+<script>
+document.addEventListener('DOMContentLoaded', function () {
 
-</body>
-    
-    <script>
+    const videoComSom = document.querySelector('.video-com-som');
 
-const videoComSom = document.querySelector('.video-com-som');
+    if (!videoComSom) return;
 
-if (videoComSom) {
+    videoComSom.muted = true;
 
-    videoComSom.addEventListener('click', function() {
+    videoComSom.addEventListener('click', function () {
 
-        if (videoComSom.muted) {
+        videoComSom.muted = !videoComSom.muted;
 
-            videoComSom.muted = false;
-
-        } else {
-
-            videoComSom.muted = true;
-
+        if (!videoComSom.muted) {
+            videoComSom.volume = 1;
+            videoComSom.play();
         }
+
+    });
+
+});
+</script>
+    
+</body>
 
     });
 

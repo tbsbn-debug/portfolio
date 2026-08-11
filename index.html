@@ -123,7 +123,109 @@
         });
 
     </script>
+<script>
+const canvas = document.getElementById("cursor-pincel");
+const ctx = canvas.getContext("2d");
 
+let desenhando = false;
+let ultimoX = 0;
+let ultimoY = 0;
+
+function ajustarCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+ajustarCanvas();
+window.addEventListener("resize", ajustarCanvas);
+
+
+document.addEventListener("mousedown", function(event) {
+
+    if (event.button !== 0) return;
+
+    const elemento = event.target;
+
+    if (
+        elemento.closest("a") ||
+        elemento.closest("button") ||
+        elemento.closest("img") ||
+        elemento.closest("input") ||
+        elemento.closest("textarea") ||
+        elemento.closest("select")
+    ) {
+        return;
+    }
+
+    desenhando = true;
+
+    ultimoX = event.clientX;
+    ultimoY = event.clientY;
+
+    ctx.beginPath();
+    ctx.moveTo(ultimoX, ultimoY);
+});
+
+
+document.addEventListener("mousemove", function(event) {
+
+    if (!desenhando) return;
+
+    const x = event.clientX;
+    const y = event.clientY;
+
+    ctx.beginPath();
+    ctx.moveTo(ultimoX, ultimoY);
+    ctx.lineTo(x, y);
+
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "#f5d000";
+    ctx.globalAlpha = 1;
+
+    ctx.stroke();
+
+    ultimoX = x;
+    ultimoY = y;
+});
+
+
+document.addEventListener("mouseup", function(event) {
+
+    if (event.button !== 0) return;
+
+    desenhando = false;
+
+    ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
+});
+
+
+document.addEventListener("mouseleave", function() {
+
+    desenhando = false;
+
+    ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
+});
+</script>
+    
 </body>
 
 </html>

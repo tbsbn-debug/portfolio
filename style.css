@@ -678,10 +678,15 @@ section {
 /* centralização dos títulos */
 
 .galeria-projetos .projeto-hover a {
-    display: block;
+    display: flex;
 
-    width: 80%;
-    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
 
     color: #111111;
     text-decoration: none;
@@ -691,6 +696,16 @@ section {
     line-height: 1.25;
 
     text-align: center;
+
+    cursor: pointer;
+}
+
+.galeria-projetos .projeto-hover a:visited,
+.galeria-projetos .projeto-hover a:hover,
+.galeria-projetos .projeto-hover a:active {
+    color: #111111;
+    text-decoration: none;
+}
 }
 /* =========================================================
    OPUS — PÁGINA INDIVIDUAL DE PROJETO

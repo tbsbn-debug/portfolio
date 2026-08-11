@@ -395,36 +395,71 @@
 
     </script>
 
-<script>
+/* =========================================================
+   PROJETOS — ÁREA INTEIRA DO QUADRADO CLICÁVEL
+   ========================================================= */
 
-    document.querySelectorAll('.projeto').forEach(function(projeto) {
-
-        projeto.addEventListener('click', function(event) {
-
-            /*
-             * se o clique já foi diretamente no link,
-             * deixamos o comportamento normal do navegador acontecer
-             */
-
-            if (event.target.closest('a')) {
-                return;
-            }
+.projeto {
+    position: relative;
+    cursor: pointer;
+}
 
 
-            /*
-             * se clicou em qualquer outra parte do quadrado,
-             * encontra o link correspondente e abre a página
-             */
+/*
+   o link continua sendo o texto visual,
+   mas recebe uma camada invisível sobre todo o quadrado.
+*/
 
-            const link = projeto.querySelector('.projeto-hover a');
+.projeto-hover {
+    position: absolute !important;
 
-            if (link) {
+    inset: 0 !important;
 
-                window.location.href = link.href;
+    width: 100% !important;
+    height: 100% !important;
 
-            }
+    z-index: 20 !important;
 
-</script>
+    cursor: pointer;
+}
+
+
+/*
+   preserva o posicionamento e a aparência
+   do título dentro do quadrado.
+*/
+
+.projeto-hover a {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: inherit;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+
+/*
+   evita que a camada altere a aparência
+   original do quadrado.
+*/
+
+.projeto-hover a:hover,
+.projeto-hover a:visited,
+.projeto-hover a:active {
+    color: inherit;
+    text-decoration: none;
+}
 
 </body>
 

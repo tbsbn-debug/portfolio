@@ -171,53 +171,55 @@
 </main>
 
 
-<script>
+ <script>
 
-    window.addEventListener('mousemove', function(event) {
+        window.addEventListener('mousemove', function(event) {
 
-        const cursor = document.querySelector('.cursor');
+            const cursor = document.querySelector('.cursor');
 
-        cursor.style.left = event.clientX + 'px';
-        cursor.style.top = event.clientY + 'px';
-
-
-        const elemento = event.target.closest(
-            'a, button, [role="button"]'
-        );
+            cursor.style.left = event.clientX + 'px';
+            cursor.style.top = event.clientY + 'px';
 
 
-        if (elemento) {
-
-            cursor.classList.add('clicavel');
-
-        } else {
-
-            cursor.classList.remove('clicavel');
-
-        }
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
 
 
-        if (!elemento) {
+            if (elemento) {
 
-            const rastro = document.createElement('div');
+                cursor.classList.add('clicavel');
 
-            rastro.classList.add('cursor-rastro');
+            } else {
 
-            rastro.style.left = event.clientX + 'px';
-            rastro.style.top = event.clientY + 'px';
+                cursor.classList.remove('clicavel');
 
-            document.body.appendChild(rastro);
+            }
 
 
-            setTimeout(function() {
+            if (!elemento) {
 
-                rastro.remove();
+                const rastro = document.createElement('div');
 
-            }, 1000);
+                rastro.classList.add('cursor-rastro');
 
-        }
+                rastro.style.left = event.clientX + 'px';
+                rastro.style.top = event.clientY + 'px';
 
-</script>
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
 
 
 </body>

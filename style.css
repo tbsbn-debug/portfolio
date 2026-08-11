@@ -1737,3 +1737,15 @@ height: auto;
     margin-top: 70px;
     margin-bottom: 10px;
 }
+
+html,
+body {
+    cursor: none;
+}
+html,
+body,
+a,
+button,
+img {
+    cursor: none;
+}

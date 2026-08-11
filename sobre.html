@@ -1,0 +1,269 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>opus</title>
+
+<link rel="stylesheet" href="style.css">
+
+<div class="cursor"></div>
+
+<header class="cabecalho-projetos">
+
+```
+<a href="index.html" class="logo-projetos">
+
+    <img
+        src="imagens/simbolo-opus.png"
+        alt="opus"
+    >
+
+</a>
+
+
+<nav class="menu-principal">
+
+    <a href="roupas.html">
+        roupas
+    </a>
+
+
+    <div class="menu-projetos">
+
+        <a href="projetos.html" class="projetos-link">
+            projetos
+        </a>
+
+
+        <div class="subcategorias">
+
+            <a href="editorial-de-moda.html">
+                editorial de moda
+            </a>
+
+            <a href="design-grafico.html">
+                design gráfico
+            </a>
+
+            <a href="objetos.html">
+                objetos
+            </a>
+
+            <a href="texteis.html">
+                têxteis
+            </a>
+
+            <a href="etc.html">
+                etc.
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <a href="textos.html">
+        textos
+    </a>
+
+    <a href="pesquisa.html">
+        pesquisa
+    </a>
+
+    <a href="sobre.html">
+        sobre
+    </a>
+
+    <a href="contato.html">
+        contato
+    </a>
+
+</nav>
+```
+
+</header>
+
+<main>
+
+```
+<div class="texto-contato">
+
+
+    <p class="abertura-contato">
+        opus é um ateliê de design e pesquisa<br>
+        fundado por Breno Samel e Teo Bressane-Sabadin<br>
+        no Rio de Janeiro, Brasil.
+    </p>
+
+
+    <p>
+        as formações da dupla passam por<br>
+        ciências sociais, arquitetura, cinema e design com ênfase em moda,<br>
+        o que culmina em um transbordamento entre disciplinas<br>
+        e nas vontades multidisciplinares do ateliê.
+    </p>
+
+
+    <p>
+        as práticas desenvolvidas transitam entre roupa, objeto, imagem,<br>
+        matérias-primas brutas como metal e madeira, processos de tecelagem manual,<br>
+        técnicas de tingimento natural, reaproveitamento de tecidos<br>
+        de descarte industrial, pesquisas da cultura material brasileira,<br>
+        processos artesanais, linguagem visual e experimentação formal.
+    </p>
+
+
+    <p>
+        cada projeto encontra seus próprios suportes,<br>
+        técnicas e modos de fazer.
+    </p>
+
+
+    <p>
+        uma roupa pode começar como imagem.<br>
+        uma imagem pode virar objeto.<br>
+        um objeto pode virar roupa.<br>
+        uma pesquisa pode virar qualquer coisa.
+    </p>
+
+
+    <p>
+        entre uma disciplina e outra, existe um espaço de experimentação<br>
+        que interessa esmiuçar. como em um laboratório, investiga-se<br>
+        o que resulta quando matérias, técnicas e ideias são colocadas em relação.
+    </p>
+
+
+    <p>
+        há uma atenção ao detalhe e à primazia da concepção à execução<br>
+        de cada peça trabalhada pelo ateliê. como em uma ópera, busca-se<br>
+        o conjunto unitário da construção, considerando todas as facetas<br>
+        que compõem cada projeto. a tal Gesamtkunstwerk.
+    </p>
+
+
+    <p>
+        se ópera é o todo, opus é seu singular, indivisível:<br>
+        o átomo do trabalho.
+    </p>
+
+
+    <p>
+        no caso das roupas, há uma perseguição ao seu lado íntimo:<br>
+        acabamentos internos, forros, etiquetas e tudo aquilo<br>
+        que normalmente permanece escondido. diz o outro que toda roupa bem feita poderia ser utilizada ao avesso.
+    </p>
+
+
+    <p>
+        o ateliê reconhece o veganismo como uma luta social coletiva<br>
+        e mantém uma pesquisa contínua por alternativas materiais<br>
+        de origem vegetal, fúngica e sintética.
+    </p>
+
+
+    <p>
+        em projetos nos quais fibras de origem animal ainda apresentam<br>
+        propriedades mais adequadas ao resultado pretendido,<br>
+        são utilizados exclusivamente materiais provenientes<br>
+        de descarte industrial ou doações. o contato do ateliê<br>
+        com matérias de origem animal limita-se a itens de segunda mão.
+    </p>
+
+
+    <p>
+        existe um esforço em aproximar o vocabulário da pesquisa acadêmica<br>
+        dos mercados da moda e do design e, também, do público mais amplo.
+    </p>
+
+
+    <p>
+        conceitos, métodos e debates que circulam nas comunidades<br>
+        de pesquisa podem também fazer parte da criação,<br>
+        da produção e do consumo.
+    </p>
+
+
+    <p>
+        a seção Pesquisa reúne textos do ateliê e de colaboradores<br>
+        e funciona como um espaço aberto de estudo, leitura e troca.
+    </p>
+
+
+    <p>
+        é um espaço vivo, como também é o processo de design,<br>
+        que muda conforme novas questões aparecem.
+    </p>
+
+
+    <p>
+        hábitos produzem novos objetos.<br>
+        objetos produzem novos humanos.<br>
+        humanos produzem novos hábitos.
+    </p>
+
+
+    <p>
+        o design é, então, a forma como reorganizamos as coisas<br>
+        nesse processo.
+    </p>
+
+
+    <p>
+        ateliê opus.
+    </p>
+
+
+</div>
+```
+
+</main>
+
+<script>
+
+    window.addEventListener('mousemove', function(event) {
+
+        const cursor = document.querySelector('.cursor');
+
+        cursor.style.left = event.clientX + 'px';
+        cursor.style.top = event.clientY + 'px';
+
+
+        const elemento = event.target.closest(
+            'a, button, [role="button"]'
+        );
+
+
+        if (elemento) {
+
+            cursor.classList.add('clicavel');
+
+        } else {
+
+            cursor.classList.remove('clicavel');
+
+        }
+
+
+        if (!elemento) {
+
+            const rastro = document.createElement('div');
+
+            rastro.classList.add('cursor-rastro');
+
+            rastro.style.left = event.clientX + 'px';
+            rastro.style.top = event.clientY + 'px';
+
+            document.body.appendChild(rastro);
+
+
+            setTimeout(function() {
+
+                rastro.remove();
+
+            }, 1000);
+
+        }
+
+    });
+
+</script>

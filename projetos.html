@@ -395,6 +395,36 @@
 
     </script>
 
+<script>
+
+    document.querySelectorAll('.projeto').forEach(function(projeto) {
+
+        projeto.addEventListener('click', function(event) {
+
+            /*
+             * se o clique já foi diretamente no link,
+             * deixamos o comportamento normal do navegador acontecer
+             */
+
+            if (event.target.closest('a')) {
+                return;
+            }
+
+
+            /*
+             * se clicou em qualquer outra parte do quadrado,
+             * encontra o link correspondente e abre a página
+             */
+
+            const link = projeto.querySelector('.projeto-hover a');
+
+            if (link) {
+
+                window.location.href = link.href;
+
+            }
+
+</script>
 
 </body>
 

@@ -210,115 +210,122 @@
         }
 
 
-        /* =====================================================
-           IMAGENS 11–15
-           GRID FINAL
-           
-           IMPORTANTE:
-           estas imagens NÃO são absolute.
-           elas ocupam espaço real no fluxo da página.
-           ===================================================== */
+/* =====================================================
+   TEXTO FINAL
+   ===================================================== */
 
-        .texteis-composicao-final {
-            width: 100%;
+.texteis-texto-final {
+    width: 100%;
 
-            display: grid;
+    display: flex;
+    justify-content: flex-end;
 
-            grid-template-columns:
-                repeat(12, minmax(0, 1fr));
+    margin-top: 160px;
+    margin-bottom: 100px;
 
-            grid-auto-rows: auto;
+    padding-right: 160px;
 
-            column-gap: 30px;
-            row-gap: 180px;
+    box-sizing: border-box;
+}
 
-            margin-top: 180px;
-
-            padding: 0 60px 180px;
-
-            box-sizing: border-box;
-        }
+.texteis-texto-final .texto-projeto {
+    width: 280px;
+    max-width: 280px;
+}
 
 
-        .texteis-composicao-final .midia-projeto {
-            position: relative;
+/* =====================================================
+   IMAGENS 11–15
+   COMPOSIÇÃO FINAL
+   ===================================================== */
 
-            width: 260px;
-            max-width: 260px;
+.texteis-composicao-final {
+    width: 100%;
 
-            margin: 0;
-        }
+    display: grid;
 
-        .texteis-composicao-final img {
-            display: block;
+    grid-template-columns:
+        repeat(12, minmax(0, 1fr));
 
-            width: 100%;
-            height: auto;
-        }
+    grid-template-rows:
+        auto auto;
 
+    column-gap: 30px;
+    row-gap: 80px;
 
-        /* -----------------------------------------------------
-           POSIÇÕES DO GRID FINAL
-           ----------------------------------------------------- */
+    margin-top: 0;
 
-        .texteis-11 {
-            grid-column: 1 / span 3;
-            grid-row: 1;
+    padding: 0 60px 120px;
 
-            justify-self: start;
-        }
-
-        .texteis-12 {
-            grid-column: 9 / span 3;
-            grid-row: 2;
-
-            justify-self: end;
-        }
-
-        .texteis-13 {
-            grid-column: 4 / span 3;
-            grid-row: 3;
-
-            justify-self: center;
-        }
-
-        .texteis-14 {
-            grid-column: 8 / span 3;
-            grid-row: 4;
-
-            justify-self: center;
-        }
-
-        .texteis-15 {
-            grid-column: 2 / span 3;
-            grid-row: 5;
-
-            justify-self: start;
-        }
+    box-sizing: border-box;
+}
 
 
-        /* =====================================================
-           TEXTO FINAL
-           ===================================================== */
+.texteis-composicao-final .midia-projeto {
+    position: relative;
 
-        .texteis-texto-final {
-            width: 100%;
+    width: 260px;
+    max-width: 260px;
 
-            display: flex;
-            justify-content: flex-end;
+    margin: 0;
+}
 
-            margin-top: 80px;
+.texteis-composicao-final img {
+    display: block;
 
-            padding-right: 160px;
+    width: 100%;
+    height: auto;
+}
 
-            box-sizing: border-box;
-        }
 
-        .texteis-texto-final .texto-projeto {
-            width: 280px;
-            max-width: 280px;
-        }
+/* -----------------------------------------------------
+   PRIMEIRA LINHA
+   ----------------------------------------------------- */
 
+.texteis-11 {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+
+    justify-self: start;
+}
+
+.texteis-12 {
+    grid-column: 9 / span 3;
+    grid-row: 1;
+
+    justify-self: end;
+}
+
+
+/* -----------------------------------------------------
+   SEGUNDA LINHA
+   ----------------------------------------------------- */
+
+.texteis-13 {
+    grid-column: 4 / span 3;
+    grid-row: 2;
+
+    justify-self: center;
+}
+
+.texteis-14 {
+    grid-column: 8 / span 3;
+    grid-row: 2;
+
+    justify-self: center;
+}
+
+
+/* -----------------------------------------------------
+   TERCEIRA IMAGEM — ainda dentro da composição
+   ----------------------------------------------------- */
+
+.texteis-15 {
+    grid-column: 2 / span 3;
+    grid-row: 3;
+
+    justify-self: start;
+}
 
         /* =====================================================
            RODAPÉ
@@ -899,93 +906,90 @@
         </section>
 
 
-        <!-- =================================================
-             IMAGENS 11–15
-             ================================================= -->
+   <!-- =================================================
+     TEXTO FINAL
+     ================================================= -->
 
-        <section class="texteis-composicao-final">
+<section class="texteis-texto-final">
 
+    <div class="texto-projeto">
 
-            <div class="midia-projeto texteis-11">
+        <p>
+            cada têxtil é resultado de uma pesquisa individual
+            e será sempre uma peça única, não replicável
+            futuramente.
+        </p>
 
-                <img
-                    src="imagens/projetos/texteis/texteis-11.jpeg"
-                    alt="têxteis — 11"
-                >
+        <br><br><br><br>
 
-            </div>
+        <p>
+            sob encomenda.
+        </p>
 
+    </div>
 
-            <div class="midia-projeto texteis-12">
-
-                <img
-                    src="imagens/projetos/texteis/texteis-12.jpeg"
-                    alt="têxteis — 12"
-                >
-
-            </div>
+</section>
 
 
-            <div class="midia-projeto texteis-13">
+<!-- =================================================
+     IMAGENS 11–15
+     COMPOSIÇÃO FINAL
+     ================================================= -->
 
-                <img
-                    src="imagens/projetos/texteis/texteis-13.jpeg"
-                    alt="têxteis — 13"
-                >
-
-            </div>
+<section class="texteis-composicao-final">
 
 
-            <div class="midia-projeto texteis-14">
+    <div class="midia-projeto texteis-11">
 
-                <img
-                    src="imagens/projetos/texteis/texteis-14.jpeg"
-                    alt="têxteis — 14"
-                >
+        <img
+            src="imagens/projetos/texteis/texteis-11.jpeg"
+            alt="têxteis — 11"
+        >
 
-            </div>
-
-
-            <div class="midia-projeto texteis-15">
-
-                <img
-                    src="imagens/projetos/texteis/texteis-15.jpeg"
-                    alt="têxteis — 15"
-                >
-
-            </div>
+    </div>
 
 
-        </section>
+    <div class="midia-projeto texteis-12">
+
+        <img
+            src="imagens/projetos/texteis/texteis-12.jpeg"
+            alt="têxteis — 12"
+        >
+
+    </div>
 
 
-        <!-- =================================================
-             TEXTO FINAL
-             ================================================= -->
+    <div class="midia-projeto texteis-13">
 
-        <section class="texteis-texto-final">
+        <img
+            src="imagens/projetos/texteis/texteis-13.jpeg"
+            alt="têxteis — 13"
+        >
 
-
-            <div class="texto-projeto">
-
-                <p>
-                    cada têxtil é resultado de uma pesquisa individual
-                    e será sempre uma peça única, não replicável
-                    futuramente.
-                </p>
+    </div>
 
 
-                <br><br><br><br>
+    <div class="midia-projeto texteis-14">
+
+        <img
+            src="imagens/projetos/texteis/texteis-14.jpeg"
+            alt="têxteis — 14"
+        >
+
+    </div>
 
 
-                <p>
-                    sob encomenda.
-                </p>
+    <div class="midia-projeto texteis-15">
 
-            </div>
+        <img
+            src="imagens/projetos/texteis/texteis-15.jpeg"
+            alt="têxteis — 15"
+        >
+
+    </div>
 
 
-        </section>
+</section>
 
 
         <!-- =================================================

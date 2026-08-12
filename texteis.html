@@ -13,139 +13,221 @@
     <style>
 
         /* =====================================================
-           TÊXTEIS — CARROSSÉIS
+           TÊXTEIS — NOVA COMPOSIÇÃO
            ===================================================== */
 
-        .carrossel-texteis {
-            position: relative;
 
-            width: 210px;
-            max-width: 210px;
+        /* -----------------------------------------------------
+           BASE DA PÁGINA
+           ----------------------------------------------------- */
 
-            margin: 0;
+        .pagina-projeto {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-bottom: 0;
         }
 
 
         /* -----------------------------------------------------
-           POSIÇÃO DO PRIMEIRO CARROSSEL — 02–06
+           TÍTULO
            ----------------------------------------------------- */
 
-        .carrossel-01 {
-            margin-top: 130px;
-            margin-left: 18%;
-        }
-
-
-        /* -----------------------------------------------------
-           POSIÇÃO DO SEGUNDO CARROSSEL — 07–09
-           ----------------------------------------------------- */
-
-        .carrossel-02 {
-            margin-top: 170px;
-            margin-left: 58%;
-        }
-
-
-        /* -----------------------------------------------------
-           ÁREA DO CARROSSEL
-           ----------------------------------------------------- */
-
-        .carrossel-viewport {
-            position: relative;
-
-            width: 100%;
-
-            overflow: hidden;
-        }
-
-        .carrossel-track {
-            display: flex;
-
-            width: 100%;
-
-            transition: transform 0.45s ease;
-        }
-
-        .carrossel-slide {
-            flex: 0 0 100%;
-
-            width: 100%;
-        }
-
-        .carrossel-slide img {
-            display: block;
-
-            width: 100%;
-            height: auto;
-
-            margin: 0;
-        }
-
-
-        /* -----------------------------------------------------
-           SETAS
-           ----------------------------------------------------- */
-
-        .carrossel-seta {
-            position: absolute;
-
-            top: 50%;
-            z-index: 5;
-
-            transform: translateY(-50%);
-
-            width: 30px;
-            height: 30px;
-
-            border: 0;
-            padding: 0;
-
-            background: transparent;
-
-            font-family: monospace;
-            font-size: 16px;
-            font-weight: normal;
-
-            color: #111111;
-
-            cursor: pointer;
-        }
-
-        .carrossel-seta-esquerda {
-            left: -38px;
-        }
-
-        .carrossel-seta-direita {
-            right: -38px;
+        .projeto-titulo {
+            margin-bottom: 70px;
         }
 
 
         /* =====================================================
-           IMAGENS 10–15
+           IMAGEM 01 — ABERTURA
            ===================================================== */
 
-        .texteis-dispersos {
+        .texteis-abertura {
+            width: 100%;
+
+            display: flex;
+            justify-content: flex-end;
+
+            margin: 0;
+        }
+
+        .texteis-abertura .midia-projeto {
+            width: 720px;
+            max-width: 720px;
+        }
+
+        .texteis-abertura img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+
+        /* =====================================================
+           TEXTO 01 — DUAS COLUNAS
+           ===================================================== */
+
+        .texteis-introducao {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                minmax(0, 1fr);
+
+            column-gap: 100px;
+
+            margin-top: 110px;
+            padding-left: 60px;
+            padding-right: 160px;
+        }
+
+        .texteis-introducao .texto-projeto {
+            width: auto;
+            max-width: 300px;
+        }
+
+
+        /* =====================================================
+           IMAGENS 02–06
+           FAIXA HORIZONTAL
+           ===================================================== */
+
+        .texteis-faixa {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, minmax(0, 1fr));
+
+            gap: 28px;
+
+            margin-top: 150px;
+            padding: 0 20px;
+        }
+
+        .texteis-faixa .midia-projeto {
+            width: 100%;
+        }
+
+        .texteis-faixa img {
+            display: block;
+
+            width: 100%;
+            height: auto;
+        }
+
+
+        /* =====================================================
+           TEXTO DE PROCESSO
+           ===================================================== */
+
+        .texteis-processo {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            column-gap: 100px;
+
+            margin-top: 170px;
+
+            padding-left: 60px;
+        }
+
+        .texteis-processo .texto-projeto {
+            width: 280px;
+            max-width: 280px;
+        }
+
+
+        /* =====================================================
+           IMAGEM 10
+           RELACIONADA AO PROCESSO
+           ===================================================== */
+
+        .texteis-processo-imagem {
+            display: flex;
+
+            justify-content: flex-end;
+            align-items: flex-start;
+
+            padding-right: 160px;
+
+            margin-top: -30px;
+        }
+
+        .texteis-processo-imagem .midia-projeto {
+            width: 300px;
+            max-width: 300px;
+        }
+
+        .texteis-processo-imagem img {
+            display: block;
+
+            width: 100%;
+            height: auto;
+        }
+
+
+        /* =====================================================
+           IMAGENS 07–09
+           GRID
+           ===================================================== */
+
+        .texteis-grid {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 45px;
+
+            margin-top: 170px;
+
+            padding: 0 100px;
+        }
+
+        .texteis-grid .midia-projeto {
+            width: 100%;
+        }
+
+        .texteis-grid img {
+            display: block;
+
+            width: 100%;
+            height: auto;
+        }
+
+
+        /* =====================================================
+           IMAGENS 11–15
+           COMPOSIÇÃO FINAL
+           ===================================================== */
+
+        .texteis-composicao-final {
             position: relative;
 
             width: 100%;
 
-            /*
-             * altura real da composição.
-             * impede que o rodapé entre antes da última imagem.
-             */
-            height: 1450px;
+            min-height: 1500px;
 
             margin-top: 180px;
-            margin-bottom: 180px;
         }
 
-        .texteis-dispersos .midia-projeto {
+        .texteis-composicao-final .midia-projeto {
             position: absolute;
 
-            width: 210px;
+            width: 260px;
         }
 
-        .texteis-dispersos img {
+        .texteis-composicao-final img {
             display: block;
 
             width: 100%;
@@ -154,37 +236,32 @@
 
 
         /* -----------------------------------------------------
-           POSIÇÕES DAS IMAGENS DISPERSAS
+           POSIÇÕES
            ----------------------------------------------------- */
 
-        .texteis-10 {
-            top: -440px;
+        .texteis-11 {
+            top: 0;
             left: 8%;
         }
 
-        .texteis-11 {
-            top: 280px;
-            right: 12%;
-        }
-
         .texteis-12 {
-            top: 540px;
-            left: 30%;
+            top: 260px;
+            right: 10%;
         }
 
         .texteis-13 {
-            top: 790px;
-            right: 28%;
+            top: 570px;
+            left: 28%;
         }
 
         .texteis-14 {
-            top: 1010px;
-            left: 12%;
+            top: 850px;
+            right: 27%;
         }
 
         .texteis-15 {
-            top: 1180px;
-            right: 8%;
+            top: 1130px;
+            left: 9%;
         }
 
 
@@ -193,7 +270,18 @@
            ===================================================== */
 
         .texteis-texto-final {
-            margin-top: 0;
+            width: 100%;
+
+            display: flex;
+            justify-content: flex-end;
+
+            margin-top: 80px;
+            padding-right: 160px;
+        }
+
+        .texteis-texto-final .texto-projeto {
+            width: 280px;
+            max-width: 280px;
         }
 
 
@@ -206,7 +294,7 @@
 
             width: 100%;
 
-            margin-top: 150px;
+            margin-top: 180px;
             padding: 0 0 60px;
 
             text-align: center;
@@ -225,83 +313,159 @@
 
         @media (max-width: 700px) {
 
-            .carrossel-texteis {
-                width: 130px;
-                max-width: 130px;
+
+            /* título */
+
+            .projeto-titulo {
+                margin-bottom: 45px;
             }
 
 
-            .carrossel-01 {
+            /* imagem 01 */
+
+            .texteis-abertura {
+                justify-content: flex-end;
+            }
+
+            .texteis-abertura .midia-projeto {
+                width: 92%;
+                max-width: 92%;
+            }
+
+
+            /* introdução */
+
+            .texteis-introducao {
+                display: grid;
+
+                grid-template-columns:
+                    minmax(0, 1fr)
+                    minmax(0, 1fr);
+
+                column-gap: 30px;
+
+                margin-top: 70px;
+
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .texteis-introducao .texto-projeto {
+                width: auto;
+                max-width: none;
+            }
+
+
+            /* faixa 02–06 */
+
+            .texteis-faixa {
+                grid-template-columns:
+                    repeat(5, minmax(0, 1fr));
+
+                gap: 8px;
+
                 margin-top: 90px;
-                margin-left: 8%;
+
+                padding: 0 5px;
             }
 
 
-            .carrossel-02 {
-                margin-top: 110px;
-                margin-left: 52%;
-            }
+            /* processo */
 
+            .texteis-processo {
+                grid-template-columns:
+                    1fr 1fr;
 
-            .carrossel-seta {
-                width: 25px;
-                height: 25px;
-
-                font-size: 14px;
-            }
-
-            .carrossel-seta-esquerda {
-                left: -28px;
-            }
-
-            .carrossel-seta-direita {
-                right: -28px;
-            }
-
-
-            .texteis-dispersos {
-                height: 1200px;
+                column-gap: 30px;
 
                 margin-top: 100px;
-                margin-bottom: 120px;
+
+                padding-left: 0;
+            }
+
+            .texteis-processo .texto-projeto {
+                width: auto;
+                max-width: none;
             }
 
 
-            .texteis-dispersos .midia-projeto {
-                width: 130px;
+            /* imagem 10 */
+
+            .texteis-processo-imagem {
+                padding-right: 0;
+                margin-top: 0;
+            }
+
+            .texteis-processo-imagem .midia-projeto {
+                width: 100%;
+                max-width: 100%;
             }
 
 
-            .texteis-10 {
-                top: 20px;
-                left: 4%;
+            /* grid 07–09 */
+
+            .texteis-grid {
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+
+                gap: 12px;
+
+                margin-top: 100px;
+
+                padding: 0 5px;
+            }
+
+
+            /* composição 11–15 */
+
+            .texteis-composicao-final {
+                min-height: 1000px;
+
+                margin-top: 100px;
+            }
+
+            .texteis-composicao-final .midia-projeto {
+                width: 135px;
             }
 
             .texteis-11 {
-                top: 190px;
-                right: 4%;
+                top: 0;
+                left: 3%;
             }
 
             .texteis-12 {
-                top: 390px;
-                left: 22%;
-            }
-
-            .texteis-13 {
-                top: 590px;
-                right: 15%;
-            }
-
-            .texteis-14 {
-                top: 800px;
-                left: 4%;
-            }
-
-            .texteis-15 {
-                top: 980px;
+                top: 180px;
                 right: 3%;
             }
 
+            .texteis-13 {
+                top: 390px;
+                left: 25%;
+            }
+
+            .texteis-14 {
+                top: 600px;
+                right: 18%;
+            }
+
+            .texteis-15 {
+                top: 800px;
+                left: 5%;
+            }
+
+
+            /* texto final */
+
+            .texteis-texto-final {
+                justify-content: flex-start;
+
+                margin-top: 60px;
+
+                padding-right: 0;
+            }
+
+
+            /* rodapé */
 
             .rodape-projeto {
                 margin-top: 100px;
@@ -320,7 +484,11 @@
     <div class="cursor"></div>
 
 
-  <header class="cabecalho-projetos">
+    <!-- =====================================================
+         HEADER — MANTIDO IDÊNTICO
+         ===================================================== -->
+
+    <header class="cabecalho-projetos">
 
 
         <a href="index.html" class="logo-projetos">
@@ -331,31 +499,64 @@
             >
 
         </a>
-  <nav class="menu-principal">
 
-            <a href="roupas.html">roupas</a>
 
-          <div class="menu-projetos">
+        <nav class="menu-principal">
 
-    <a href="projetos.html" class="projetos-link">
-        projetos
-    </a>
+            <a href="roupas.html">
+                roupas
+            </a>
 
-    <div class="subcategorias">
-                    <a href="editorial-de-moda.html">editorial de moda</a>
-                    <a href="design-grafico.html">design gráfico</a>
-                    <a href="objetos.html">objetos</a>
-                    <a href="texteis.html">têxteis</a>
-                    <a href="etc.html">etc.</a>
+
+            <div class="menu-projetos">
+
+                <a href="projetos.html" class="projetos-link">
+                    projetos
+                </a>
+
+
+                <div class="subcategorias">
+
+                    <a href="editorial-de-moda.html">
+                        editorial de moda
+                    </a>
+
+                    <a href="design-grafico.html">
+                        design gráfico
+                    </a>
+
+                    <a href="objetos.html">
+                        objetos
+                    </a>
+
+                    <a href="texteis.html">
+                        têxteis
+                    </a>
+
+                    <a href="etc.html">
+                        etc.
+                    </a>
 
                 </div>
 
             </div>
 
-            <a href="textos.html">textos</a>
-            <a href="pesquisa.html">pesquisa</a>
-            <a href="sobre.html">sobre</a>
-            <a href="contato.html">contato</a>
+
+            <a href="textos.html">
+                textos
+            </a>
+
+            <a href="pesquisa.html">
+                pesquisa
+            </a>
+
+            <a href="sobre.html">
+                sobre
+            </a>
+
+            <a href="contato.html">
+                contato
+            </a>
 
         </nav>
 
@@ -375,7 +576,7 @@
             </a>
 
             <a href="projetos.html">
-        <strong>têxteis</strong>
+                <strong>têxteis</strong>
             </a>
 
             <a href="etc.html">
@@ -383,6 +584,7 @@
             </a>
 
         </nav>
+
 
     </header>
 
@@ -402,38 +604,10 @@
 
 
         <!-- =================================================
-             TEXTO INTRODUTÓRIO
+             IMAGEM 01
              ================================================= -->
 
-        <section class="projeto-bloco bloco-01">
-
-            <div class="texto-projeto">
-
-                <p>
-                    a pesquisa têxtil do ateliê opus se expande ao fazer
-                    manual no tear como forma de investigação da matéria.
-                </p>
-<br><br>
-                <p>
-                    a tecelagem manual por vezes acompanha o processo de
-                    tingimento natural dos fios e amplia o escopo
-                    experimentação com as tramas. pigmentos provenientes
-                    de fontes naturais são utilizados para produzir cores
-                    com diferenças de intensidade de tonalidade ao longo
-                    do processo. a casca de cebola, por exemplo, é a fonte
-                    para os tons de bege, amarelo e laranja.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             IMAGEM 01 — ABERTURA GRANDE
-             ================================================= -->
-
-        <section class="projeto-bloco">
+        <section class="texteis-abertura">
 
             <div class="midia-projeto">
 
@@ -448,95 +622,106 @@
 
 
         <!-- =================================================
-             CARROSSEL 01 — IMAGENS 02–06
+             TEXTO INTRODUTÓRIO — DUAS COLUNAS
              ================================================= -->
 
-        <section class="carrossel-texteis carrossel-01">
+        <section class="texteis-introducao">
 
-            <div class="carrossel-viewport">
 
-                <div class="carrossel-track" id="carrossel-01">
+            <div class="texto-projeto">
 
-                    <div class="carrossel-slide">
-
-                        <img
-                            src="imagens/projetos/texteis/texteis-02.jpeg"
-                            alt="têxteis — 02"
-                        >
-
-                    </div>
-
-                    <div class="carrossel-slide">
-
-                        <img
-                            src="imagens/projetos/texteis/texteis-03.jpeg"
-                            alt="têxteis — 03"
-                        >
-
-                    </div>
-
-                    <div class="carrossel-slide">
-
-                        <img
-                            src="imagens/projetos/texteis/texteis-04.jpeg"
-                            alt="têxteis — 04"
-                        >
-
-                    </div>
-
-                    <div class="carrossel-slide">
-
-                        <img
-                            src="imagens/projetos/texteis/texteis-05.jpeg"
-                            alt="têxteis — 05"
-                        >
-
-                    </div>
-
-                    <div class="carrossel-slide">
-
-                        <img
-                            src="imagens/projetos/texteis/texteis-06.jpeg"
-                            alt="têxteis — 06"
-                        >
-
-                    </div>
-
-                </div>
+                <p>
+                    a pesquisa têxtil do ateliê opus se expande ao fazer
+                    manual no tear como forma de investigação da matéria.
+                </p>
 
             </div>
 
 
-            <button
-                class="carrossel-seta carrossel-seta-esquerda"
-                type="button"
-                aria-label="imagem anterior"
-                onclick="mudarCarrossel('carrossel-01', -1)"
-            >
-                ←
-            </button>
+            <div class="texto-projeto">
 
+                <p>
+                    a tecelagem manual por vezes acompanha o processo de
+                    tingimento natural dos fios e amplia o escopo
+                    experimentação com as tramas. pigmentos provenientes
+                    de fontes naturais são utilizados para produzir cores
+                    com diferenças de intensidade de tonalidade ao longo
+                    do processo. a casca de cebola, por exemplo, é a fonte
+                    para os tons de bege, amarelo e laranja.
+                </p>
 
-            <button
-                class="carrossel-seta carrossel-seta-direita"
-                type="button"
-                aria-label="próxima imagem"
-                onclick="mudarCarrossel('carrossel-01', 1)"
-            >
-                →
-            </button>
+            </div>
+
 
         </section>
 
 
         <!-- =================================================
-             TEXTO DE PROCESSO
+             IMAGENS 02–06 — FAIXA
              ================================================= -->
 
-        <section
-            class="projeto-bloco bloco-08"
-            style="margin-top: 180px;"
-        >
+        <section class="texteis-faixa">
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/texteis/texteis-02.jpeg"
+                    alt="têxteis — 02"
+                >
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/texteis/texteis-03.jpeg"
+                    alt="têxteis — 03"
+                >
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/texteis/texteis-04.jpeg"
+                    alt="têxteis — 04"
+                >
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/texteis/texteis-05.jpeg"
+                    alt="têxteis — 05"
+                >
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/texteis/texteis-06.jpeg"
+                    alt="têxteis — 06"
+                >
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PROCESSO
+             ================================================= -->
+
+        <section class="texteis-processo">
+
 
             <div class="texto-projeto">
 
@@ -550,87 +735,69 @@
 
             </div>
 
-        </section>
 
-        <!-- =================================================
-             CARROSSEL 02 — IMAGENS 07–09
-             ================================================= -->
+            <div class="texteis-processo-imagem">
 
-        <section class="carrossel-texteis carrossel-02">
+                <div class="midia-projeto">
 
-            <div class="carrossel-viewport">
-
-                <div class="carrossel-track" id="carrossel-02">
-
-                    <div class="carrossel-slide">
-
-                        <img
-                            src="imagens/projetos/texteis/texteis-07.jpeg"
-                            alt="têxteis — 07"
-                        >
-
-                    </div>
-
-                    <div class="carrossel-slide">
-
-                        <img
-                            src="imagens/projetos/texteis/texteis-08.jpeg"
-                            alt="têxteis — 08"
-                        >
-
-                    </div>
-
-                    <div class="carrossel-slide">
-
-                        <img
-                            src="imagens/projetos/texteis/texteis-09.jpeg"
-                            alt="têxteis — 09"
-                        >
-
-                    </div>
+                    <img
+                        src="imagens/projetos/texteis/texteis-10.jpeg"
+                        alt="têxteis — 10"
+                    >
 
                 </div>
 
             </div>
 
 
-            <button
-                class="carrossel-seta carrossel-seta-esquerda"
-                type="button"
-                aria-label="imagem anterior"
-                onclick="mudarCarrossel('carrossel-02', -1)"
-            >
-                ←
-            </button>
+        </section>
 
 
-            <button
-                class="carrossel-seta carrossel-seta-direita"
-                type="button"
-                aria-label="próxima imagem"
-                onclick="mudarCarrossel('carrossel-02', 1)"
-            >
-                →
-            </button>
+        <!-- =================================================
+             IMAGENS 07–09 — GRID
+             ================================================= -->
+
+        <section class="texteis-grid">
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/texteis/texteis-07.jpeg"
+                    alt="têxteis — 07"
+                >
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/texteis/texteis-08.jpeg"
+                    alt="têxteis — 08"
+                >
+
+            </div>
+
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/texteis/texteis-09.jpeg"
+                    alt="têxteis — 09"
+                >
+
+            </div>
+
 
         </section>
 
 
         <!-- =================================================
-             IMAGENS 10–15 — COMPOSIÇÃO DISPERSA
+             IMAGENS 11–15
              ================================================= -->
 
-        <section class="texteis-dispersos">
-
-
-            <div class="midia-projeto texteis-10">
-
-                <img
-                    src="imagens/projetos/texteis/texteis-10.jpeg"
-                    alt="têxteis — 10"
-                >
-
-            </div>
+        <section class="texteis-composicao-final">
 
 
             <div class="midia-projeto texteis-11">
@@ -690,7 +857,8 @@
              TEXTO FINAL
              ================================================= -->
 
-        <section class="projeto-bloco texteis-texto-final">
+        <section class="texteis-texto-final">
+
 
             <div class="texto-projeto">
 
@@ -699,18 +867,21 @@
                     e será sempre uma peça única, não replicável
                     futuramente.
                 </p>
-<br><br><br><br>
+
+                <br><br><br><br>
+
                 <p>
                     sob encomenda.
                 </p>
 
             </div>
 
+
         </section>
 
 
         <!-- =================================================
-             RODAPÉ
+             RODAPÉ — ÚLTIMO ELEMENTO ABSOLUTO
              ================================================= -->
 
         <footer class="rodape-projeto">
@@ -724,57 +895,6 @@
 
 
     <script>
-
-        /* =================================================
-           CARROSSÉIS
-           ================================================= */
-
-        const estadosCarrossel = {
-            'carrossel-01': 0,
-            'carrossel-02': 0
-        };
-
-
-        function mudarCarrossel(id, direcao) {
-
-            const track = document.getElementById(id);
-
-            if (!track) {
-                return;
-            }
-
-
-            const slides = track.querySelectorAll(
-                '.carrossel-slide'
-            );
-
-            const total = slides.length;
-
-
-            estadosCarrossel[id] += direcao;
-
-
-            if (estadosCarrossel[id] < 0) {
-
-                estadosCarrossel[id] = total - 1;
-
-            }
-
-
-            if (estadosCarrossel[id] >= total) {
-
-                estadosCarrossel[id] = 0;
-
-            }
-
-
-            track.style.transform =
-                'translateX(-' +
-                (estadosCarrossel[id] * 100) +
-                '%)';
-
-        }
-
 
         /* =================================================
            CURSOR OPUS

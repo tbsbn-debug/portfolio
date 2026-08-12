@@ -19,11 +19,36 @@
         .carrossel-texteis {
             position: relative;
 
-            width: 100%;
-            max-width: 900px;
+            width: 210px;
+            max-width: 210px;
 
-            margin: 150px auto 0;
+            margin: 0;
         }
+
+
+        /* -----------------------------------------------------
+           POSIÇÃO DO PRIMEIRO CARROSSEL — 02–06
+           ----------------------------------------------------- */
+
+        .carrossel-01 {
+            margin-top: 130px;
+            margin-left: 18%;
+        }
+
+
+        /* -----------------------------------------------------
+           POSIÇÃO DO SEGUNDO CARROSSEL — 07–09
+           ----------------------------------------------------- */
+
+        .carrossel-02 {
+            margin-top: 170px;
+            margin-left: 58%;
+        }
+
+
+        /* -----------------------------------------------------
+           ÁREA DO CARROSSEL
+           ----------------------------------------------------- */
 
         .carrossel-viewport {
             position: relative;
@@ -57,7 +82,9 @@
         }
 
 
-        /* setas */
+        /* -----------------------------------------------------
+           SETAS
+           ----------------------------------------------------- */
 
         .carrossel-seta {
             position: absolute;
@@ -67,8 +94,8 @@
 
             transform: translateY(-50%);
 
-            width: 42px;
-            height: 42px;
+            width: 30px;
+            height: 30px;
 
             border: 0;
             padding: 0;
@@ -76,7 +103,7 @@
             background: transparent;
 
             font-family: monospace;
-            font-size: 22px;
+            font-size: 16px;
             font-weight: normal;
 
             color: #111111;
@@ -85,25 +112,31 @@
         }
 
         .carrossel-seta-esquerda {
-            left: -55px;
+            left: -38px;
         }
 
         .carrossel-seta-direita {
-            right: -55px;
+            right: -38px;
         }
 
 
         /* =====================================================
-           IMAGENS DISPERSAS
+           IMAGENS 10–15
            ===================================================== */
 
         .texteis-dispersos {
             position: relative;
 
             width: 100%;
-            min-height: 1450px;
+
+            /*
+             * altura real da composição.
+             * impede que o rodapé entre antes da última imagem.
+             */
+            height: 1450px;
 
             margin-top: 180px;
+            margin-bottom: 180px;
         }
 
         .texteis-dispersos .midia-projeto {
@@ -120,10 +153,12 @@
         }
 
 
-        /* posições */
+        /* -----------------------------------------------------
+           POSIÇÕES DAS IMAGENS DISPERSAS
+           ----------------------------------------------------- */
 
         .texteis-10 {
-            top: 100px;
+            top: 40px;
             left: 8%;
         }
 
@@ -158,7 +193,29 @@
            ===================================================== */
 
         .texteis-texto-final {
-            margin-top: 80px;
+            margin-top: 0;
+        }
+
+
+        /* =====================================================
+           RODAPÉ
+           ===================================================== */
+
+        .rodape-projeto {
+            position: relative;
+
+            width: 100%;
+
+            margin-top: 150px;
+            padding: 0 0 60px;
+
+            text-align: center;
+
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 9px;
+            font-weight: normal;
+
+            color: #c5c5c5;
         }
 
 
@@ -169,36 +226,51 @@
         @media (max-width: 700px) {
 
             .carrossel-texteis {
-                width: 92%;
-
-                margin-top: 90px;
+                width: 130px;
+                max-width: 130px;
             }
 
-            .carrossel-seta {
-                width: 35px;
-                height: 35px;
 
-                font-size: 18px;
+            .carrossel-01 {
+                margin-top: 90px;
+                margin-left: 8%;
+            }
+
+
+            .carrossel-02 {
+                margin-top: 110px;
+                margin-left: 52%;
+            }
+
+
+            .carrossel-seta {
+                width: 25px;
+                height: 25px;
+
+                font-size: 14px;
             }
 
             .carrossel-seta-esquerda {
-                left: -35px;
+                left: -28px;
             }
 
             .carrossel-seta-direita {
-                right: -35px;
+                right: -28px;
             }
 
 
             .texteis-dispersos {
-                min-height: 1200px;
+                height: 1200px;
 
                 margin-top: 100px;
+                margin-bottom: 120px;
             }
+
 
             .texteis-dispersos .midia-projeto {
                 width: 130px;
             }
+
 
             .texteis-10 {
                 top: 20px;
@@ -230,6 +302,12 @@
                 right: 3%;
             }
 
+
+            .rodape-projeto {
+                margin-top: 100px;
+                padding-bottom: 40px;
+            }
+
         }
 
     </style>
@@ -242,9 +320,10 @@
     <div class="cursor"></div>
 
 
-    <header class="projeto-header">
+  <header class="cabecalho-projetos">
 
-           <a href="index.html" class="logo-projetos">
+
+        <a href="index.html" class="logo-projetos">
 
             <img
                 src="imagens/simbolo-opus.png"
@@ -317,7 +396,7 @@
 
         <section class="projeto-titulo">
 
-            <h1>tecelagem manual</h1>
+            <h1>têxteis</h1>
 
         </section>
 
@@ -334,7 +413,16 @@
                     a pesquisa têxtil do ateliê opus se expande ao fazer
                     manual no tear como forma de investigação da matéria.
                 </p>
-<br>
+<br><br>
+                <p>
+                    a tecelagem manual por vezes acompanha o processo de
+                    tingimento natural dos fios e amplia o escopo
+                    experimentação com as tramas. pigmentos provenientes
+                    de fontes naturais são utilizados para produzir cores
+                    com diferenças de intensidade de tonalidade ao longo
+                    do processo. a casca de cebola, por exemplo, é a fonte
+                    para os tons de bege, amarelo e laranja.
+                </p>
 
             </div>
 
@@ -342,7 +430,7 @@
 
 
         <!-- =================================================
-             IMAGEM 01
+             IMAGEM 01 — ABERTURA GRANDE
              ================================================= -->
 
         <section class="projeto-bloco">
@@ -360,11 +448,10 @@
 
 
         <!-- =================================================
-             CARROSSEL 01
-             IMAGENS 02–06
+             CARROSSEL 01 — IMAGENS 02–06
              ================================================= -->
 
-        <section class="carrossel-texteis">
+        <section class="carrossel-texteis carrossel-01">
 
             <div class="carrossel-viewport">
 
@@ -460,27 +547,16 @@
                     construção da trama são partes constituintes da
                     linguagem da tecelagem manual.
                 </p>
-<br><br>
-                                <p>
-                    a tecelagem manual por vezes acompanha o processo de
-                    tingimento natural dos fios e amplia o escopo
-                    experimentação com as tramas. pigmentos provenientes
-                    de fontes naturais são utilizados para produzir cores
-                    com diferenças de intensidade de tonalidade ao longo
-                    do processo. a casca de cebola, por exemplo, é a fonte
-                    para os tons de bege, amarelo e laranja.
-                </p>
+
             </div>
 
         </section>
 
-
         <!-- =================================================
-             CARROSSEL 02
-             IMAGENS 07–09
+             CARROSSEL 02 — IMAGENS 07–09
              ================================================= -->
 
-        <section class="carrossel-texteis">
+        <section class="carrossel-texteis carrossel-02">
 
             <div class="carrossel-viewport">
 
@@ -541,8 +617,7 @@
 
 
         <!-- =================================================
-             IMAGENS 10–15
-             DISPERSAS
+             IMAGENS 10–15 — COMPOSIÇÃO DISPERSA
              ================================================= -->
 
         <section class="texteis-dispersos">
@@ -615,9 +690,7 @@
              TEXTO FINAL
              ================================================= -->
 
-        <section
-            class="projeto-bloco texteis-texto-final"
-        >
+        <section class="projeto-bloco texteis-texto-final">
 
             <div class="texto-projeto">
 
@@ -626,7 +699,7 @@
                     e será sempre uma peça única, não replicável
                     futuramente.
                 </p>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br>
                 <p>
                     sob encomenda.
                 </p>
@@ -640,21 +713,21 @@
              RODAPÉ
              ================================================= -->
 
-    <footer class="site-footer">
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <span class="site-footer-symbol">®</span>
+        <footer class="rodape-projeto">
 
-    <span class="site-footer-text">
-        ATELIÊ OPUS ALL RIGHTS RESERVED
-    </span>
+            ® ATELIÊ OPUS ALL RIGHTS RESERVED
 
-</footer>
+        </footer>
 
 
     </main>
 
 
     <script>
+
+        /* =================================================
+           CARROSSÉIS
+           ================================================= */
 
         const estadosCarrossel = {
             'carrossel-01': 0,

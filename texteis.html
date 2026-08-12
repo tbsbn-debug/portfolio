@@ -13,20 +13,9 @@
     <style>
 
         /* =====================================================
-           TÊXTEIS — NOVA COMPOSIÇÃO
+           TÊXTEIS
+           COMPOSIÇÃO DA PÁGINA
            ===================================================== */
-
-
-        /* -----------------------------------------------------
-           BASE DA PÁGINA
-           ----------------------------------------------------- */
-
-        .pagina-projeto {
-            width: 100%;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding-bottom: 0;
-        }
 
 
         /* -----------------------------------------------------
@@ -58,13 +47,14 @@
 
         .texteis-abertura img {
             display: block;
+
             width: 100%;
             height: auto;
         }
 
 
         /* =====================================================
-           TEXTO 01 — DUAS COLUNAS
+           TEXTO INTRODUTÓRIO — DUAS COLUNAS
            ===================================================== */
 
         .texteis-introducao {
@@ -79,8 +69,11 @@
             column-gap: 100px;
 
             margin-top: 110px;
+
             padding-left: 60px;
             padding-right: 160px;
+
+            box-sizing: border-box;
         }
 
         .texteis-introducao .texto-projeto {
@@ -105,11 +98,15 @@
             gap: 28px;
 
             margin-top: 150px;
+
             padding: 0 20px;
+
+            box-sizing: border-box;
         }
 
         .texteis-faixa .midia-projeto {
             width: 100%;
+            max-width: none;
         }
 
         .texteis-faixa img {
@@ -137,6 +134,8 @@
             margin-top: 170px;
 
             padding-left: 60px;
+
+            box-sizing: border-box;
         }
 
         .texteis-processo .texto-projeto {
@@ -147,7 +146,7 @@
 
         /* =====================================================
            IMAGEM 10
-           RELACIONADA AO PROCESSO
+           RELACIONADA AO TEXTO DE PROCESSO
            ===================================================== */
 
         .texteis-processo-imagem {
@@ -159,6 +158,8 @@
             padding-right: 160px;
 
             margin-top: -30px;
+
+            box-sizing: border-box;
         }
 
         .texteis-processo-imagem .midia-projeto {
@@ -192,10 +193,13 @@
             margin-top: 170px;
 
             padding: 0 100px;
+
+            box-sizing: border-box;
         }
 
         .texteis-grid .midia-projeto {
             width: 100%;
+            max-width: none;
         }
 
         .texteis-grid img {
@@ -208,24 +212,41 @@
 
         /* =====================================================
            IMAGENS 11–15
-           COMPOSIÇÃO FINAL
+           GRID FINAL
+           
+           IMPORTANTE:
+           estas imagens NÃO são absolute.
+           elas ocupam espaço real no fluxo da página.
            ===================================================== */
 
         .texteis-composicao-final {
-    position: relative;
+            width: 100%;
 
-    width: 100%;
+            display: grid;
 
-    height: 1550px;
+            grid-template-columns:
+                repeat(12, minmax(0, 1fr));
 
-    margin-top: 180px;
-    margin-bottom: 0;
-}
+            grid-auto-rows: auto;
+
+            column-gap: 30px;
+            row-gap: 180px;
+
+            margin-top: 180px;
+
+            padding: 0 60px 180px;
+
+            box-sizing: border-box;
+        }
+
 
         .texteis-composicao-final .midia-projeto {
-            position: absolute;
+            position: relative;
 
             width: 260px;
+            max-width: 260px;
+
+            margin: 0;
         }
 
         .texteis-composicao-final img {
@@ -237,32 +258,42 @@
 
 
         /* -----------------------------------------------------
-           POSIÇÕES
+           POSIÇÕES DO GRID FINAL
            ----------------------------------------------------- */
 
         .texteis-11 {
-            top: 0;
-            left: 8%;
+            grid-column: 1 / span 3;
+            grid-row: 1;
+
+            justify-self: start;
         }
 
         .texteis-12 {
-            top: 260px;
-            right: 10%;
+            grid-column: 9 / span 3;
+            grid-row: 2;
+
+            justify-self: end;
         }
 
         .texteis-13 {
-            top: 570px;
-            left: 28%;
+            grid-column: 4 / span 3;
+            grid-row: 3;
+
+            justify-self: center;
         }
 
         .texteis-14 {
-            top: 850px;
-            right: 27%;
+            grid-column: 8 / span 3;
+            grid-row: 4;
+
+            justify-self: center;
         }
 
         .texteis-15 {
-            top: 1130px;
-            left: 9%;
+            grid-column: 2 / span 3;
+            grid-row: 5;
+
+            justify-self: start;
         }
 
 
@@ -277,7 +308,10 @@
             justify-content: flex-end;
 
             margin-top: 80px;
+
             padding-right: 160px;
+
+            box-sizing: border-box;
         }
 
         .texteis-texto-final .texto-projeto {
@@ -290,22 +324,23 @@
            RODAPÉ
            ===================================================== */
 
-.rodape-projeto {
-    position: relative;
+        .rodape-projeto {
+            position: relative;
 
-    width: 100%;
+            width: 100%;
 
-    margin-top: 180px;
-    padding: 0 0 60px;
+            margin-top: 180px;
 
-    text-align: center;
+            padding: 0 0 60px;
 
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 9px;
-    font-weight: normal;
+            text-align: center;
 
-    color: #c5c5c5;
-}
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 9px;
+            font-weight: normal;
+
+            color: #c5c5c5;
+        }
 
 
         /* =====================================================
@@ -315,14 +350,18 @@
         @media (max-width: 700px) {
 
 
-            /* título */
+            /* -------------------------------------------------
+               título
+               ------------------------------------------------- */
 
             .projeto-titulo {
                 margin-bottom: 45px;
             }
 
 
-            /* imagem 01 */
+            /* -------------------------------------------------
+               imagem 01
+               ------------------------------------------------- */
 
             .texteis-abertura {
                 justify-content: flex-end;
@@ -334,7 +373,9 @@
             }
 
 
-            /* introdução */
+            /* -------------------------------------------------
+               introdução
+               ------------------------------------------------- */
 
             .texteis-introducao {
                 display: grid;
@@ -357,7 +398,9 @@
             }
 
 
-            /* faixa 02–06 */
+            /* -------------------------------------------------
+               imagens 02–06
+               ------------------------------------------------- */
 
             .texteis-faixa {
                 grid-template-columns:
@@ -371,7 +414,9 @@
             }
 
 
-            /* processo */
+            /* -------------------------------------------------
+               processo
+               ------------------------------------------------- */
 
             .texteis-processo {
                 grid-template-columns:
@@ -390,10 +435,13 @@
             }
 
 
-            /* imagem 10 */
+            /* -------------------------------------------------
+               imagem 10
+               ------------------------------------------------- */
 
             .texteis-processo-imagem {
                 padding-right: 0;
+
                 margin-top: 0;
             }
 
@@ -403,7 +451,9 @@
             }
 
 
-            /* grid 07–09 */
+            /* -------------------------------------------------
+               imagens 07–09
+               ------------------------------------------------- */
 
             .texteis-grid {
                 grid-template-columns:
@@ -417,45 +467,72 @@
             }
 
 
-            /* composição 11–15 */
+            /* -------------------------------------------------
+               imagens 11–15
+               grid real no mobile
+               ------------------------------------------------- */
 
             .texteis-composicao-final {
-                min-height: 1000px;
+                display: grid;
+
+                grid-template-columns:
+                    repeat(6, minmax(0, 1fr));
+
+                column-gap: 15px;
+                row-gap: 100px;
 
                 margin-top: 100px;
+
+                padding: 0 10px 100px;
             }
 
             .texteis-composicao-final .midia-projeto {
+                position: relative;
+
                 width: 135px;
+                max-width: 135px;
             }
 
+
             .texteis-11 {
-                top: 0;
-                left: 3%;
+                grid-column: 1 / span 2;
+                grid-row: 1;
+
+                justify-self: start;
             }
 
             .texteis-12 {
-                top: 180px;
-                right: 3%;
+                grid-column: 5 / span 2;
+                grid-row: 2;
+
+                justify-self: end;
             }
 
             .texteis-13 {
-                top: 390px;
-                left: 25%;
+                grid-column: 2 / span 2;
+                grid-row: 3;
+
+                justify-self: center;
             }
 
             .texteis-14 {
-                top: 600px;
-                right: 18%;
+                grid-column: 4 / span 2;
+                grid-row: 4;
+
+                justify-self: center;
             }
 
             .texteis-15 {
-                top: 800px;
-                left: 5%;
+                grid-column: 1 / span 2;
+                grid-row: 5;
+
+                justify-self: start;
             }
 
 
-            /* texto final */
+            /* -------------------------------------------------
+               texto final
+               ------------------------------------------------- */
 
             .texteis-texto-final {
                 justify-content: flex-start;
@@ -466,10 +543,13 @@
             }
 
 
-            /* rodapé */
+            /* -------------------------------------------------
+               rodapé
+               ------------------------------------------------- */
 
             .rodape-projeto {
                 margin-top: 100px;
+
                 padding-bottom: 40px;
             }
 
@@ -482,11 +562,12 @@
 
 <body>
 
+
     <div class="cursor"></div>
 
 
     <!-- =====================================================
-         HEADER — MANTIDO IDÊNTICO
+         HEADER
          ===================================================== -->
 
     <header class="cabecalho-projetos">
@@ -504,6 +585,7 @@
 
         <nav class="menu-principal">
 
+
             <a href="roupas.html">
                 roupas
             </a>
@@ -511,32 +593,41 @@
 
             <div class="menu-projetos">
 
-                <a href="projetos.html" class="projetos-link">
+                <a
+                    href="projetos.html"
+                    class="projetos-link"
+                >
                     projetos
                 </a>
 
 
                 <div class="subcategorias">
 
+
                     <a href="editorial-de-moda.html">
                         editorial de moda
                     </a>
+
 
                     <a href="design-grafico.html">
                         design gráfico
                     </a>
 
+
                     <a href="objetos.html">
                         objetos
                     </a>
+
 
                     <a href="texteis.html">
                         têxteis
                     </a>
 
+
                     <a href="etc.html">
                         etc.
                     </a>
+
 
                 </div>
 
@@ -547,42 +638,52 @@
                 textos
             </a>
 
+
             <a href="pesquisa.html">
                 pesquisa
             </a>
+
 
             <a href="sobre.html">
                 sobre
             </a>
 
+
             <a href="contato.html">
                 contato
             </a>
+
 
         </nav>
 
 
         <nav class="subcategorias-projetos">
 
+
             <a href="editorial-de-moda.html">
                 editorial de moda
             </a>
+
 
             <a href="design-grafico.html">
                 design gráfico
             </a>
 
+
             <a href="objetos.html">
                 objetos
             </a>
 
-            <a href="projetos.html">
+
+            <a href="texteis.html">
                 <strong>têxteis</strong>
             </a>
+
 
             <a href="etc.html">
                 etc.
             </a>
+
 
         </nav>
 
@@ -610,6 +711,7 @@
 
         <section class="texteis-abertura">
 
+
             <div class="midia-projeto">
 
                 <img
@@ -619,11 +721,12 @@
 
             </div>
 
+
         </section>
 
 
         <!-- =================================================
-             TEXTO INTRODUTÓRIO — DUAS COLUNAS
+             TEXTO INTRODUTÓRIO
              ================================================= -->
 
         <section class="texteis-introducao">
@@ -658,7 +761,7 @@
 
 
         <!-- =================================================
-             IMAGENS 02–06 — FAIXA
+             IMAGENS 02–06
              ================================================= -->
 
         <section class="texteis-faixa">
@@ -718,7 +821,7 @@
 
 
         <!-- =================================================
-             PROCESSO
+             PROCESSO + IMAGEM 10
              ================================================= -->
 
         <section class="texteis-processo">
@@ -739,6 +842,7 @@
 
             <div class="texteis-processo-imagem">
 
+
                 <div class="midia-projeto">
 
                     <img
@@ -748,6 +852,7 @@
 
                 </div>
 
+
             </div>
 
 
@@ -755,7 +860,7 @@
 
 
         <!-- =================================================
-             IMAGENS 07–09 — GRID
+             IMAGENS 07–09
              ================================================= -->
 
         <section class="texteis-grid">
@@ -869,7 +974,9 @@
                     futuramente.
                 </p>
 
+
                 <br><br><br><br>
+
 
                 <p>
                     sob encomenda.
@@ -882,7 +989,8 @@
 
 
         <!-- =================================================
-             RODAPÉ — ÚLTIMO ELEMENTO ABSOLUTO
+             RODAPÉ
+             ÚLTIMO ELEMENTO DA PÁGINA
              ================================================= -->
 
         <footer class="rodape-projeto">
@@ -897,60 +1005,96 @@
 
     <script>
 
+
         /* =================================================
            CURSOR OPUS
            ================================================= */
 
-        window.addEventListener('mousemove', function(event) {
+        window.addEventListener(
+            'mousemove',
+            function(event) {
 
-            const cursor = document.querySelector('.cursor');
 
-            if (!cursor) {
-                return;
+                const cursor =
+                    document.querySelector('.cursor');
+
+
+                if (!cursor) {
+                    return;
+                }
+
+
+                cursor.style.left =
+                    event.clientX + 'px';
+
+
+                cursor.style.top =
+                    event.clientY + 'px';
+
+
+                const elemento =
+                    event.target.closest(
+                        'a, button, [role="button"]'
+                    );
+
+
+                if (elemento) {
+
+                    cursor.classList.add(
+                        'clicavel'
+                    );
+
+                } else {
+
+                    cursor.classList.remove(
+                        'clicavel'
+                    );
+
+                }
+
+
+                if (!elemento) {
+
+
+                    const rastro =
+                        document.createElement(
+                            'div'
+                        );
+
+
+                    rastro.classList.add(
+                        'cursor-rastro'
+                    );
+
+
+                    rastro.style.left =
+                        event.clientX + 'px';
+
+
+                    rastro.style.top =
+                        event.clientY + 'px';
+
+
+                    document.body.appendChild(
+                        rastro
+                    );
+
+
+                    setTimeout(
+                        function() {
+
+                            rastro.remove();
+
+                        },
+                        1000
+                    );
+
+
+                }
+
+
             }
-
-
-            cursor.style.left = event.clientX + 'px';
-            cursor.style.top = event.clientY + 'px';
-
-
-            const elemento = event.target.closest(
-                'a, button, [role="button"]'
-            );
-
-
-            if (elemento) {
-
-                cursor.classList.add('clicavel');
-
-            } else {
-
-                cursor.classList.remove('clicavel');
-
-            }
-
-
-            if (!elemento) {
-
-                const rastro = document.createElement('div');
-
-                rastro.classList.add('cursor-rastro');
-
-                rastro.style.left = event.clientX + 'px';
-                rastro.style.top = event.clientY + 'px';
-
-                document.body.appendChild(rastro);
-
-
-                setTimeout(function() {
-
-                    rastro.remove();
-
-                }, 1000);
-
-            }
-
-        });
+        );
 
     </script>
 

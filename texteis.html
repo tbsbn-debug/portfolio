@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -11,6 +10,230 @@
 
     <link rel="stylesheet" href="style.css?v=2">
 
+    <style>
+
+        /* =====================================================
+           TÊXTEIS — CARROSSÉIS
+           ===================================================== */
+
+        .carrossel-texteis {
+            position: relative;
+
+            width: 100%;
+            max-width: 900px;
+
+            margin: 150px auto 0;
+        }
+
+        .carrossel-viewport {
+            position: relative;
+
+            width: 100%;
+
+            overflow: hidden;
+        }
+
+        .carrossel-track {
+            display: flex;
+
+            width: 100%;
+
+            transition: transform 0.45s ease;
+        }
+
+        .carrossel-slide {
+            flex: 0 0 100%;
+
+            width: 100%;
+        }
+
+        .carrossel-slide img {
+            display: block;
+
+            width: 100%;
+            height: auto;
+
+            margin: 0;
+        }
+
+
+        /* setas */
+
+        .carrossel-seta {
+            position: absolute;
+
+            top: 50%;
+            z-index: 5;
+
+            transform: translateY(-50%);
+
+            width: 42px;
+            height: 42px;
+
+            border: 0;
+            padding: 0;
+
+            background: transparent;
+
+            font-family: monospace;
+            font-size: 22px;
+            font-weight: normal;
+
+            color: #111111;
+
+            cursor: pointer;
+        }
+
+        .carrossel-seta-esquerda {
+            left: -55px;
+        }
+
+        .carrossel-seta-direita {
+            right: -55px;
+        }
+
+
+        /* =====================================================
+           IMAGENS DISPERSAS
+           ===================================================== */
+
+        .texteis-dispersos {
+            position: relative;
+
+            width: 100%;
+            min-height: 1450px;
+
+            margin-top: 180px;
+        }
+
+        .texteis-dispersos .midia-projeto {
+            position: absolute;
+
+            width: 210px;
+        }
+
+        .texteis-dispersos img {
+            display: block;
+
+            width: 100%;
+            height: auto;
+        }
+
+
+        /* posições */
+
+        .texteis-10 {
+            top: 40px;
+            left: 8%;
+        }
+
+        .texteis-11 {
+            top: 280px;
+            right: 12%;
+        }
+
+        .texteis-12 {
+            top: 540px;
+            left: 30%;
+        }
+
+        .texteis-13 {
+            top: 790px;
+            right: 28%;
+        }
+
+        .texteis-14 {
+            top: 1010px;
+            left: 12%;
+        }
+
+        .texteis-15 {
+            top: 1180px;
+            right: 8%;
+        }
+
+
+        /* =====================================================
+           TEXTO FINAL
+           ===================================================== */
+
+        .texteis-texto-final {
+            margin-top: 80px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .carrossel-texteis {
+                width: 92%;
+
+                margin-top: 90px;
+            }
+
+            .carrossel-seta {
+                width: 35px;
+                height: 35px;
+
+                font-size: 18px;
+            }
+
+            .carrossel-seta-esquerda {
+                left: -35px;
+            }
+
+            .carrossel-seta-direita {
+                right: -35px;
+            }
+
+
+            .texteis-dispersos {
+                min-height: 1200px;
+
+                margin-top: 100px;
+            }
+
+            .texteis-dispersos .midia-projeto {
+                width: 130px;
+            }
+
+            .texteis-10 {
+                top: 20px;
+                left: 4%;
+            }
+
+            .texteis-11 {
+                top: 190px;
+                right: 4%;
+            }
+
+            .texteis-12 {
+                top: 390px;
+                left: 22%;
+            }
+
+            .texteis-13 {
+                top: 590px;
+                right: 15%;
+            }
+
+            .texteis-14 {
+                top: 800px;
+                left: 4%;
+            }
+
+            .texteis-15 {
+                top: 980px;
+                right: 3%;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 
@@ -21,19 +244,76 @@
 
     <header class="projeto-header">
 
-        <a href="projetos.html" class="projeto-voltar">
-            projetos
-        </a>
+           <a href="index.html" class="logo-projetos">
 
-        <div class="projeto-categoria">
-            têxteis
-        </div>
+            <img
+                src="imagens/simbolo-opus.png"
+                alt="opus"
+            >
+
+        </a>
+  <nav class="menu-principal">
+
+            <a href="roupas.html">roupas</a>
+
+          <div class="menu-projetos">
+
+    <a href="projetos.html" class="projetos-link">
+        projetos
+    </a>
+
+    <div class="subcategorias">
+                    <a href="editorial-de-moda.html">editorial de moda</a>
+                    <a href="design-grafico.html">design gráfico</a>
+                    <a href="objetos.html">objetos</a>
+                    <a href="texteis.html">têxteis</a>
+                    <a href="etc.html">etc.</a>
+
+                </div>
+
+            </div>
+
+            <a href="textos.html">textos</a>
+            <a href="pesquisa.html">pesquisa</a>
+            <a href="sobre.html">sobre</a>
+            <a href="contato.html">contato</a>
+
+        </nav>
+
+
+        <nav class="subcategorias-projetos">
+
+            <a href="editorial-de-moda.html">
+                editorial de moda
+            </a>
+
+            <a href="design-grafico.html">
+                design gráfico
+            </a>
+
+            <a href="objetos.html">
+                objetos
+            </a>
+
+            <a href="texteis.html">
+                têxteis
+            </a>
+
+            <a href="etc.html">
+                etc.
+            </a>
+
+        </nav>
 
     </header>
 
 
     <main class="pagina-projeto">
 
+
+        <!-- =================================================
+             TÍTULO
+             ================================================= -->
 
         <section class="projeto-titulo">
 
@@ -42,7 +322,9 @@
         </section>
 
 
-        <!-- texto introdutório -->
+        <!-- =================================================
+             TEXTO INTRODUTÓRIO
+             ================================================= -->
 
         <section class="projeto-bloco bloco-01">
 
@@ -68,9 +350,11 @@
         </section>
 
 
-        <!-- têxtil 01 -->
+        <!-- =================================================
+             IMAGEM 01
+             ================================================= -->
 
-        <section class="projeto-bloco bloco-02">
+        <section class="projeto-bloco">
 
             <div class="midia-projeto">
 
@@ -84,89 +368,97 @@
         </section>
 
 
-        <!-- têxtil 02 -->
+        <!-- =================================================
+             CARROSSEL 01
+             IMAGENS 02–06
+             ================================================= -->
 
-        <section class="projeto-bloco bloco-03">
+        <section class="carrossel-texteis">
 
-            <div class="midia-projeto">
+            <div class="carrossel-viewport">
 
-                <img
-                    src="imagens/projetos/texteis/texteis-02.jpeg"
-                    alt="têxteis — 02"
-                >
+                <div class="carrossel-track" id="carrossel-01">
+
+                    <div class="carrossel-slide">
+
+                        <img
+                            src="imagens/projetos/texteis/texteis-02.jpeg"
+                            alt="têxteis — 02"
+                        >
+
+                    </div>
+
+                    <div class="carrossel-slide">
+
+                        <img
+                            src="imagens/projetos/texteis/texteis-03.jpeg"
+                            alt="têxteis — 03"
+                        >
+
+                    </div>
+
+                    <div class="carrossel-slide">
+
+                        <img
+                            src="imagens/projetos/texteis/texteis-04.jpeg"
+                            alt="têxteis — 04"
+                        >
+
+                    </div>
+
+                    <div class="carrossel-slide">
+
+                        <img
+                            src="imagens/projetos/texteis/texteis-05.jpeg"
+                            alt="têxteis — 05"
+                        >
+
+                    </div>
+
+                    <div class="carrossel-slide">
+
+                        <img
+                            src="imagens/projetos/texteis/texteis-06.jpeg"
+                            alt="têxteis — 06"
+                        >
+
+                    </div>
+
+                </div>
 
             </div>
+
+
+            <button
+                class="carrossel-seta carrossel-seta-esquerda"
+                type="button"
+                aria-label="imagem anterior"
+                onclick="mudarCarrossel('carrossel-01', -1)"
+            >
+                ←
+            </button>
+
+
+            <button
+                class="carrossel-seta carrossel-seta-direita"
+                type="button"
+                aria-label="próxima imagem"
+                onclick="mudarCarrossel('carrossel-01', 1)"
+            >
+                →
+            </button>
 
         </section>
 
 
-        <!-- têxtil 03 -->
+        <!-- =================================================
+             TEXTO DE PROCESSO
+             ================================================= -->
 
-        <section class="projeto-bloco bloco-04">
-
-            <div class="midia-projeto">
-
-                <img
-                    src="imagens/projetos/texteis/texteis-03.jpeg"
-                    alt="têxteis — 03"
-                >
-
-            </div>
-
-        </section>
-
-
-        <!-- têxtil 04 -->
-
-        <section class="projeto-bloco bloco-05">
-
-            <div class="midia-projeto">
-
-                <img
-                    src="imagens/projetos/texteis/texteis-04.jpeg"
-                    alt="têxteis — 04"
-                >
-
-            </div>
-
-        </section>
-
-
-        <!-- têxtil 05 -->
-
-        <section class="projeto-bloco bloco-06">
-
-            <div class="midia-projeto">
-
-                <img
-                    src="imagens/projetos/texteis/texteis-05.jpeg"
-                    alt="têxteis — 05"
-                >
-
-            </div>
-
-        </section>
-
-
-        <!-- têxtil 06 -->
-
-        <section class="projeto-bloco bloco-07">
-
-            <div class="midia-projeto">
-
-                <img
-                    src="imagens/projetos/texteis/texteis-06.jpeg"
-                    alt="têxteis — 06"
-                >
-
-            </div>
-
-        </section>
-
-
-        <!-- texto sobre processo -->
-
-        <section class="projeto-bloco bloco-08">
+        <section
+            class="projeto-bloco bloco-08"
+            style="margin-top: 180px;"
+        >
 
             <div class="texto-projeto">
 
@@ -183,59 +475,80 @@
         </section>
 
 
-        <!-- têxtil 07 -->
+        <!-- =================================================
+             CARROSSEL 02
+             IMAGENS 07–09
+             ================================================= -->
 
-        <section class="projeto-bloco bloco-09">
+        <section class="carrossel-texteis">
 
-            <div class="midia-projeto">
+            <div class="carrossel-viewport">
 
-                <img
-                    src="imagens/projetos/texteis/texteis-07.jpeg"
-                    alt="têxteis — 07"
-                >
+                <div class="carrossel-track" id="carrossel-02">
+
+                    <div class="carrossel-slide">
+
+                        <img
+                            src="imagens/projetos/texteis/texteis-07.jpeg"
+                            alt="têxteis — 07"
+                        >
+
+                    </div>
+
+                    <div class="carrossel-slide">
+
+                        <img
+                            src="imagens/projetos/texteis/texteis-08.jpeg"
+                            alt="têxteis — 08"
+                        >
+
+                    </div>
+
+                    <div class="carrossel-slide">
+
+                        <img
+                            src="imagens/projetos/texteis/texteis-09.jpeg"
+                            alt="têxteis — 09"
+                        >
+
+                    </div>
+
+                </div>
 
             </div>
+
+
+            <button
+                class="carrossel-seta carrossel-seta-esquerda"
+                type="button"
+                aria-label="imagem anterior"
+                onclick="mudarCarrossel('carrossel-02', -1)"
+            >
+                ←
+            </button>
+
+
+            <button
+                class="carrossel-seta carrossel-seta-direita"
+                type="button"
+                aria-label="próxima imagem"
+                onclick="mudarCarrossel('carrossel-02', 1)"
+            >
+                →
+            </button>
 
         </section>
 
 
-        <!-- têxtil 08 -->
+        <!-- =================================================
+             IMAGENS 10–15
+             DISPERSAS
+             ================================================= -->
 
-        <section class="projeto-bloco bloco-10">
-
-            <div class="midia-projeto">
-
-                <img
-                    src="imagens/projetos/texteis/texteis-08.jpeg"
-                    alt="têxteis — 08"
-                >
-
-            </div>
-
-        </section>
+        <section class="texteis-dispersos">
 
 
-        <!-- têxtil 09 -->
-
-        <section class="projeto-bloco bloco-11">
-
-            <div class="midia-projeto">
-
-                <img
-                    src="imagens/projetos/texteis/texteis-09.jpeg"
-                    alt="têxteis — 09"
-                >
-
-            </div>
-
-        </section>
-
-
-        <!-- têxtil 10 -->
-
-        <section class="projeto-bloco bloco-12">
-
-            <div class="midia-projeto">
+            <div class="midia-projeto texteis-10">
 
                 <img
                     src="imagens/projetos/texteis/texteis-10.jpeg"
@@ -244,14 +557,8 @@
 
             </div>
 
-        </section>
 
-
-        <!-- têxtil 11 -->
-
-        <section class="projeto-bloco bloco-13">
-
-            <div class="midia-projeto">
+            <div class="midia-projeto texteis-11">
 
                 <img
                     src="imagens/projetos/texteis/texteis-11.jpeg"
@@ -260,14 +567,8 @@
 
             </div>
 
-        </section>
 
-
-        <!-- têxtil 12 -->
-
-        <section class="projeto-bloco bloco-14">
-
-            <div class="midia-projeto">
+            <div class="midia-projeto texteis-12">
 
                 <img
                     src="imagens/projetos/texteis/texteis-12.jpeg"
@@ -276,14 +577,8 @@
 
             </div>
 
-        </section>
 
-
-        <!-- têxtil 13 -->
-
-        <section class="projeto-bloco bloco-15">
-
-            <div class="midia-projeto">
+            <div class="midia-projeto texteis-13">
 
                 <img
                     src="imagens/projetos/texteis/texteis-13.jpeg"
@@ -292,14 +587,8 @@
 
             </div>
 
-        </section>
 
-
-        <!-- têxtil 14 -->
-
-        <section class="projeto-bloco bloco-16">
-
-            <div class="midia-projeto">
+            <div class="midia-projeto texteis-14">
 
                 <img
                     src="imagens/projetos/texteis/texteis-14.jpeg"
@@ -308,14 +597,8 @@
 
             </div>
 
-        </section>
 
-
-        <!-- têxtil 15 -->
-
-        <section class="projeto-bloco bloco-17">
-
-            <div class="midia-projeto">
+            <div class="midia-projeto texteis-15">
 
                 <img
                     src="imagens/projetos/texteis/texteis-15.jpeg"
@@ -324,12 +607,17 @@
 
             </div>
 
+
         </section>
 
 
-        <!-- encerramento -->
+        <!-- =================================================
+             TEXTO FINAL
+             ================================================= -->
 
-        <section class="projeto-bloco bloco-18">
+        <section
+            class="projeto-bloco texteis-texto-final"
+        >
 
             <div class="texto-projeto">
 
@@ -348,6 +636,10 @@
         </section>
 
 
+        <!-- =================================================
+             RODAPÉ
+             ================================================= -->
+
         <footer class="rodape-projeto">
 
             ® ATELIÊ OPUS ALL RIGHTS RESERVED
@@ -360,9 +652,65 @@
 
     <script>
 
+        const estadosCarrossel = {
+            'carrossel-01': 0,
+            'carrossel-02': 0
+        };
+
+
+        function mudarCarrossel(id, direcao) {
+
+            const track = document.getElementById(id);
+
+            if (!track) {
+                return;
+            }
+
+
+            const slides = track.querySelectorAll(
+                '.carrossel-slide'
+            );
+
+            const total = slides.length;
+
+
+            estadosCarrossel[id] += direcao;
+
+
+            if (estadosCarrossel[id] < 0) {
+
+                estadosCarrossel[id] = total - 1;
+
+            }
+
+
+            if (estadosCarrossel[id] >= total) {
+
+                estadosCarrossel[id] = 0;
+
+            }
+
+
+            track.style.transform =
+                'translateX(-' +
+                (estadosCarrossel[id] * 100) +
+                '%)';
+
+        }
+
+
+        /* =================================================
+           CURSOR OPUS
+           ================================================= */
+
         window.addEventListener('mousemove', function(event) {
 
             const cursor = document.querySelector('.cursor');
+
+            if (!cursor) {
+                return;
+            }
+
 
             cursor.style.left = event.clientX + 'px';
             cursor.style.top = event.clientY + 'px';

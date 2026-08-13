@@ -829,8 +829,12 @@
                 <img
                     src="imagens/projetos/texteis/texteis-11.jpeg"
                     alt="têxteis — 11"
+                    
                 >
-
+<img
+    src="imagens/projetos/texteis/texteis-11.jpeg"
+    class="galeria-texteis"
+>
             </div>
 
 
@@ -840,7 +844,10 @@
                     src="imagens/projetos/texteis/texteis-12.jpeg"
                     alt="têxteis — 12"
                 >
-
+<img
+    src="imagens/projetos/texteis/texteis-12.jpeg"
+    class="galeria-texteis"
+>
             </div>
 
 
@@ -850,7 +857,10 @@
                     src="imagens/projetos/texteis/texteis-13.jpeg"
                     alt="têxteis — 13"
                 >
-
+<img
+    src="imagens/projetos/texteis/texteis-13.jpeg"
+    class="galeria-texteis"
+>
             </div>
 
 
@@ -860,7 +870,10 @@
                     src="imagens/projetos/texteis/texteis-14.jpeg"
                     alt="têxteis — 14"
                 >
-
+<img
+    src="imagens/projetos/texteis/texteis-14.jpeg"
+    class="galeria-texteis"
+>
             </div>
 
 
@@ -870,7 +883,10 @@
                     src="imagens/projetos/texteis/texteis-15.jpeg"
                     alt="têxteis — 15"
                 >
-
+<img
+    src="imagens/projetos/texteis/texteis-15.jpeg"
+    class="galeria-texteis"
+>
             </div>
 
             
@@ -880,6 +896,11 @@
                     src="imagens/projetos/texteis/texteis-16.jpeg"
                     alt="têxteis — 16"
                 >
+                <img
+    src="imagens/projetos/texteis/texteis-16.jpeg"
+    class="galeria-texteis"
+>
+                
             </div>
             
             <div class="midia-projeto texteis-17">
@@ -888,7 +909,10 @@
                     src="imagens/projetos/texteis/texteis-17.jpeg"
                     alt="têxteis — 17"
                 >
-
+<img
+    src="imagens/projetos/texteis/texteis-17.jpeg"
+    class="galeria-texteis"
+>
             </div>
             <div class="midia-projeto texteis-18">
 
@@ -896,7 +920,11 @@
                     src="imagens/projetos/texteis/texteis-18.jpeg"
                     alt="têxteis — 18"
                 >
-
+<img
+    src="imagens/projetos/texteis/texteis-18.jpeg"
+    class="galeria-texteis"
+>
+                
             </div>
 
 
@@ -1002,7 +1030,226 @@
         });
 
     </script>
+<div class="lightbox">
 
+    <button class="lightbox-fechar">×</button>
+
+    <button class="lightbox-anterior">
+        ←
+    </button>
+
+    <img
+        class="lightbox-imagem"
+        src=""
+        alt=""
+    >
+
+    <button class="lightbox-proxima">
+        →
+    </button>
+
+</div>
+
+    <script>
+
+const imagens = [
+
+    "imagens/projetos/texteis/texteis-11.jpeg",
+    "imagens/projetos/texteis/texteis-12.jpeg",
+    "imagens/projetos/texteis/texteis-13.jpeg",
+    "imagens/projetos/texteis/texteis-14.jpeg",
+    "imagens/projetos/texteis/texteis-15.jpeg",
+    "imagens/projetos/texteis/texteis-16.jpeg",
+    "imagens/projetos/texteis/texteis-17.jpeg",
+    "imagens/projetos/texteis/texteis-18.jpeg"
+
+];
+
+
+const lightbox =
+    document.querySelector(".lightbox");
+
+const imagemLightbox =
+    document.querySelector(".lightbox-imagem");
+
+const botaoAnterior =
+    document.querySelector(".lightbox-anterior");
+
+const botaoProxima =
+    document.querySelector(".lightbox-proxima");
+
+const fechar =
+    document.querySelector(".lightbox-fechar");
+
+let indiceAtual = 0;
+
+
+/* abrir */
+
+document
+.querySelectorAll(".galeria-texteis")
+.forEach((img, indice) => {
+
+    img.addEventListener("click", () => {
+
+        indiceAtual = indice;
+
+        atualizarImagem();
+
+        lightbox.classList.add("ativo");
+
+    });
+
+});
+
+
+/* atualizar */
+
+function atualizarImagem() {
+
+    imagemLightbox.src =
+        imagens[indiceAtual];
+
+
+    /* seta esquerda */
+
+    if (indiceAtual == 0) {
+
+        botaoAnterior.style.display =
+            "none";
+
+    } else {
+
+        botaoAnterior.style.display =
+            "block";
+    }
+
+
+    /* seta direita */
+
+    if (
+        indiceAtual ==
+        imagens.length - 1
+    ) {
+
+        botaoProxima.style.display =
+            "none";
+
+    } else {
+
+        botaoProxima.style.display =
+            "block";
+    }
+
+}
+
+
+/* próximo */
+
+botaoProxima.addEventListener(
+    "click",
+    () => {
+
+        if (
+            indiceAtual <
+            imagens.length - 1
+        ) {
+
+            indiceAtual++;
+
+            atualizarImagem();
+        }
+
+    }
+);
+
+
+/* anterior */
+
+botaoAnterior.addEventListener(
+    "click",
+    () => {
+
+        if (
+            indiceAtual > 0
+        ) {
+
+            indiceAtual--;
+
+            atualizarImagem();
+        }
+
+    }
+);
+
+
+/* fechar */
+
+fechar.addEventListener(
+    "click",
+    () => {
+
+        lightbox.classList.remove(
+            "ativo"
+        );
+
+    }
+);
+
+
+/* clique fundo */
+
+lightbox.addEventListener(
+    "click",
+    (e) => {
+
+        if (
+            e.target === lightbox
+        ) {
+
+            lightbox.classList.remove(
+                "ativo"
+            );
+        }
+
+    }
+);
+
+
+/* teclado */
+
+document.addEventListener(
+    "keydown",
+    (e) => {
+
+        if (
+            !lightbox.classList.contains(
+                "ativo"
+            )
+        ) return;
+
+
+        if (e.key === "ArrowRight") {
+
+            botaoProxima.click();
+        }
+
+        if (e.key === "ArrowLeft") {
+
+            botaoAnterior.click();
+        }
+
+        if (e.key === "Escape") {
+
+            lightbox.classList.remove(
+                "ativo"
+            );
+        }
+
+    }
+);
+
+</script>
 
 </body>
 

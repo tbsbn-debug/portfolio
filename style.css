@@ -1779,3 +1779,98 @@ button,
 img {
     cursor: none;
 }
+
+/* ======================================
+LIGHTBOX
+====================================== */
+
+.lightbox {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(255,255,255,0.94);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: 0.25s;
+
+    z-index: 99999;
+}
+
+.lightbox.ativo {
+
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-imagem {
+
+    max-width: 80vw;
+    max-height: 85vh;
+
+    object-fit: contain;
+}
+
+
+/* setas */
+
+.lightbox-anterior,
+.lightbox-proxima {
+
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+    background: none;
+
+    font-family: monospace;
+
+    font-size: 24px;
+
+    cursor: none;
+
+    color: #111;
+
+    padding: 20px;
+}
+
+.lightbox-anterior {
+
+    left: 40px;
+}
+
+.lightbox-proxima {
+
+    right: 40px;
+}
+
+
+/* fechar */
+
+.lightbox-fechar {
+
+    position: absolute;
+
+    top: 40px;
+    right: 40px;
+
+    border: none;
+    background: none;
+
+    font-size: 28px;
+
+    cursor: none;
+
+    color: #111;
+}

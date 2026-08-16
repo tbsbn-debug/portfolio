@@ -13,7 +13,7 @@
 
 
     const TOTAL = 24;
-    const TEMPO_TOTAL = 60;
+    const TEMPO_TOTAL = 35;
 
 
     let largura = 0;
@@ -38,37 +38,102 @@
     };
 
 
+    /*
+    ==================================================
+    PALETA
+    ==================================================
+    */
+
     const cores = [
         '#111111',
-        '#6b5b4b',
-        '#9b7350',
-        '#b4a189',
-        '#7b8065',
-        '#c6b24a'
+        '#211714',
+        '#553522',
+        '#79502f',
+        '#a36b2c',
+        '#c18b32',
+        '#d4a83b',
+        '#e0bf59',
+        '#7d4635',
+        '#a43f32',
+        '#8e2727',
+        '#263e59',
+        '#315c7d',
+        '#477b96'
     ];
 
 
-    /* ==========================================
-       TAMANHO DO CANVAS
-    ========================================== */
+    /*
+    ==================================================
+    TIPOS DE FIBRA
+    ==================================================
+    */
+
+    const tipos = [
+
+        {
+            nome: 'algodao',
+            espessura: 1.8,
+            densidade: 26,
+            brilho: 0.04,
+            irregularidade: 3.5
+        },
+
+        {
+            nome: 'la',
+            espessura: 4.2,
+            densidade: 42,
+            brilho: 0.02,
+            irregularidade: 7
+        },
+
+        {
+            nome: 'seda',
+            espessura: 1.4,
+            densidade: 18,
+            brilho: 0.32,
+            irregularidade: 1.8
+        },
+
+        {
+            nome: 'nylon',
+            espessura: 1.1,
+            densidade: 14,
+            brilho: 0.45,
+            irregularidade: 1
+        }
+
+    ];
+
+
+    /*
+    ==================================================
+    CANVAS
+    ==================================================
+    */
 
     function tamanhoCanvas() {
 
-        const rect = area.getBoundingClientRect();
+        const rect =
+            area.getBoundingClientRect();
 
         largura = rect.width;
         altura = rect.height;
 
-        dpr = Math.min(
-            window.devicePixelRatio || 1,
-            2
-        );
+        dpr =
+            Math.min(
+                window.devicePixelRatio || 1,
+                2
+            );
 
         canvas.width =
-            Math.round(largura * dpr);
+            Math.round(
+                largura * dpr
+            );
 
         canvas.height =
-            Math.round(altura * dpr);
+            Math.round(
+                altura * dpr
+            );
 
         canvas.style.width =
             largura + 'px';
@@ -88,149 +153,548 @@
     }
 
 
-    /* ==========================================
-       CRIA OS FIOS
-    ========================================== */
+    /*
+    ==================================================
+    ALEATORIEDADE
+    ==================================================
+    */
 
-    function criarFios() {
+    function aleatorio(min, max) {
 
-        fios = [];
+        return (
+            Math.random() *
+            (max - min)
+        ) + min;
 
-        for (let i = 0; i < TOTAL; i++) {
+    }
 
-            fios.push({
+
+    function inteiro(min, max) {
+
+        return Math.floor(
+            aleatorio(
+                min,
+                max + 1
+            )
+        );
+
+    }
+
+
+    /*
+    ==================================================
+    CRIA UMA FIBRA
+    ==================================================
+    */
+
+    function criarFibra() {
+
+        const tipo =
+            tipos[
+                inteiro(
+                    0,
+                    tipos.length - 1
+                )
+            ];
+
+
+        const orientacao =
+            [
+                0,
+                0,
+                0,
+                1,
+                1,
+                2
+            ][
+                inteiro(
+                    0,
+                    5
+                )
+            ];
+
+
+        let angulo;
+
+
+        if (orientacao === 0) {
+
+            angulo =
+                aleatorio(
+                    -0.18,
+                    0.18
+                );
+
+        }
+
+        else if (orientacao === 1) {
+
+            angulo =
+                Math.PI / 2 +
+                aleatorio(
+                    -0.18,
+                    0.18
+                );
+
+        }
+
+        else {
+
+            angulo =
+                aleatorio(
+                    -0.75,
+                    0.75
+                );
+
+        }
+
+
+        const comprimento =
+            aleatorio(
+                55,
+                145
+            );
+
+
+        const larguraFibra =
+            tipo.espessura *
+            aleatorio(
+                0.75,
+                1.45
+            );
+
+
+        const pontos = [];
+
+
+        const quantidade =
+            Math.max(
+                18,
+                Math.floor(
+                    comprimento / 4
+                )
+            );
+
+
+        for (
+            let i = 0;
+            i <= quantidade;
+            i++
+        ) {
+
+            const progresso =
+                i / quantidade;
+
+
+            const onda =
+                Math.sin(
+                    progresso *
+                    Math.PI *
+                    inteiro(
+                        1,
+                        4
+                    )
+                ) *
+                aleatorio(
+                    1,
+                    4
+                );
+
+
+            const ruido =
+                aleatorio(
+                    -tipo.irregularidade,
+                    tipo.irregularidade
+                );
+
+
+            pontos.push({
 
                 x:
-                    80 +
-                    Math.random() *
-                    Math.max(
-                        100,
-                        largura - 160
-                    ),
+                    progresso *
+                    comprimento,
 
                 y:
-                    70 +
-                    Math.random() *
-                    Math.max(
-                        100,
-                        altura - 150
-                    ),
-
-                raio:
-                    4 +
-                    Math.random() * 3,
-
-                cor:
-                    cores[
-                        Math.floor(
-                            Math.random() *
-                            cores.length
-                        )
-                    ],
-
-                fase:
-                    Math.random() *
-                    Math.PI *
-                    2,
-
-                velocidade:
-                    0.5 +
-                    Math.random() *
-                    1.2,
-
-                coletado: false
+                    onda +
+                    ruido
 
             });
 
         }
 
+
+        return {
+
+            x:
+                aleatorio(
+                    45,
+                    Math.max(
+                        50,
+                        largura - 45
+                    )
+                ),
+
+            y:
+                aleatorio(
+                    65,
+                    Math.max(
+                        70,
+                        altura - 80
+                    )
+                ),
+
+            angulo,
+
+            comprimento,
+
+            largura:
+                larguraFibra,
+
+            pontos,
+
+            tipo,
+
+            cor:
+                cores[
+                    inteiro(
+                        0,
+                        cores.length - 1
+                    )
+                ],
+
+            fase:
+                aleatorio(
+                    0,
+                    Math.PI * 2
+                ),
+
+            velocidade:
+                aleatorio(
+                    0.35,
+                    1.65
+                ),
+
+            amplitude:
+                aleatorio(
+                    4,
+                    15
+                ),
+
+            rotacao:
+                aleatorio(
+                    -0.003,
+                    0.003
+                ),
+
+            escala:
+                aleatorio(
+                    0.75,
+                    1.15
+                ),
+
+            coletado: false
+
+        };
+
     }
 
 
-    /* ==========================================
-       DESENHA UM FIO
-    ========================================== */
+    /*
+    ==================================================
+    CRIA TODOS OS FIOS
+    ==================================================
+    */
 
-    function desenharFio(fio, tempoAtual) {
+    function criarFios() {
 
-        if (fio.coletado) {
+        fios = [];
+
+        for (
+            let i = 0;
+            i < TOTAL;
+            i++
+        ) {
+
+            fios.push(
+                criarFibra()
+            );
+
+        }
+
+    }
+
+
+    /*
+    ==================================================
+    DESENHA UMA FIBRA
+    ==================================================
+    */
+
+    function desenharFibra(
+        fibra,
+        tempoAtual
+    ) {
+
+        if (
+            fibra.coletado
+        ) {
+
             return;
+
         }
 
 
-        const deslocamento =
+        const movimento =
             Math.sin(
                 tempoAtual *
-                fio.velocidade +
-                fio.fase
-            ) * 8;
+                fibra.velocidade +
+                fibra.fase
+            ) *
+            fibra.amplitude;
 
 
-        const x =
-            fio.x +
-            deslocamento;
+        ctx.save();
 
 
-        const y =
-            fio.y;
+        ctx.translate(
+            fibra.x,
+            fibra.y + movimento
+        );
 
+
+        ctx.rotate(
+            fibra.angulo +
+            Math.sin(
+                tempoAtual *
+                0.35 +
+                fibra.fase
+            ) *
+            0.035
+        );
+
+
+        ctx.scale(
+            fibra.escala,
+            fibra.escala
+        );
+
+
+        /*
+        ----------------------------------------------
+        camada principal
+        ----------------------------------------------
+        */
 
         ctx.beginPath();
 
-        ctx.moveTo(
-            x - 10,
-            y
-        );
 
+        fibra.pontos.forEach(
+            (ponto, indice) => {
 
-        ctx.quadraticCurveTo(
-            x,
-            y - 12,
-            x + 10,
-            y
-        );
+                if (
+                    indice === 0
+                ) {
 
+                    ctx.moveTo(
+                        ponto.x,
+                        ponto.y
+                    );
 
-        ctx.quadraticCurveTo(
-            x,
-            y + 12,
-            x - 10,
-            y
+                }
+
+                else {
+
+                    ctx.lineTo(
+                        ponto.x,
+                        ponto.y
+                    );
+
+                }
+
+            }
         );
 
 
         ctx.strokeStyle =
-            fio.cor;
+            fibra.cor;
 
-        ctx.lineWidth = 1.2;
+        ctx.lineWidth =
+            fibra.largura;
+
+        ctx.lineCap =
+            'round';
+
+        ctx.lineJoin =
+            'round';
 
         ctx.stroke();
 
 
-        ctx.beginPath();
+        /*
+        ----------------------------------------------
+        pequenas fibras soltas
+        ----------------------------------------------
+        */
 
-        ctx.arc(
-            x,
-            y,
-            fio.raio,
-            0,
-            Math.PI * 2
-        );
+        const quantidadeFios =
+            fibra.tipo.densidade;
 
 
-        ctx.fillStyle =
-            fio.cor;
+        for (
+            let i = 0;
+            i < quantidadeFios;
+            i++
+        ) {
 
-        ctx.fill();
+            const ponto =
+                fibra.pontos[
+                    inteiro(
+                        0,
+                        fibra.pontos.length - 1
+                    )
+                ];
+
+
+            const comprimento =
+                aleatorio(
+                    2,
+                    9
+                );
+
+
+            const direcao =
+                aleatorio(
+                    -Math.PI,
+                    Math.PI
+                );
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                ponto.x,
+                ponto.y
+            );
+
+
+            ctx.lineTo(
+                ponto.x +
+                Math.cos(
+                    direcao
+                ) *
+                comprimento,
+
+                ponto.y +
+                Math.sin(
+                    direcao
+                ) *
+                comprimento
+            );
+
+
+            ctx.strokeStyle =
+                fibra.cor;
+
+            ctx.globalAlpha =
+                aleatorio(
+                    0.15,
+                    0.55
+                );
+
+
+            ctx.lineWidth =
+                aleatorio(
+                    0.35,
+                    fibra.largura * 0.55
+                );
+
+
+            ctx.stroke();
+
+        }
+
+
+        /*
+        ----------------------------------------------
+        brilho para seda e nylon
+        ----------------------------------------------
+        */
+
+        if (
+            fibra.tipo.brilho >
+            0.1
+        ) {
+
+            ctx.beginPath();
+
+
+            fibra.pontos.forEach(
+                (ponto, indice) => {
+
+                    if (
+                        indice === 0
+                    ) {
+
+                        ctx.moveTo(
+                            ponto.x,
+                            ponto.y -
+                            fibra.largura *
+                            0.35
+                        );
+
+                    }
+
+                    else {
+
+                        ctx.lineTo(
+                            ponto.x,
+                            ponto.y -
+                            fibra.largura *
+                            0.35
+                        );
+
+                    }
+
+                }
+            );
+
+
+            ctx.strokeStyle =
+                '#ffffff';
+
+            ctx.globalAlpha =
+                fibra.tipo.brilho;
+
+            ctx.lineWidth =
+                Math.max(
+                    0.3,
+                    fibra.largura *
+                    0.35
+                );
+
+            ctx.stroke();
+
+        }
+
+
+        ctx.globalAlpha = 1;
+
+
+        ctx.restore();
 
     }
 
 
-    /* ==========================================
-       DESENHA A TRAMA
-    ========================================== */
+    /*
+    ==================================================
+    TRAMA DE FUNDO
+    ==================================================
+    */
 
-    function desenharTrama(tempoAtual) {
+    function desenharTrama(
+        tempoAtual
+    ) {
 
         ctx.clearRect(
             0,
@@ -240,14 +704,15 @@
         );
 
 
-        const linhas = 12;
+        const linhas = 18;
 
         const espacamento =
             altura /
             (linhas + 1);
 
 
-        ctx.lineWidth = 0.45;
+        ctx.lineWidth =
+            0.35;
 
 
         for (
@@ -266,15 +731,15 @@
             for (
                 let x = 0;
                 x <= largura;
-                x += 12
+                x += 14
             ) {
 
                 const onda =
                     Math.sin(
                         x * 0.012 +
-                        tempoAtual * 0.35 +
+                        tempoAtual * 0.2 +
                         i
-                    ) * 3;
+                    ) * 2;
 
 
                 const y =
@@ -282,80 +747,18 @@
                     onda;
 
 
-                if (x === 0) {
+                if (
+                    x === 0
+                ) {
 
                     ctx.moveTo(
-                        x,
-                        y
-                    );
-
-                } else {
-
-                    ctx.lineTo(
                         x,
                         y
                     );
 
                 }
 
-            }
-
-
-            ctx.strokeStyle =
-                'rgba(17,17,17,.08)';
-
-            ctx.stroke();
-
-        }
-
-
-        const colunas = 18;
-
-        const espacamentoX =
-            largura /
-            (colunas + 1);
-
-
-        for (
-            let i = 1;
-            i <= colunas;
-            i++
-        ) {
-
-            const baseX =
-                espacamentoX * i;
-
-
-            ctx.beginPath();
-
-
-            for (
-                let y = 0;
-                y <= altura;
-                y += 12
-            ) {
-
-                const onda =
-                    Math.sin(
-                        y * 0.014 +
-                        tempoAtual * 0.25 +
-                        i
-                    ) * 3;
-
-
-                const x =
-                    baseX +
-                    onda;
-
-
-                if (y === 0) {
-
-                    ctx.moveTo(
-                        x,
-                        y
-                    );
-
-                } else {
+                else {
 
                     ctx.lineTo(
                         x,
@@ -377,11 +780,15 @@
     }
 
 
-    /* ==========================================
-       DESENHA TUDO
-    ========================================== */
+    /*
+    ==================================================
+    DESENHA TUDO
+    ==================================================
+    */
 
-    function desenhar(tempoAtual) {
+    function desenhar(
+        tempoAtual
+    ) {
 
         desenharTrama(
             tempoAtual
@@ -389,10 +796,10 @@
 
 
         fios.forEach(
-            fio => {
+            fibra => {
 
-                desenharFio(
-                    fio,
+                desenharFibra(
+                    fibra,
                     tempoAtual
                 );
 
@@ -407,19 +814,23 @@
 
             ctx.beginPath();
 
+
             ctx.arc(
                 mouse.x,
                 mouse.y,
-                18,
+                13,
                 0,
                 Math.PI * 2
             );
 
 
             ctx.strokeStyle =
-                'rgba(17,17,17,.12)';
+                'rgba(17,17,17,.16)';
 
-            ctx.lineWidth = 1;
+
+            ctx.lineWidth =
+                0.7;
+
 
             ctx.stroke();
 
@@ -428,9 +839,11 @@
     }
 
 
-    /* ==========================================
-       VERIFICA SE O CURSOR PEGOU UM FIO
-    ========================================== */
+    /*
+    ==================================================
+    COLISÃO
+    ==================================================
+    */
 
     function verificarColeta() {
 
@@ -445,21 +858,25 @@
 
 
         fios.forEach(
-            fio => {
+            fibra => {
 
-                if (fio.coletado) {
+                if (
+                    fibra.coletado
+                ) {
+
                     return;
+
                 }
 
 
                 const dx =
                     mouse.x -
-                    fio.x;
+                    fibra.x;
 
 
                 const dy =
                     mouse.y -
-                    fio.y;
+                    fibra.y;
 
 
                 const distancia =
@@ -469,11 +886,20 @@
                     );
 
 
+                const margem =
+                    Math.max(
+                        20,
+                        fibra.comprimento *
+                        0.18
+                    );
+
+
                 if (
-                    distancia < 28
+                    distancia <
+                    margem
                 ) {
 
-                    fio.coletado =
+                    fibra.coletado =
                         true;
 
 
@@ -503,9 +929,11 @@
     }
 
 
-    /* ==========================================
-       INICIA O JOGO
-    ========================================== */
+    /*
+    ==================================================
+    INICIA
+    ==================================================
+    */
 
     function iniciar() {
 
@@ -541,24 +969,32 @@
     }
 
 
-    /* ==========================================
-       FINALIZA
-    ========================================== */
+    /*
+    ==================================================
+    FINALIZA
+    ==================================================
+    */
 
-    function finalizar(vitoria) {
+    function finalizar(
+        vitoria
+    ) {
 
         terminou = true;
 
         iniciado = false;
 
 
-        if (vitoria) {
+        if (
+            vitoria
+        ) {
 
             mensagemTexto.innerHTML =
                 'a trama está completa.<br>' +
-                'você recolheu todos os fios.';
+                'você encontrou todos os fios.';
 
-        } else {
+        }
+
+        else {
 
             mensagemTexto.innerHTML =
                 'o tempo acabou.<br>' +
@@ -574,11 +1010,15 @@
     }
 
 
-    /* ==========================================
-       ATUALIZA O TEMPO
-    ========================================== */
+    /*
+    ==================================================
+    TEMPO
+    ==================================================
+    */
 
-    function atualizarTempo(agora) {
+    function atualizarTempo(
+        agora
+    ) {
 
         if (
             !iniciado ||
@@ -637,11 +1077,15 @@
     }
 
 
-    /* ==========================================
-       LOOP PRINCIPAL
-    ========================================== */
+    /*
+    ==================================================
+    LOOP
+    ==================================================
+    */
 
-    function animar(agora) {
+    function animar(
+        agora
+    ) {
 
         const tempoAtual =
             agora / 1000;
@@ -667,9 +1111,11 @@
     }
 
 
-    /* ==========================================
-       MOUSE
-    ========================================== */
+    /*
+    ==================================================
+    MOUSE
+    ==================================================
+    */
 
     area.addEventListener(
         'mousemove',
@@ -707,9 +1153,11 @@
     );
 
 
-    /* ==========================================
-       REDIMENSIONAMENTO
-    ========================================== */
+    /*
+    ==================================================
+    REDIMENSIONAMENTO
+    ==================================================
+    */
 
     window.addEventListener(
         'resize',
@@ -723,19 +1171,52 @@
     );
 
 
-    /* ==========================================
-       REINICIAR
-    ========================================== */
+    /*
+    ==================================================
+    REINICIAR
+    ==================================================
+    */
 
     reiniciar.addEventListener(
         'click',
-        iniciar
+        event => {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            iniciar();
+
+        }
     );
 
 
-    /* ==========================================
-       INICIALIZAÇÃO
-    ========================================== */
+    /*
+    ==================================================
+    TECLA R
+    ==================================================
+    */
+
+    document.addEventListener(
+        'keydown',
+        event => {
+
+            if (
+                event.key.toLowerCase() === 'r'
+            ) {
+
+                iniciar();
+
+            }
+
+        }
+    );
+
+
+    /*
+    ==================================================
+    INICIALIZAÇÃO
+    ==================================================
+    */
 
     tamanhoCanvas();
 

@@ -57,10 +57,30 @@
 
 
     /* ==================================================
+       CURSOR
+    ================================================== */
+
+    /*
+    O cursor nativo permanece visível durante todo
+    o jogo, inclusive sobre o canvas.
+    */
+
+    area.style.cursor = 'default';
+    canvas.style.cursor = 'default';
+
+
+    /* ==================================================
        ÁUDIO
     ================================================== */
 
     let audioContext = null;
+
+    let ambienteAtivo = false;
+    let ambienteOscilador = null;
+    let ambienteGanho = null;
+    let ambienteFiltro = null;
+
+    let proximaVariacaoAmbiente = 0;
 
 
     function iniciarAudio() {
@@ -72,7 +92,6 @@
                     window.AudioContext ||
                     window.webkitAudioContext
                 )();
-
         }
 
         if (
@@ -80,9 +99,9 @@
         ) {
 
             audioContext.resume();
-
         }
 
+        iniciarAmbiente();
     }
 
 
@@ -128,6 +147,205 @@
         oscilador.stop(
             agora + duracao
         );
+    }
+
+
+    /*
+    Ruído ambiente muito baixo.
+
+    É construído com ruído filtrado + uma frequência
+    grave muito suave, criando uma sensação de água
+    sem virar uma trilha sonora evidente.
+    */
+
+    function iniciarAmbiente() {
+
+        if (
+            ambienteAtivo ||
+            !audioContext
+        ) return;
+
+        ambienteAtivo = true;
+
+        const agora =
+            audioContext.currentTime;
+
+
+        /* ruído */
+
+        const duracao =
+            4;
+
+        const buffer =
+            audioContext.createBuffer(
+                1,
+                audioContext.sampleRate * duracao,
+                audioContext.sampleRate
+            );
+
+        const dados =
+            buffer.getChannelData(0);
+
+        for (
+            let i = 0;
+            i < dados.length;
+            i++
+        ) {
+
+            dados[i] =
+                Math.random() * 2 - 1;
+        }
+
+
+        const fonte =
+            audioContext.createBufferSource();
+
+        ambienteFiltro =
+            audioContext.createBiquadFilter();
+
+        ambienteGanho =
+            audioContext.createGain();
+
+
+        ambienteFiltro.type =
+            'lowpass';
+
+        ambienteFiltro.frequency.value =
+            430;
+
+
+        ambienteGanho.gain.value =
+            0.012;
+
+
+        fonte.buffer =
+            buffer;
+
+        fonte.loop =
+            true;
+
+
+        fonte.connect(
+            ambienteFiltro
+        );
+
+        ambienteFiltro.connect(
+            ambienteGanho
+        );
+
+        ambienteGanho.connect(
+            audioContext.destination
+        );
+
+
+        fonte.start(agora);
+
+
+        /*
+        camada grave contínua
+        */
+
+        ambienteOscilador =
+            audioContext.createOscillator();
+
+        const ganhoGrave =
+            audioContext.createGain();
+
+
+        ambienteOscilador.type =
+            'sine';
+
+        ambienteOscilador.frequency.value =
+            58;
+
+        ganhoGrave.gain.value =
+            0.008;
+
+
+        ambienteOscilador.connect(
+            ganhoGrave
+        );
+
+        ganhoGrave.connect(
+            audioContext.destination
+        );
+
+
+        ambienteOscilador.start(
+            agora
+        );
+
+
+        proximaVariacaoAmbiente =
+            performance.now() +
+            2500;
+    }
+
+
+    /*
+    Pequenas mudanças no ambiente para evitar que
+    o ruído fique completamente estático.
+    */
+
+    function atualizarAmbiente(tempo) {
+
+        if (
+            !ambienteAtivo ||
+            !audioContext
+        ) return;
+
+
+        if (
+            tempo >
+            proximaVariacaoAmbiente
+        ) {
+
+            const agora =
+                audioContext.currentTime;
+
+
+            const novaFrequencia =
+                350 +
+                Math.random() * 180;
+
+
+            const novoVolume =
+                0.008 +
+                Math.random() * 0.008;
+
+
+            ambienteFiltro.frequency
+                .linearRampToValueAtTime(
+                    novaFrequencia,
+                    agora + 1.4
+                );
+
+
+            ambienteGanho.gain
+                .linearRampToValueAtTime(
+                    novoVolume,
+                    agora + 1.4
+                );
+
+
+            if (
+                ambienteOscilador
+            ) {
+
+                ambienteOscilador.frequency
+                    .linearRampToValueAtTime(
+                        48 +
+                        Math.random() * 25,
+                        agora + 1.8
+                    );
+            }
+
+
+            proximaVariacaoAmbiente =
+                tempo +
+                2200 +
+                Math.random() * 4000;
+        }
     }
 
 
@@ -186,78 +404,163 @@
     }
 
 
-    function somSplash() {
+    /*
+    Novo som de entrada/saída da água.
+
+    Em vez de ruído branco agressivo:
+    várias frequências graves descendentes,
+    com seno e triangle, criando algo mais
+    "glub", profundo e elástico.
+    */
+
+    function somGlub() {
 
         if (!audioContext) return;
 
         const agora =
             audioContext.currentTime;
 
-        const duracao =
-            0.28;
 
-        const buffer =
-            audioContext.createBuffer(
-                1,
-                audioContext.sampleRate * duracao,
-                audioContext.sampleRate
-            );
+        const frequenciaInicial =
+            170 +
+            Math.random() * 35;
 
-        const dados =
-            buffer.getChannelData(0);
 
-        for (
-            let i = 0;
-            i < dados.length;
-            i++
-        ) {
+        const frequenciaFinal =
+            72 +
+            Math.random() * 20;
 
-            const t =
-                i / dados.length;
 
-            dados[i] =
-                (
-                    Math.random() * 2 - 1
-                ) *
-                Math.pow(
-                    1 - t,
-                    2.5
-                );
-        }
+        const oscilador =
+            audioContext.createOscillator();
 
-        const fonte =
-            audioContext.createBufferSource();
+        const ganho =
+            audioContext.createGain();
 
         const filtro =
             audioContext.createBiquadFilter();
 
-        const ganho =
-            audioContext.createGain();
+
+        oscilador.type =
+            'sine';
+
+
+        oscilador.frequency.setValueAtTime(
+            frequenciaInicial,
+            agora
+        );
+
+
+        oscilador.frequency.exponentialRampToValueAtTime(
+            frequenciaFinal,
+            agora + 0.42
+        );
+
+
+        ganho.gain.setValueAtTime(
+            0.0001,
+            agora
+        );
+
+
+        ganho.gain.exponentialRampToValueAtTime(
+            0.075,
+            agora + 0.045
+        );
+
+
+        ganho.gain.exponentialRampToValueAtTime(
+            0.001,
+            agora + 0.48
+        );
+
 
         filtro.type =
             'lowpass';
 
         filtro.frequency.value =
-            1600;
+            500;
 
-        ganho.gain.setValueAtTime(
-            0.08,
+
+        oscilador.connect(
+            filtro
+        );
+
+        filtro.connect(
+            ganho
+        );
+
+        ganho.connect(
+            audioContext.destination
+        );
+
+
+        oscilador.start(
             agora
         );
 
-        ganho.gain.exponentialRampToValueAtTime(
-            0.001,
-            agora + duracao
+        oscilador.stop(
+            agora + 0.5
         );
 
-        fonte.buffer =
-            buffer;
 
-        fonte.connect(filtro);
-        filtro.connect(ganho);
-        ganho.connect(audioContext.destination);
+        /*
+        pequeno segundo corpo do glub
+        */
 
-        fonte.start(agora);
+        const oscilador2 =
+            audioContext.createOscillator();
+
+        const ganho2 =
+            audioContext.createGain();
+
+
+        oscilador2.type =
+            'triangle';
+
+        oscilador2.frequency.setValueAtTime(
+            95,
+            agora + 0.035
+        );
+
+        oscilador2.frequency.exponentialRampToValueAtTime(
+            48,
+            agora + 0.35
+        );
+
+
+        ganho2.gain.setValueAtTime(
+            0.0001,
+            agora
+        );
+
+        ganho2.gain.exponentialRampToValueAtTime(
+            0.035,
+            agora + 0.07
+        );
+
+        ganho2.gain.exponentialRampToValueAtTime(
+            0.001,
+            agora + 0.4
+        );
+
+
+        oscilador2.connect(
+            ganho2
+        );
+
+        ganho2.connect(
+            audioContext.destination
+        );
+
+
+        oscilador2.start(
+            agora
+        );
+
+        oscilador2.stop(
+            agora + 0.42
+        );
     }
 
 
@@ -397,6 +700,7 @@
         const nivelAgua =
             altura * ALTURA_AGUA;
 
+
         const estavaNaAgua =
             nessie.y > nivelAgua;
 
@@ -412,8 +716,10 @@
                     )
                 );
 
+
             const diferenca =
                 alvo - nessie.y;
+
 
             nessie.velocidadeY +=
                 diferenca *
@@ -426,7 +732,9 @@
         }
 
 
-        nessie.velocidadeY *= 0.82;
+        nessie.velocidadeY *=
+            0.82;
+
 
         nessie.y +=
             nessie.velocidadeY;
@@ -462,7 +770,9 @@
             nessie.velocidadeY *
             0.018;
 
-        nessie.onda += 0.06;
+
+        nessie.onda +=
+            0.06;
 
 
         const agoraNaAgua =
@@ -475,7 +785,8 @@
         ) {
 
             iniciarAudio();
-            somSplash();
+
+            somGlub();
 
             tempoSplash =
                 performance.now();
@@ -502,17 +813,17 @@
 
         ctx.save();
 
+
         ctx.translate(
             x,
             y
         );
 
+
         ctx.rotate(
             nessie.rotacao
         );
 
-
-        /* corpo serpenteante */
 
         const segmentos =
             Math.floor(
@@ -528,7 +839,9 @@
         ) {
 
             const distancia =
-                i * nessie.segmento;
+                i *
+                nessie.segmento;
+
 
             const curva =
                 Math.sin(
@@ -536,12 +849,15 @@
                     i * 0.45
                 ) * 5;
 
+
             const sx =
                 -distancia;
+
 
             const sy =
                 curva +
                 i * 0.5;
+
 
             const tamanho =
                 17 -
@@ -563,10 +879,9 @@
         }
 
 
-        /* pescoço */
-
         ctx.fillStyle =
             '#d8ba45';
+
 
         ctx.fillRect(
             5,
@@ -574,6 +889,7 @@
             12,
             30
         );
+
 
         ctx.fillRect(
             12,
@@ -583,14 +899,13 @@
         );
 
 
-        /* cabeça */
-
         ctx.fillRect(
             23,
             -38,
             25,
             18
         );
+
 
         ctx.fillRect(
             38,
@@ -600,10 +915,9 @@
         );
 
 
-        /* chifres */
-
         ctx.fillStyle =
             '#a78d32';
+
 
         ctx.fillRect(
             25,
@@ -620,10 +934,9 @@
         );
 
 
-        /* olho */
-
         ctx.fillStyle =
             '#111';
+
 
         ctx.fillRect(
             41,
@@ -633,8 +946,6 @@
         );
 
 
-        /* boca */
-
         ctx.fillRect(
             47,
             -25,
@@ -643,10 +954,9 @@
         );
 
 
-        /* cauda */
-
         ctx.fillStyle =
             '#ad9134';
+
 
         ctx.beginPath();
 
@@ -685,18 +995,20 @@
 
 
     /* ==================================================
-       PEDRAS
+       ROCHAS
     ================================================== */
 
     function criarPedra(x) {
 
         const tamanho =
-            38 +
-            Math.random() * 70;
+            42 +
+            Math.random() * 82;
+
 
         const alturaPedra =
-            35 +
-            Math.random() * 100;
+            40 +
+            Math.random() * 110;
+
 
         const y =
             35 +
@@ -706,6 +1018,46 @@
                 alturaPedra -
                 70
             );
+
+
+        const porosa =
+            Math.random() < 0.42;
+
+
+        const poros = [];
+
+
+        if (porosa) {
+
+            const quantidade =
+                4 +
+                Math.floor(
+                    Math.random() * 7
+                );
+
+
+            for (
+                let i = 0;
+                i < quantidade;
+                i++
+            ) {
+
+                poros.push({
+
+                    x:
+                        0.12 +
+                        Math.random() * 0.76,
+
+                    y:
+                        0.15 +
+                        Math.random() * 0.68,
+
+                    raio:
+                        2 +
+                        Math.random() * 6
+                });
+            }
+        }
 
 
         return {
@@ -718,8 +1070,11 @@
                 tamanho,
 
             altura:
-                alturaPedra
+                alturaPedra,
 
+            porosa,
+
+            poros
         };
     }
 
@@ -740,15 +1095,16 @@
 
 
         /*
-        desenho propositalmente plano,
-        sem sombra ou volume realista
+        rocha quase totalmente negra,
+        sem iluminação ou sombra.
         */
 
         ctx.fillStyle =
-            '#365b66';
+            '#090909';
 
 
         ctx.beginPath();
+
 
         ctx.moveTo(
             x,
@@ -756,32 +1112,37 @@
         );
 
         ctx.lineTo(
-            x + w * 0.08,
-            y + h * 0.35
+            x + w * 0.04,
+            y + h * 0.42
         );
 
         ctx.lineTo(
-            x + w * 0.28,
-            y + h * 0.10
+            x + w * 0.16,
+            y + h * 0.19
         );
 
         ctx.lineTo(
-            x + w * 0.55,
+            x + w * 0.37,
+            y + h * 0.05
+        );
+
+        ctx.lineTo(
+            x + w * 0.61,
             y
         );
 
         ctx.lineTo(
             x + w * 0.82,
-            y + h * 0.18
+            y + h * 0.14
+        );
+
+        ctx.lineTo(
+            x + w * 0.96,
+            y + h * 0.48
         );
 
         ctx.lineTo(
             x + w,
-            y + h * 0.55
-        );
-
-        ctx.lineTo(
-            x + w * 0.91,
             y + h
         );
 
@@ -791,47 +1152,72 @@
 
 
         /*
-        riscos abstratos da pedra
+        Algumas pedras têm poros.
+        Eles não aparecem em todas.
         */
 
-        ctx.strokeStyle =
-            '#557d82';
-
-        ctx.lineWidth =
-            2;
-
-        ctx.globalAlpha =
-            0.55;
-
-
-        for (
-            let i = 0;
-            i < 3;
-            i++
+        if (
+            pedra.porosa
         ) {
 
-            ctx.beginPath();
+            ctx.fillStyle =
+                '#272727';
 
-            ctx.moveTo(
-                x + w * 0.2,
-                y + h * (
-                    0.25 + i * 0.18
-                )
+
+            pedra.poros.forEach(
+                poro => {
+
+                    ctx.beginPath();
+
+                    ctx.arc(
+                        x +
+                        poro.x * w,
+
+                        y +
+                        poro.y * h,
+
+                        poro.raio,
+
+                        0,
+                        Math.PI * 2
+                    );
+
+                    ctx.fill();
+
+
+                    /*
+                    pequeno centro ainda mais escuro,
+                    para dar a sensação de cavidade
+                    sem criar sombra.
+                    */
+
+                    ctx.fillStyle =
+                        '#050505';
+
+
+                    ctx.beginPath();
+
+                    ctx.arc(
+                        x +
+                        poro.x * w,
+
+                        y +
+                        poro.y * h,
+
+                        poro.raio * 0.42,
+
+                        0,
+                        Math.PI * 2
+                    );
+
+                    ctx.fill();
+
+
+                    ctx.fillStyle =
+                        '#272727';
+                }
             );
-
-            ctx.lineTo(
-                x + w * 0.65,
-                y + h * (
-                    0.18 + i * 0.19
-                )
-            );
-
-            ctx.stroke();
         }
-
-
-        ctx.globalAlpha =
-            1;
     }
 
 
@@ -847,6 +1233,7 @@
             (
                 altura - 120
             );
+
 
         const especial =
             Math.random() < 0.12;
@@ -867,7 +1254,6 @@
                 especial
                     ? 24
                     : 18
-
         };
     }
 
@@ -953,8 +1339,6 @@
             cabide.y;
 
 
-        /* gancho */
-
         ctx.strokeStyle =
             '#f2c400';
 
@@ -992,8 +1376,6 @@
 
         ctx.stroke();
 
-
-        /* corpo */
 
         ctx.beginPath();
 
@@ -1053,7 +1435,6 @@
 
             a.y + a.altura >
             b.y
-
         );
     }
 
@@ -1073,7 +1454,6 @@
 
             altura:
                 48
-
         };
 
 
@@ -1160,7 +1540,7 @@
 
 
     /* ==================================================
-       CRIAÇÃO INICIAL DOS OBSTÁCULOS
+       OBSTÁCULOS
     ================================================== */
 
     function criarObstaculos() {
@@ -1173,12 +1553,6 @@
             largura + 180;
 
 
-        /*
-        cria uma sequência inicial
-        suficientemente espaçada para
-        que o jogador tenha tempo de entrar
-        */
-
         for (
             let i = 0;
             i < 4;
@@ -1187,6 +1561,7 @@
 
             const pedra =
                 criarPedra(x);
+
 
             pedras.push(
                 pedra
@@ -1211,7 +1586,7 @@
 
 
     /* ==================================================
-       MOVIMENTO DO MUNDO
+       MOVIMENTO
     ================================================== */
 
     function moverMundo() {
@@ -1300,11 +1675,17 @@
 
     function atualizarDificuldade() {
 
+        /*
+        A velocidade aumenta muito lentamente.
+        O jogador sente uma progressão contínua,
+        sem saltos repentinos.
+        */
+
         velocidade =
             Math.min(
                 VELOCIDADE_MAXIMA,
                 VELOCIDADE_INICIAL +
-                tempoJogo * 0.045
+                tempoJogo * 0.025
             );
     }
 
@@ -1351,6 +1732,7 @@
 
 
         return [
+
             Math.max(
                 0,
                 Math.min(
@@ -1393,7 +1775,7 @@
 
 
     /* ==================================================
-       RISCOS DO CÉU
+       CÉU
     ================================================== */
 
     function desenharRiscosCeu(
@@ -1717,10 +2099,11 @@
 
         ctx.stroke();
 
-        ctx.globalAlpha = 1;
+        ctx.globalAlpha =
+            1;
 
 
-        /* splash */
+        /* splash visual */
 
         if (
             performance.now() -
@@ -1746,7 +2129,8 @@
                 ')';
 
 
-            ctx.lineWidth = 2;
+            ctx.lineWidth =
+                2;
 
 
             ctx.beginPath();
@@ -1804,7 +2188,7 @@
 
 
     /* ==================================================
-       INICIAR / REINICIAR
+       INICIAR
     ================================================== */
 
     function iniciar() {
@@ -1855,11 +2239,6 @@
         criarObstaculos();
 
 
-        /*
-        O botão deixa de participar
-        da interface do jogo.
-        */
-
         if (botao) {
 
             botao.style.display =
@@ -1899,6 +2278,7 @@
 
 
         iniciarAudio();
+
         somColisao();
 
 
@@ -1950,12 +2330,6 @@
         }
 
 
-        /*
-        Não há botão.
-        A mensagem serve apenas
-        como indicação visual.
-        */
-
         if (mensagem) {
 
             mensagem.classList.add(
@@ -1985,6 +2359,11 @@
 
         tempoUltimo =
             agora;
+
+
+        atualizarAmbiente(
+            agora
+        );
 
 
         if (
@@ -2025,7 +2404,7 @@
 
 
     /* ==================================================
-       CONTROLE DO CURSOR
+       CONTROLE DO MOUSE
     ================================================== */
 
     area.addEventListener(
@@ -2048,33 +2427,46 @@
 
 
     area.addEventListener(
+        'mouseenter',
+        () => {
+
+            mouseAtivo =
+                true;
+
+            area.style.cursor =
+                'default';
+
+            canvas.style.cursor =
+                'default';
+        }
+    );
+
+
+    area.addEventListener(
         'mouseleave',
         () => {
 
             mouseAtivo =
                 false;
+
+            area.style.cursor =
+                'default';
         }
     );
 
 
-    /* ==================================================
-       CLIQUE
-       
-       PRIMEIRO CLIQUE:
-       inicia.
-
-       CLIQUE APÓS COLISÃO:
-       reinicia.
-
-       DURANTE O JOGO:
-       não faz nada.
-    ================================================== */
+    /*
+    Clique inicia ou reinicia.
+    */
 
     area.addEventListener(
         'click',
         event => {
 
             event.preventDefault();
+
+
+            iniciarAudio();
 
 
             if (
@@ -2096,7 +2488,6 @@
         () => {
 
             tamanhoCanvas();
-
         }
     );
 
@@ -2116,11 +2507,6 @@
     }
 
 
-    /*
-    Garante que a mensagem inicial
-    não impeça o clique.
-    */
-
     if (mensagem) {
 
         mensagem.classList.add(
@@ -2129,22 +2515,12 @@
     }
 
 
-    /*
-    O botão antigo não é mais utilizado.
-    */
-
     if (botao) {
 
         botao.style.display =
             'none';
-
     }
 
-
-    /*
-    O jogo começa parado.
-    O primeiro clique inicia.
-    */
 
     jogando =
         false;

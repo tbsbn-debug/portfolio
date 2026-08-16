@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>opus — jogo</title>
+    <title>jogo</title>
 
     <link rel="stylesheet" href="style.css?v=2">
 
@@ -59,21 +59,31 @@
             display: block;
         }
 
-        .jogo-mensagem {
-            position: absolute;
-            inset: 0;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity .3s ease;
-        }
+.jogo-mensagem {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
 
-        .jogo-mensagem.visivel {
-            opacity: 1;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: translateY(80px);
+
+    pointer-events: none;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity .3s ease;
+}
+
+.jogo-mensagem.visivel {
+    opacity: 1;
+    visibility: visible;
+
+    pointer-events: auto;
+}
 
         .jogo-mensagem-inner {
             text-align: center;
@@ -147,7 +157,11 @@
 
     <main class="jogo-pagina">
 
-        <section class="jogo-area" id="jogoArea">
+    <div class="jogo-titulo">
+        <h1>TRAMA</h1>
+    </div>
+
+    <div class="jogo-area" id="jogoArea">
 
             <canvas id="jogoCanvas"></canvas>
 

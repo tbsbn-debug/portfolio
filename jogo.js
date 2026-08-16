@@ -9,16 +9,22 @@
 
     const mensagem = document.getElementById('jogoMensagem');
     const mensagemTexto = document.getElementById('jogoMensagemTexto');
-    const reiniciar = document.getElementById('jogoReiniciar');
+
+    const iniciarBotao =
+        document.getElementById('jogoIniciar');
+
+    const reiniciar =
+        document.getElementById('jogoReiniciar');
 
 
     /*
     ==================================================
-    CONFIGURAÇÕES DO JOGO
+    CONFIGURAÇÕES
     ==================================================
     */
 
     const TOTAL = 30;
+
     const TEMPO_TOTAL = 20;
 
 
@@ -26,16 +32,26 @@
     let altura = 0;
     let dpr = 1;
 
+
     let fibras = [];
 
+
     let coletados = 0;
+
     let tempo = TEMPO_TOTAL;
 
+
     let iniciado = false;
+
     let terminou = false;
+
     let venceu = false;
 
+    let aguardandoInicio = true;
+
+
     let ultimoTempo = 0;
+
 
     let audioContext = null;
 
@@ -49,6 +65,7 @@
     let padrao = {
 
         verticais: [],
+
         horizontais: [],
 
         fundo: '#f4f0e8',
@@ -56,9 +73,11 @@
         tamanho: 0,
 
         x: 0,
+
         y: 0,
 
         largura: 0,
+
         altura: 0
 
     };
@@ -73,6 +92,7 @@
     const mouse = {
 
         x: 0,
+
         y: 0,
 
         ativo: false
@@ -82,28 +102,38 @@
 
     /*
     ==================================================
-    PALETA DOS FIOS
-
-    O FUNDO DO TECIDO FINAL TAMBÉM SERÁ
-    ESCOLHIDO EXATAMENTE DESTA PALETA.
+    PALETA
     ==================================================
     */
 
     const cores = [
 
         '#111111',
+
         '#211714',
+
         '#553522',
+
         '#79502f',
+
         '#a36b2c',
+
         '#c18b32',
+
         '#d4a83b',
+
         '#e0bf59',
+
         '#7d4635',
+
         '#a43f32',
+
         '#8e2727',
+
         '#263e59',
+
         '#315c7d',
+
         '#477b96'
 
     ];
@@ -111,17 +141,12 @@
 
     /*
     ==================================================
-    NOTAS DA MELODIA
+    MELODIA DOS 30 FIOS
 
-    "ODE À ALEGRIA" — BEETHOVEN
-
-    B B C D | D C B A |
-    G G A B | B A A |
-    B B C D | D C B A |
-    G G A B | A G G ...
-
-    Usamos as primeiras 30 notas para
-    os 30 fios.
+    si si dó ré ré dó si lá
+    sol sol lá si si lá lá
+    si si dó ré ré dó si lá
+    sol sol lá si lá sol sol
     ==================================================
     */
 
@@ -168,8 +193,8 @@
     ==================================================
     DESFECHO
 
-    B B C D | D C B A |
-    G G A B | A G G
+    si si dó ré ré dó si lá
+    sol sol lá si lá sol sol
     ==================================================
     */
 
@@ -236,7 +261,7 @@
 
     /*
     ==================================================
-    CONVERSÃO DE NOTAS
+    FREQUÊNCIAS
     ==================================================
     */
 
@@ -245,10 +270,13 @@
         const frequencias = {
 
             'G4': 392.00,
+
             'A4': 440.00,
+
             'B4': 493.88,
 
             'C5': 523.25,
+
             'D5': 587.33
 
         };
@@ -261,7 +289,7 @@
 
     /*
     ==================================================
-    INICIA AUDIO
+    AUDIO
     ==================================================
     */
 
@@ -279,7 +307,8 @@
 
 
         if (
-            audioContext.state === 'suspended'
+            audioContext.state ===
+            'suspended'
         ) {
 
             audioContext.resume();
@@ -291,11 +320,7 @@
 
     /*
     ==================================================
-    TOCA UMA NOTA
-
-    O som é sintetizado no próprio JS.
-    Cada fio produz a nota correspondente
-    da melodia.
+    TOCAR NOTA
     ==================================================
     */
 
@@ -317,10 +342,6 @@
             frequenciaNota(nota);
 
 
-        /*
-        OSCILADOR PRINCIPAL
-        */
-
         const oscilador =
             audioContext.createOscillator();
 
@@ -338,10 +359,6 @@
             agora
         );
 
-
-        /*
-        pequeno ataque
-        */
 
         ganho.gain.setValueAtTime(
             0,
@@ -382,11 +399,7 @@
 
 
         /*
-        SEGUNDA CAMADA MUITO LEVE
-
-        Dá um pouco mais de corpo à nota,
-        sem transformar o jogo em um sintetizador
-        excessivamente eletrônico.
+        SEGUNDA CAMADA
         */
 
         const segundo =
@@ -449,7 +462,7 @@
 
     /*
     ==================================================
-    SOM DE CADA FIO
+    SOM DO FIO
     ==================================================
     */
 
@@ -475,7 +488,7 @@
 
     /*
     ==================================================
-    DESFECHO MUSICAL
+    SOM DE VITÓRIA
     ==================================================
     */
 
@@ -483,12 +496,6 @@
 
         iniciarAudio();
 
-
-        /*
-        Toca as notas do desfecho uma depois
-        da outra, como uma pequena conclusão
-        musical.
-        */
 
         const intervalo =
             0.31;
@@ -622,9 +629,13 @@
         const orientacoes = [
 
             'horizontal',
+
             'vertical',
+
             'horizontal',
+
             'vertical',
+
             'diagonal'
 
         ];
@@ -727,7 +738,7 @@
             velocidade:
                 aleatorio(
                     0.25,
-                    11.25
+                    1.25
                 ) *
                 tipo.movimento,
 
@@ -746,7 +757,7 @@
 
     /*
     ==================================================
-    CRIA FIBRAS
+    CRIA FIOS
     ==================================================
     */
 
@@ -831,6 +842,7 @@
         return {
 
             x,
+
             y
 
         };
@@ -840,7 +852,7 @@
 
     /*
     ==================================================
-    DESENHA FIBRA FELPUDA
+    DESENHA FIO FELPUDO
     ==================================================
     */
 
@@ -988,6 +1000,7 @@
                 ),
 
                 destinoX,
+
                 destinoY
 
             );
@@ -1242,7 +1255,6 @@
 
         }
 
-
         else {
 
             y =
@@ -1264,12 +1276,12 @@
 
 
         const verticais = [];
+
         const horizontais = [];
 
 
         /*
-        AS CORES DO TECIDO VÊM DA MESMA
-        PALETA DOS FIOS
+        PALETA DO TECIDO
         */
 
         const paleta =
@@ -1289,8 +1301,7 @@
 
 
         /*
-        O FUNDO TAMBÉM É UMA COR EXATA
-        DA MESMA PALETA.
+        FUNDO — MESMA PALETA
         */
 
         const fundo =
@@ -1441,10 +1452,6 @@
         );
 
 
-        /*
-        FUNDO DA PÁGINA
-        */
-
         ctx.fillStyle =
             '#ffffff';
 
@@ -1503,10 +1510,7 @@
 
 
         /*
-        FUNDO DO TECIDO
-
-        É EXATAMENTE UM DOS TONS
-        DA PALETA DOS FIOS.
+        FUNDO
         */
 
         ctx.fillStyle =
@@ -1522,7 +1526,7 @@
 
 
         /*
-        URDUME — VERTICAIS
+        URDUME
         */
 
         tecido.verticais.forEach(
@@ -1596,7 +1600,7 @@
 
 
         /*
-        TRAMA — HORIZONTAIS
+        TRAMA
         */
 
         tecido.horizontais.forEach(
@@ -1671,9 +1675,6 @@
 
         /*
         CRUZAMENTOS
-
-        Pequenas irregularidades dão à trama
-        uma aparência menos perfeitamente digital.
         */
 
         const cruzamentos =
@@ -1741,8 +1742,7 @@
 
 
             ctx.fillStyle =
-                Math.random() >
-                0.5
+                Math.random() > 0.5
                     ? vertical.cor
                     : horizontal.cor;
 
@@ -1874,6 +1874,7 @@
 
         if (
             !mouse.ativo ||
+            !iniciado ||
             terminou
         ) {
 
@@ -1883,8 +1884,7 @@
 
 
         const tempoAtual =
-            performance.now() /
-            1000;
+            performance.now() / 1000;
 
 
         fibras.forEach(
@@ -1947,11 +1947,6 @@
                         coletados;
 
 
-                    /*
-                    CADA FIO PRODUZ UMA NOVA
-                    NOTA DA MELODIA.
-                    */
-
                     somFio(
                         coletados - 1
                     );
@@ -1978,11 +1973,17 @@
 
     /*
     ==================================================
-    INICIA JOGO
+    INICIAR A TRAMA
     ==================================================
     */
 
     function iniciar() {
+
+        /*
+        ESTA FUNÇÃO É CHAMADA PELO CLIQUE
+        DO USUÁRIO, portanto o navegador
+        permite iniciar o AudioContext.
+        */
 
         iniciarAudio();
 
@@ -2007,6 +2008,10 @@
             false;
 
 
+        aguardandoInicio =
+            false;
+
+
         pontosEl.textContent =
             '0';
 
@@ -2018,6 +2023,26 @@
         mensagem.classList.remove(
             'visivel'
         );
+
+
+        if (
+            iniciarBotao
+        ) {
+
+            iniciarBotao.style.display =
+                'none';
+
+        }
+
+
+        if (
+            reiniciar
+        ) {
+
+            reiniciar.style.display =
+                'none';
+
+        }
 
 
         criarFibras();
@@ -2047,6 +2072,10 @@
             false;
 
 
+        aguardandoInicio =
+            false;
+
+
         if (
             vitoria
         ) {
@@ -2056,7 +2085,15 @@
 
 
             /*
-            PEQUENO RESPIRO ANTES DO DESFECHO
+            O TECIDO É GERADO
+            ANTES DO DESFECHO SONORO.
+            */
+
+            criarPadrao();
+
+
+            /*
+            PEQUENO RESPIRO
             */
 
             setTimeout(
@@ -2067,9 +2104,6 @@
                 },
                 250
             );
-
-
-            criarPadrao();
 
 
             mensagemTexto.innerHTML =
@@ -2088,6 +2122,26 @@
         }
 
 
+        if (
+            iniciarBotao
+        ) {
+
+            iniciarBotao.style.display =
+                'none';
+
+        }
+
+
+        if (
+            reiniciar
+        ) {
+
+            reiniciar.style.display =
+                'inline-block';
+
+        }
+
+
         mensagem.classList.add(
             'visivel'
         );
@@ -2097,7 +2151,7 @@
 
     /*
     ==================================================
-    ATUALIZA TEMPO
+    TEMPO
     ==================================================
     */
 
@@ -2165,7 +2219,7 @@
 
     /*
     ==================================================
-    DESENHA
+    DESENHO
     ==================================================
     */
 
@@ -2200,11 +2254,12 @@
 
 
         /*
-        MARCADOR DISCRETO
+        MARCADOR DO MOUSE
         */
 
         if (
             mouse.ativo &&
+            iniciado &&
             !terminou
         ) {
 
@@ -2264,6 +2319,58 @@
 
         requestAnimationFrame(
             animar
+        );
+
+    }
+
+
+    /*
+    ==================================================
+    BOTÃO INICIAR
+    ==================================================
+    */
+
+    if (
+        iniciarBotao
+    ) {
+
+        iniciarBotao.addEventListener(
+            'click',
+            event => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+                iniciar();
+
+            }
+        );
+
+    }
+
+
+    /*
+    ==================================================
+    BOTÃO REINICIAR
+    ==================================================
+    */
+
+    if (
+        reiniciar
+    ) {
+
+        reiniciar.addEventListener(
+            'click',
+            event => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+                iniciar();
+
+            }
         );
 
     }
@@ -2347,27 +2454,6 @@
 
     /*
     ==================================================
-    BOTÃO REINICIAR
-    ==================================================
-    */
-
-    reiniciar.addEventListener(
-        'click',
-        event => {
-
-            event.preventDefault();
-
-            event.stopPropagation();
-
-
-            iniciar();
-
-        }
-    );
-
-
-    /*
-    ==================================================
     TECLA R
     ==================================================
     */
@@ -2391,16 +2477,81 @@
 
     /*
     ==================================================
-    INICIALIZAÇÃO
+    ESTADO INICIAL
     ==================================================
     */
 
     tamanhoCanvas();
 
+
     criarFibras();
 
-    iniciar();
 
+    iniciado =
+        false;
+
+
+    terminou =
+        false;
+
+
+    venceu =
+        false;
+
+
+    aguardandoInicio =
+        true;
+
+
+    coletados =
+        0;
+
+
+    tempo =
+        TEMPO_TOTAL;
+
+
+    pontosEl.textContent =
+        '0';
+
+
+    tempoEl.textContent =
+        TEMPO_TOTAL;
+
+
+    if (
+        iniciarBotao
+    ) {
+
+        iniciarBotao.style.display =
+            'inline-block';
+
+    }
+
+
+    if (
+        reiniciar
+    ) {
+
+        reiniciar.style.display =
+            'none';
+
+    }
+
+
+    mensagem.classList.add(
+        'visivel'
+    );
+
+
+    /*
+    ==================================================
+    COMEÇA APENAS O LOOP VISUAL
+
+    O JOGO PROPRIAMENTE DITO SÓ COMEÇA
+    QUANDO "INICIAR A TRAMA" É CLICADO.
+    ==================================================
+    */
 
     requestAnimationFrame(
         animar

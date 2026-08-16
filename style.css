@@ -1838,8 +1838,6 @@ LIGHTBOX
 
     font-size: 24px;
 
-    cursor: none;
-
     color: #111;
 
     padding: 20px;
@@ -1870,7 +1868,14 @@ LIGHTBOX
 
     font-size: 28px;
 
-    cursor: none;
-
     color: #111;
+}
+
+.cursor {
+    z-index: 10001 !important;
+    pointer-events: none;
+}
+
+.lightbox {
+    z-index: 9999;
 }

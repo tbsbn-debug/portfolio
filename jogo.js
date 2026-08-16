@@ -2037,12 +2037,7 @@
 
         if (
             reiniciar
-        ) {
-
-            reiniciar.style.display =
-                'none';
-
-        }
+        ) 
 
 
         criarFibras();
@@ -2134,12 +2129,7 @@
 
         if (
             reiniciar
-        ) {
-
-            reiniciar.style.display =
-                'inline-block';
-
-        }
+        )
 
 
         mensagem.classList.add(
@@ -2531,13 +2521,7 @@
 
     if (
         reiniciar
-    ) {
-
-        reiniciar.style.display =
-            'none';
-
-    }
-
+    )
 
     mensagem.classList.add(
         'visivel'

@@ -31,7 +31,15 @@
 
     let ultimoTempo = 0;
 
-    let padrao = [];
+    let padrao = {
+        verticais: [],
+        horizontais: [],
+        tamanho: 0,
+        x: 0,
+        y: 0,
+        largura: 0,
+        altura: 0
+    };
 
 
     const mouse = {
@@ -302,7 +310,7 @@
             velocidade:
                 aleatorio(
                     0.25,
-                    1.25
+                    10.25
                 ) *
                 tipo.movimento,
 
@@ -478,10 +486,6 @@
                 ) *
                 fibra.comprimento;
 
-
-            /*
-            cria volume oval
-            */
 
             const larguraLocal =
                 Math.sin(
@@ -671,9 +675,7 @@
     ==================================================
     */
 
-    function desenharGrade(
-        tempoAtual
-    ) {
+    function desenharGrade() {
 
         ctx.clearRect(
             0,
@@ -750,7 +752,7 @@
 
 
         /*
-        pequenos cruzamentos
+        cruzamentos
         */
 
         ctx.fillStyle =
@@ -785,83 +787,212 @@
 
     /*
     ==================================================
-    PADRÃO FINAL
+    CRIA O TECIDO FINAL
     ==================================================
     */
 
     function criarPadrao() {
 
-        padrao = [];
-
-
-        const tamanho = 22;
-
-        const colunas =
-            Math.ceil(
-                largura /
-                tamanho
-            );
-
-        const linhas =
-            Math.ceil(
-                altura /
-                tamanho
+        const tamanho =
+            Math.min(
+                310,
+                largura * 0.42,
+                altura * 0.42
             );
 
 
-        for (
-            let y = 0;
-            y < linhas;
-            y++
+        const tecidoLargura =
+            tamanho;
+
+        const tecidoAltura =
+            tamanho;
+
+
+        const x =
+            (largura -
+            tecidoLargura) / 2;
+
+
+        let y;
+
+
+        if (
+            altura > 650
         ) {
 
-            for (
-                let x = 0;
-                x < colunas;
-                x++
-            ) {
-
-                const indice =
-                    inteiro(
-                        0,
-                        cores.length - 1
-                    );
-
-
-                padrao.push({
-
-                    x,
-                    y,
-
-                    cor:
-                        cores[
-                            indice
-                        ],
-
-                    tipo:
-                        inteiro(
-                            0,
-                            5
-                        )
-
-                });
-
-            }
+            y =
+                altura * 0.18;
 
         }
+
+        else {
+
+            y =
+                altura * 0.58;
+
+        }
+
+
+        const quantidade =
+            inteiro(
+                20,
+                31
+            );
+
+
+        const espaco =
+            tecidoLargura /
+            quantidade;
+
+
+        const verticais = [];
+        const horizontais = [];
+
+
+        const paleta =
+            [...cores]
+                .sort(
+                    () =>
+                        Math.random() -
+                        0.5
+                )
+                .slice(
+                    0,
+                    inteiro(
+                        4,
+                        7
+                    )
+                );
+
+
+        /*
+        URDUME
+        */
+
+        for (
+            let i = 0;
+            i < quantidade;
+            i++
+        ) {
+
+            const cor =
+                paleta[
+                    inteiro(
+                        0,
+                        paleta.length - 1
+                    )
+                ];
+
+
+            verticais.push({
+
+                posicao:
+                    i * espaco,
+
+                cor,
+
+                espessura:
+                    aleatorio(
+                        1.2,
+                        3.2
+                    ),
+
+                opacidade:
+                    aleatorio(
+                        0.72,
+                        1
+                    ),
+
+                variacao:
+                    aleatorio(
+                        -1.8,
+                        1.8
+                    )
+
+            });
+
+        }
+
+
+        /*
+        TRAMA
+        */
+
+        for (
+            let i = 0;
+            i < quantidade;
+            i++
+        ) {
+
+            const cor =
+                paleta[
+                    inteiro(
+                        0,
+                        paleta.length - 1
+                    )
+                ];
+
+
+            horizontais.push({
+
+                posicao:
+                    i * espaco,
+
+                cor,
+
+                espessura:
+                    aleatorio(
+                        1.2,
+                        3.2
+                    ),
+
+                opacidade:
+                    aleatorio(
+                        0.72,
+                        1
+                    ),
+
+                variacao:
+                    aleatorio(
+                        -1.8,
+                        1.8
+                    )
+
+            });
+
+        }
+
+
+        padrao = {
+
+            verticais,
+
+            horizontais,
+
+            tamanho,
+
+            x,
+
+            y,
+
+            largura:
+                tecidoLargura,
+
+            altura:
+                tecidoAltura
+
+        };
 
     }
 
 
     /*
     ==================================================
-    DESENHA O TÊXTIL FINAL
+    DESENHA O TECIDO FINAL
     ==================================================
     */
 
-    function desenharPadraoFinal(
-        tempoAtual
-    ) {
+    function desenharPadraoFinal() {
 
         ctx.clearRect(
             0,
@@ -871,196 +1002,533 @@
         );
 
 
-        const tamanho = 22;
+        ctx.fillStyle =
+            '#ffffff';
+
+        ctx.fillRect(
+            0,
+            0,
+            largura,
+            altura
+        );
 
 
-        padrao.forEach(
-            celula => {
-
-                const x =
-                    celula.x *
-                    tamanho;
+        const tecido =
+            padrao;
 
 
-                const y =
-                    celula.y *
-                    tamanho;
+        if (
+            !tecido.verticais.length
+        ) {
+
+            return;
+
+        }
 
 
-                const onda =
+        const x =
+            tecido.x;
+
+        const y =
+            tecido.y;
+
+        const w =
+            tecido.largura;
+
+        const h =
+            tecido.altura;
+
+
+        /*
+        sombra extremamente discreta
+        */
+
+        ctx.fillStyle =
+            'rgba(17,17,17,.025)';
+
+        ctx.fillRect(
+            x + 4,
+            y + 4,
+            w,
+            h
+        );
+
+
+        /*
+        fundo cru
+        */
+
+        ctx.fillStyle =
+            '#f4f0e8';
+
+        ctx.fillRect(
+            x,
+            y,
+            w,
+            h
+        );
+
+
+        /*
+        ----------------------------------------------
+        URDUME — VERTICAL
+        ----------------------------------------------
+        */
+
+        tecido.verticais.forEach(
+            (fio, indice) => {
+
+                const px =
+                    x +
+                    fio.posicao;
+
+
+                ctx.save();
+
+
+                ctx.beginPath();
+
+
+                ctx.moveTo(
+                    px,
+                    y
+                );
+
+
+                ctx.bezierCurveTo(
+
+                    px +
+                    fio.variacao,
+
+                    y +
+                    h * 0.28,
+
+                    px -
+                    fio.variacao,
+
+                    y +
+                    h * 0.72,
+
+                    px +
                     Math.sin(
-                        tempoAtual *
-                        0.4 +
-                        celula.x *
-                        0.3 +
-                        celula.y *
-                        0.2
-                    );
+                        indice
+                    ) *
+                    0.8,
+
+                    y + h
+
+                );
 
 
-                let larguraCelula =
-                    tamanho;
+                ctx.strokeStyle =
+                    fio.cor;
 
 
-                let alturaCelula =
-                    tamanho;
+                ctx.globalAlpha =
+                    fio.opacidade;
+
+
+                ctx.lineWidth =
+                    fio.espessura;
+
+
+                ctx.lineCap =
+                    'round';
+
+
+                ctx.stroke();
 
 
                 /*
-                padrões geométricos
+                fibras laterais
                 */
 
-                if (
-                    celula.tipo === 0
+                for (
+                    let j = 0;
+                    j < 7;
+                    j++
                 ) {
 
-                    ctx.fillStyle =
-                        celula.cor;
+                    const fy =
+                        y +
+                        (h / 8) *
+                        j;
 
-                    ctx.fillRect(
-                        x,
-                        y,
-                        larguraCelula,
-                        alturaCelula
-                    );
-
-                }
-
-                else if (
-                    celula.tipo === 1
-                ) {
-
-                    ctx.fillStyle =
-                        celula.cor;
-
-                    ctx.fillRect(
-                        x,
-                        y,
-                        tamanho / 2,
-                        tamanho
-                    );
-
-                }
-
-                else if (
-                    celula.tipo === 2
-                ) {
-
-                    ctx.fillStyle =
-                        celula.cor;
-
-                    ctx.fillRect(
-                        x,
-                        y,
-                        tamanho,
-                        tamanho / 2
-                    );
-
-                }
-
-                else if (
-                    celula.tipo === 3
-                ) {
-
-                    ctx.fillStyle =
-                        celula.cor;
 
                     ctx.beginPath();
 
+
                     ctx.moveTo(
-                        x,
-                        y
+                        px,
+                        fy
                     );
+
 
                     ctx.lineTo(
-                        x + tamanho,
-                        y
+                        px +
+                        aleatorio(
+                            -3,
+                            3
+                        ),
+
+                        fy +
+                        aleatorio(
+                            -3,
+                            3
+                        )
                     );
 
-                    ctx.lineTo(
-                        x + tamanho,
-                        y + tamanho
-                    );
-
-                    ctx.closePath();
-
-                    ctx.fill();
-
-                }
-
-                else if (
-                    celula.tipo === 4
-                ) {
 
                     ctx.strokeStyle =
-                        celula.cor;
+                        fio.cor;
+
+
+                    ctx.globalAlpha =
+                        0.25;
+
 
                     ctx.lineWidth =
-                        4;
+                        0.45;
 
-                    ctx.beginPath();
-
-                    ctx.moveTo(
-                        x,
-                        y + tamanho / 2
-                    );
-
-                    ctx.lineTo(
-                        x + tamanho,
-                        y + tamanho / 2
-                    );
-
-                    ctx.stroke();
-
-                }
-
-                else {
-
-                    ctx.strokeStyle =
-                        celula.cor;
-
-                    ctx.lineWidth =
-                        3;
-
-                    ctx.beginPath();
-
-                    ctx.moveTo(
-                        x + tamanho / 2,
-                        y
-                    );
-
-                    ctx.lineTo(
-                        x + tamanho / 2,
-                        y + tamanho
-                    );
 
                     ctx.stroke();
 
                 }
 
 
-                /*
-                pequena ondulação
-                */
-
-                if (
-                    onda > 0.7
-                ) {
-
-                    ctx.fillStyle =
-                        'rgba(255,255,255,.07)';
-
-                    ctx.fillRect(
-                        x,
-                        y,
-                        tamanho,
-                        tamanho
-                    );
-
-                }
+                ctx.restore();
 
             }
         );
+
+
+        /*
+        ----------------------------------------------
+        TRAMA — HORIZONTAL
+        ----------------------------------------------
+        */
+
+        tecido.horizontais.forEach(
+            (fio, indice) => {
+
+                const py =
+                    y +
+                    fio.posicao;
+
+
+                ctx.save();
+
+
+                ctx.beginPath();
+
+
+                ctx.moveTo(
+                    x,
+                    py
+                );
+
+
+                ctx.bezierCurveTo(
+
+                    x +
+                    w * 0.28,
+
+                    py +
+                    fio.variacao,
+
+                    x +
+                    w * 0.72,
+
+                    py -
+                    fio.variacao,
+
+                    x + w,
+
+                    py +
+                    Math.sin(
+                        indice
+                    ) *
+                    0.8
+
+                );
+
+
+                ctx.strokeStyle =
+                    fio.cor;
+
+
+                ctx.globalAlpha =
+                    fio.opacidade;
+
+
+                ctx.lineWidth =
+                    fio.espessura;
+
+
+                ctx.lineCap =
+                    'round';
+
+
+                ctx.stroke();
+
+
+                /*
+                fibras laterais
+                */
+
+                for (
+                    let j = 0;
+                    j < 7;
+                    j++
+                ) {
+
+                    const fx =
+                        x +
+                        (w / 8) *
+                        j;
+
+
+                    ctx.beginPath();
+
+
+                    ctx.moveTo(
+                        fx,
+                        py
+                    );
+
+
+                    ctx.lineTo(
+                        fx +
+                        aleatorio(
+                            -3,
+                            3
+                        ),
+
+                        py +
+                        aleatorio(
+                            -3,
+                            3
+                        )
+                    );
+
+
+                    ctx.strokeStyle =
+                        fio.cor;
+
+
+                    ctx.globalAlpha =
+                        0.25;
+
+
+                    ctx.lineWidth =
+                        0.45;
+
+
+                    ctx.stroke();
+
+                }
+
+
+                ctx.restore();
+
+            }
+        );
+
+
+        /*
+        ----------------------------------------------
+        CRUZAMENTOS
+        ----------------------------------------------
+        */
+
+        const cruzamentos =
+            tecido.verticais.length *
+            tecido.horizontais.length;
+
+
+        for (
+            let i = 0;
+            i < cruzamentos;
+            i++
+        ) {
+
+            if (
+                Math.random() >
+                0.42
+            ) {
+
+                continue;
+
+            }
+
+
+            const vertical =
+                tecido.verticais[
+                    inteiro(
+                        0,
+                        tecido.verticais.length - 1
+                    )
+                ];
+
+
+            const horizontal =
+                tecido.horizontais[
+                    inteiro(
+                        0,
+                        tecido.horizontais.length - 1
+                    )
+                ];
+
+
+            const px =
+                x +
+                vertical.posicao;
+
+
+            const py =
+                y +
+                horizontal.posicao;
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                px,
+                py,
+                aleatorio(
+                    0.6,
+                    1.5
+                ),
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+                Math.random() >
+                0.5
+                    ? vertical.cor
+                    : horizontal.cor;
+
+
+            ctx.globalAlpha =
+                0.65;
+
+
+            ctx.fill();
+
+        }
+
+
+        /*
+        ----------------------------------------------
+        BORDA
+        ----------------------------------------------
+        */
+
+        ctx.globalAlpha =
+            1;
+
+
+        ctx.strokeStyle =
+            'rgba(17,17,17,.14)';
+
+
+        ctx.lineWidth =
+            0.7;
+
+
+        ctx.strokeRect(
+            x,
+            y,
+            w,
+            h
+        );
+
+
+        /*
+        ----------------------------------------------
+        FRANJAS
+        ----------------------------------------------
+        */
+
+        for (
+            let i = 0;
+            i < 18;
+            i++
+        ) {
+
+            const fx =
+                x +
+                (w / 17) *
+                i;
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                fx,
+                y + h
+            );
+
+
+            ctx.quadraticCurveTo(
+
+                fx +
+                aleatorio(
+                    -3,
+                    3
+                ),
+
+                y +
+                h +
+                8,
+
+                fx +
+                aleatorio(
+                    -3,
+                    3
+                ),
+
+                y +
+                h +
+                aleatorio(
+                    12,
+                    20
+                )
+
+            );
+
+
+            ctx.strokeStyle =
+                cores[
+                    inteiro(
+                        0,
+                        cores.length - 1
+                    )
+                ];
+
+
+            ctx.globalAlpha =
+                0.55;
+
+
+            ctx.lineWidth =
+                aleatorio(
+                    0.5,
+                    1.2
+                );
+
+
+            ctx.stroke();
+
+        }
+
+
+        ctx.globalAlpha =
+            1;
 
     }
 
@@ -1079,18 +1547,14 @@
             venceu
         ) {
 
-            desenharPadraoFinal(
-                tempoAtual
-            );
+            desenharPadraoFinal();
 
             return;
 
         }
 
 
-        desenharGrade(
-            tempoAtual
-        );
+        desenharGrade();
 
 
         fibras.forEach(
@@ -1106,7 +1570,7 @@
 
 
         /*
-        marcador do cursor
+        marcador discreto do cursor
         */
 
         if (
@@ -1245,7 +1709,7 @@
 
     /*
     ==================================================
-    INICIAR
+    INICIA
     ==================================================
     */
 
@@ -1287,7 +1751,7 @@
 
     /*
     ==================================================
-    FINALIZAR
+    FINALIZA
     ==================================================
     */
 
@@ -1486,6 +1950,7 @@
 
             tamanhoCanvas();
 
+
             if (
                 !terminou
             ) {
@@ -1508,7 +1973,7 @@
 
     /*
     ==================================================
-    REINICIAR
+    BOTÃO REINICIAR
     ==================================================
     */
 

@@ -10,6 +10,7 @@
     const mensagem = document.getElementById('jogoMensagem');
     const mensagemTexto = document.getElementById('jogoMensagemTexto');
     const reiniciar = document.getElementById('jogoReiniciar');
+    const iniciarTrama = document.createElement('button');
 
 
     /*
@@ -2388,7 +2389,44 @@
         }
     );
 
+    /*
+==================================================
+BOTÃO INICIAR A TRAMA
+==================================================
+*/
 
+iniciarTrama.type = 'button';
+iniciarTrama.textContent = 'INICIAR TRAMA';
+
+iniciarTrama.style.marginTop = '18px';
+iniciarTrama.style.padding = '0';
+iniciarTrama.style.border = '0';
+iniciarTrama.style.background = 'none';
+iniciarTrama.style.color = '#111';
+iniciarTrama.style.font = 'inherit';
+iniciarTrama.style.textDecoration = 'underline';
+iniciarTrama.style.cursor = 'none';
+
+iniciarTrama.addEventListener('click', function(event) {
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    iniciarTrama.remove();
+
+    iniciar();
+
+});
+
+    mensagemTexto.innerHTML = 'INICIAR TRAMA';
+
+mensagemTexto.parentElement.appendChild(
+    iniciarTrama
+);
+
+mensagem.classList.add('visivel');
+
+    
     /*
     ==================================================
     INICIALIZAÇÃO
@@ -2399,7 +2437,9 @@
 
     criarFibras();
 
-    iniciar();
+   mensagemTexto.innerHTML = '';
+
+mensagem.classList.remove('visivel');
 
 
     requestAnimationFrame(

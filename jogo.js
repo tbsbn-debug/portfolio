@@ -71,7 +71,21 @@
         '#315c7d',
         '#477b96'
     ];
-
+    
+const fundosTecido = [
+    '#f4f0e8',
+    '#e8dfce',
+    '#d8c9ad',
+    '#c9b895',
+    '#b9a98c',
+    '#d7d0c1',
+    '#c7c0ad',
+    '#e3d4b8',
+    '#b8c0bd',
+    '#c3b7a0',
+    '#d0c4ae',
+    '#aeb8b2'
+];
 
     /*
     ==================================================
@@ -793,6 +807,13 @@
 
     function criarPadrao() {
 
+        const fundo =
+    fundosTecido[
+        inteiro(
+            0,
+            fundosTecido.length - 1
+        )
+    ];
         const tamanho =
             Math.min(
                 310,
@@ -1002,8 +1023,8 @@
         );
 
 
-        ctx.fillStyle =
-            '#ffffff';
+ctx.fillStyle =
+    tecido.fundo;
 
         ctx.fillRect(
             0,

@@ -10,6 +10,9 @@
     const mensagemTexto = document.getElementById('jogo2MensagemTexto');
     const botao = document.getElementById('jogo2Botao');
 
+    const cursorSite =
+        document.querySelector('.cursor');
+
 
     /* ==================================================
        CONFIGURAÇÃO
@@ -25,7 +28,7 @@
     const IMPULSO_CURSOR = 0.16;
 
     const VELOCIDADE_INICIAL = 2.8;
-    const VELOCIDADE_MAXIMA = 6.2;
+    const VELOCIDADE_MAXIMA = 15;
 
 
     /* ==================================================
@@ -40,7 +43,8 @@
     let recorde =
         Number(localStorage.getItem('jogo2-recorde')) || 0;
 
-    let velocidade = VELOCIDADE_INICIAL;
+    let velocidade =
+        VELOCIDADE_INICIAL;
 
     let tempoUltimo = 0;
     let tempoJogo = 0;
@@ -55,18 +59,14 @@
 
     let tempoSplash = 0;
 
+    let camisetaVestida = false;
+    let vidas = 0;
 
-    /* ==================================================
-       CURSOR
-    ================================================== */
+    let profundezas = false;
 
-    /*
-    O cursor nativo permanece visível durante todo
-    o jogo, inclusive sobre o canvas.
-    */
+    let proximoMarco = 100;
 
-    area.style.cursor = 'default';
-    canvas.style.cursor = 'default';
+    let invertidoAte = 0;
 
 
     /* ==================================================
@@ -123,7 +123,8 @@
         const ganho =
             audioContext.createGain();
 
-        oscilador.type = tipo;
+        oscilador.type =
+            tipo;
 
         oscilador.frequency.setValueAtTime(
             frequencia,
@@ -141,22 +142,21 @@
         );
 
         oscilador.connect(ganho);
-        ganho.connect(audioContext.destination);
+        ganho.connect(
+            audioContext.destination
+        );
 
         oscilador.start(agora);
+
         oscilador.stop(
             agora + duracao
         );
     }
 
 
-    /*
-    Ruído ambiente muito baixo.
-
-    É construído com ruído filtrado + uma frequência
-    grave muito suave, criando uma sensação de água
-    sem virar uma trilha sonora evidente.
-    */
+    /* ==================================================
+       AMBIENTE
+    ================================================== */
 
     function iniciarAmbiente() {
 
@@ -167,19 +167,13 @@
 
         ambienteAtivo = true;
 
-        const agora =
-            audioContext.currentTime;
-
-
-        /* ruído */
-
-        const duracao =
-            4;
+        const duracao = 4;
 
         const buffer =
             audioContext.createBuffer(
                 1,
-                audioContext.sampleRate * duracao,
+                audioContext.sampleRate *
+                duracao,
                 audioContext.sampleRate
             );
 
@@ -238,12 +232,8 @@
         );
 
 
-        fonte.start(agora);
+        fonte.start();
 
-
-        /*
-        camada grave contínua
-        */
 
         ambienteOscilador =
             audioContext.createOscillator();
@@ -271,21 +261,13 @@
         );
 
 
-        ambienteOscilador.start(
-            agora
-        );
+        ambienteOscilador.start();
 
 
         proximaVariacaoAmbiente =
-            performance.now() +
-            2500;
+            performance.now() + 2500;
     }
 
-
-    /*
-    Pequenas mudanças no ambiente para evitar que
-    o ruído fique completamente estático.
-    */
 
     function atualizarAmbiente(tempo) {
 
@@ -304,26 +286,18 @@
                 audioContext.currentTime;
 
 
-            const novaFrequencia =
-                350 +
-                Math.random() * 180;
-
-
-            const novoVolume =
-                0.008 +
-                Math.random() * 0.008;
-
-
             ambienteFiltro.frequency
                 .linearRampToValueAtTime(
-                    novaFrequencia,
+                    350 +
+                    Math.random() * 180,
                     agora + 1.4
                 );
 
 
             ambienteGanho.gain
                 .linearRampToValueAtTime(
-                    novoVolume,
+                    0.008 +
+                    Math.random() * 0.008,
                     agora + 1.4
                 );
 
@@ -348,6 +322,10 @@
         }
     }
 
+
+    /* ==================================================
+       SONS
+    ================================================== */
 
     function somCabide() {
 
@@ -404,31 +382,12 @@
     }
 
 
-    /*
-    Novo som de entrada/saída da água.
-
-    Em vez de ruído branco agressivo:
-    várias frequências graves descendentes,
-    com seno e triangle, criando algo mais
-    "glub", profundo e elástico.
-    */
-
     function somGlub() {
 
         if (!audioContext) return;
 
         const agora =
             audioContext.currentTime;
-
-
-        const frequenciaInicial =
-            170 +
-            Math.random() * 35;
-
-
-        const frequenciaFinal =
-            72 +
-            Math.random() * 20;
 
 
         const oscilador =
@@ -446,13 +405,15 @@
 
 
         oscilador.frequency.setValueAtTime(
-            frequenciaInicial,
+            170 +
+            Math.random() * 35,
             agora
         );
 
 
         oscilador.frequency.exponentialRampToValueAtTime(
-            frequenciaFinal,
+            72 +
+            Math.random() * 20,
             agora + 0.42
         );
 
@@ -462,12 +423,10 @@
             agora
         );
 
-
         ganho.gain.exponentialRampToValueAtTime(
             0.075,
             agora + 0.045
         );
-
 
         ganho.gain.exponentialRampToValueAtTime(
             0.001,
@@ -482,31 +441,21 @@
             500;
 
 
-        oscilador.connect(
-            filtro
-        );
+        oscilador.connect(filtro);
 
-        filtro.connect(
-            ganho
-        );
+        filtro.connect(ganho);
 
         ganho.connect(
             audioContext.destination
         );
 
 
-        oscilador.start(
-            agora
-        );
+        oscilador.start();
 
         oscilador.stop(
             agora + 0.5
         );
 
-
-        /*
-        pequeno segundo corpo do glub
-        */
 
         const oscilador2 =
             audioContext.createOscillator();
@@ -520,7 +469,7 @@
 
         oscilador2.frequency.setValueAtTime(
             95,
-            agora + 0.035
+            agora
         );
 
         oscilador2.frequency.exponentialRampToValueAtTime(
@@ -545,21 +494,130 @@
         );
 
 
-        oscilador2.connect(
-            ganho2
-        );
+        oscilador2.connect(ganho2);
 
         ganho2.connect(
             audioContext.destination
         );
 
 
-        oscilador2.start(
-            agora
-        );
+        oscilador2.start();
 
         oscilador2.stop(
             agora + 0.42
+        );
+    }
+
+
+    function somTrovão() {
+
+        if (!audioContext) return;
+
+        const agora =
+            audioContext.currentTime;
+
+
+        const duracao =
+            1.8;
+
+
+        const buffer =
+            audioContext.createBuffer(
+                1,
+                audioContext.sampleRate *
+                duracao,
+                audioContext.sampleRate
+            );
+
+
+        const dados =
+            buffer.getChannelData(0);
+
+
+        for (
+            let i = 0;
+            i < dados.length;
+            i++
+        ) {
+
+            const t =
+                i /
+                audioContext.sampleRate;
+
+
+            const envelope =
+                Math.pow(
+                    1 - t / duracao,
+                    2
+                );
+
+
+            dados[i] =
+                (
+                    Math.random() * 2 - 1
+                ) *
+                envelope;
+        }
+
+
+        const fonte =
+            audioContext.createBufferSource();
+
+        const ganho =
+            audioContext.createGain();
+
+        const filtro =
+            audioContext.createBiquadFilter();
+
+
+        fonte.buffer =
+            buffer;
+
+
+        filtro.type =
+            'lowpass';
+
+        filtro.frequency.value =
+            180;
+
+
+        ganho.gain.setValueAtTime(
+            0.0001,
+            agora
+        );
+
+        ganho.gain.exponentialRampToValueAtTime(
+            0.35,
+            agora + 0.035
+        );
+
+        ganho.gain.exponentialRampToValueAtTime(
+            0.001,
+            agora + duracao
+        );
+
+
+        fonte.connect(filtro);
+
+        filtro.connect(ganho);
+
+        ganho.connect(
+            audioContext.destination
+        );
+
+
+        fonte.start();
+
+        fonte.stop(
+            agora + duracao
+        );
+
+
+        som(
+            48,
+            1.4,
+            'sine',
+            0.11
         );
     }
 
@@ -608,10 +666,77 @@
                     );
 
                 }, i * 100);
-
             }
         );
     }
+
+
+    /* ==================================================
+       CURSOR
+    ================================================== */
+
+    function cursorNativo() {
+
+        /*
+        Dentro do jogo:
+        cursor nativo.
+        */
+
+        area.style.cursor =
+            'default';
+
+        canvas.style.cursor =
+            'default';
+
+        if (cursorSite) {
+
+            cursorSite.style.display =
+                'none';
+        }
+    }
+
+
+    function cursorSiteNormal() {
+
+        /*
+        Fora do jogo:
+        devolve exatamente o cursor
+        estilizado que o site já utiliza.
+        */
+
+        area.style.cursor =
+            '';
+
+        canvas.style.cursor =
+            '';
+
+        if (cursorSite) {
+
+            cursorSite.style.display =
+                '';
+        }
+    }
+
+
+    area.addEventListener(
+        'mouseenter',
+        () => {
+
+            cursorNativo();
+        }
+    );
+
+
+    area.addEventListener(
+        'mouseleave',
+        () => {
+
+            cursorSiteNormal();
+
+            mouseAtivo =
+                false;
+        }
+    );
 
 
     /* ==================================================
@@ -651,6 +776,7 @@
         canvas.style.height =
             altura + 'px';
 
+
         ctx.setTransform(
             dpr,
             0,
@@ -685,7 +811,6 @@
         segmento: 13,
 
         onda: 0
-
     };
 
 
@@ -697,12 +822,16 @@
         const limiteInferior =
             altura - 48;
 
+
         const nivelAgua =
-            altura * ALTURA_AGUA;
+            profundezas
+                ? altura * 0.5
+                : altura * ALTURA_AGUA;
 
 
         const estavaNaAgua =
-            nessie.y > nivelAgua;
+            nessie.y >
+            nivelAgua;
 
 
         if (mouseAtivo) {
@@ -718,7 +847,8 @@
 
 
             const diferenca =
-                alvo - nessie.y;
+                alvo -
+                nessie.y;
 
 
             nessie.velocidadeY +=
@@ -776,7 +906,8 @@
 
 
         const agoraNaAgua =
-            nessie.y > nivelAgua;
+            nessie.y >
+            nivelAgua;
 
 
         if (
@@ -798,10 +929,6 @@
     }
 
 
-    /* ==================================================
-       NESSIE — DESENHO
-    ================================================== */
-
     function desenharNessie() {
 
         const x =
@@ -813,12 +940,10 @@
 
         ctx.save();
 
-
         ctx.translate(
             x,
             y
         );
-
 
         ctx.rotate(
             nessie.rotacao
@@ -880,7 +1005,9 @@
 
 
         ctx.fillStyle =
-            '#d8ba45';
+            camisetaVestida
+                ? '#f4f4f4'
+                : '#d8ba45';
 
 
         ctx.fillRect(
@@ -890,7 +1017,6 @@
             30
         );
 
-
         ctx.fillRect(
             12,
             -34,
@@ -898,14 +1024,12 @@
             16
         );
 
-
         ctx.fillRect(
             23,
             -38,
             25,
             18
         );
-
 
         ctx.fillRect(
             38,
@@ -915,23 +1039,20 @@
         );
 
 
-        ctx.fillStyle =
-            '#a78d32';
+        if (
+            camisetaVestida
+        ) {
 
+            ctx.fillStyle =
+                '#dcdcdc';
 
-        ctx.fillRect(
-            25,
-            -45,
-            5,
-            8
-        );
-
-        ctx.fillRect(
-            39,
-            -45,
-            5,
-            8
-        );
+            ctx.fillRect(
+                17,
+                -28,
+                26,
+                19
+            );
+        }
 
 
         ctx.fillStyle =
@@ -1094,17 +1215,14 @@
             pedra.altura;
 
 
-        /*
-        rocha quase totalmente negra,
-        sem iluminação ou sombra.
-        */
-
         ctx.fillStyle =
-            '#090909';
+            invertidoAte >
+            performance.now()
+                ? '#f5f5f5'
+                : '#090909';
 
 
         ctx.beginPath();
-
 
         ctx.moveTo(
             x,
@@ -1151,17 +1269,15 @@
         ctx.fill();
 
 
-        /*
-        Algumas pedras têm poros.
-        Eles não aparecem em todas.
-        */
-
         if (
             pedra.porosa
         ) {
 
             ctx.fillStyle =
-                '#272727';
+                invertidoAte >
+                performance.now()
+                    ? '#d0d0d0'
+                    : '#272727';
 
 
             pedra.poros.forEach(
@@ -1183,38 +1299,6 @@
                     );
 
                     ctx.fill();
-
-
-                    /*
-                    pequeno centro ainda mais escuro,
-                    para dar a sensação de cavidade
-                    sem criar sombra.
-                    */
-
-                    ctx.fillStyle =
-                        '#050505';
-
-
-                    ctx.beginPath();
-
-                    ctx.arc(
-                        x +
-                        poro.x * w,
-
-                        y +
-                        poro.y * h,
-
-                        poro.raio * 0.42,
-
-                        0,
-                        Math.PI * 2
-                    );
-
-                    ctx.fill();
-
-
-                    ctx.fillStyle =
-                        '#272727';
                 }
             );
         }
@@ -1235,8 +1319,12 @@
             );
 
 
+        /*
+        Camisetas agora são raras.
+        */
+
         const especial =
-            Math.random() < 0.12;
+            Math.random() < 0.025;
 
 
         return {
@@ -1328,7 +1416,7 @@
     function desenharCabide(cabide) {
 
         if (
-            cabide.coletado
+            cabineInvalida(cabide)
         ) return;
 
 
@@ -1340,7 +1428,11 @@
 
 
         ctx.strokeStyle =
-            '#f2c400';
+            invertidoAte >
+            performance.now()
+                ? '#003b5c'
+                : '#f2c400';
+
 
         ctx.lineWidth =
             5;
@@ -1413,6 +1505,15 @@
                 y + 8
             );
         }
+    }
+
+
+    function cabineInvalida(cabide) {
+
+        return (
+            !cabide ||
+            cabide.coletado
+        );
     }
 
 
@@ -1522,6 +1623,11 @@
 
                     pontos += 5;
 
+                    camisetaVestida =
+                        true;
+
+                    vidas = 1;
+
                     somCabideEspecial();
 
                 } else {
@@ -1536,6 +1642,111 @@
                     pontos;
             }
         }
+    }
+
+
+    /* ==================================================
+       MARCOS 100 / 200 / 300...
+    ================================================== */
+
+    function verificarMarcos() {
+
+        if (
+            pontos >=
+            proximoMarco
+        ) {
+
+            const marcoAtual =
+                proximoMarco;
+
+
+            /*
+            Cada centena aumenta a velocidade.
+            */
+
+            atualizarDificuldade();
+
+
+            /*
+            O trovão acontece em cada marco.
+            */
+
+            iniciarAudio();
+
+            somTrovão();
+
+
+            /*
+            Inversão visual por 4 segundos.
+            */
+
+            invertidoAte =
+                performance.now() +
+                4000;
+
+
+            /*
+            O próximo marco.
+            */
+
+            proximoMarco +=
+                100;
+
+
+            /*
+            A partir de 1000,
+            entra nas profundezas.
+            */
+
+            if (
+                marcoAtual >=
+                1000 &&
+                !profundezas
+            ) {
+
+                profundezas =
+                    true;
+
+                nessie.y =
+                    altura * 0.62;
+
+                somGlub();
+            }
+        }
+    }
+
+
+    /* ==================================================
+       DIFICULDADE
+    ================================================== */
+
+    function atualizarDificuldade() {
+
+        /*
+        A dificuldade agora cresce bastante.
+
+        0      → 2.8
+        100    → 4.0
+        200    → 5.2
+        300    → 6.4
+        500    → 8.8
+        700    → 11.2
+        1000   → 14.8
+        */
+
+        const centenas =
+            Math.floor(
+                pontos / 100
+            );
+
+
+        velocidade =
+            Math.min(
+                VELOCIDADE_MAXIMA,
+
+                VELOCIDADE_INICIAL +
+                centenas * 1.2
+            );
     }
 
 
@@ -1584,10 +1795,6 @@
         }
     }
 
-
-    /* ==================================================
-       MOVIMENTO
-    ================================================== */
 
     function moverMundo() {
 
@@ -1670,27 +1877,6 @@
 
 
     /* ==================================================
-       DIFICULDADE
-    ================================================== */
-
-    function atualizarDificuldade() {
-
-        /*
-        A velocidade aumenta muito lentamente.
-        O jogador sente uma progressão contínua,
-        sem saltos repentinos.
-        */
-
-        velocidade =
-            Math.min(
-                VELOCIDADE_MAXIMA,
-                VELOCIDADE_INICIAL +
-                tempoJogo * 0.025
-            );
-    }
-
-
-    /* ==================================================
        CORES
     ================================================== */
 
@@ -1718,46 +1904,13 @@
             );
 
 
-        const azul =
-            105 + r * 35;
-
-        const verde =
-            115 + g * 35;
-
-        const dourado =
-            Math.max(
-                0,
-                b
-            ) * 25;
-
-
         return [
 
-            Math.max(
-                0,
-                Math.min(
-                    255,
-                    azul
-                )
-            ),
+            105 + r * 35,
 
-            Math.max(
-                0,
-                Math.min(
-                    255,
-                    verde +
-                    dourado
-                )
-            ),
+            115 + g * 35,
 
-            Math.max(
-                0,
-                Math.min(
-                    255,
-                    160 +
-                    b * 55
-                )
-            )
+            160 + b * 55
         ];
     }
 
@@ -1889,7 +2042,9 @@
     ) {
 
         const inicio =
-            altura * ALTURA_AGUA;
+            profundezas
+                ? 0
+                : altura * ALTURA_AGUA;
 
 
         ctx.save();
@@ -1914,11 +2069,28 @@
                 );
 
 
+            /*
+            Nas profundezas:
+            menos contraste e cores mais escuras.
+            */
+
+            if (
+                profundezas
+            ) {
+
+                cor[0] *= 0.42;
+                cor[1] *= 0.48;
+                cor[2] *= 0.62;
+            }
+
+
             ctx.strokeStyle =
                 rgb(cor);
 
             ctx.globalAlpha =
-                0.55;
+                profundezas
+                    ? 0.38
+                    : 0.55;
 
             ctx.lineWidth =
                 2;
@@ -1989,121 +2161,221 @@
         tempo
     ) {
 
-        const nivel =
-            altura * ALTURA_AGUA;
+        const invertido =
+            invertidoAte >
+            performance.now();
 
 
-        const ceu =
-            corVariavel(
-                tempo,
-                1
-            );
+        /*
+        PROFUNDEZAS
+        */
 
-
-        ctx.fillStyle =
-            rgb([
-                ceu[0] + 40,
-                ceu[1] + 40,
-                ceu[2] + 45
-            ]);
-
-
-        ctx.fillRect(
-            0,
-            0,
-            largura,
-            nivel + 5
-        );
-
-
-        const agua =
-            corVariavel(
-                tempo,
-                8
-            );
-
-
-        ctx.fillStyle =
-            rgb([
-                agua[0] - 10,
-                agua[1] - 5,
-                agua[2]
-            ]);
-
-
-        ctx.fillRect(
-            0,
-            nivel,
-            largura,
-            altura
-        );
-
-
-        desenharRiscosCeu(
-            tempo
-        );
-
-
-        desenharAgua(
-            tempo
-        );
-
-
-        /* superfície */
-
-        ctx.strokeStyle =
-            '#719a9c';
-
-        ctx.globalAlpha =
-            0.8;
-
-        ctx.lineWidth =
-            2;
-
-
-        ctx.beginPath();
-
-
-        for (
-            let x = -20;
-            x < largura + 30;
-            x += 14
+        if (
+            profundezas
         ) {
 
-            const y =
-                nivel +
-                Math.sin(
-                    x * 0.035 +
-                    tempo * 0.001
-                ) * 6;
+            const fundo =
+                corVariavel(
+                    tempo,
+                    4
+                );
 
 
-            if (
-                x === -20
+            fundo[0] *= 0.25;
+            fundo[1] *= 0.28;
+            fundo[2] *= 0.42;
+
+
+            ctx.fillStyle =
+                rgb(fundo);
+
+
+            ctx.fillRect(
+                0,
+                0,
+                largura,
+                altura
+            );
+
+
+            desenharAgua(
+                tempo
+            );
+
+
+        } else {
+
+            const nivel =
+                altura * ALTURA_AGUA;
+
+
+            const ceu =
+                corVariavel(
+                    tempo,
+                    1
+                );
+
+
+            ctx.fillStyle =
+                rgb([
+                    ceu[0] + 40,
+                    ceu[1] + 40,
+                    ceu[2] + 45
+                ]);
+
+
+            ctx.fillRect(
+                0,
+                0,
+                largura,
+                nivel + 5
+            );
+
+
+            const agua =
+                corVariavel(
+                    tempo,
+                    8
+                );
+
+
+            ctx.fillStyle =
+                rgb([
+                    agua[0] - 10,
+                    agua[1] - 5,
+                    agua[2]
+                ]);
+
+
+            ctx.fillRect(
+                0,
+                nivel,
+                largura,
+                altura
+            );
+
+
+            desenharRiscosCeu(
+                tempo
+            );
+
+
+            desenharAgua(
+                tempo
+            );
+
+
+            ctx.strokeStyle =
+                '#719a9c';
+
+            ctx.globalAlpha =
+                0.8;
+
+            ctx.lineWidth =
+                2;
+
+
+            ctx.beginPath();
+
+
+            for (
+                let x = -20;
+                x < largura + 30;
+                x += 14
             ) {
 
-                ctx.moveTo(
-                    x,
-                    y
-                );
+                const y =
+                    nivel +
+                    Math.sin(
+                        x * 0.035 +
+                        tempo * 0.001
+                    ) * 6;
 
-            } else {
 
-                ctx.lineTo(
-                    x,
-                    y
-                );
+                if (
+                    x === -20
+                ) {
+
+                    ctx.moveTo(
+                        x,
+                        y
+                    );
+
+                } else {
+
+                    ctx.lineTo(
+                        x,
+                        y
+                    );
+                }
             }
+
+
+            ctx.stroke();
+
+            ctx.globalAlpha =
+                1;
         }
 
 
-        ctx.stroke();
+        /*
+        INVERSÃO TOTAL DAS CORES.
 
-        ctx.globalAlpha =
-            1;
+        O fundo primeiro fica preto e depois
+        o restante é invertido por CSS/canvas.
+        */
+
+        if (
+            invertido
+        ) {
+
+            ctx.fillStyle =
+                '#000000';
+
+            ctx.globalAlpha =
+                0.72;
+
+            ctx.fillRect(
+                0,
+                0,
+                largura,
+                altura
+            );
+
+            ctx.globalAlpha =
+                1;
 
 
-        /* splash visual */
+            /*
+            camada clara abstrata sobre o
+            mundo invertido
+            */
+
+            ctx.globalCompositeOperation =
+                'difference';
+
+
+            ctx.fillStyle =
+                '#ffffff';
+
+            ctx.globalAlpha =
+                0.42;
+
+            ctx.fillRect(
+                0,
+                0,
+                largura,
+                altura
+            );
+
+
+            ctx.globalCompositeOperation =
+                'source-over';
+
+            ctx.globalAlpha =
+                1;
+        }
+
 
         if (
             performance.now() -
@@ -2118,9 +2390,10 @@
                 ) / 350;
 
 
-            const raio =
-                12 +
-                progresso * 35;
+            const nivel =
+                profundezas
+                    ? altura * 0.5
+                    : altura * ALTURA_AGUA;
 
 
             ctx.strokeStyle =
@@ -2139,8 +2412,12 @@
             ctx.ellipse(
                 nessie.x,
                 nivel,
-                raio,
-                raio * 0.28,
+                12 +
+                progresso * 35,
+                (
+                    12 +
+                    progresso * 35
+                ) * 0.28,
                 0,
                 0,
                 Math.PI * 2
@@ -2195,6 +2472,8 @@
 
         iniciarAudio();
 
+        cursorNativo();
+
 
         jogando =
             true;
@@ -2217,6 +2496,26 @@
 
         velocidade =
             VELOCIDADE_INICIAL;
+
+
+        camisetaVestida =
+            false;
+
+
+        vidas =
+            0;
+
+
+        profundezas =
+            false;
+
+
+        proximoMarco =
+            100;
+
+
+        invertidoAte =
+            0;
 
 
         nessie.x =
@@ -2256,6 +2555,47 @@
 
         tempoUltimo =
             performance.now();
+    }
+
+
+    /* ==================================================
+       COLISÃO / VIDA
+    ================================================== */
+
+    function tratarColisao() {
+
+        if (
+            camisetaVestida &&
+            vidas > 0
+        ) {
+
+            /*
+            A camiseta funciona como uma vida.
+
+            O monstro bate,
+            perde a camiseta,
+            mas continua.
+            */
+
+            camisetaVestida =
+                false;
+
+            vidas =
+                0;
+
+
+            somGlub();
+
+
+            nessie.velocidadeY =
+                -3;
+
+
+            return;
+        }
+
+
+        fim();
     }
 
 
@@ -2380,6 +2720,8 @@
 
             coletarCabides();
 
+            verificarMarcos();
+
             atualizarDificuldade();
 
 
@@ -2387,7 +2729,7 @@
                 colisaoPedra()
             ) {
 
-                fim();
+                tratarColisao();
             }
         }
 
@@ -2404,7 +2746,7 @@
 
 
     /* ==================================================
-       CONTROLE DO MOUSE
+       MOUSE
     ================================================== */
 
     area.addEventListener(
@@ -2430,14 +2772,10 @@
         'mouseenter',
         () => {
 
+            cursorNativo();
+
             mouseAtivo =
                 true;
-
-            area.style.cursor =
-                'default';
-
-            canvas.style.cursor =
-                'default';
         }
     );
 
@@ -2446,11 +2784,10 @@
         'mouseleave',
         () => {
 
+            cursorSiteNormal();
+
             mouseAtivo =
                 false;
-
-            area.style.cursor =
-                'default';
         }
     );
 
@@ -2465,9 +2802,7 @@
 
             event.preventDefault();
 
-
             iniciarAudio();
-
 
             if (
                 !jogando
@@ -2531,6 +2866,14 @@
 
     tempoUltimo =
         performance.now();
+
+
+    /*
+    Garante que, antes de entrar no jogo,
+    o cursor continue sendo o cursor do site.
+    */
+
+    cursorSiteNormal();
 
 
     requestAnimationFrame(

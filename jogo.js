@@ -31,6 +31,9 @@
 
     let ultimoTempo = 0;
 
+    let audioContext = null;
+
+
     let padrao = {
         verticais: [],
         horizontais: [],
@@ -135,6 +138,376 @@
         }
 
     ];
+
+
+    /*
+    ==================================================
+    AUDIO
+    ==================================================
+    */
+
+    function iniciarAudio() {
+
+        if (!audioContext) {
+
+            audioContext =
+                new (
+                    window.AudioContext ||
+                    window.webkitAudioContext
+                )();
+
+        }
+
+        if (
+            audioContext.state === 'suspended'
+        ) {
+
+            audioContext.resume();
+
+        }
+
+    }
+
+
+    /*
+    ==================================================
+    SOM AO PEGAR UM FIO
+    ==================================================
+    */
+
+    function somFio() {
+
+        iniciarAudio();
+
+        const agora =
+            audioContext.currentTime;
+
+
+        /*
+        pequeno "pluck" viscoso
+        */
+
+        const oscilador =
+            audioContext.createOscillator();
+
+        const ganho =
+            audioContext.createGain();
+
+
+        oscilador.type =
+            'triangle';
+
+
+        oscilador.frequency.setValueAtTime(
+            aleatorio(180, 280),
+            agora
+        );
+
+
+        oscilador.frequency.exponentialRampToValueAtTime(
+            aleatorio(70, 110),
+            agora + 0.13
+        );
+
+
+        ganho.gain.setValueAtTime(
+            0,
+            agora
+        );
+
+        ganho.gain.linearRampToValueAtTime(
+            0.22,
+            agora + 0.008
+        );
+
+        ganho.gain.exponentialRampToValueAtTime(
+            0.001,
+            agora + 0.18
+        );
+
+
+        oscilador.connect(
+            ganho
+        );
+
+        ganho.connect(
+            audioContext.destination
+        );
+
+
+        oscilador.start(
+            agora
+        );
+
+        oscilador.stop(
+            agora + 0.2
+        );
+
+
+        /*
+        camada de textura pegajosa
+        */
+
+        const buffer =
+            audioContext.createBuffer(
+                1,
+                audioContext.sampleRate * 0.12,
+                audioContext.sampleRate
+            );
+
+
+        const dados =
+            buffer.getChannelData(0);
+
+
+        for (
+            let i = 0;
+            i < dados.length;
+            i++
+        ) {
+
+            dados[i] =
+                (
+                    Math.random() * 2 - 1
+                ) *
+                (
+                    1 - i / dados.length
+                );
+
+        }
+
+
+        const ruido =
+            audioContext.createBufferSource();
+
+        ruido.buffer =
+            buffer;
+
+
+        const filtro =
+            audioContext.createBiquadFilter();
+
+        filtro.type =
+            'lowpass';
+
+        filtro.frequency.value =
+            850;
+
+
+        const ganhoRuido =
+            audioContext.createGain();
+
+
+        ganhoRuido.gain.setValueAtTime(
+            0.12,
+            agora
+        );
+
+        ganhoRuido.gain.exponentialRampToValueAtTime(
+            0.001,
+            agora + 0.11
+        );
+
+
+        ruido.connect(
+            filtro
+        );
+
+        filtro.connect(
+            ganhoRuido
+        );
+
+        ganhoRuido.connect(
+            audioContext.destination
+        );
+
+
+        ruido.start(
+            agora
+        );
+
+    }
+
+
+    /*
+    ==================================================
+    FANFARRA DE VITÓRIA
+    ==================================================
+    */
+
+    function somVitoria() {
+
+        iniciarAudio();
+
+        const agora =
+            audioContext.currentTime;
+
+
+        const notas = [
+
+            {
+                nota: 261.63,
+                inicio: 0,
+                duracao: 0.55
+            },
+
+            {
+                nota: 329.63,
+                inicio: 0.08,
+                duracao: 0.55
+            },
+
+            {
+                nota: 392.00,
+                inicio: 0.16,
+                duracao: 0.65
+            },
+
+            {
+                nota: 523.25,
+                inicio: 0.28,
+                duracao: 1.1
+            },
+
+            {
+                nota: 659.25,
+                inicio: 0.38,
+                duracao: 1.0
+            }
+
+        ];
+
+
+        notas.forEach(
+            item => {
+
+                const oscilador =
+                    audioContext.createOscillator();
+
+                const ganho =
+                    audioContext.createGain();
+
+
+                oscilador.type =
+                    'sawtooth';
+
+
+                oscilador.frequency.setValueAtTime(
+                    item.nota,
+                    agora + item.inicio
+                );
+
+
+                ganho.gain.setValueAtTime(
+                    0,
+                    agora + item.inicio
+                );
+
+
+                ganho.gain.linearRampToValueAtTime(
+                    0.075,
+                    agora +
+                    item.inicio +
+                    0.035
+                );
+
+
+                ganho.gain.exponentialRampToValueAtTime(
+                    0.001,
+                    agora +
+                    item.inicio +
+                    item.duracao
+                );
+
+
+                oscilador.connect(
+                    ganho
+                );
+
+                ganho.connect(
+                    audioContext.destination
+                );
+
+
+                oscilador.start(
+                    agora +
+                    item.inicio
+                );
+
+
+                oscilador.stop(
+                    agora +
+                    item.inicio +
+                    item.duracao
+                );
+
+            }
+        );
+
+
+        /*
+        grave final
+        */
+
+        const baixo =
+            audioContext.createOscillator();
+
+        const ganhoBaixo =
+            audioContext.createGain();
+
+
+        baixo.type =
+            'sine';
+
+
+        baixo.frequency.setValueAtTime(
+            65.41,
+            agora + 0.25
+        );
+
+
+        baixo.frequency.exponentialRampToValueAtTime(
+            32.70,
+            agora + 1.5
+        );
+
+
+        ganhoBaixo.gain.setValueAtTime(
+            0,
+            agora + 0.25
+        );
+
+
+        ganhoBaixo.gain.linearRampToValueAtTime(
+            0.22,
+            agora + 0.35
+        );
+
+
+        ganhoBaixo.gain.exponentialRampToValueAtTime(
+            0.001,
+            agora + 1.6
+        );
+
+
+        baixo.connect(
+            ganhoBaixo
+        );
+
+        ganhoBaixo.connect(
+            audioContext.destination
+        );
+
+
+        baixo.start(
+            agora + 0.25
+        );
+
+        baixo.stop(
+            agora + 1.7
+        );
+
+    }
 
 
     /*
@@ -335,7 +708,7 @@
             velocidade:
                 aleatorio(
                     0.25,
-                    10.25
+                    1.25
                 ) *
                 tipo.movimento,
 
@@ -343,18 +716,6 @@
                 aleatorio(
                     15,
                     55
-                ),
-
-            escalaX:
-                aleatorio(
-                    0.7,
-                    1.25
-                ),
-
-            escalaY:
-                aleatorio(
-                    0.7,
-                    1.15
                 ),
 
             coletado: false
@@ -391,7 +752,7 @@
 
     /*
     ==================================================
-    MOVIMENTO DAS FIBRAS
+    MOVIMENTO
     ==================================================
     */
 
@@ -449,7 +810,7 @@
 
     /*
     ==================================================
-    DESENHA UMA FIBRA FELPUDA
+    DESENHA FIBRA FELPUDA
     ==================================================
     */
 
@@ -487,10 +848,6 @@
             fibra.angulo
         );
 
-
-        /*
-        fibras individuais
-        */
 
         for (
             let i = 0;
@@ -629,7 +986,7 @@
 
 
         /*
-        miolo mais denso
+        miolo denso
         */
 
         for (
@@ -692,7 +1049,7 @@
 
     /*
     ==================================================
-    GRADE DO TEAR
+    GRADE
     ==================================================
     */
 
@@ -796,7 +1153,7 @@
 
     /*
     ==================================================
-    CRIA O TECIDO FINAL
+    CRIA TECIDO FINAL
     ==================================================
     */
 
@@ -858,10 +1215,6 @@
         const horizontais = [];
 
 
-        /*
-        sorteia a paleta do tecido
-        */
-
         const paleta =
             [...cores]
                 .sort(
@@ -878,10 +1231,6 @@
                 );
 
 
-        /*
-        sorteia o fundo do tecido
-        */
-
         const fundo =
             fundosTecido[
                 inteiro(
@@ -892,7 +1241,7 @@
 
 
         /*
-        URDUME — fios verticais
+        URDUME
         */
 
         for (
@@ -941,7 +1290,7 @@
 
 
         /*
-        TRAMA — fios horizontais
+        TRAMA
         */
 
         for (
@@ -989,10 +1338,6 @@
         }
 
 
-        /*
-        guarda tudo no padrão final
-        */
-
         padrao = {
 
             verticais,
@@ -1020,7 +1365,7 @@
 
     /*
     ==================================================
-    DESENHA O TECIDO FINAL
+    DESENHA TECIDO FINAL
     ==================================================
     */
 
@@ -1035,7 +1380,7 @@
 
 
         /*
-        fundo geral da tela
+        fundo branco da página
         */
 
         ctx.fillStyle =
@@ -1076,7 +1421,7 @@
 
 
         /*
-        sombra discreta
+        sombra
         */
 
         ctx.fillStyle =
@@ -1091,7 +1436,7 @@
 
 
         /*
-        fundo aleatório do tecido
+        FUNDO ALEATÓRIO DO TECIDO
         */
 
         ctx.fillStyle =
@@ -1106,9 +1451,7 @@
 
 
         /*
-        ==================================================
-        URDUME — VERTICAL
-        ==================================================
+        URDUME — VERTICAIS
         */
 
         tecido.verticais.forEach(
@@ -1175,10 +1518,6 @@
                 ctx.stroke();
 
 
-                /*
-                fibras laterais
-                */
-
                 for (
                     let j = 0;
                     j < 7;
@@ -1239,9 +1578,7 @@
 
 
         /*
-        ==================================================
-        TRAMA — HORIZONTAL
-        ==================================================
+        TRAMA — HORIZONTAIS
         */
 
         tecido.horizontais.forEach(
@@ -1308,10 +1645,6 @@
                 ctx.stroke();
 
 
-                /*
-                fibras laterais
-                */
-
                 for (
                     let j = 0;
                     j < 7;
@@ -1372,9 +1705,7 @@
 
 
         /*
-        ==================================================
         CRUZAMENTOS
-        ==================================================
         */
 
         const cruzamentos =
@@ -1458,9 +1789,7 @@
 
 
         /*
-        ==================================================
-        BORDA DO TECIDO
-        ==================================================
+        BORDA
         */
 
         ctx.globalAlpha =
@@ -1484,9 +1813,7 @@
 
 
         /*
-        ==================================================
         FRANJAS
-        ==================================================
         */
 
         for (
@@ -1652,6 +1979,13 @@
                         coletados;
 
 
+                    /*
+                    SOM DE COLETA
+                    */
+
+                    somFio();
+
+
                     if (
                         coletados >=
                         TOTAL
@@ -1733,6 +2067,14 @@
         ) {
 
             venceu = true;
+
+
+            /*
+            SOM DE TRIUNFO
+            */
+
+            somVitoria();
+
 
             criarPadrao();
 
@@ -1828,7 +2170,7 @@
 
     /*
     ==================================================
-    LOOP PRINCIPAL
+    LOOP
     ==================================================
     */
 
@@ -1862,7 +2204,7 @@
 
     /*
     ==================================================
-    DESENHA O ESTADO ATUAL
+    DESENHA
     ==================================================
     */
 
@@ -1897,7 +2239,7 @@
 
 
         /*
-        marcador discreto do cursor
+        marcador discreto
         */
 
         if (

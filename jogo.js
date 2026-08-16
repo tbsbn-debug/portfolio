@@ -12,6 +12,12 @@
     const reiniciar = document.getElementById('jogoReiniciar');
 
 
+    /*
+    ==================================================
+    CONFIGURAÇÕES DO JOGO
+    ==================================================
+    */
+
     const TOTAL = 30;
     const TEMPO_TOTAL = 20;
 
@@ -34,32 +40,57 @@
     let audioContext = null;
 
 
+    /*
+    ==================================================
+    TECIDO FINAL
+    ==================================================
+    */
+
     let padrao = {
+
         verticais: [],
         horizontais: [],
+
         fundo: '#f4f0e8',
+
         tamanho: 0,
+
         x: 0,
         y: 0,
+
         largura: 0,
         altura: 0
+
     };
 
 
+    /*
+    ==================================================
+    MOUSE
+    ==================================================
+    */
+
     const mouse = {
+
         x: 0,
         y: 0,
+
         ativo: false
+
     };
 
 
     /*
     ==================================================
     PALETA DOS FIOS
+
+    O FUNDO DO TECIDO FINAL TAMBÉM SERÁ
+    ESCOLHIDO EXATAMENTE DESTA PALETA.
     ==================================================
     */
 
     const cores = [
+
         '#111111',
         '#211714',
         '#553522',
@@ -74,30 +105,93 @@
         '#263e59',
         '#315c7d',
         '#477b96'
+
     ];
 
 
     /*
     ==================================================
-    PALETA DOS FUNDOS DOS TECIDOS
+    NOTAS DA MELODIA
+
+    "ODE À ALEGRIA" — BEETHOVEN
+
+    B B C D | D C B A |
+    G G A B | B A A |
+    B B C D | D C B A |
+    G G A B | A G G ...
+
+    Usamos as primeiras 30 notas para
+    os 30 fios.
     ==================================================
     */
 
-    const fundosTecido = [
-        '#111111',
-        '#211714',
-        '#553522',
-        '#79502f',
-        '#a36b2c',
-        '#c18b32',
-        '#d4a83b',
-        '#e0bf59',
-        '#7d4635',
-        '#a43f32',
-        '#8e2727',
-        '#263e59',
-        '#315c7d',
-        '#477b96'
+    const notasFios = [
+
+        'B4',
+        'B4',
+        'C5',
+        'D5',
+        'D5',
+        'C5',
+        'B4',
+        'A4',
+
+        'G4',
+        'G4',
+        'A4',
+        'B4',
+        'B4',
+        'A4',
+        'A4',
+
+        'B4',
+        'B4',
+        'C5',
+        'D5',
+        'D5',
+        'C5',
+        'B4',
+        'A4',
+
+        'G4',
+        'G4',
+        'A4',
+        'B4',
+        'A4',
+        'G4',
+        'G4'
+
+    ];
+
+
+    /*
+    ==================================================
+    DESFECHO
+
+    B B C D | D C B A |
+    G G A B | A G G
+    ==================================================
+    */
+
+    const notasFinal = [
+
+        'B4',
+        'B4',
+        'C5',
+        'D5',
+        'D5',
+        'C5',
+        'B4',
+        'A4',
+
+        'G4',
+        'G4',
+        'A4',
+        'B4',
+        'A4',
+        'G4',
+        'G4'
+
     ];
 
 
@@ -142,7 +236,32 @@
 
     /*
     ==================================================
-    AUDIO
+    CONVERSÃO DE NOTAS
+    ==================================================
+    */
+
+    function frequenciaNota(nota) {
+
+        const frequencias = {
+
+            'G4': 392.00,
+            'A4': 440.00,
+            'B4': 493.88,
+
+            'C5': 523.25,
+            'D5': 587.33
+
+        };
+
+
+        return frequencias[nota];
+
+    }
+
+
+    /*
+    ==================================================
+    INICIA AUDIO
     ==================================================
     */
 
@@ -158,6 +277,7 @@
 
         }
 
+
         if (
             audioContext.state === 'suspended'
         ) {
@@ -171,24 +291,39 @@
 
     /*
     ==================================================
-    SOM AO PEGAR UM FIO
+    TOCA UMA NOTA
+
+    O som é sintetizado no próprio JS.
+    Cada fio produz a nota correspondente
+    da melodia.
     ==================================================
     */
 
-    function somFio() {
+    function tocarNota(
+        nota,
+        duracao = 0.48,
+        atraso = 0
+    ) {
 
         iniciarAudio();
 
+
         const agora =
-            audioContext.currentTime;
+            audioContext.currentTime +
+            atraso;
+
+
+        const frequencia =
+            frequenciaNota(nota);
 
 
         /*
-        pequeno "pluck" viscoso
+        OSCILADOR PRINCIPAL
         */
 
         const oscilador =
             audioContext.createOscillator();
+
 
         const ganho =
             audioContext.createGain();
@@ -199,36 +334,37 @@
 
 
         oscilador.frequency.setValueAtTime(
-            aleatorio(180, 280),
+            frequencia,
             agora
         );
 
 
-        oscilador.frequency.exponentialRampToValueAtTime(
-            aleatorio(70, 110),
-            agora + 0.13
-        );
-
+        /*
+        pequeno ataque
+        */
 
         ganho.gain.setValueAtTime(
             0,
             agora
         );
 
+
         ganho.gain.linearRampToValueAtTime(
-            0.22,
-            agora + 0.008
+            0.18,
+            agora + 0.025
         );
+
 
         ganho.gain.exponentialRampToValueAtTime(
             0.001,
-            agora + 0.18
+            agora + duracao
         );
 
 
         oscilador.connect(
             ganho
         );
+
 
         ganho.connect(
             audioContext.destination
@@ -239,91 +375,73 @@
             agora
         );
 
+
         oscilador.stop(
-            agora + 0.2
+            agora + duracao + 0.02
         );
 
 
         /*
-        camada de textura pegajosa
+        SEGUNDA CAMADA MUITO LEVE
+
+        Dá um pouco mais de corpo à nota,
+        sem transformar o jogo em um sintetizador
+        excessivamente eletrônico.
         */
 
-        const buffer =
-            audioContext.createBuffer(
-                1,
-                audioContext.sampleRate * 0.12,
-                audioContext.sampleRate
-            );
+        const segundo =
+            audioContext.createOscillator();
 
 
-        const dados =
-            buffer.getChannelData(0);
-
-
-        for (
-            let i = 0;
-            i < dados.length;
-            i++
-        ) {
-
-            dados[i] =
-                (
-                    Math.random() * 2 - 1
-                ) *
-                (
-                    1 - i / dados.length
-                );
-
-        }
-
-
-        const ruido =
-            audioContext.createBufferSource();
-
-        ruido.buffer =
-            buffer;
-
-
-        const filtro =
-            audioContext.createBiquadFilter();
-
-        filtro.type =
-            'lowpass';
-
-        filtro.frequency.value =
-            850;
-
-
-        const ganhoRuido =
+        const ganhoSegundo =
             audioContext.createGain();
 
 
-        ganhoRuido.gain.setValueAtTime(
-            0.12,
+        segundo.type =
+            'sine';
+
+
+        segundo.frequency.setValueAtTime(
+            frequencia * 2,
             agora
         );
 
-        ganhoRuido.gain.exponentialRampToValueAtTime(
+
+        ganhoSegundo.gain.setValueAtTime(
+            0,
+            agora
+        );
+
+
+        ganhoSegundo.gain.linearRampToValueAtTime(
+            0.025,
+            agora + 0.02
+        );
+
+
+        ganhoSegundo.gain.exponentialRampToValueAtTime(
             0.001,
-            agora + 0.11
+            agora + duracao * 0.8
         );
 
 
-        ruido.connect(
-            filtro
+        segundo.connect(
+            ganhoSegundo
         );
 
-        filtro.connect(
-            ganhoRuido
-        );
 
-        ganhoRuido.connect(
+        ganhoSegundo.connect(
             audioContext.destination
         );
 
 
-        ruido.start(
+        segundo.start(
             agora
+        );
+
+
+        segundo.stop(
+            agora + duracao
         );
 
     }
@@ -331,7 +449,33 @@
 
     /*
     ==================================================
-    FANFARRA DE VITÓRIA
+    SOM DE CADA FIO
+    ==================================================
+    */
+
+    function somFio(numero) {
+
+        if (
+            numero < 0 ||
+            numero >= notasFios.length
+        ) {
+
+            return;
+
+        }
+
+
+        tocarNota(
+            notasFios[numero],
+            0.55
+        );
+
+    }
+
+
+    /*
+    ==================================================
+    DESFECHO MUSICAL
     ==================================================
     */
 
@@ -339,172 +483,27 @@
 
         iniciarAudio();
 
-        const agora =
-            audioContext.currentTime;
-
-
-        const notas = [
-
-            {
-                nota: 261.63,
-                inicio: 0,
-                duracao: 0.55
-            },
-
-            {
-                nota: 329.63,
-                inicio: 0.08,
-                duracao: 0.55
-            },
-
-            {
-                nota: 392.00,
-                inicio: 0.16,
-                duracao: 0.65
-            },
-
-            {
-                nota: 523.25,
-                inicio: 0.28,
-                duracao: 1.1
-            },
-
-            {
-                nota: 659.25,
-                inicio: 0.38,
-                duracao: 1.0
-            }
-
-        ];
-
-
-        notas.forEach(
-            item => {
-
-                const oscilador =
-                    audioContext.createOscillator();
-
-                const ganho =
-                    audioContext.createGain();
-
-
-                oscilador.type =
-                    'sawtooth';
-
-
-                oscilador.frequency.setValueAtTime(
-                    item.nota,
-                    agora + item.inicio
-                );
-
-
-                ganho.gain.setValueAtTime(
-                    0,
-                    agora + item.inicio
-                );
-
-
-                ganho.gain.linearRampToValueAtTime(
-                    0.075,
-                    agora +
-                    item.inicio +
-                    0.035
-                );
-
-
-                ganho.gain.exponentialRampToValueAtTime(
-                    0.001,
-                    agora +
-                    item.inicio +
-                    item.duracao
-                );
-
-
-                oscilador.connect(
-                    ganho
-                );
-
-                ganho.connect(
-                    audioContext.destination
-                );
-
-
-                oscilador.start(
-                    agora +
-                    item.inicio
-                );
-
-
-                oscilador.stop(
-                    agora +
-                    item.inicio +
-                    item.duracao
-                );
-
-            }
-        );
-
 
         /*
-        grave final
+        Toca as notas do desfecho uma depois
+        da outra, como uma pequena conclusão
+        musical.
         */
 
-        const baixo =
-            audioContext.createOscillator();
-
-        const ganhoBaixo =
-            audioContext.createGain();
+        const intervalo =
+            0.31;
 
 
-        baixo.type =
-            'sine';
+        notasFinal.forEach(
+            (nota, indice) => {
 
+                tocarNota(
+                    nota,
+                    0.58,
+                    indice * intervalo
+                );
 
-        baixo.frequency.setValueAtTime(
-            65.41,
-            agora + 0.25
-        );
-
-
-        baixo.frequency.exponentialRampToValueAtTime(
-            32.70,
-            agora + 1.5
-        );
-
-
-        ganhoBaixo.gain.setValueAtTime(
-            0,
-            agora + 0.25
-        );
-
-
-        ganhoBaixo.gain.linearRampToValueAtTime(
-            0.22,
-            agora + 0.35
-        );
-
-
-        ganhoBaixo.gain.exponentialRampToValueAtTime(
-            0.001,
-            agora + 1.6
-        );
-
-
-        baixo.connect(
-            ganhoBaixo
-        );
-
-        ganhoBaixo.connect(
-            audioContext.destination
-        );
-
-
-        baixo.start(
-            agora + 0.25
-        );
-
-        baixo.stop(
-            agora + 1.7
+            }
         );
 
     }
@@ -521,8 +520,14 @@
         const rect =
             area.getBoundingClientRect();
 
-        largura = rect.width;
-        altura = rect.height;
+
+        largura =
+            rect.width;
+
+
+        altura =
+            rect.height;
+
 
         dpr =
             Math.min(
@@ -530,21 +535,26 @@
                 2
             );
 
+
         canvas.width =
             Math.round(
                 largura * dpr
             );
+
 
         canvas.height =
             Math.round(
                 altura * dpr
             );
 
+
         canvas.style.width =
             largura + 'px';
 
+
         canvas.style.height =
             altura + 'px';
+
 
         ctx.setTransform(
             dpr,
@@ -564,7 +574,10 @@
     ==================================================
     */
 
-    function aleatorio(min, max) {
+    function aleatorio(
+        min,
+        max
+    ) {
 
         return (
             Math.random() *
@@ -574,7 +587,10 @@
     }
 
 
-    function inteiro(min, max) {
+    function inteiro(
+        min,
+        max
+    ) {
 
         return Math.floor(
             aleatorio(
@@ -588,7 +604,7 @@
 
     /*
     ==================================================
-    CRIA UMA FIBRA
+    CRIA FIBRA
     ==================================================
     */
 
@@ -604,11 +620,13 @@
 
 
         const orientacoes = [
+
             'horizontal',
             'vertical',
             'horizontal',
             'vertical',
             'diagonal'
+
         ];
 
 
@@ -632,6 +650,7 @@
                 Math.PI / 2;
 
         }
+
 
         else if (
             eixo === 'diagonal'
@@ -727,13 +746,14 @@
 
     /*
     ==================================================
-    CRIA TODAS AS FIBRAS
+    CRIA FIBRAS
     ==================================================
     */
 
     function criarFibras() {
 
         fibras = [];
+
 
         for (
             let i = 0;
@@ -761,8 +781,12 @@
         tempoAtual
     ) {
 
-        let x = fibra.x;
-        let y = fibra.y;
+        let x =
+            fibra.x;
+
+
+        let y =
+            fibra.y;
 
 
         const onda =
@@ -783,6 +807,7 @@
 
         }
 
+
         else if (
             fibra.eixo ===
             'vertical'
@@ -792,17 +817,22 @@
 
         }
 
+
         else {
 
             x += onda;
-            y += onda * 0.7;
+
+            y +=
+                onda * 0.7;
 
         }
 
 
         return {
+
             x,
             y
+
         };
 
     }
@@ -848,6 +878,10 @@
             fibra.angulo
         );
 
+
+        /*
+        CERDAS
+        */
 
         for (
             let i = 0;
@@ -942,6 +976,7 @@
 
 
             ctx.quadraticCurveTo(
+
                 x +
                 comprimentoCerdas *
                 0.35,
@@ -954,6 +989,7 @@
 
                 destinoX,
                 destinoY
+
             );
 
 
@@ -986,7 +1022,7 @@
 
 
         /*
-        miolo denso
+        DENSIDADE CENTRAL
         */
 
         for (
@@ -1040,7 +1076,9 @@
         }
 
 
-        ctx.globalAlpha = 1;
+        ctx.globalAlpha =
+            1;
+
 
         ctx.restore();
 
@@ -1063,10 +1101,12 @@
         );
 
 
-        const espacamento = 34;
+        const espacamento =
+            34;
 
 
-        ctx.lineWidth = 0.5;
+        ctx.lineWidth =
+            0.5;
 
 
         for (
@@ -1077,18 +1117,22 @@
 
             ctx.beginPath();
 
+
             ctx.moveTo(
                 0,
                 y
             );
+
 
             ctx.lineTo(
                 largura,
                 y
             );
 
+
             ctx.strokeStyle =
                 'rgba(17,17,17,.075)';
+
 
             ctx.stroke();
 
@@ -1103,18 +1147,22 @@
 
             ctx.beginPath();
 
+
             ctx.moveTo(
                 x,
                 0
             );
+
 
             ctx.lineTo(
                 x,
                 altura
             );
 
+
             ctx.strokeStyle =
                 'rgba(17,17,17,.075)';
+
 
             ctx.stroke();
 
@@ -1170,13 +1218,16 @@
         const tecidoLargura =
             tamanho;
 
+
         const tecidoAltura =
             tamanho;
 
 
         const x =
-            (largura -
-            tecidoLargura) / 2;
+            (
+                largura -
+                tecidoLargura
+            ) / 2;
 
 
         let y;
@@ -1190,6 +1241,7 @@
                 altura * 0.18;
 
         }
+
 
         else {
 
@@ -1215,6 +1267,11 @@
         const horizontais = [];
 
 
+        /*
+        AS CORES DO TECIDO VÊM DA MESMA
+        PALETA DOS FIOS
+        */
+
         const paleta =
             [...cores]
                 .sort(
@@ -1231,11 +1288,16 @@
                 );
 
 
+        /*
+        O FUNDO TAMBÉM É UMA COR EXATA
+        DA MESMA PALETA.
+        */
+
         const fundo =
-            fundosTecido[
+            cores[
                 inteiro(
                     0,
-                    fundosTecido.length - 1
+                    cores.length - 1
                 )
             ];
 
@@ -1380,11 +1442,12 @@
 
 
         /*
-        fundo branco da página
+        FUNDO DA PÁGINA
         */
 
         ctx.fillStyle =
             '#ffffff';
+
 
         ctx.fillRect(
             0,
@@ -1410,22 +1473,26 @@
         const x =
             tecido.x;
 
+
         const y =
             tecido.y;
 
+
         const w =
             tecido.largura;
+
 
         const h =
             tecido.altura;
 
 
         /*
-        sombra
+        SOMBRA
         */
 
         ctx.fillStyle =
             'rgba(17,17,17,.025)';
+
 
         ctx.fillRect(
             x + 4,
@@ -1436,11 +1503,15 @@
 
 
         /*
-        FUNDO ALEATÓRIO DO TECIDO
+        FUNDO DO TECIDO
+
+        É EXATAMENTE UM DOS TONS
+        DA PALETA DOS FIOS.
         */
 
         ctx.fillStyle =
             tecido.fundo;
+
 
         ctx.fillRect(
             x,
@@ -1518,59 +1589,6 @@
                 ctx.stroke();
 
 
-                for (
-                    let j = 0;
-                    j < 7;
-                    j++
-                ) {
-
-                    const fy =
-                        y +
-                        (h / 8) *
-                        j;
-
-
-                    ctx.beginPath();
-
-
-                    ctx.moveTo(
-                        px,
-                        fy
-                    );
-
-
-                    ctx.lineTo(
-                        px +
-                        aleatorio(
-                            -3,
-                            3
-                        ),
-
-                        fy +
-                        aleatorio(
-                            -3,
-                            3
-                        )
-                    );
-
-
-                    ctx.strokeStyle =
-                        fio.cor;
-
-
-                    ctx.globalAlpha =
-                        0.25;
-
-
-                    ctx.lineWidth =
-                        0.45;
-
-
-                    ctx.stroke();
-
-                }
-
-
                 ctx.restore();
 
             }
@@ -1645,59 +1663,6 @@
                 ctx.stroke();
 
 
-                for (
-                    let j = 0;
-                    j < 7;
-                    j++
-                ) {
-
-                    const fx =
-                        x +
-                        (w / 8) *
-                        j;
-
-
-                    ctx.beginPath();
-
-
-                    ctx.moveTo(
-                        fx,
-                        py
-                    );
-
-
-                    ctx.lineTo(
-                        fx +
-                        aleatorio(
-                            -3,
-                            3
-                        ),
-
-                        py +
-                        aleatorio(
-                            -3,
-                            3
-                        )
-                    );
-
-
-                    ctx.strokeStyle =
-                        fio.cor;
-
-
-                    ctx.globalAlpha =
-                        0.25;
-
-
-                    ctx.lineWidth =
-                        0.45;
-
-
-                    ctx.stroke();
-
-                }
-
-
                 ctx.restore();
 
             }
@@ -1706,6 +1671,9 @@
 
         /*
         CRUZAMENTOS
+
+        Pequenas irregularidades dão à trama
+        uma aparência menos perfeitamente digital.
         */
 
         const cruzamentos =
@@ -1980,10 +1948,13 @@
 
 
                     /*
-                    SOM DE COLETA
+                    CADA FIO PRODUZ UMA NOVA
+                    NOTA DA MELODIA.
                     */
 
-                    somFio();
+                    somFio(
+                        coletados - 1
+                    );
 
 
                     if (
@@ -2007,22 +1978,33 @@
 
     /*
     ==================================================
-    INICIA O JOGO
+    INICIA JOGO
     ==================================================
     */
 
     function iniciar() {
 
-        coletados = 0;
+        iniciarAudio();
+
+
+        coletados =
+            0;
+
 
         tempo =
             TEMPO_TOTAL;
 
-        iniciado = true;
 
-        terminou = false;
+        iniciado =
+            true;
 
-        venceu = false;
+
+        terminou =
+            false;
+
+
+        venceu =
+            false;
 
 
         pontosEl.textContent =
@@ -2057,23 +2039,34 @@
         vitoria
     ) {
 
-        terminou = true;
+        terminou =
+            true;
 
-        iniciado = false;
+
+        iniciado =
+            false;
 
 
         if (
             vitoria
         ) {
 
-            venceu = true;
+            venceu =
+                true;
 
 
             /*
-            SOM DE TRIUNFO
+            PEQUENO RESPIRO ANTES DO DESFECHO
             */
 
-            somVitoria();
+            setTimeout(
+                () => {
+
+                    somVitoria();
+
+                },
+                250
+            );
 
 
             criarPadrao();
@@ -2084,6 +2077,7 @@
                 'você construiu a trama.';
 
         }
+
 
         else {
 
@@ -2103,7 +2097,7 @@
 
     /*
     ==================================================
-    ATUALIZA O TEMPO
+    ATUALIZA TEMPO
     ==================================================
     */
 
@@ -2143,7 +2137,8 @@
             tempo <= 0
         ) {
 
-            tempo = 0;
+            tempo =
+                0;
 
 
             tempoEl.textContent =
@@ -2164,40 +2159,6 @@
             Math.ceil(
                 tempo
             );
-
-    }
-
-
-    /*
-    ==================================================
-    LOOP
-    ==================================================
-    */
-
-    function animar(
-        agora
-    ) {
-
-        const tempoAtual =
-            agora / 1000;
-
-
-        atualizarTempo(
-            agora
-        );
-
-
-        verificarColeta();
-
-
-        desenhar(
-            tempoAtual
-        );
-
-
-        requestAnimationFrame(
-            animar
-        );
 
     }
 
@@ -2239,7 +2200,7 @@
 
 
         /*
-        marcador discreto
+        MARCADOR DISCRETO
         */
 
         if (
@@ -2270,6 +2231,40 @@
             ctx.stroke();
 
         }
+
+    }
+
+
+    /*
+    ==================================================
+    LOOP
+    ==================================================
+    */
+
+    function animar(
+        agora
+    ) {
+
+        const tempoAtual =
+            agora / 1000;
+
+
+        atualizarTempo(
+            agora
+        );
+
+
+        verificarColeta();
+
+
+        desenhar(
+            tempoAtual
+        );
+
+
+        requestAnimationFrame(
+            animar
+        );
 
     }
 
@@ -2337,6 +2332,7 @@
 
             }
 
+
             else if (
                 venceu
             ) {
@@ -2362,6 +2358,7 @@
             event.preventDefault();
 
             event.stopPropagation();
+
 
             iniciar();
 
@@ -2403,6 +2400,7 @@
     criarFibras();
 
     iniciar();
+
 
     requestAnimationFrame(
         animar

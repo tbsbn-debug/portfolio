@@ -13,7 +13,7 @@
 
 
     const TOTAL = 24;
-    const TEMPO_TOTAL = 20;
+    const TEMPO_TOTAL = 25;
 
 
     let largura = 0;
@@ -34,6 +34,7 @@
     let padrao = {
         verticais: [],
         horizontais: [],
+        fundo: '#f4f0e8',
         tamanho: 0,
         x: 0,
         y: 0,
@@ -51,7 +52,7 @@
 
     /*
     ==================================================
-    PALETA
+    PALETA DOS FIOS
     ==================================================
     */
 
@@ -71,21 +72,29 @@
         '#315c7d',
         '#477b96'
     ];
-    
-const fundosTecido = [
-    '#f4f0e8',
-    '#e8dfce',
-    '#d8c9ad',
-    '#c9b895',
-    '#b9a98c',
-    '#d7d0c1',
-    '#c7c0ad',
-    '#e3d4b8',
-    '#b8c0bd',
-    '#c3b7a0',
-    '#d0c4ae',
-    '#aeb8b2'
-];
+
+
+    /*
+    ==================================================
+    PALETA DOS FUNDOS DOS TECIDOS
+    ==================================================
+    */
+
+    const fundosTecido = [
+        '#f4f0e8',
+        '#e8dfce',
+        '#d8c9ad',
+        '#c9b895',
+        '#b9a98c',
+        '#d7d0c1',
+        '#c7c0ad',
+        '#e3d4b8',
+        '#b8c0b0',
+        '#c3b7a0',
+        '#d0c4ae',
+        '#aeb8b2'
+    ];
+
 
     /*
     ==================================================
@@ -204,7 +213,7 @@ const fundosTecido = [
 
     /*
     ==================================================
-    CRIA UM ELEMENTO TÊXTIL
+    CRIA UMA FIBRA
     ==================================================
     */
 
@@ -355,7 +364,7 @@ const fundosTecido = [
 
     /*
     ==================================================
-    CRIA TODOS
+    CRIA TODAS AS FIBRAS
     ==================================================
     */
 
@@ -380,7 +389,7 @@ const fundosTecido = [
 
     /*
     ==================================================
-    MOVIMENTO INDIVIDUAL
+    MOVIMENTO DAS FIBRAS
     ==================================================
     */
 
@@ -438,7 +447,7 @@ const fundosTecido = [
 
     /*
     ==================================================
-    DESENHA UM AMONTOADO DE FIBRAS
+    DESENHA UMA FIBRA FELPUDA
     ==================================================
     */
 
@@ -478,9 +487,7 @@ const fundosTecido = [
 
 
         /*
-        ----------------------------------------------
         fibras individuais
-        ----------------------------------------------
         */
 
         for (
@@ -620,9 +627,7 @@ const fundosTecido = [
 
 
         /*
-        ----------------------------------------------
         miolo mais denso
-        ----------------------------------------------
         */
 
         for (
@@ -705,10 +710,6 @@ const fundosTecido = [
         ctx.lineWidth = 0.5;
 
 
-        /*
-        linhas horizontais
-        */
-
         for (
             let y = 0;
             y <= altura;
@@ -735,10 +736,6 @@ const fundosTecido = [
         }
 
 
-        /*
-        linhas verticais
-        */
-
         for (
             let x = 0;
             x <= largura;
@@ -764,10 +761,6 @@ const fundosTecido = [
 
         }
 
-
-        /*
-        cruzamentos
-        */
 
         ctx.fillStyle =
             'rgba(17,17,17,.12)';
@@ -807,13 +800,6 @@ const fundosTecido = [
 
     function criarPadrao() {
 
-        const fundo =
-    fundosTecido[
-        inteiro(
-            0,
-            fundosTecido.length - 1
-        )
-    ];
         const tamanho =
             Math.min(
                 310,
@@ -870,6 +856,10 @@ const fundosTecido = [
         const horizontais = [];
 
 
+        /*
+        sorteia a paleta do tecido
+        */
+
         const paleta =
             [...cores]
                 .sort(
@@ -887,7 +877,20 @@ const fundosTecido = [
 
 
         /*
-        URDUME
+        sorteia o fundo do tecido
+        */
+
+        const fundo =
+            fundosTecido[
+                inteiro(
+                    0,
+                    fundosTecido.length - 1
+                )
+            ];
+
+
+        /*
+        URDUME — fios verticais
         */
 
         for (
@@ -936,7 +939,7 @@ const fundosTecido = [
 
 
         /*
-        TRAMA
+        TRAMA — fios horizontais
         */
 
         for (
@@ -984,11 +987,17 @@ const fundosTecido = [
         }
 
 
+        /*
+        guarda tudo no padrão final
+        */
+
         padrao = {
 
             verticais,
 
             horizontais,
+
+            fundo,
 
             tamanho,
 
@@ -1023,8 +1032,12 @@ const fundosTecido = [
         );
 
 
-ctx.fillStyle =
-    tecido.fundo;
+        /*
+        fundo geral da tela
+        */
+
+        ctx.fillStyle =
+            '#ffffff';
 
         ctx.fillRect(
             0,
@@ -1061,7 +1074,7 @@ ctx.fillStyle =
 
 
         /*
-        sombra extremamente discreta
+        sombra discreta
         */
 
         ctx.fillStyle =
@@ -1076,11 +1089,11 @@ ctx.fillStyle =
 
 
         /*
-        fundo cru
+        fundo aleatório do tecido
         */
 
         ctx.fillStyle =
-            '#f4f0e8';
+            tecido.fundo;
 
         ctx.fillRect(
             x,
@@ -1091,9 +1104,9 @@ ctx.fillStyle =
 
 
         /*
-        ----------------------------------------------
+        ==================================================
         URDUME — VERTICAL
-        ----------------------------------------------
+        ==================================================
         */
 
         tecido.verticais.forEach(
@@ -1224,9 +1237,9 @@ ctx.fillStyle =
 
 
         /*
-        ----------------------------------------------
+        ==================================================
         TRAMA — HORIZONTAL
-        ----------------------------------------------
+        ==================================================
         */
 
         tecido.horizontais.forEach(
@@ -1357,9 +1370,9 @@ ctx.fillStyle =
 
 
         /*
-        ----------------------------------------------
+        ==================================================
         CRUZAMENTOS
-        ----------------------------------------------
+        ==================================================
         */
 
         const cruzamentos =
@@ -1443,9 +1456,9 @@ ctx.fillStyle =
 
 
         /*
-        ----------------------------------------------
-        BORDA
-        ----------------------------------------------
+        ==================================================
+        BORDA DO TECIDO
+        ==================================================
         */
 
         ctx.globalAlpha =
@@ -1469,9 +1482,9 @@ ctx.fillStyle =
 
 
         /*
-        ----------------------------------------------
+        ==================================================
         FRANJAS
-        ----------------------------------------------
+        ==================================================
         */
 
         for (
@@ -1556,79 +1569,7 @@ ctx.fillStyle =
 
     /*
     ==================================================
-    DESENHA
-    ==================================================
-    */
-
-    function desenhar(
-        tempoAtual
-    ) {
-
-        if (
-            venceu
-        ) {
-
-            desenharPadraoFinal();
-
-            return;
-
-        }
-
-
-        desenharGrade();
-
-
-        fibras.forEach(
-            fibra => {
-
-                desenharFibra(
-                    fibra,
-                    tempoAtual
-                );
-
-            }
-        );
-
-
-        /*
-        marcador discreto do cursor
-        */
-
-        if (
-            mouse.ativo &&
-            !terminou
-        ) {
-
-            ctx.beginPath();
-
-
-            ctx.arc(
-                mouse.x,
-                mouse.y,
-                12,
-                0,
-                Math.PI * 2
-            );
-
-
-            ctx.strokeStyle =
-                'rgba(17,17,17,.16)';
-
-
-            ctx.lineWidth =
-                0.7;
-
-
-            ctx.stroke();
-
-        }
-
-    }
-
-
-    /*
-    ==================================================
-    COLETA
+    VERIFICA COLETA
     ==================================================
     */
 
@@ -1730,7 +1671,7 @@ ctx.fillStyle =
 
     /*
     ==================================================
-    INICIA
+    INICIA O JOGO
     ==================================================
     */
 
@@ -1818,7 +1759,7 @@ ctx.fillStyle =
 
     /*
     ==================================================
-    TEMPO
+    ATUALIZA O TEMPO
     ==================================================
     */
 
@@ -1885,7 +1826,7 @@ ctx.fillStyle =
 
     /*
     ==================================================
-    LOOP
+    LOOP PRINCIPAL
     ==================================================
     */
 
@@ -1913,6 +1854,78 @@ ctx.fillStyle =
         requestAnimationFrame(
             animar
         );
+
+    }
+
+
+    /*
+    ==================================================
+    DESENHA O ESTADO ATUAL
+    ==================================================
+    */
+
+    function desenhar(
+        tempoAtual
+    ) {
+
+        if (
+            venceu
+        ) {
+
+            desenharPadraoFinal();
+
+            return;
+
+        }
+
+
+        desenharGrade();
+
+
+        fibras.forEach(
+            fibra => {
+
+                desenharFibra(
+                    fibra,
+                    tempoAtual
+                );
+
+            }
+        );
+
+
+        /*
+        marcador discreto do cursor
+        */
+
+        if (
+            mouse.ativo &&
+            !terminou
+        ) {
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                mouse.x,
+                mouse.y,
+                12,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.strokeStyle =
+                'rgba(17,17,17,.16)';
+
+
+            ctx.lineWidth =
+                0.7;
+
+
+            ctx.stroke();
+
+        }
 
     }
 

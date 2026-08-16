@@ -11,11 +11,9 @@
     const botao = document.getElementById('jogo2Botao');
 
 
-    /*
-    ==================================================
-    CONFIGURAÇÃO
-    ==================================================
-    */
+    /* ==================================================
+       CONFIGURAÇÃO
+    ================================================== */
 
     let largura = 0;
     let altura = 0;
@@ -30,11 +28,9 @@
     const VELOCIDADE_MAXIMA = 6.2;
 
 
-    /*
-    ==================================================
-    ESTADO
-    ==================================================
-    */
+    /* ==================================================
+       ESTADO
+    ================================================== */
 
     let jogando = false;
     let terminou = false;
@@ -57,18 +53,12 @@
 
     let ultimoNivelAgua = null;
 
-    let chuva = [];
-
-    let sementes = [];
-
     let tempoSplash = 0;
 
 
-    /*
-    ==================================================
-    ÁUDIO
-    ==================================================
-    */
+    /* ==================================================
+       ÁUDIO
+    ================================================== */
 
     let audioContext = null;
 
@@ -138,7 +128,6 @@
         oscilador.stop(
             agora + duracao
         );
-
     }
 
 
@@ -161,7 +150,6 @@
             );
 
         }, 45);
-
     }
 
 
@@ -195,7 +183,6 @@
             );
 
         }, 145);
-
     }
 
 
@@ -236,7 +223,6 @@
                     1 - t,
                     2.5
                 );
-
         }
 
         const fonte =
@@ -272,7 +258,6 @@
         ganho.connect(audioContext.destination);
 
         fonte.start(agora);
-
     }
 
 
@@ -295,7 +280,6 @@
             );
 
         }, 60);
-
     }
 
 
@@ -324,15 +308,12 @@
 
             }
         );
-
     }
 
 
-    /*
-    ==================================================
-    CANVAS
-    ==================================================
-    */
+    /* ==================================================
+       CANVAS
+    ================================================== */
 
     function tamanhoCanvas() {
 
@@ -375,15 +356,12 @@
             0,
             0
         );
-
     }
 
 
-    /*
-    ==================================================
-    NESSIE
-    ==================================================
-    */
+    /* ==================================================
+       NESSIE
+    ================================================== */
 
     const nessie = {
 
@@ -416,15 +394,11 @@
         const limiteInferior =
             altura - 48;
 
-
         const nivelAgua =
-            altura *
-            ALTURA_AGUA;
-
+            altura * ALTURA_AGUA;
 
         const estavaNaAgua =
-            nessie.y >
-            nivelAgua;
+            nessie.y > nivelAgua;
 
 
         if (mouseAtivo) {
@@ -439,8 +413,7 @@
                 );
 
             const diferenca =
-                alvo -
-                nessie.y;
+                alvo - nessie.y;
 
             nessie.velocidadeY +=
                 diferenca *
@@ -450,12 +423,10 @@
 
             nessie.velocidadeY +=
                 GRAVIDADE;
-
         }
 
 
-        nessie.velocidadeY *=
-            0.82;
+        nessie.velocidadeY *= 0.82;
 
         nessie.y +=
             nessie.velocidadeY;
@@ -471,7 +442,6 @@
 
             nessie.velocidadeY =
                 0;
-
         }
 
 
@@ -485,7 +455,6 @@
 
             nessie.velocidadeY =
                 0;
-
         }
 
 
@@ -493,14 +462,11 @@
             nessie.velocidadeY *
             0.018;
 
-
-        nessie.onda +=
-            0.06;
+        nessie.onda += 0.06;
 
 
         const agoraNaAgua =
-            nessie.y >
-            nivelAgua;
+            nessie.y > nivelAgua;
 
 
         if (
@@ -508,25 +474,22 @@
             estavaNaAgua !== agoraNaAgua
         ) {
 
+            iniciarAudio();
             somSplash();
 
             tempoSplash =
                 performance.now();
-
         }
 
 
         ultimoNivelAgua =
             agoraNaAgua;
-
     }
 
 
-    /*
-    ==================================================
-    DESENHO DE NESSIE
-    ==================================================
-    */
+    /* ==================================================
+       NESSIE — DESENHO
+    ================================================== */
 
     function desenharNessie() {
 
@@ -549,9 +512,7 @@
         );
 
 
-        /*
-        CORPO LONGO
-        */
+        /* corpo serpenteante */
 
         const segmentos =
             Math.floor(
@@ -567,26 +528,20 @@
         ) {
 
             const distancia =
-                i *
-                nessie.segmento;
-
+                i * nessie.segmento;
 
             const curva =
                 Math.sin(
                     nessie.onda -
                     i * 0.45
-                ) *
-                5;
-
+                ) * 5;
 
             const sx =
                 -distancia;
 
-
             const sy =
                 curva +
                 i * 0.5;
-
 
             const tamanho =
                 17 -
@@ -605,17 +560,13 @@
                 tamanho,
                 tamanho
             );
-
         }
 
 
-        /*
-        PESCOÇO
-        */
+        /* pescoço */
 
         ctx.fillStyle =
             '#d8ba45';
-
 
         ctx.fillRect(
             5,
@@ -623,7 +574,6 @@
             12,
             30
         );
-
 
         ctx.fillRect(
             12,
@@ -633,9 +583,7 @@
         );
 
 
-        /*
-        CABEÇA
-        */
+        /* cabeça */
 
         ctx.fillRect(
             23,
@@ -643,7 +591,6 @@
             25,
             18
         );
-
 
         ctx.fillRect(
             38,
@@ -653,13 +600,10 @@
         );
 
 
-        /*
-        CHIFRES
-        */
+        /* chifres */
 
         ctx.fillStyle =
             '#a78d32';
-
 
         ctx.fillRect(
             25,
@@ -667,7 +611,6 @@
             5,
             8
         );
-
 
         ctx.fillRect(
             39,
@@ -677,9 +620,7 @@
         );
 
 
-        /*
-        OLHO
-        */
+        /* olho */
 
         ctx.fillStyle =
             '#111';
@@ -692,9 +633,7 @@
         );
 
 
-        /*
-        BOCA
-        */
+        /* boca */
 
         ctx.fillRect(
             47,
@@ -704,13 +643,10 @@
         );
 
 
-        /*
-        CAUDA
-        */
+        /* cauda */
 
         ctx.fillStyle =
             '#ad9134';
-
 
         ctx.beginPath();
 
@@ -745,15 +681,12 @@
 
 
         ctx.restore();
-
     }
 
 
-    /*
-    ==================================================
-    PEDRAS
-    ==================================================
-    */
+    /* ==================================================
+       PEDRAS
+    ================================================== */
 
     function criarPedra(x) {
 
@@ -788,15 +721,123 @@
                 alturaPedra
 
         };
-
     }
 
 
-    /*
-    ==================================================
-    CABIDES
-    ==================================================
-    */
+    function desenharPedra(pedra) {
+
+        const x =
+            pedra.x;
+
+        const y =
+            pedra.y;
+
+        const w =
+            pedra.largura;
+
+        const h =
+            pedra.altura;
+
+
+        /*
+        desenho propositalmente plano,
+        sem sombra ou volume realista
+        */
+
+        ctx.fillStyle =
+            '#365b66';
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            x,
+            y + h
+        );
+
+        ctx.lineTo(
+            x + w * 0.08,
+            y + h * 0.35
+        );
+
+        ctx.lineTo(
+            x + w * 0.28,
+            y + h * 0.10
+        );
+
+        ctx.lineTo(
+            x + w * 0.55,
+            y
+        );
+
+        ctx.lineTo(
+            x + w * 0.82,
+            y + h * 0.18
+        );
+
+        ctx.lineTo(
+            x + w,
+            y + h * 0.55
+        );
+
+        ctx.lineTo(
+            x + w * 0.91,
+            y + h
+        );
+
+        ctx.closePath();
+
+        ctx.fill();
+
+
+        /*
+        riscos abstratos da pedra
+        */
+
+        ctx.strokeStyle =
+            '#557d82';
+
+        ctx.lineWidth =
+            2;
+
+        ctx.globalAlpha =
+            0.55;
+
+
+        for (
+            let i = 0;
+            i < 3;
+            i++
+        ) {
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+                x + w * 0.2,
+                y + h * (
+                    0.25 + i * 0.18
+                )
+            );
+
+            ctx.lineTo(
+                x + w * 0.65,
+                y + h * (
+                    0.18 + i * 0.19
+                )
+            );
+
+            ctx.stroke();
+        }
+
+
+        ctx.globalAlpha =
+            1;
+    }
+
+
+    /* ==================================================
+       CABIDES
+    ================================================== */
 
     function criarCabide(x) {
 
@@ -804,14 +845,11 @@
             60 +
             Math.random() *
             (
-                altura -
-                120
+                altura - 120
             );
 
-
         const especial =
-            Math.random() <
-            0.12;
+            Math.random() < 0.12;
 
 
         return {
@@ -831,15 +869,8 @@
                     : 18
 
         };
-
     }
 
-
-    /*
-    ==================================================
-    CABIDE COM CAMISA
-    ==================================================
-    */
 
     function desenharCamisa(
         x,
@@ -905,13 +936,10 @@
         ctx.closePath();
 
         ctx.fill();
-
     }
 
 
-    function desenharCabide(
-        cabide
-    ) {
+    function desenharCabide(cabide) {
 
         if (
             cabide.coletado
@@ -925,9 +953,7 @@
             cabide.y;
 
 
-        /*
-        GANCHO
-        */
+        /* gancho */
 
         ctx.strokeStyle =
             '#f2c400';
@@ -967,9 +993,7 @@
         ctx.stroke();
 
 
-        /*
-        CORPO DO CABIDE
-        */
+        /* corpo */
 
         ctx.beginPath();
 
@@ -1006,43 +1030,31 @@
                 x,
                 y + 8
             );
-
         }
-
     }
 
 
-    /*
-    ==================================================
-    COLISÃO
-    ==================================================
-    */
+    /* ==================================================
+       COLISÃO
+    ================================================== */
 
-    function colisao(
-        a,
-        b
-    ) {
+    function colisao(a, b) {
 
         return (
 
             a.x <
-            b.x +
-            b.largura &&
+            b.x + b.largura &&
 
-            a.x +
-            a.largura >
+            a.x + a.largura >
             b.x &&
 
             a.y <
-            b.y +
-            b.altura &&
+            b.y + b.altura &&
 
-            a.y +
-            a.altura >
+            a.y + a.altura >
             b.y
 
         );
-
     }
 
 
@@ -1077,22 +1089,17 @@
             ) {
 
                 return true;
-
             }
-
         }
 
 
         return false;
-
     }
 
 
-    /*
-    ==================================================
-    COLETA
-    ==================================================
-    */
+    /* ==================================================
+       COLETA
+    ================================================== */
 
     function coletarCabides() {
 
@@ -1122,8 +1129,7 @@
 
 
             if (
-                distancia <
-                42
+                distancia < 42
             ) {
 
                 cabide.coletado =
@@ -1134,36 +1140,79 @@
                     cabide.especial
                 ) {
 
-                    pontos +=
-                        5;
+                    pontos += 5;
 
                     somCabideEspecial();
 
                 } else {
 
-                    pontos +=
-                        1;
+                    pontos += 1;
 
                     somCabide();
-
                 }
 
 
                 pontosEl.textContent =
                     pontos;
-
             }
-
         }
-
     }
 
 
-    /*
-    ==================================================
-    MUNDO
-    ==================================================
-    */
+    /* ==================================================
+       CRIAÇÃO INICIAL DOS OBSTÁCULOS
+    ================================================== */
+
+    function criarObstaculos() {
+
+        pedras = [];
+        cabides = [];
+
+
+        let x =
+            largura + 180;
+
+
+        /*
+        cria uma sequência inicial
+        suficientemente espaçada para
+        que o jogador tenha tempo de entrar
+        */
+
+        for (
+            let i = 0;
+            i < 4;
+            i++
+        ) {
+
+            const pedra =
+                criarPedra(x);
+
+            pedras.push(
+                pedra
+            );
+
+
+            cabides.push(
+                criarCabide(
+                    x +
+                    pedra.largura +
+                    80 +
+                    Math.random() * 80
+                )
+            );
+
+
+            x +=
+                360 +
+                Math.random() * 180;
+        }
+    }
+
+
+    /* ==================================================
+       MOVIMENTO DO MUNDO
+    ================================================== */
 
     function moverMundo() {
 
@@ -1172,7 +1221,6 @@
 
                 pedra.x -=
                     velocidade;
-
             }
         );
 
@@ -1182,7 +1230,6 @@
 
                 cabide.x -=
                     velocidade;
-
             }
         );
 
@@ -1209,7 +1256,7 @@
             pedras[
                 pedras.length - 1
             ].x <
-            largura - 230
+            largura - 260
         ) {
 
             const ultima =
@@ -1226,37 +1273,30 @@
                     : largura + 200;
 
 
+            const novaPedra =
+                criarPedra(x);
+
+
             pedras.push(
-                criarPedra(x)
+                novaPedra
             );
 
 
-            if (
-                Math.random() <
-                0.92
-            ) {
-
-                cabides.push(
-                    criarCabide(
-                        x +
-                        90 +
-                        Math.random() *
-                        130
-                    )
-                );
-
-            }
-
+            cabides.push(
+                criarCabide(
+                    x +
+                    novaPedra.largura +
+                    90 +
+                    Math.random() * 100
+                )
+            );
         }
-
     }
 
 
-    /*
-    ==================================================
-    DIFICULDADE
-    ==================================================
-    */
+    /* ==================================================
+       DIFICULDADE
+    ================================================== */
 
     function atualizarDificuldade() {
 
@@ -1264,18 +1304,14 @@
             Math.min(
                 VELOCIDADE_MAXIMA,
                 VELOCIDADE_INICIAL +
-                tempoJogo *
-                0.045
+                tempoJogo * 0.045
             );
-
     }
 
 
-    /*
-    ==================================================
-    CÉU / ÁGUA
-    ==================================================
-    */
+    /* ==================================================
+       CORES
+    ================================================== */
 
     function corVariavel(
         t,
@@ -1288,13 +1324,11 @@
                 deslocamento
             );
 
-
         const g =
             Math.sin(
                 t * 0.00022 +
                 deslocamento * 2
             );
-
 
         const b =
             Math.sin(
@@ -1304,12 +1338,10 @@
 
 
         const azul =
-            105 +
-            r * 35;
+            105 + r * 35;
 
         const verde =
-            115 +
-            g * 35;
+            115 + g * 35;
 
         const dourado =
             Math.max(
@@ -1326,6 +1358,7 @@
                     azul
                 )
             ),
+
             Math.max(
                 0,
                 Math.min(
@@ -1334,6 +1367,7 @@
                     dourado
                 )
             ),
+
             Math.max(
                 0,
                 Math.min(
@@ -1343,7 +1377,6 @@
                 )
             )
         ];
-
     }
 
 
@@ -1356,15 +1389,12 @@
             ${Math.round(valores[1])},
             ${Math.round(valores[2])}
         )`;
-
     }
 
 
-    /*
-    ==================================================
-    RISCOS DO CÉU
-    ==================================================
-    */
+    /* ==================================================
+       RISCOS DO CÉU
+    ================================================== */
 
     function desenharRiscosCeu(
         tempo
@@ -1399,8 +1429,7 @@
                 Math.sin(
                     i * 1.73 +
                     tempo * 0.0007
-                ) *
-                25;
+                ) * 25;
 
 
             const y =
@@ -1419,8 +1448,7 @@
                 Math.sin(
                     tempo * 0.00018 +
                     i * 0.9
-                ) >
-                0.76;
+                ) > 0.76;
 
 
             ctx.strokeStyle =
@@ -1431,9 +1459,8 @@
 
             ctx.beginPath();
 
-            if (
-                chuva
-            ) {
+
+            if (chuva) {
 
                 ctx.moveTo(
                     x + deslocamento,
@@ -1460,32 +1487,27 @@
                     28,
                     y - 4
                 );
-
             }
 
-            ctx.stroke();
 
+            ctx.stroke();
         }
 
 
         ctx.restore();
-
     }
 
 
-    /*
-    ==================================================
-    ONDAS DA ÁGUA
-    ==================================================
-    */
+    /* ==================================================
+       ÁGUA
+    ================================================== */
 
     function desenharAgua(
         tempo
     ) {
 
         const inicio =
-            altura *
-            ALTURA_AGUA;
+            altura * ALTURA_AGUA;
 
 
         ctx.save();
@@ -1513,10 +1535,8 @@
             ctx.strokeStyle =
                 rgb(cor);
 
-
             ctx.globalAlpha =
                 0.55;
-
 
             ctx.lineWidth =
                 2;
@@ -1536,16 +1556,14 @@
                         x * 0.028 +
                         tempo * 0.001 +
                         camada
-                    ) *
-                    8;
+                    ) * 8;
 
 
                 const onda2 =
                     Math.sin(
                         x * 0.011 -
                         tempo * 0.0006
-                    ) *
-                    12;
+                    ) * 12;
 
 
                 const yy =
@@ -1569,40 +1587,29 @@
                         x,
                         yy
                     );
-
                 }
-
             }
 
 
             ctx.stroke();
-
         }
 
 
         ctx.restore();
-
     }
 
 
-    /*
-    ==================================================
-    CENÁRIO
-    ==================================================
-    */
+    /* ==================================================
+       CENÁRIO
+    ================================================== */
 
     function desenharCenario(
         tempo
     ) {
 
         const nivel =
-            altura *
-            ALTURA_AGUA;
+            altura * ALTURA_AGUA;
 
-
-        /*
-        CÉU
-        */
 
         const ceu =
             corVariavel(
@@ -1626,10 +1633,6 @@
             nivel + 5
         );
 
-
-        /*
-        ÁGUA
-        */
 
         const agua =
             corVariavel(
@@ -1664,17 +1667,13 @@
         );
 
 
-        /*
-        SUPERFÍCIE IRREGULAR
-        */
+        /* superfície */
 
         ctx.strokeStyle =
             '#719a9c';
 
-
         ctx.globalAlpha =
             0.8;
-
 
         ctx.lineWidth =
             2;
@@ -1694,8 +1693,7 @@
                 Math.sin(
                     x * 0.035 +
                     tempo * 0.001
-                ) *
-                6;
+                ) * 6;
 
 
             if (
@@ -1713,22 +1711,16 @@
                     x,
                     y
                 );
-
             }
-
         }
 
 
         ctx.stroke();
 
-
-        ctx.globalAlpha =
-            1;
+        ctx.globalAlpha = 1;
 
 
-        /*
-        SPLASH VISUAL
-        */
+        /* splash */
 
         if (
             performance.now() -
@@ -1754,8 +1746,7 @@
                 ')';
 
 
-            ctx.lineWidth =
-                2;
+            ctx.lineWidth = 2;
 
 
             ctx.beginPath();
@@ -1773,17 +1764,13 @@
 
 
             ctx.stroke();
-
         }
-
     }
 
 
-    /*
-    ==================================================
-    DESENHO
-    ==================================================
-    */
+    /* ==================================================
+       DESENHO
+    ================================================== */
 
     function desenhar(
         tempo
@@ -1813,15 +1800,12 @@
 
 
         desenharNessie();
-
     }
 
 
-    /*
-    ==================================================
-    INICIAR
-    ==================================================
-    */
+    /* ==================================================
+       INICIAR / REINICIAR
+    ================================================== */
 
     function iniciar() {
 
@@ -1865,33 +1849,40 @@
 
         ultimoNivelAgua =
             nessie.y >
-            altura *
-            ALTURA_AGUA;
+            altura * ALTURA_AGUA;
 
 
         criarObstaculos();
 
 
-        mensagem.classList.remove(
-            'visivel'
-        );
+        /*
+        O botão deixa de participar
+        da interface do jogo.
+        */
+
+        if (botao) {
+
+            botao.style.display =
+                'none';
+        }
 
 
-        botao.style.display =
-            'none';
+        if (mensagem) {
+
+            mensagem.classList.remove(
+                'visivel'
+            );
+        }
 
 
         tempoUltimo =
             performance.now();
-
     }
 
 
-    /*
-    ==================================================
-    FINAL
-    ==================================================
-    */
+    /* ==================================================
+       FIM
+    ================================================== */
 
     function fim() {
 
@@ -1907,12 +1898,12 @@
             true;
 
 
+        iniciarAudio();
         somColisao();
 
 
         const novoRecorde =
-            pontos >
-            recorde;
+            pontos > recorde;
 
 
         if (
@@ -1932,45 +1923,51 @@
             somRecorde();
 
 
-            mensagemTexto.innerHTML =
-                'você bateu o recorde.<br>' +
-                'o lago ainda é seu.';
+            if (mensagemTexto) {
+
+                mensagemTexto.innerHTML =
+                    'você bateu o recorde.<br>' +
+                    'o lago ainda é seu.';
+            }
 
         } else {
 
-            mensagemTexto.innerHTML =
-                'o monstro bateu.<br>' +
-                'cabides devorados: ' +
-                pontos;
+            if (mensagemTexto) {
 
+                mensagemTexto.innerHTML =
+                    'o monstro bateu.<br>' +
+                    'cabides devorados: ' +
+                    pontos;
+            }
         }
 
 
-        recordeEl.textContent =
-            'recorde ' +
-            recorde;
+        if (recordeEl) {
+
+            recordeEl.textContent =
+                'recorde ' +
+                recorde;
+        }
 
 
-        botao.textContent =
-            'começar novamente';
+        /*
+        Não há botão.
+        A mensagem serve apenas
+        como indicação visual.
+        */
 
+        if (mensagem) {
 
-        botao.style.display =
-            'inline-block';
-
-
-        mensagem.classList.add(
-            'visivel'
-        );
-
+            mensagem.classList.add(
+                'visivel'
+            );
+        }
     }
 
 
-    /*
-    ==================================================
-    LOOP
-    ==================================================
-    */
+    /* ==================================================
+       LOOP
+    ================================================== */
 
     function animar(
         agora
@@ -2012,9 +2009,7 @@
             ) {
 
                 fim();
-
             }
-
         }
 
 
@@ -2026,15 +2021,12 @@
         requestAnimationFrame(
             animar
         );
-
     }
 
 
-    /*
-    ==================================================
-    CONTROLE PELO CURSOR
-    ==================================================
-    */
+    /* ==================================================
+       CONTROLE DO CURSOR
+    ================================================== */
 
     area.addEventListener(
         'mousemove',
@@ -2051,7 +2043,6 @@
 
             mouseAtivo =
                 true;
-
         }
     );
 
@@ -2062,50 +2053,43 @@
 
             mouseAtivo =
                 false;
-
         }
     );
 
 
-    /*
-    ==================================================
-    BOTÃO
-    ==================================================
-    */
+    /* ==================================================
+       CLIQUE
+       
+       PRIMEIRO CLIQUE:
+       inicia.
 
-    botao.addEventListener(
+       CLIQUE APÓS COLISÃO:
+       reinicia.
+
+       DURANTE O JOGO:
+       não faz nada.
+    ================================================== */
+
+    area.addEventListener(
         'click',
         event => {
 
             event.preventDefault();
 
-            iniciar();
-
-        }
-    );
-
-
-    area.addEventListener(
-        'click',
-        () => {
 
             if (
                 !jogando
             ) {
 
                 iniciar();
-
             }
-
         }
     );
 
 
-    /*
-    ==================================================
-    REDIMENSIONAMENTO
-    ==================================================
-    */
+    /* ==================================================
+       REDIMENSIONAMENTO
+    ================================================== */
 
     window.addEventListener(
         'resize',
@@ -2117,23 +2101,60 @@
     );
 
 
-    /*
-    ==================================================
-    INICIALIZAÇÃO
-    ==================================================
-    */
+    /* ==================================================
+       INICIALIZAÇÃO
+    ================================================== */
 
     tamanhoCanvas();
 
 
-    recordeEl.textContent =
-        'recorde ' +
-        recorde;
+    if (recordeEl) {
+
+        recordeEl.textContent =
+            'recorde ' +
+            recorde;
+    }
 
 
-    mensagem.classList.add(
-        'visivel'
-    );
+    /*
+    Garante que a mensagem inicial
+    não impeça o clique.
+    */
+
+    if (mensagem) {
+
+        mensagem.classList.add(
+            'visivel'
+        );
+    }
+
+
+    /*
+    O botão antigo não é mais utilizado.
+    */
+
+    if (botao) {
+
+        botao.style.display =
+            'none';
+
+    }
+
+
+    /*
+    O jogo começa parado.
+    O primeiro clique inicia.
+    */
+
+    jogando =
+        false;
+
+    terminou =
+        false;
+
+
+    tempoUltimo =
+        performance.now();
 
 
     requestAnimationFrame(

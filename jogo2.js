@@ -514,7 +514,7 @@
 
 
         const duracao =
-            1.8;
+            3.8;
 
 
         const buffer =
@@ -574,16 +574,16 @@
             'lowpass';
 
         filtro.frequency.value =
-            180;
+            280;
 
 
         ganho.gain.setValueAtTime(
-            0.0001,
+            0.0011,
             agora
         );
 
         ganho.gain.exponentialRampToValueAtTime(
-            0.35,
+            0.75,
             agora + 0.035
         );
 
@@ -1733,7 +1733,7 @@
 
             if (
                 marcoAtual >=
-                1000 &&
+                500 &&
                 !profundezas
             ) {
 
@@ -2575,7 +2575,7 @@
 
         if (
             camisetaVestida &&
-            vidas > 0
+            vidas > 1
         ) {
 
             /*

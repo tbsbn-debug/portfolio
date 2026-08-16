@@ -10,10 +10,6 @@
     const mensagemTexto = document.getElementById('jogo2MensagemTexto');
     const botao = document.getElementById('jogo2Botao');
 
-    const cursorSite =
-        document.querySelector('.cursor');
-
-
     /* ==================================================
        CONFIGURAÇÃO
     ================================================== */
@@ -27,7 +23,7 @@
     const GRAVIDADE = 0.20;
     const IMPULSO_CURSOR = 0.16;
 
-    const VELOCIDADE_INICIAL = 2.8;
+    const VELOCIDADE_INICIAL = 5.5;
     const VELOCIDADE_MAXIMA = 15;
 
 
@@ -678,65 +674,25 @@
     function cursorNativo() {
 
         /*
-        Dentro do jogo:
-        cursor nativo.
+        O cursor estilizado do site NÃO é escondido.
         */
 
         area.style.cursor =
             'default';
-
-        canvas.style.cursor =
-            'default';
-
-        if (cursorSite) {
-
-            cursorSite.style.display =
-                'none';
-        }
     }
 
 
     function cursorSiteNormal() {
 
         /*
-        Fora do jogo:
-        devolve exatamente o cursor
-        estilizado que o site já utiliza.
+        Fora da área do jogo,
+        o cursor volta ao comportamento
+        normal definido pelo site.
         */
 
         area.style.cursor =
             '';
-
-        canvas.style.cursor =
-            '';
-
-        if (cursorSite) {
-
-            cursorSite.style.display =
-                '';
-        }
     }
-
-
-    area.addEventListener(
-        'mouseenter',
-        () => {
-
-            cursorNativo();
-        }
-    );
-
-
-    area.addEventListener(
-        'mouseleave',
-        () => {
-
-            cursorSiteNormal();
-
-            mouseAtivo =
-                false;
-        }
-    );
 
 
     /* ==================================================
@@ -1004,9 +960,13 @@
         }
 
 
+        /*
+        CORPO / PESCOÇO
+        */
+
         ctx.fillStyle =
             camisetaVestida
-                ? '#f4f4f4'
+                ? '#d9bd4c'
                 : '#d8ba45';
 
 
@@ -1039,21 +999,107 @@
         );
 
 
+        /*
+        CAMISETA NO CORPO
+        */
+
         if (
             camisetaVestida
         ) {
 
             ctx.fillStyle =
-                '#dcdcdc';
+                '#ffffff';
 
-            ctx.fillRect(
-                17,
-                -28,
-                26,
-                19
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+                7,
+                -14
             );
+
+            ctx.lineTo(
+                18,
+                -7
+            );
+
+            ctx.lineTo(
+                26,
+                -10
+            );
+
+            ctx.lineTo(
+                42,
+                0
+            );
+
+            ctx.lineTo(
+                36,
+                12
+            );
+
+            ctx.lineTo(
+                29,
+                8
+            );
+
+            ctx.lineTo(
+                29,
+                23
+            );
+
+            ctx.lineTo(
+                8,
+                23
+            );
+
+            ctx.lineTo(
+                8,
+                8
+            );
+
+            ctx.lineTo(
+                1,
+                12
+            );
+
+            ctx.lineTo(
+                -5,
+                0
+            );
+
+            ctx.closePath();
+
+            ctx.fill();
+
+
+            /*
+            gola
+            */
+
+            ctx.strokeStyle =
+                '#d0d0d0';
+
+            ctx.lineWidth =
+                2;
+
+            ctx.beginPath();
+
+            ctx.arc(
+                18,
+                -7,
+                5,
+                0,
+                Math.PI
+            );
+
+            ctx.stroke();
         }
 
+
+        /*
+        OLHO
+        */
 
         ctx.fillStyle =
             '#111';
@@ -1067,6 +1113,10 @@
         );
 
 
+        /*
+        BOCA
+        */
+
         ctx.fillRect(
             47,
             -25,
@@ -1074,6 +1124,10 @@
             2
         );
 
+
+        /*
+        CAUDA
+        */
 
         ctx.fillStyle =
             '#ad9134';
@@ -1320,7 +1374,7 @@
 
 
         /*
-        Camisetas agora são raras.
+        Camiseta rara.
         */
 
         const especial =
@@ -1646,7 +1700,7 @@
 
 
     /* ==================================================
-       MARCOS 100 / 200 / 300...
+       MARCOS
     ================================================== */
 
     function verificarMarcos() {
@@ -1660,43 +1714,22 @@
                 proximoMarco;
 
 
-            /*
-            Cada centena aumenta a velocidade.
-            */
-
             atualizarDificuldade();
 
-
-            /*
-            O trovão acontece em cada marco.
-            */
 
             iniciarAudio();
 
             somTrovão();
 
 
-            /*
-            Inversão visual por 4 segundos.
-            */
-
             invertidoAte =
                 performance.now() +
                 4000;
 
 
-            /*
-            O próximo marco.
-            */
-
             proximoMarco +=
                 100;
 
-
-            /*
-            A partir de 1000,
-            entra nas profundezas.
-            */
 
             if (
                 marcoAtual >=
@@ -1723,20 +1756,17 @@
     function atualizarDificuldade() {
 
         /*
-        A dificuldade agora cresce bastante.
+        Começa em 5.5.
 
-        0      → 2.8
-        100    → 4.0
-        200    → 5.2
-        300    → 6.4
-        500    → 8.8
-        700    → 11.2
-        1000   → 14.8
+        A cada 10 cabides:
+        +0.45 de velocidade.
+
+        O limite é 15.
         */
 
-        const centenas =
+        const etapas =
             Math.floor(
-                pontos / 100
+                pontos / 10
             );
 
 
@@ -1745,7 +1775,7 @@
                 VELOCIDADE_MAXIMA,
 
                 VELOCIDADE_INICIAL +
-                centenas * 1.2
+                etapas * 0.45
             );
     }
 
@@ -2069,11 +2099,6 @@
                 );
 
 
-            /*
-            Nas profundezas:
-            menos contraste e cores mais escuras.
-            */
-
             if (
                 profundezas
             ) {
@@ -2165,10 +2190,6 @@
             invertidoAte >
             performance.now();
 
-
-        /*
-        PROFUNDEZAS
-        */
 
         if (
             profundezas
@@ -2318,13 +2339,6 @@
         }
 
 
-        /*
-        INVERSÃO TOTAL DAS CORES.
-
-        O fundo primeiro fica preto e depois
-        o restante é invertido por CSS/canvas.
-        */
-
         if (
             invertido
         ) {
@@ -2345,11 +2359,6 @@
             ctx.globalAlpha =
                 1;
 
-
-            /*
-            camada clara abstrata sobre o
-            mundo invertido
-            */
 
             ctx.globalCompositeOperation =
                 'difference';
@@ -2570,11 +2579,9 @@
         ) {
 
             /*
-            A camiseta funciona como uma vida.
+            A camiseta absorve a colisão.
 
-            O monstro bate,
-            perde a camiseta,
-            mas continua.
+            O jogo continua.
             */
 
             camisetaVestida =
@@ -2583,6 +2590,8 @@
             vidas =
                 0;
 
+
+            iniciarAudio();
 
             somGlub();
 
@@ -2594,6 +2603,11 @@
             return;
         }
 
+
+        /*
+        Sem camiseta:
+        colisão encerra o jogo.
+        */
 
         fim();
     }
@@ -2792,9 +2806,9 @@
     );
 
 
-    /*
-    Clique inicia ou reinicia.
-    */
+    /* ==================================================
+       CLIQUE
+    ================================================== */
 
     area.addEventListener(
         'click',
@@ -2867,11 +2881,6 @@
     tempoUltimo =
         performance.now();
 
-
-    /*
-    Garante que, antes de entrar no jogo,
-    o cursor continue sendo o cursor do site.
-    */
 
     cursorSiteNormal();
 

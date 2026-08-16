@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>opus — jogo</title>
+
+    <link rel="stylesheet" href="style.css?v=2">
+
+    <style>
+        .jogo-pagina {
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+            padding: 0 0 60px;
+        }
+
+        .jogo-area {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 110px);
+            min-height: 560px;
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .jogo-instrucoes {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: 5;
+            width: 280px;
+            font-family: monospace;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .jogo-status {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            z-index: 5;
+            text-align: right;
+            font-family: monospace;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .jogo-status strong {
+            font-weight: normal;
+        }
+
+        #jogoCanvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .jogo-mensagem {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity .3s ease;
+        }
+
+        .jogo-mensagem.visivel {
+            opacity: 1;
+        }
+
+        .jogo-mensagem-inner {
+            text-align: center;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .jogo-mensagem-inner button {
+            margin-top: 18px;
+            padding: 0;
+            border: 0;
+            background: none;
+            color: #111;
+            font: inherit;
+            text-decoration: underline;
+            cursor: none;
+        }
+
+        @media (max-width: 700px) {
+            .jogo-area {
+                height: calc(100vh - 90px);
+                min-height: 520px;
+            }
+
+            .jogo-instrucoes {
+                width: 220px;
+                font-size: 10px;
+            }
+
+            .jogo-status {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cursor"></div>
+
+    <header class="cabecalho-projetos">
+
+        <a href="index.html" class="logo-projetos">
+            <img src="imagens/simbolo-opus.png" alt="opus">
+        </a>
+
+        <nav class="menu-principal">
+
+            <a href="roupas.html">roupas</a>
+
+            <div class="menu-projetos">
+                <a href="projetos.html" class="projetos-link">projetos</a>
+
+                <div class="subcategorias">
+                    <a href="editorial-de-moda.html">editorial de moda</a>
+                    <a href="design-grafico.html">design gráfico</a>
+                    <a href="objetos.html">objetos</a>
+                    <a href="texteis.html">têxteis</a>
+                    <a href="etc.html">etc.</a>
+                </div>
+            </div>
+
+            <a href="textos.html">textos</a>
+            <a href="pesquisa.html">pesquisa</a>
+            <a href="sobre.html">sobre</a>
+            <a href="contato.html">contato</a>
+
+        </nav>
+    </header>
+
+    <main class="jogo-pagina">
+
+        <section class="jogo-area" id="jogoArea">
+
+            <canvas id="jogoCanvas"></canvas>
+
+            <div class="jogo-instrucoes">
+                entre na trama.<br>
+                mova o cursor e recolha os fios.<br>
+                cada fio muda a composição.
+            </div>
+
+            <div class="jogo-status">
+                fios <strong id="jogoPontos">0</strong> / 24<br>
+                tempo <strong id="jogoTempo">60</strong>
+            </div>
+
+            <div class="jogo-mensagem" id="jogoMensagem">
+                <div class="jogo-mensagem-inner">
+                    <div id="jogoMensagemTexto"></div>
+                    <button id="jogoReiniciar">começar novamente</button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="jogo.js"></script>
+
+    <script>
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            if (!cursor) return;
+
+            cursor.style.left = event.clientX + 'px';
+            cursor.style.top = event.clientY + 'px';
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+            if (elemento) {
+                cursor.classList.add('clicavel');
+            } else {
+                cursor.classList.remove('clicavel');
+            }
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+                setTimeout(function() {
+                    rastro.remove();
+                }, 1000);
+            }
+        });
+    </script>
+
+</body>
+</html>

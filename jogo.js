@@ -12,7 +12,7 @@
     const reiniciar = document.getElementById('jogoReiniciar');
 
 
-    const TOTAL = 24;
+    const TOTAL = 30;
     const TEMPO_TOTAL = 20;
 
 

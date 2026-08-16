@@ -727,7 +727,7 @@
             velocidade:
                 aleatorio(
                     0.25,
-                    1.25
+                    11.25
                 ) *
                 tipo.movimento,
 

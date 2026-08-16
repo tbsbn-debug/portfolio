@@ -13,7 +13,7 @@
 
 
     const TOTAL = 24;
-    const TEMPO_TOTAL = 35;
+    const TEMPO_TOTAL = 20;
 
 
     let largura = 0;

@@ -1733,7 +1733,7 @@
 
             if (
                 marcoAtual >=
-                500 &&
+                50 &&
                 !profundezas
             ) {
 
@@ -2344,7 +2344,7 @@
         ) {
 
             ctx.fillStyle =
-                '#000000';
+                '#111111';
 
             ctx.globalAlpha =
                 0.72;
@@ -2575,7 +2575,7 @@
 
         if (
             camisetaVestida &&
-            vidas > 1
+            vidas > 2
         ) {
 
             /*

@@ -543,7 +543,7 @@
         );
 
         ganho.gain.exponentialRampToValueAtTime(
-            0.35,
+            0.75,
             agora + 0.035
         );
 
@@ -571,7 +571,7 @@
             48,
             1.4,
             'sine',
-            0.11
+            0.20
         );
     }
 
@@ -1084,30 +1084,29 @@
             saiaVestida
         ) {
 
-            ctx.fillStyle =
+              ctx.fillStyle =
                 '#f4df83';
-
 
             ctx.beginPath();
 
             ctx.moveTo(
-                5,
+                -12,
                 8
             );
 
             ctx.lineTo(
-                30,
+                20,
                 8
             );
 
             ctx.lineTo(
-                39,
-                29
+                27,
+                18
             );
 
             ctx.lineTo(
-                -4,
-                29
+                -19,
+                18
             );
 
             ctx.closePath();
@@ -1124,13 +1123,13 @@
             ctx.beginPath();
 
             ctx.moveTo(
-                -4,
-                29
+                -19,
+                18
             );
 
             ctx.lineTo(
-                39,
-                29
+                27,
+                18
             );
 
             ctx.stroke();
@@ -1155,26 +1154,26 @@
             um pequeno acessório têxtil.
             */
 
-            ctx.beginPath();
+               ctx.beginPath();
 
             ctx.moveTo(
-                27,
-                -21
+                25,
+                -48
             );
 
             ctx.lineTo(
-                47,
-                -21
+                46,
+                -48
             );
 
             ctx.lineTo(
                 53,
-                -13
+                -42
             );
 
             ctx.lineTo(
-                30,
-                -13
+                29,
+                -42
             );
 
             ctx.closePath();
@@ -1183,8 +1182,8 @@
 
 
             ctx.fillRect(
-                31,
-                -27,
+                30,
+                -54,
                 13,
                 7
             );
@@ -1792,6 +1791,28 @@
                 y
             );
         }
+                            if (
+                        cabide.tipo ===
+                        'saia'
+                    ) {
+
+                        saiaVestida =
+                            true;
+
+                        pontos += 4;
+                    }
+
+
+                    if (
+                        cabide.tipo ===
+                        'bone'
+                    ) {
+
+                        boneVestido =
+                            true;
+
+                        pontos += 4;
+                    }
     }
 
 

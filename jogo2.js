@@ -1733,7 +1733,7 @@
 
             if (
                 marcoAtual >=
-                50 &&
+                280 &&
                 !profundezas
             ) {
 
@@ -2574,7 +2574,7 @@
     function tratarColisao() {
 
         if (
-            camisetaVestida &&
+            camisetaVestida =
             vidas > 2
         ) {
 

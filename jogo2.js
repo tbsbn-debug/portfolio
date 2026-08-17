@@ -8,7 +8,6 @@
     const recordeEl = document.getElementById('jogo2Recorde');
     const mensagem = document.getElementById('jogo2Mensagem');
     const mensagemTexto = document.getElementById('jogo2MensagemTexto');
-    const botao = document.getElementById('jogo2Botao');
 
 
     /* ==================================================
@@ -3231,13 +3230,6 @@
         criarObstaculos();
 
 
-        if (botao) {
-
-            botao.style.display =
-                'none';
-        }
-
-
         if (mensagem) {
 
             mensagem.classList.remove(
@@ -3500,13 +3492,6 @@
         mensagem.classList.add(
             'visivel'
         );
-    }
-
-
-    if (botao) {
-
-        botao.style.display =
-            'none';
     }
 
 

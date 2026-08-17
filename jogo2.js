@@ -538,12 +538,12 @@
 
 
         ganho.gain.setValueAtTime(
-            0.0001,
+            0.0011,
             agora
         );
 
         ganho.gain.exponentialRampToValueAtTime(
-            0.35,
+            0.70,
             agora + 0.035
         );
 
@@ -571,7 +571,7 @@
             48,
             1.4,
             'sine',
-            0.11
+            0.20
         );
     }
 
@@ -1087,27 +1087,26 @@
             ctx.fillStyle =
                 '#f4df83';
 
-
             ctx.beginPath();
 
             ctx.moveTo(
-                5,
+                -12,
                 8
             );
 
             ctx.lineTo(
-                30,
+                20,
                 8
             );
 
             ctx.lineTo(
-                39,
-                29
+                27,
+                18
             );
 
             ctx.lineTo(
-                -4,
-                29
+                -19,
+                18
             );
 
             ctx.closePath();
@@ -1124,13 +1123,13 @@
             ctx.beginPath();
 
             ctx.moveTo(
-                -4,
-                29
+                -19,
+                18
             );
 
             ctx.lineTo(
-                39,
-                29
+                27,
+                18
             );
 
             ctx.stroke();
@@ -1148,33 +1147,26 @@
             ctx.fillStyle =
                 '#c92922';
 
-
-            /*
-            O boné é propositalmente
-            colocado no corpo, como
-            um pequeno acessório têxtil.
-            */
-
-            ctx.beginPath();
+                       ctx.beginPath();
 
             ctx.moveTo(
-                27,
-                -21
+                25,
+                -48
             );
 
             ctx.lineTo(
-                47,
-                -21
+                46,
+                -48
             );
 
             ctx.lineTo(
                 53,
-                -13
+                -42
             );
 
             ctx.lineTo(
-                30,
-                -13
+                29,
+                -42
             );
 
             ctx.closePath();
@@ -1183,8 +1175,8 @@
 
 
             ctx.fillRect(
-                31,
-                -27,
+                30,
+                -54,
                 13,
                 7
             );
@@ -1983,12 +1975,35 @@
                     }
 
 
-                    somCabide();
+                    somCabideEspecial();
                 }
 
 
                 pontosEl.textContent =
                     pontos;
+
+                                    if (
+                        cabide.tipo ===
+                        'saia'
+                    ) {
+
+                        saiaVestida =
+                            true;
+
+                        pontos += 5;
+                    }
+
+
+                    if (
+                        cabide.tipo ===
+                        'bone'
+                    ) {
+
+                        boneVestido =
+                            true;
+
+                        pontos += 5;
+                    }
             }
         }
     }
@@ -2132,6 +2147,7 @@
 
     function verificarTrovão() {
 
+
         /*
         Trovão a cada 100 cabides,
         mas apenas uma vez por marco.
@@ -2141,6 +2157,15 @@
         antes do próximo marco.
         */
 
+        if (
+            profundezas ||
+            iniciandoProfundezas
+        ) return;
+
+        const marco =
+            Math.floor(
+                pontos / 100
+            ) * 100;
         const marco =
             Math.floor(
                 pontos / 100
@@ -2747,17 +2772,23 @@
                 );
 
 
+            /*
+            o topo da água sobe
+            progressivamente pela tela
+            */
+
             const nivelAgua =
                 altura *
                 (
-                    ALTURA_AGUA +
-                    (
-                        1 -
-                        ALTURA_AGUA
-                    ) *
+                    1 -
                     progresso
                 );
 
+
+            /*
+            o fundo vai escurecendo
+            junto com a subida da água
+            */
 
             const escurecimento =
                 progresso *
@@ -2788,7 +2819,8 @@
                     fundo[2] *
                     (
                         1 -
-                        escurecimento * 0.65
+                        escurecimento *
+                        0.65
                     )
                 ]);
 
@@ -2797,9 +2829,14 @@
                 0,
                 0,
                 largura,
-                nivelAgua
+                altura
             );
 
+
+            /*
+            as próprias ondas coloridas
+            sobem junto com a água
+            */
 
             desenharAgua(
                 tempo,
@@ -2807,6 +2844,11 @@
                 escurecimento
             );
 
+
+            /*
+            mantém o céu acima da água
+            visível enquanto a transição acontece
+            */
 
             ctx.fillStyle =
                 rgb([
@@ -2825,44 +2867,46 @@
                     fundo[2] *
                     (
                         1 -
-                        escurecimento * 0.65
+                        escurecimento *
+                        0.65
                     )
                 ]);
 
-
             ctx.fillRect(
                 0,
-                nivelAgua,
+                0,
                 largura,
-                altura -
                 nivelAgua
             );
 
 
             /*
-            A água vai tomando a tela.
+            quando a água sobe,
+            desenharAgua continua ocupando
+            progressivamente a área inferior
             */
 
-            ctx.fillStyle =
-                rgb([
-                    65 -
-                    progresso * 25,
+            ctx.save();
 
-                    95 -
-                    progresso * 35,
+            ctx.beginPath();
 
-                    145 -
-                    progresso * 50
-                ]);
-
-
-            ctx.fillRect(
+            ctx.rect(
                 0,
                 nivelAgua,
                 largura,
                 altura -
                 nivelAgua
             );
+
+            ctx.clip();
+
+            desenharAgua(
+                tempo,
+                nivelAgua,
+                escurecimento
+            );
+
+            ctx.restore();
 
 
             return;

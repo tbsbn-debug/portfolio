@@ -1,95 +1,269 @@
 (() => {
 
-    const area = document.getElementById('jogo2Area');
-    const canvas = document.getElementById('jogo2Canvas');
+    const area = document.getElementById('jogoArea');
+    const canvas = document.getElementById('jogoCanvas');
     const ctx = canvas.getContext('2d');
 
-    const pontosEl = document.getElementById('jogo2Pontos');
-    const recordeEl = document.getElementById('jogo2Recorde');
-    const mensagem = document.getElementById('jogo2Mensagem');
-    const mensagemTexto = document.getElementById('jogo2MensagemTexto');
-    const botao = document.getElementById('jogo2Botao');
+    const pontosEl = document.getElementById('jogoPontos');
+    const tempoEl = document.getElementById('jogoTempo');
+
+    const mensagem = document.getElementById('jogoMensagem');
+    const mensagemTexto = document.getElementById('jogoMensagemTexto');
+    const reiniciar = document.getElementById('jogoReiniciar');
 
 
-    /* ==================================================
-       CONFIGURAÇÃO
-    ================================================== */
+    /*
+    ==================================================
+    CONFIGURAÇÕES DO JOGO
+    ==================================================
+    */
+
+    const TOTAL = 30;
+    const TEMPO_TOTAL = 25;
+
 
     let largura = 0;
     let altura = 0;
     let dpr = 1;
 
-    const ALTURA_AGUA = 0.52;
+    let fibras = [];
 
-    const GRAVIDADE = 0.20;
-    const IMPULSO_CURSOR = 0.16;
+    let coletados = 0;
+    let tempo = TEMPO_TOTAL;
 
-    const VELOCIDADE_INICIAL = 5.5;
-    const VELOCIDADE_MAXIMA = 15;
-
-    const INICIO_PROFUNDIDADES = 280;
-    const DURACAO_TRANSICAO_PROFUNDIDADES = 5000;
-
-
-    /* ==================================================
-       ESTADO
-    ================================================== */
-
-    let jogando = false;
+    let iniciado = false;
     let terminou = false;
+    let venceu = false;
 
-    let pontos = 0;
-
-    let recorde =
-        Number(localStorage.getItem('jogo2-recorde')) || 0;
-
-    let velocidade =
-        VELOCIDADE_INICIAL;
-
-    let tempoUltimo = 0;
-    let tempoJogo = 0;
-
-    let mouseY = 0;
-    let mouseAtivo = false;
-
-    let pedras = [];
-    let cabides = [];
-
-    let ultimoNivelAgua = null;
-
-    let tempoSplash = 0;
-
-    let camisetaVestida = false;
-    let saiaVestida = false;
-    let boneVestido = false;
-
-    let vidas = 0;
-
-    let profundezas = false;
-
-    let iniciandoProfundezas = false;
-    let inicioTransicaoProfundezas = 0;
-
-    let ultimoMarcoTrovao = 0;
-
-    let invertidoAte = 0;
-
-    let relampagos = [];
-
-
-    /* ==================================================
-       ÁUDIO
-    ================================================== */
+    let ultimoTempo = 0;
 
     let audioContext = null;
 
-    let ambienteAtivo = false;
-    let ambienteOscilador = null;
-    let ambienteGanho = null;
-    let ambienteFiltro = null;
 
-    let proximaVariacaoAmbiente = 0;
+    /*
+    ==================================================
+    TECIDO FINAL
+    ==================================================
+    */
 
+    let padrao = {
+
+        verticais: [],
+        horizontais: [],
+
+        fundo: '#f4f0e8',
+
+        tamanho: 0,
+
+        x: 0,
+        y: 0,
+
+        largura: 0,
+        altura: 0
+
+    };
+
+
+    /*
+    ==================================================
+    MOUSE
+    ==================================================
+    */
+
+    const mouse = {
+
+        x: 0,
+        y: 0,
+
+        ativo: false
+
+    };
+
+
+    /*
+    ==================================================
+    PALETA DOS FIOS
+
+    O FUNDO DO TECIDO FINAL TAMBÉM SERÁ
+    ESCOLHIDO EXATAMENTE DESTA PALETA.
+    ==================================================
+    */
+
+    const cores = [
+
+        '#111111',
+        '#211714',
+        '#553522',
+        '#79502f',
+        '#a36b2c',
+        '#c18b32',
+        '#d4a83b',
+        '#e0bf59',
+        '#7d4635',
+        '#a43f32',
+        '#8e2727',
+        '#263e59',
+        '#315c7d',
+        '#477b96'
+
+    ];
+
+
+    /*
+    ==================================================
+    NOTAS DA MELODIA
+
+    "ODE À ALEGRIA" — BEETHOVEN
+
+    B B C D | D C B A |
+    G G A B | B A A |
+    B B C D | D C B A |
+    G G A B | A G G ...
+
+    Usamos as primeiras 30 notas para
+    os 30 fios.
+    ==================================================
+    */
+
+    const notasFios = [
+
+        'B4',
+        'B4',
+        'C5',
+        'D5',
+        'D5',
+        'C5',
+        'B4',
+        'A4',
+
+        'G4',
+        'G4',
+        'A4',
+        'B4',
+        'B4',
+        'A4',
+        'A4',
+
+        'B4',
+        'B4',
+        'C5',
+        'D5',
+        'D5',
+        'C5',
+        'B4',
+        'A4',
+
+        'G4',
+        'G4',
+        'A4',
+        'B4',
+        'A4',
+        'G4',
+        'G4'
+
+    ];
+
+
+    /*
+    ==================================================
+    DESFECHO
+
+    B B C D | D C B A |
+    G G A B | A G G
+    ==================================================
+    */
+
+    const notasFinal = [
+
+        'B4',
+        'B4',
+        'C5',
+        'D5',
+        'D5',
+        'C5',
+        'B4',
+        'A4',
+
+        'G4',
+        'G4',
+        'A4',
+        'B4',
+        'A4',
+        'G4',
+        'G4'
+
+    ];
+
+
+    /*
+    ==================================================
+    TIPOS DE FIBRA
+    ==================================================
+    */
+
+    const tipos = [
+
+        {
+            nome: 'algodao',
+            raio: 7,
+            fibras: 85,
+            movimento: 1
+        },
+
+        {
+            nome: 'la',
+            raio: 11,
+            fibras: 145,
+            movimento: 0.65
+        },
+
+        {
+            nome: 'seda',
+            raio: 5,
+            fibras: 65,
+            movimento: 1.5
+        },
+
+        {
+            nome: 'nylon',
+            raio: 4,
+            fibras: 45,
+            movimento: 1.8
+        }
+
+    ];
+
+
+    /*
+    ==================================================
+    CONVERSÃO DE NOTAS
+    ==================================================
+    */
+
+    function frequenciaNota(nota) {
+
+        const frequencias = {
+
+            'G4': 392.00,
+            'A4': 440.00,
+            'B4': 493.88,
+
+            'C5': 523.25,
+            'D5': 587.33
+
+        };
+
+
+        return frequencias[nota];
+
+    }
+
+
+    /*
+    ==================================================
+    INICIA AUDIO
+    ==================================================
+    */
 
     function iniciarAudio() {
 
@@ -100,563 +274,260 @@
                     window.AudioContext ||
                     window.webkitAudioContext
                 )();
+
         }
+
 
         if (
             audioContext.state === 'suspended'
         ) {
 
             audioContext.resume();
+
         }
 
-        iniciarAmbiente();
     }
 
 
-    function som(
-        frequencia,
-        duracao,
-        tipo = 'square',
-        volume = 0.04
+    /*
+    ==================================================
+    TOCA UMA NOTA
+
+    O som é sintetizado no próprio JS.
+    Cada fio produz a nota correspondente
+    da melodia.
+    ==================================================
+    */
+
+    function tocarNota(
+        nota,
+        duracao = 0.48,
+        atraso = 0
     ) {
 
-        if (!audioContext) return;
+        iniciarAudio();
+
 
         const agora =
-            audioContext.currentTime;
+            audioContext.currentTime +
+            atraso;
+
+
+        const frequencia =
+            frequenciaNota(nota);
+
+
+        /*
+        OSCILADOR PRINCIPAL
+        */
 
         const oscilador =
             audioContext.createOscillator();
 
+
         const ganho =
             audioContext.createGain();
 
+
         oscilador.type =
-            tipo;
+            'triangle';
+
 
         oscilador.frequency.setValueAtTime(
             frequencia,
             agora
         );
 
+
+        /*
+        pequeno ataque
+        */
+
         ganho.gain.setValueAtTime(
-            volume,
+            0,
             agora
         );
+
+
+        ganho.gain.linearRampToValueAtTime(
+            0.18,
+            agora + 0.025
+        );
+
 
         ganho.gain.exponentialRampToValueAtTime(
             0.001,
             agora + duracao
         );
 
-        oscilador.connect(ganho);
+
+        oscilador.connect(
+            ganho
+        );
+
+
         ganho.connect(
             audioContext.destination
         );
 
-        oscilador.start(agora);
+
+        oscilador.start(
+            agora
+        );
+
 
         oscilador.stop(
-            agora + duracao
-        );
-    }
-
-
-    /* ==================================================
-       AMBIENTE
-    ================================================== */
-
-    function iniciarAmbiente() {
-
-        if (
-            ambienteAtivo ||
-            !audioContext
-        ) return;
-
-        ambienteAtivo = true;
-
-        const duracao = 4;
-
-        const buffer =
-            audioContext.createBuffer(
-                1,
-                audioContext.sampleRate *
-                duracao,
-                audioContext.sampleRate
-            );
-
-        const dados =
-            buffer.getChannelData(0);
-
-        for (
-            let i = 0;
-            i < dados.length;
-            i++
-        ) {
-
-            dados[i] =
-                Math.random() * 2 - 1;
-        }
-
-
-        const fonte =
-            audioContext.createBufferSource();
-
-        ambienteFiltro =
-            audioContext.createBiquadFilter();
-
-        ambienteGanho =
-            audioContext.createGain();
-
-
-        ambienteFiltro.type =
-            'lowpass';
-
-        ambienteFiltro.frequency.value =
-            430;
-
-
-        ambienteGanho.gain.value =
-            0.012;
-
-
-        fonte.buffer =
-            buffer;
-
-        fonte.loop =
-            true;
-
-
-        fonte.connect(
-            ambienteFiltro
-        );
-
-        ambienteFiltro.connect(
-            ambienteGanho
-        );
-
-        ambienteGanho.connect(
-            audioContext.destination
+            agora + duracao + 0.02
         );
 
 
-        fonte.start();
+        /*
+        SEGUNDA CAMADA MUITO LEVE
 
+        Dá um pouco mais de corpo à nota,
+        sem transformar o jogo em um sintetizador
+        excessivamente eletrônico.
+        */
 
-        ambienteOscilador =
+        const segundo =
             audioContext.createOscillator();
 
-        const ganhoGrave =
+
+        const ganhoSegundo =
             audioContext.createGain();
 
 
-        ambienteOscilador.type =
-            'sine';
-
-        ambienteOscilador.frequency.value =
-            58;
-
-        ganhoGrave.gain.value =
-            0.008;
-
-
-        ambienteOscilador.connect(
-            ganhoGrave
-        );
-
-        ganhoGrave.connect(
-            audioContext.destination
-        );
-
-
-        ambienteOscilador.start();
-
-
-        proximaVariacaoAmbiente =
-            performance.now() + 2500;
-    }
-
-
-    function atualizarAmbiente(tempo) {
-
-        if (
-            !ambienteAtivo ||
-            !audioContext
-        ) return;
-
-
-        if (
-            tempo >
-            proximaVariacaoAmbiente
-        ) {
-
-            const agora =
-                audioContext.currentTime;
-
-
-            ambienteFiltro.frequency
-                .linearRampToValueAtTime(
-                    350 +
-                    Math.random() * 180,
-                    agora + 1.4
-                );
-
-
-            ambienteGanho.gain
-                .linearRampToValueAtTime(
-                    0.008 +
-                    Math.random() * 0.008,
-                    agora + 1.4
-                );
-
-
-            if (
-                ambienteOscilador
-            ) {
-
-                ambienteOscilador.frequency
-                    .linearRampToValueAtTime(
-                        48 +
-                        Math.random() * 25,
-                        agora + 1.8
-                    );
-            }
-
-
-            proximaVariacaoAmbiente =
-                tempo +
-                2200 +
-                Math.random() * 4000;
-        }
-    }
-
-
-    /* ==================================================
-       SONS
-    ================================================== */
-
-    function somCabide() {
-
-        som(
-            660,
-            0.07,
-            'square',
-            0.045
-        );
-
-        setTimeout(() => {
-
-            som(
-                990,
-                0.09,
-                'square',
-                0.035
-            );
-
-        }, 45);
-    }
-
-
-    function somCabideEspecial() {
-
-        som(
-            392,
-            0.12,
-            'triangle',
-            0.05
-        );
-
-        setTimeout(() => {
-
-            som(
-                523,
-                0.14,
-                'triangle',
-                0.045
-            );
-
-        }, 70);
-
-        setTimeout(() => {
-
-            som(
-                784,
-                0.22,
-                'triangle',
-                0.04
-            );
-
-        }, 145);
-    }
-
-
-    function somGlub() {
-
-        if (!audioContext) return;
-
-        const agora =
-            audioContext.currentTime;
-
-
-        const oscilador =
-            audioContext.createOscillator();
-
-        const ganho =
-            audioContext.createGain();
-
-        const filtro =
-            audioContext.createBiquadFilter();
-
-
-        oscilador.type =
+        segundo.type =
             'sine';
 
 
-        oscilador.frequency.setValueAtTime(
-            170 +
-            Math.random() * 35,
+        segundo.frequency.setValueAtTime(
+            frequencia * 2,
             agora
         );
 
 
-        oscilador.frequency.exponentialRampToValueAtTime(
-            72 +
-            Math.random() * 20,
-            agora + 0.42
-        );
-
-
-        ganho.gain.setValueAtTime(
-            0.0001,
+        ganhoSegundo.gain.setValueAtTime(
+            0,
             agora
         );
 
-        ganho.gain.exponentialRampToValueAtTime(
-            0.075,
-            agora + 0.045
+
+        ganhoSegundo.gain.linearRampToValueAtTime(
+            0.025,
+            agora + 0.02
         );
 
-        ganho.gain.exponentialRampToValueAtTime(
+
+        ganhoSegundo.gain.exponentialRampToValueAtTime(
             0.001,
-            agora + 0.48
+            agora + duracao * 0.8
         );
 
 
-        filtro.type =
-            'lowpass';
-
-        filtro.frequency.value =
-            500;
+        segundo.connect(
+            ganhoSegundo
+        );
 
 
-        oscilador.connect(filtro);
-
-        filtro.connect(ganho);
-
-        ganho.connect(
+        ganhoSegundo.connect(
             audioContext.destination
         );
 
 
-        oscilador.start();
-
-        oscilador.stop(
-            agora + 0.5
+        segundo.start(
+            agora
         );
+
+
+        segundo.stop(
+            agora + duracao
+        );
+
     }
 
 
-    function somTrovão() {
+    /*
+    ==================================================
+    SOM DE CADA FIO
+    ==================================================
+    */
 
-        if (!audioContext) return;
+    function somFio(numero) {
 
-        const agora =
-            audioContext.currentTime;
-
-        const duracao =
-            1.8;
-
-
-        const buffer =
-            audioContext.createBuffer(
-                1,
-                audioContext.sampleRate *
-                duracao,
-                audioContext.sampleRate
-            );
-
-
-        const dados =
-            buffer.getChannelData(0);
-
-
-        for (
-            let i = 0;
-            i < dados.length;
-            i++
+        if (
+            numero < 0 ||
+            numero >= notasFios.length
         ) {
 
-            const t =
-                i /
-                audioContext.sampleRate;
+            return;
 
-
-            const envelope =
-                Math.pow(
-                    1 - t / duracao,
-                    2
-                );
-
-
-            dados[i] =
-                (
-                    Math.random() * 2 - 1
-                ) *
-                envelope;
         }
 
 
-        const fonte =
-            audioContext.createBufferSource();
-
-        const ganho =
-            audioContext.createGain();
-
-        const filtro =
-            audioContext.createBiquadFilter();
-
-
-        fonte.buffer =
-            buffer;
-
-
-        filtro.type =
-            'lowpass';
-
-        filtro.frequency.value =
-            180;
-
-
-        ganho.gain.setValueAtTime(
-            0.0001,
-            agora
+        tocarNota(
+            notasFios[numero],
+            0.55
         );
 
-        ganho.gain.exponentialRampToValueAtTime(
-            0.35,
-            agora + 0.035
-        );
-
-        ganho.gain.exponentialRampToValueAtTime(
-            0.001,
-            agora + duracao
-        );
-
-
-        fonte.connect(filtro);
-        filtro.connect(ganho);
-        ganho.connect(
-            audioContext.destination
-        );
-
-
-        fonte.start();
-
-        fonte.stop(
-            agora + duracao
-        );
-
-
-        som(
-            48,
-            1.4,
-            'sine',
-            0.11
-        );
     }
 
 
-    function somColisao() {
+    /*
+    ==================================================
+    DESFECHO MUSICAL
+    ==================================================
+    */
 
-        som(
-            100,
-            0.28,
-            'sawtooth',
-            0.08
-        );
+    function somVitoria() {
 
-        setTimeout(() => {
-
-            som(
-                65,
-                0.35,
-                'square',
-                0.06
-            );
-
-        }, 60);
-    }
+        iniciarAudio();
 
 
-    function somRecorde() {
+        /*
+        Toca as notas do desfecho uma depois
+        da outra, como uma pequena conclusão
+        musical.
+        */
 
-        const notas = [
-            523,
-            659,
-            784,
-            1046
-        ];
+        const intervalo =
+            0.31;
 
-        notas.forEach(
-            (nota, i) => {
 
-                setTimeout(() => {
+        notasFinal.forEach(
+            (nota, indice) => {
 
-                    som(
-                        nota,
-                        0.18,
-                        'square',
-                        0.045
-                    );
+                tocarNota(
+                    nota,
+                    0.58,
+                    indice * intervalo
+                );
 
-                }, i * 100);
             }
         );
+
     }
 
 
-    /* ==================================================
-       CURSOR
-    ================================================== */
-
-    function cursorNativo() {
-
-        area.style.cursor =
-            'default';
-    }
-
-
-    function cursorSiteNormal() {
-
-        area.style.cursor =
-            '';
-    }
-
-
-    /* ==================================================
-       CANVAS
-    ================================================== */
+    /*
+    ==================================================
+    CANVAS
+    ==================================================
+    */
 
     function tamanhoCanvas() {
 
         const rect =
             area.getBoundingClientRect();
 
+
         largura =
             rect.width;
 
+
         altura =
             rect.height;
+
 
         dpr =
             Math.min(
@@ -664,18 +535,22 @@
                 2
             );
 
+
         canvas.width =
             Math.round(
                 largura * dpr
             );
+
 
         canvas.height =
             Math.round(
                 altura * dpr
             );
 
+
         canvas.style.width =
             largura + 'px';
+
 
         canvas.style.height =
             altura + 'px';
@@ -689,2386 +564,534 @@
             0,
             0
         );
+
     }
 
 
-    /* ==================================================
-       NESSIE
-    ================================================== */
+    /*
+    ==================================================
+    ALEATORIEDADE
+    ==================================================
+    */
 
-    const nessie = {
+    function aleatorio(
+        min,
+        max
+    ) {
 
-        x: 150,
+        return (
+            Math.random() *
+            (max - min)
+        ) + min;
 
-        y: 0,
-
-        largura: 55,
-
-        altura: 36,
-
-        velocidadeY: 0,
-
-        rotacao: 0,
-
-        comprimento: 155,
-
-        segmento: 13,
-
-        onda: 0
-    };
+    }
 
 
-    function atualizarNessie() {
+    function inteiro(
+        min,
+        max
+    ) {
 
-        const limiteSuperior =
-            35;
+        return Math.floor(
+            aleatorio(
+                min,
+                max + 1
+            )
+        );
 
-        const limiteInferior =
-            altura - 48;
+    }
 
 
-        let nivelAgua;
+    /*
+    ==================================================
+    CRIA FIBRA
+    ==================================================
+    */
+
+    function criarFibra() {
+
+        const tipo =
+            tipos[
+                inteiro(
+                    0,
+                    tipos.length - 1
+                )
+            ];
+
+
+        const orientacoes = [
+
+            'horizontal',
+            'vertical',
+            'horizontal',
+            'vertical',
+            'diagonal'
+
+        ];
+
+
+        const eixo =
+            orientacoes[
+                inteiro(
+                    0,
+                    orientacoes.length - 1
+                )
+            ];
+
+
+        let angulo = 0;
 
 
         if (
-            profundezas
+            eixo === 'vertical'
         ) {
 
-            nivelAgua =
-                altura;
+            angulo =
+                Math.PI / 2;
 
-        } else if (
-            iniciandoProfundezas
-        ) {
-
-            const progresso =
-                Math.min(
-                    1,
-                    (
-                        performance.now() -
-                        inicioTransicaoProfundezas
-                    ) /
-                    DURACAO_TRANSICAO_PROFUNDIDADES
-                );
-
-
-            nivelAgua =
-                altura *
-                (
-                    ALTURA_AGUA +
-                    (
-                        1 -
-                        ALTURA_AGUA
-                    ) *
-                    progresso
-                );
-
-        } else {
-
-            nivelAgua =
-                altura *
-                ALTURA_AGUA;
         }
 
 
-        const estavaNaAgua =
-            nessie.y >
-            nivelAgua;
+        else if (
+            eixo === 'diagonal'
+        ) {
+
+            angulo =
+                aleatorio(
+                    -0.75,
+                    0.75
+                );
+
+        }
 
 
-        if (mouseAtivo) {
+        const comprimento =
+            aleatorio(
+                45,
+                120
+            );
 
-            const alvo =
-                Math.max(
-                    limiteSuperior,
-                    Math.min(
-                        limiteInferior,
-                        mouseY - 18
+
+        const espessura =
+            tipo.raio *
+            aleatorio(
+                0.65,
+                1.35
+            );
+
+
+        return {
+
+            x:
+                aleatorio(
+                    50,
+                    Math.max(
+                        60,
+                        largura - 50
                     )
-                );
+                ),
 
+            y:
+                aleatorio(
+                    70,
+                    Math.max(
+                        80,
+                        altura - 90
+                    )
+                ),
 
-            const diferenca =
-                alvo -
-                nessie.y;
+            comprimento,
 
+            espessura,
 
-            nessie.velocidadeY +=
-                diferenca *
-                IMPULSO_CURSOR;
-
-        } else {
-
-            nessie.velocidadeY +=
-                GRAVIDADE;
-        }
-
-
-        nessie.velocidadeY *=
-            0.82;
-
-
-        nessie.y +=
-            nessie.velocidadeY;
-
-
-        if (
-            nessie.y <
-            limiteSuperior
-        ) {
-
-            nessie.y =
-                limiteSuperior;
-
-            nessie.velocidadeY =
-                0;
-        }
-
-
-        if (
-            nessie.y >
-            limiteInferior
-        ) {
-
-            nessie.y =
-                limiteInferior;
-
-            nessie.velocidadeY =
-                0;
-        }
-
-
-        nessie.rotacao =
-            nessie.velocidadeY *
-            0.018;
-
-
-        nessie.onda +=
-            0.06;
-
-
-        const agoraNaAgua =
-            nessie.y >
-            nivelAgua;
-
-
-        if (
-            ultimoNivelAgua !== null &&
-            estavaNaAgua !== agoraNaAgua &&
-            !profundezas
-        ) {
-
-            iniciarAudio();
-
-            somGlub();
-
-            tempoSplash =
-                performance.now();
-        }
-
-
-        ultimoNivelAgua =
-            agoraNaAgua;
-    }
-
-
-    function desenharNessie() {
-
-        const x =
-            nessie.x;
-
-        const y =
-            nessie.y;
-
-
-        ctx.save();
-
-        ctx.translate(
-            x,
-            y
-        );
-
-        ctx.rotate(
-            nessie.rotacao
-        );
-
-
-        const segmentos =
-            Math.floor(
-                nessie.comprimento /
-                nessie.segmento
-            );
-
-
-        for (
-            let i = segmentos;
-            i >= 0;
-            i--
-        ) {
-
-            const distancia =
-                i *
-                nessie.segmento;
-
-
-            const curva =
-                Math.sin(
-                    nessie.onda -
-                    i * 0.45
-                ) * 5;
-
-
-            const sx =
-                -distancia;
-
-
-            const sy =
-                curva +
-                i * 0.5;
-
-
-            const tamanho =
-                17 -
-                i * 0.018;
-
-
-            ctx.fillStyle =
-                i % 3 === 0
-                    ? '#d9bd4c'
-                    : '#c9aa3d';
-
-
-            ctx.fillRect(
-                sx,
-                sy - tamanho / 2,
-                tamanho,
-                tamanho
-            );
-        }
-
-
-        /* corpo */
-
-        ctx.fillStyle =
-            '#d8ba45';
-
-
-        ctx.fillRect(
-            5,
-            -27,
-            12,
-            30
-        );
-
-        ctx.fillRect(
-            12,
-            -34,
-            15,
-            16
-        );
-
-        ctx.fillRect(
-            23,
-            -38,
-            25,
-            18
-        );
-
-        ctx.fillRect(
-            38,
-            -31,
-            12,
-            9
-        );
-
-
-        /* ==================================================
-           CAMISETA
-        ================================================== */
-
-        if (
-            camisetaVestida
-        ) {
-
-            ctx.fillStyle =
-                '#ffffff';
-
-
-            ctx.beginPath();
-
-            ctx.moveTo(
-                7,
-                -14
-            );
-
-            ctx.lineTo(
-                18,
-                -7
-            );
-
-            ctx.lineTo(
-                26,
-                -10
-            );
-
-            ctx.lineTo(
-                42,
-                0
-            );
-
-            ctx.lineTo(
-                36,
-                12
-            );
-
-            ctx.lineTo(
-                29,
-                8
-            );
-
-            ctx.lineTo(
-                29,
-                23
-            );
-
-            ctx.lineTo(
-                8,
-                23
-            );
-
-            ctx.lineTo(
-                8,
-                8
-            );
-
-            ctx.lineTo(
-                1,
-                12
-            );
-
-            ctx.lineTo(
-                -5,
-                0
-            );
-
-            ctx.closePath();
-
-            ctx.fill();
-
-
-            ctx.strokeStyle =
-                '#d0d0d0';
-
-            ctx.lineWidth =
-                2;
-
-            ctx.beginPath();
-
-            ctx.arc(
-                18,
-                -7,
-                5,
-                0,
-                Math.PI
-            );
-
-            ctx.stroke();
-        }
-
-
-        /* ==================================================
-           SAIA AMARELO-CLARA
-        ================================================== */
-
-        if (
-            saiaVestida
-        ) {
-
-            ctx.fillStyle =
-                '#f4df83';
-
-
-            ctx.beginPath();
-
-            ctx.moveTo(
-                5,
-                8
-            );
-
-            ctx.lineTo(
-                30,
-                8
-            );
-
-            ctx.lineTo(
-                39,
-                29
-            );
-
-            ctx.lineTo(
-                -4,
-                29
-            );
-
-            ctx.closePath();
-
-            ctx.fill();
-
-
-            ctx.strokeStyle =
-                '#ddc663';
-
-            ctx.lineWidth =
-                2;
-
-            ctx.beginPath();
-
-            ctx.moveTo(
-                -4,
-                29
-            );
-
-            ctx.lineTo(
-                39,
-                29
-            );
-
-            ctx.stroke();
-        }
-
-
-        /* ==================================================
-           BONÉ VERMELHO
-        ================================================== */
-
-        if (
-            boneVestido
-        ) {
-
-            ctx.fillStyle =
-                '#c92922';
-
-
-            /*
-            O boné é propositalmente
-            colocado no corpo, como
-            um pequeno acessório têxtil.
-            */
-
-            ctx.beginPath();
-
-            ctx.moveTo(
-                27,
-                -21
-            );
-
-            ctx.lineTo(
-                47,
-                -21
-            );
-
-            ctx.lineTo(
-                53,
-                -13
-            );
-
-            ctx.lineTo(
-                30,
-                -13
-            );
-
-            ctx.closePath();
-
-            ctx.fill();
-
-
-            ctx.fillRect(
-                31,
-                -27,
-                13,
-                7
-            );
-        }
-
-
-        /* olho */
-
-        ctx.fillStyle =
-            '#111';
-
-        ctx.fillRect(
-            41,
-            -33,
-            4,
-            4
-        );
-
-
-        /* boca */
-
-        ctx.fillRect(
-            47,
-            -25,
-            7,
-            2
-        );
-
-
-        /* cauda */
-
-        ctx.fillStyle =
-            '#ad9134';
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            -110,
-            5
-        );
-
-        ctx.lineTo(
-            -133,
-            1
-        );
-
-        ctx.lineTo(
-            -148,
-            11
-        );
-
-        ctx.lineTo(
-            -130,
-            17
-        );
-
-        ctx.lineTo(
-            -108,
-            12
-        );
-
-        ctx.closePath();
-
-        ctx.fill();
-
-
-        ctx.restore();
-    }
-
-
-    /* ==================================================
-       ROCHAS
-    ================================================== */
-
-    function criarPedra(x) {
-
-        const tamanho =
-            42 +
-            Math.random() * 82;
-
-
-        const alturaPedra =
-            40 +
-            Math.random() * 110;
-
-
-        const y =
-            35 +
-            Math.random() *
-            (
-                altura -
-                alturaPedra -
-                70
-            );
-
-
-        const porosa =
-            Math.random() < 0.42;
-
-
-        const poros = [];
-
-
-        if (porosa) {
-
-            const quantidade =
-                4 +
-                Math.floor(
-                    Math.random() * 7
-                );
-
-
-            for (
-                let i = 0;
-                i < quantidade;
-                i++
-            ) {
-
-                poros.push({
-
-                    x:
-                        0.12 +
-                        Math.random() * 0.76,
-
-                    y:
-                        0.15 +
-                        Math.random() * 0.68,
-
-                    raio:
-                        2 +
-                        Math.random() * 6
-                });
-            }
-        }
-
-
-        return {
-
-            x,
-
-            y,
-
-            largura:
-                tamanho,
-
-            altura:
-                alturaPedra,
-
-            porosa,
-
-            poros
-        };
-    }
-
-
-    function desenharPedra(pedra) {
-
-        const x =
-            pedra.x;
-
-        const y =
-            pedra.y;
-
-        const w =
-            pedra.largura;
-
-        const h =
-            pedra.altura;
-
-
-        const relampagoAtivo =
-            invertidoAte >
-            performance.now();
-
-
-        ctx.fillStyle =
-            relampagoAtivo
-                ? '#ffffff'
-                : '#090909';
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            x,
-            y + h
-        );
-
-        ctx.lineTo(
-            x + w * 0.04,
-            y + h * 0.42
-        );
-
-        ctx.lineTo(
-            x + w * 0.16,
-            y + h * 0.19
-        );
-
-        ctx.lineTo(
-            x + w * 0.37,
-            y + h * 0.05
-        );
-
-        ctx.lineTo(
-            x + w * 0.61,
-            y
-        );
-
-        ctx.lineTo(
-            x + w * 0.82,
-            y + h * 0.14
-        );
-
-        ctx.lineTo(
-            x + w * 0.96,
-            y + h * 0.48
-        );
-
-        ctx.lineTo(
-            x + w,
-            y + h
-        );
-
-        ctx.closePath();
-
-        ctx.fill();
-
-
-        if (
-            pedra.porosa
-        ) {
-
-            ctx.fillStyle =
-                relampagoAtivo
-                    ? '#d9d9d9'
-                    : '#272727';
-
-
-            pedra.poros.forEach(
-                poro => {
-
-                    ctx.beginPath();
-
-                    ctx.arc(
-                        x +
-                        poro.x * w,
-
-                        y +
-                        poro.y * h,
-
-                        poro.raio,
-
-                        0,
-                        Math.PI * 2
-                    );
-
-                    ctx.fill();
-                }
-            );
-        }
-    }
-
-
-    /* ==================================================
-       CABIDES
-    ================================================== */
-
-    function criarCabide(x) {
-
-        const y =
-            60 +
-            Math.random() *
-            (
-                altura - 120
-            );
-
-
-        let tipo =
-            'normal';
-
-
-        /*
-        Camiseta continua rara.
-
-        Saia passa a ser possível
-        depois dos 100.
-
-        Boné passa a ser possível
-        depois dos 200.
-        */
-
-        const sorteio =
-            Math.random();
-
-
-        if (
-            pontos >= 200 &&
-            sorteio < 0.045
-        ) {
-
-            tipo =
-                'bone';
-
-        } else if (
-            pontos >= 100 &&
-            sorteio < 0.09
-        ) {
-
-            tipo =
-                'saia';
-
-        } else if (
-            sorteio < 0.12
-        ) {
-
-            tipo =
-                'camiseta';
-        }
-
-
-        return {
-
-            x,
-
-            y,
-
-            coletado:
-                false,
+            angulo,
 
             tipo,
 
-            especial:
-                tipo === 'camiseta',
+            cor:
+                cores[
+                    inteiro(
+                        0,
+                        cores.length - 1
+                    )
+                ],
 
-            tamanho:
-                tipo === 'camiseta'
-                    ? 24
-                    : 18
+            eixo,
+
+            fase:
+                aleatorio(
+                    0,
+                    Math.PI * 2
+                ),
+
+            velocidade:
+                aleatorio(
+                    0.25,
+                    11.25
+                ) *
+                tipo.movimento,
+
+            amplitude:
+                aleatorio(
+                    15,
+                    55
+                ),
+
+            coletado: false
+
         };
+
     }
 
 
-    function desenharCamisa(
-        x,
-        y
-    ) {
-
-        ctx.fillStyle =
-            '#ffffff';
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            x - 13,
-            y + 5
-        );
-
-        ctx.lineTo(
-            x - 24,
-            y + 15
-        );
-
-        ctx.lineTo(
-            x - 16,
-            y + 23
-        );
-
-        ctx.lineTo(
-            x - 10,
-            y + 18
-        );
-
-        ctx.lineTo(
-            x - 10,
-            y + 39
-        );
-
-        ctx.lineTo(
-            x + 12,
-            y + 39
-        );
-
-        ctx.lineTo(
-            x + 12,
-            y + 18
-        );
-
-        ctx.lineTo(
-            x + 18,
-            y + 23
-        );
-
-        ctx.lineTo(
-            x + 25,
-            y + 15
-        );
-
-        ctx.lineTo(
-            x + 14,
-            y + 5
-        );
-
-        ctx.closePath();
-
-        ctx.fill();
-    }
-
-
-    function desenharSaiaCabide(
-        x,
-        y
-    ) {
-
-        ctx.fillStyle =
-            '#f4df83';
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            x - 14,
-            y + 7
-        );
-
-        ctx.lineTo(
-            x + 14,
-            y + 7
-        );
-
-        ctx.lineTo(
-            x + 21,
-            y + 31
-        );
-
-        ctx.lineTo(
-            x - 21,
-            y + 31
-        );
-
-        ctx.closePath();
-
-        ctx.fill();
-    }
-
-
-    function desenharBoneCabide(
-        x,
-        y
-    ) {
-
-        ctx.fillStyle =
-            '#c92922';
-
-
-        ctx.fillRect(
-            x - 12,
-            y + 7,
-            25,
-            15
-        );
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            x - 12,
-            y + 7
-        );
-
-        ctx.lineTo(
-            x + 14,
-            y + 7
-        );
-
-        ctx.lineTo(
-            x + 20,
-            y + 13
-        );
-
-        ctx.lineTo(
-            x - 6,
-            y + 13
-        );
-
-        ctx.closePath();
-
-        ctx.fill();
-    }
-
-
-    function desenharCabide(cabide) {
-
-        if (
-            !cabide ||
-            cabide.coletado
-        ) return;
-
-
-        const x =
-            cabide.x;
-
-        const y =
-            cabide.y;
-
-
-        ctx.strokeStyle =
-            '#f2c400';
-
-
-        ctx.lineWidth =
-            5;
-
-        ctx.lineCap =
-            'square';
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            x,
-            y - 9
-        );
-
-        ctx.bezierCurveTo(
-            x - 8,
-            y - 18,
-            x - 5,
-            y - 25,
-            x + 2,
-            y - 25
-        );
-
-        ctx.bezierCurveTo(
-            x + 8,
-            y - 25,
-            x + 9,
-            y - 18,
-            x + 4,
-            y - 14
-        );
-
-        ctx.stroke();
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            x + 2,
-            y - 9
-        );
-
-        ctx.lineTo(
-            x - 22,
-            y + 9
-        );
-
-        ctx.lineTo(
-            x,
-            y + 20
-        );
-
-        ctx.lineTo(
-            x + 22,
-            y + 9
-        );
-
-        ctx.closePath();
-
-        ctx.stroke();
-
-
-        if (
-            cabide.tipo ===
-            'camiseta'
-        ) {
-
-            desenharCamisa(
-                x,
-                y + 8
-            );
-        }
-
-
-        if (
-            cabide.tipo ===
-            'saia'
-        ) {
-
-            desenharSaiaCabide(
-                x,
-                y
-            );
-        }
-
-
-        if (
-            cabide.tipo ===
-            'bone'
-        ) {
-
-            desenharBoneCabide(
-                x,
-                y
-            );
-        }
-    }
-
-
-    /* ==================================================
-       COLISÃO
-    ================================================== */
-
-    function colisao(a, b) {
-
-        return (
-
-            a.x <
-            b.x + b.largura &&
-
-            a.x + a.largura >
-            b.x &&
-
-            a.y <
-            b.y + b.altura &&
-
-            a.y + a.altura >
-            b.y
-        );
-    }
-
-
-    function colisaoPedra() {
-
-        const hitbox = {
-
-            x:
-                nessie.x - 22,
-
-            y:
-                nessie.y - 28,
-
-            largura:
-                60,
-
-            altura:
-                48
-        };
+    /*
+    ==================================================
+    CRIA FIBRAS
+    ==================================================
+    */
+
+    function criarFibras() {
+
+        fibras = [];
 
 
         for (
             let i = 0;
-            i < pedras.length;
+            i < TOTAL;
             i++
         ) {
 
-            const pedra =
-                pedras[i];
-
-
-            if (
-                colisao(
-                    hitbox,
-                    pedra
-                )
-            ) {
-
-                /*
-                CAMISETA = ESCUDO
-
-                A pedra atingida é removida
-                imediatamente.
-
-                A camiseta desaparece.
-
-                O jogo continua.
-                */
-
-                if (
-                    camisetaVestida &&
-                    vidas > 0
-                ) {
-
-                    camisetaVestida =
-                        false;
-
-                    vidas =
-                        0;
-
-
-                    pedras.splice(
-                        i,
-                        1
-                    );
-
-
-                    iniciarAudio();
-
-                    somGlub();
-
-
-                    nessie.velocidadeY =
-                        -3;
-
-
-                    return false;
-                }
-
-
-                return true;
-            }
-        }
-
-
-        return false;
-    }
-
-
-    /* ==================================================
-       COLETA
-    ================================================== */
-
-    function coletarCabides() {
-
-        for (
-            const cabide of cabides
-        ) {
-
-            if (
-                cabide.coletado
-            ) continue;
-
-
-            const dx =
-                nessie.x -
-                cabide.x;
-
-            const dy =
-                nessie.y -
-                cabide.y;
-
-
-            const distancia =
-                Math.sqrt(
-                    dx * dx +
-                    dy * dy
-                );
-
-
-            if (
-                distancia < 42
-            ) {
-
-                cabide.coletado =
-                    true;
-
-
-                if (
-                    cabide.tipo ===
-                    'camiseta'
-                ) {
-
-                    pontos += 5;
-
-                    camisetaVestida =
-                        true;
-
-                    vidas =
-                        1;
-
-                    somCabideEspecial();
-
-                } else {
-
-                    pontos += 1;
-
-                    if (
-                        cabide.tipo ===
-                        'saia'
-                    ) {
-
-                        saiaVestida =
-                            true;
-
-                    }
-
-
-                    if (
-                        cabide.tipo ===
-                        'bone'
-                    ) {
-
-                        boneVestido =
-                            true;
-                    }
-
-
-                    somCabide();
-                }
-
-
-                pontosEl.textContent =
-                    pontos;
-            }
-        }
-    }
-
-
-    /* ==================================================
-       TROVÕES
-    ================================================== */
-
-    function criarRelampagos() {
-
-        relampagos = [];
-
-
-        const quantidade =
-            2 +
-            Math.floor(
-                Math.random() * 3
+            fibras.push(
+                criarFibra()
             );
 
-
-        for (
-            let i = 0;
-            i < quantidade;
-            i++
-        ) {
-
-            const pontosRaio = [];
-
-
-            let x =
-                Math.random() *
-                largura;
-
-
-            let y =
-                0;
-
-
-            const comprimento =
-                80 +
-                Math.random() *
-                (
-                    altura *
-                    0.45
-                );
-
-
-            while (
-                y <
-                comprimento
-            ) {
-
-                pontosRaio.push({
-                    x,
-                    y
-                });
-
-
-                x +=
-                    (
-                        Math.random() -
-                        0.5
-                    ) *
-                    35;
-
-
-                y +=
-                    15 +
-                    Math.random() * 30;
-            }
-
-
-            relampagos.push(
-                pontosRaio
-            );
-        }
-    }
-
-
-    function desenharRelampagos() {
-
-        if (
-            invertidoAte <=
-            performance.now()
-        ) return;
-
-
-        ctx.save();
-
-
-        ctx.strokeStyle =
-            '#ffffff';
-
-
-        ctx.lineWidth =
-            2;
-
-
-        ctx.shadowBlur =
-            0;
-
-
-        relampagos.forEach(
-            raio => {
-
-                ctx.beginPath();
-
-
-                raio.forEach(
-                    (ponto, i) => {
-
-                        if (
-                            i === 0
-                        ) {
-
-                            ctx.moveTo(
-                                ponto.x,
-                                ponto.y
-                            );
-
-                        } else {
-
-                            ctx.lineTo(
-                                ponto.x,
-                                ponto.y
-                            );
-                        }
-                    }
-                );
-
-
-                ctx.stroke();
-            }
-        );
-
-
-        ctx.restore();
-    }
-
-
-    function verificarTrovão() {
-
-        /*
-        Trovão a cada 100 cabides,
-        mas apenas uma vez por marco.
-
-        280 inicia as profundezas,
-        portanto a transição acontece
-        antes do próximo marco.
-        */
-
-        const marco =
-            Math.floor(
-                pontos / 100
-            ) * 100;
-
-
-        if (
-            marco >= 100 &&
-            marco !== ultimoMarcoTrovao
-        ) {
-
-            ultimoMarcoTrovao =
-                marco;
-
-
-            iniciarAudio();
-
-            somTrovão();
-
-
-            invertidoAte =
-                performance.now() +
-                4000;
-
-
-            criarRelampagos();
-        }
-    }
-
-
-    /* ==================================================
-       PROFUNDEZAS
-    ================================================== */
-
-    function iniciarTransicaoProfundezas() {
-
-        if (
-            iniciandoProfundezas ||
-            profundezas
-        ) return;
-
-
-        iniciandoProfundezas =
-            true;
-
-
-        inicioTransicaoProfundezas =
-            performance.now();
-
-
-        somGlub();
-    }
-
-
-    function atualizarProfundezas() {
-
-        if (
-            !iniciandoProfundezas
-        ) return;
-
-
-        const progresso =
-            Math.min(
-                1,
-                (
-                    performance.now() -
-                    inicioTransicaoProfundezas
-                ) /
-                DURACAO_TRANSICAO_PROFUNDIDADES
-            );
-
-
-        if (
-            progresso >= 1
-        ) {
-
-            iniciandoProfundezas =
-                false;
-
-            profundezas =
-                true;
-
-
-            ultimoNivelAgua =
-                true;
-        }
-    }
-
-
-    /* ==================================================
-       MARCOS
-    ================================================== */
-
-    function verificarMarcos() {
-
-        verificarTrovão();
-
-
-        if (
-            pontos >=
-            INICIO_PROFUNDIDADES &&
-            !profundezas &&
-            !iniciandoProfundezas
-        ) {
-
-            iniciarTransicaoProfundezas();
         }
 
-
-        atualizarProfundezas();
     }
 
 
-    /* ==================================================
-       DIFICULDADE
-    ================================================== */
+    /*
+    ==================================================
+    MOVIMENTO
+    ==================================================
+    */
 
-    function atualizarDificuldade() {
-
-        const etapas =
-            Math.floor(
-                pontos / 10
-            );
-
-
-        velocidade =
-            Math.min(
-                VELOCIDADE_MAXIMA,
-
-                VELOCIDADE_INICIAL +
-                etapas * 0.45
-            );
-    }
-
-
-    /* ==================================================
-       OBSTÁCULOS
-    ================================================== */
-
-    function criarObstaculos() {
-
-        pedras = [];
-        cabides = [];
-
+    function posicaoFibra(
+        fibra,
+        tempoAtual
+    ) {
 
         let x =
-            largura + 180;
+            fibra.x;
 
 
-        for (
-            let i = 0;
-            i < 4;
-            i++
-        ) {
-
-            const pedra =
-                criarPedra(x);
+        let y =
+            fibra.y;
 
 
-            pedras.push(
-                pedra
-            );
-
-
-            cabides.push(
-                criarCabide(
-                    x +
-                    pedra.largura +
-                    80 +
-                    Math.random() * 80
-                )
-            );
-
-
-            x +=
-                360 +
-                Math.random() * 180;
-        }
-    }
-
-
-    function moverMundo() {
-
-        pedras.forEach(
-            pedra => {
-
-                pedra.x -=
-                    velocidade;
-            }
-        );
-
-
-        cabides.forEach(
-            cabide => {
-
-                cabide.x -=
-                    velocidade;
-            }
-        );
-
-
-        pedras =
-            pedras.filter(
-                pedra =>
-                    pedra.x +
-                    pedra.largura >
-                    -100
-            );
-
-
-        cabides =
-            cabides.filter(
-                cabide =>
-                    cabide.x >
-                    -100
-            );
+        const onda =
+            Math.sin(
+                tempoAtual *
+                fibra.velocidade +
+                fibra.fase
+            ) *
+            fibra.amplitude;
 
 
         if (
-            pedras.length === 0 ||
-            pedras[
-                pedras.length - 1
-            ].x <
-            largura - 260
+            fibra.eixo ===
+            'horizontal'
         ) {
 
-            const ultima =
-                pedras[
-                    pedras.length - 1
-                ];
+            x += onda;
 
-
-            const x =
-                ultima
-                    ? ultima.x +
-                      ultima.largura +
-                      280
-                    : largura + 200;
-
-
-            const novaPedra =
-                criarPedra(x);
-
-
-            pedras.push(
-                novaPedra
-            );
-
-
-            cabides.push(
-                criarCabide(
-                    x +
-                    novaPedra.largura +
-                    90 +
-                    Math.random() * 100
-                )
-            );
         }
+
+
+        else if (
+            fibra.eixo ===
+            'vertical'
+        ) {
+
+            y += onda;
+
+        }
+
+
+        else {
+
+            x += onda;
+
+            y +=
+                onda * 0.7;
+
+        }
+
+
+        return {
+
+            x,
+            y
+
+        };
+
     }
 
 
-    /* ==================================================
-       CORES
-    ================================================== */
+    /*
+    ==================================================
+    DESENHA FIBRA FELPUDA
+    ==================================================
+    */
 
-    function corVariavel(
-        t,
-        deslocamento
+    function desenharFibra(
+        fibra,
+        tempoAtual
     ) {
 
-        const r =
-            Math.sin(
-                t * 0.00035 +
-                deslocamento
+        if (
+            fibra.coletado
+        ) {
+
+            return;
+
+        }
+
+
+        const pos =
+            posicaoFibra(
+                fibra,
+                tempoAtual
             );
 
-        const g =
-            Math.sin(
-                t * 0.00022 +
-                deslocamento * 2
-            );
-
-        const b =
-            Math.sin(
-                t * 0.00028 +
-                deslocamento * 3
-            );
-
-
-        return [
-
-            105 + r * 35,
-
-            115 + g * 35,
-
-            160 + b * 55
-        ];
-    }
-
-
-    function rgb(
-        valores
-    ) {
-
-        return `rgb(
-            ${Math.round(valores[0])},
-            ${Math.round(valores[1])},
-            ${Math.round(valores[2])}
-        )`;
-    }
-
-
-    /* ==================================================
-       CÉU
-    ================================================== */
-
-    function desenharRiscosCeu(
-        tempo
-    ) {
 
         ctx.save();
 
-        ctx.globalAlpha =
-            0.28;
 
-        ctx.lineWidth =
-            1;
+        ctx.translate(
+            pos.x,
+            pos.y
+        );
 
 
-        const quantidade =
-            Math.floor(
-                largura / 13
-            );
+        ctx.rotate(
+            fibra.angulo
+        );
 
+
+        /*
+        CERDAS
+        */
 
         for (
             let i = 0;
-            i < quantidade;
+            i < fibra.tipo.fibras;
             i++
         ) {
 
+            const progresso =
+                Math.random();
+
+
             const x =
-                i * 13;
+                (
+                    progresso -
+                    0.5
+                ) *
+                fibra.comprimento;
 
 
-            const deslocamento =
+            const larguraLocal =
                 Math.sin(
-                    i * 1.73 +
-                    tempo * 0.0007
-                ) * 25;
+                    progresso *
+                    Math.PI
+                ) *
+                fibra.espessura;
+
+
+            const dispersao =
+                aleatorio(
+                    -larguraLocal * 1.8,
+                    larguraLocal * 1.8
+                );
+
+
+            const curvatura =
+                Math.sin(
+                    progresso *
+                    Math.PI *
+                    aleatorio(
+                        1,
+                        5
+                    )
+                ) *
+                aleatorio(
+                    -5,
+                    5
+                );
 
 
             const y =
-                30 +
-                (
-                    i * 37
-                ) %
-                (
-                    altura *
-                    ALTURA_AGUA -
-                    50
+                dispersao +
+                curvatura;
+
+
+            const comprimentoCerdas =
+                aleatorio(
+                    3,
+                    13
                 );
 
 
-            const chuva =
+            const direcao =
+                aleatorio(
+                    0,
+                    Math.PI * 2
+                );
+
+
+            const destinoX =
+                x +
+                Math.cos(
+                    direcao
+                ) *
+                comprimentoCerdas;
+
+
+            const destinoY =
+                y +
                 Math.sin(
-                    tempo * 0.00018 +
-                    i * 0.9
-                ) > 0.76;
-
-
-            ctx.strokeStyle =
-                chuva
-                    ? '#d9e5e3'
-                    : '#6d99b0';
+                    direcao
+                ) *
+                comprimentoCerdas;
 
 
             ctx.beginPath();
 
 
-            if (
-                chuva
-            ) {
-
-                ctx.moveTo(
-                    x + deslocamento,
-                    y
-                );
-
-                ctx.lineTo(
-                    x +
-                    deslocamento -
-                    8,
-                    y + 40
-                );
-
-            } else {
-
-                ctx.moveTo(
-                    x + deslocamento,
-                    y
-                );
-
-                ctx.lineTo(
-                    x +
-                    deslocamento +
-                    28,
-                    y - 4
-                );
-            }
+            ctx.moveTo(
+                x,
+                y
+            );
 
 
-            ctx.stroke();
-        }
+            ctx.quadraticCurveTo(
 
+                x +
+                comprimentoCerdas *
+                0.35,
 
-        ctx.restore();
-    }
+                y +
+                aleatorio(
+                    -3,
+                    3
+                ),
 
+                destinoX,
+                destinoY
 
-    /* ==================================================
-       ÁGUA
-    ================================================== */
-
-    function desenharAgua(
-        tempo,
-        inicio,
-        escuridao = 0
-    ) {
-
-        ctx.save();
-
-
-        for (
-            let camada = 0;
-            camada < 16;
-            camada++
-        ) {
-
-            const y =
-                inicio +
-                camada * 31;
-
-
-            const cor =
-                corVariavel(
-                    tempo +
-                    camada * 1000,
-                    camada
-                );
-
-
-            cor[0] *=
-                1 - escuridao;
-
-            cor[1] *=
-                1 - escuridao;
-
-            cor[2] *=
-                1 - escuridao * 0.7;
+            );
 
 
             ctx.strokeStyle =
-                rgb(cor);
+                fibra.cor;
 
 
             ctx.globalAlpha =
-                0.55;
+                aleatorio(
+                    0.22,
+                    0.72
+                );
 
 
             ctx.lineWidth =
-                2;
+                aleatorio(
+                    0.35,
+                    fibra.espessura *
+                    0.38
+                );
 
 
-            ctx.beginPath();
-
-
-            for (
-                let x = -40;
-                x < largura + 50;
-                x += 15
-            ) {
-
-                const onda =
-                    Math.sin(
-                        x * 0.028 +
-                        tempo * 0.001 +
-                        camada
-                    ) * 8;
-
-
-                const onda2 =
-                    Math.sin(
-                        x * 0.011 -
-                        tempo * 0.0006
-                    ) * 12;
-
-
-                const yy =
-                    y +
-                    onda +
-                    onda2;
-
-
-                if (
-                    x === -40
-                ) {
-
-                    ctx.moveTo(
-                        x,
-                        yy
-                    );
-
-                } else {
-
-                    ctx.lineTo(
-                        x,
-                        yy
-                    );
-                }
-            }
+            ctx.lineCap =
+                'round';
 
 
             ctx.stroke();
-        }
 
-
-        ctx.restore();
-    }
-
-
-    /* ==================================================
-       CENÁRIO
-    ================================================== */
-
-    function desenharCenario(
-        tempo
-    ) {
-
-        const trovao =
-            invertidoAte >
-            performance.now();
-
-
-        /*
-        PROFUNDEZAS JÁ CONCLUÍDAS
-        */
-
-        if (
-            profundezas
-        ) {
-
-            const fundo =
-                corVariavel(
-                    tempo,
-                    4
-                );
-
-
-            fundo[0] *= 0.22;
-            fundo[1] *= 0.26;
-            fundo[2] *= 0.42;
-
-
-            ctx.fillStyle =
-                rgb(fundo);
-
-
-            ctx.fillRect(
-                0,
-                0,
-                largura,
-                altura
-            );
-
-
-            desenharAgua(
-                tempo,
-                0,
-                0.35
-            );
-
-
-            return;
         }
 
 
         /*
-        TRANSIÇÃO PARA AS PROFUNDEZAS
+        DENSIDADE CENTRAL
         */
-
-        if (
-            iniciandoProfundezas
-        ) {
-
-            const progresso =
-                Math.min(
-                    1,
-                    (
-                        performance.now() -
-                        inicioTransicaoProfundezas
-                    ) /
-                    DURACAO_TRANSICAO_PROFUNDIDADES
-                );
-
-
-            const nivelAgua =
-                altura *
-                (
-                    ALTURA_AGUA +
-                    (
-                        1 -
-                        ALTURA_AGUA
-                    ) *
-                    progresso
-                );
-
-
-            const escurecimento =
-                progresso *
-                0.62;
-
-
-            const fundo =
-                corVariavel(
-                    tempo,
-                    4
-                );
-
-
-            ctx.fillStyle =
-                rgb([
-                    fundo[0] *
-                    (
-                        1 -
-                        escurecimento
-                    ),
-
-                    fundo[1] *
-                    (
-                        1 -
-                        escurecimento
-                    ),
-
-                    fundo[2] *
-                    (
-                        1 -
-                        escurecimento * 0.65
-                    )
-                ]);
-
-
-            ctx.fillRect(
-                0,
-                0,
-                largura,
-                nivelAgua
-            );
-
-
-            desenharAgua(
-                tempo,
-                nivelAgua,
-                escurecimento
-            );
-
-
-            ctx.fillStyle =
-                rgb([
-                    fundo[0] *
-                    (
-                        1 -
-                        escurecimento
-                    ),
-
-                    fundo[1] *
-                    (
-                        1 -
-                        escurecimento
-                    ),
-
-                    fundo[2] *
-                    (
-                        1 -
-                        escurecimento * 0.65
-                    )
-                ]);
-
-
-            ctx.fillRect(
-                0,
-                nivelAgua,
-                largura,
-                altura -
-                nivelAgua
-            );
-
-
-            /*
-            A água vai tomando a tela.
-            */
-
-            ctx.fillStyle =
-                rgb([
-                    65 -
-                    progresso * 25,
-
-                    95 -
-                    progresso * 35,
-
-                    145 -
-                    progresso * 50
-                ]);
-
-
-            ctx.fillRect(
-                0,
-                nivelAgua,
-                largura,
-                altura -
-                nivelAgua
-            );
-
-
-            return;
-        }
-
-
-        /*
-        CÉU + ÁGUA NORMAL
-        */
-
-        const nivel =
-            altura * ALTURA_AGUA;
-
-
-        const ceu =
-            corVariavel(
-                tempo,
-                1
-            );
-
-
-        /*
-        DURANTE O TROVÃO:
-        tudo absolutamente preto.
-        */
-
-        if (
-            trovao
-        ) {
-
-            ctx.fillStyle =
-                '#000000';
-
-            ctx.fillRect(
-                0,
-                0,
-                largura,
-                altura
-            );
-
-
-            desenharRelampagos();
-
-            return;
-        }
-
-
-        ctx.fillStyle =
-            rgb([
-                ceu[0] + 40,
-                ceu[1] + 40,
-                ceu[2] + 45
-            ]);
-
-
-        ctx.fillRect(
-            0,
-            0,
-            largura,
-            nivel + 5
-        );
-
-
-        const agua =
-            corVariavel(
-                tempo,
-                8
-            );
-
-
-        ctx.fillStyle =
-            rgb([
-                agua[0] - 10,
-                agua[1] - 5,
-                agua[2]
-            ]);
-
-
-        ctx.fillRect(
-            0,
-            nivel,
-            largura,
-            altura
-        );
-
-
-        desenharRiscosCeu(
-            tempo
-        );
-
-
-        desenharAgua(
-            tempo,
-            nivel
-        );
-
-
-        ctx.strokeStyle =
-            '#719a9c';
-
-        ctx.globalAlpha =
-            0.8;
-
-        ctx.lineWidth =
-            2;
-
-
-        ctx.beginPath();
-
 
         for (
-            let x = -20;
-            x < largura + 30;
-            x += 14
+            let i = 0;
+            i < 25;
+            i++
         ) {
+
+            const x =
+                aleatorio(
+                    -fibra.comprimento / 2,
+                    fibra.comprimento / 2
+                );
+
 
             const y =
-                nivel +
-                Math.sin(
-                    x * 0.035 +
-                    tempo * 0.001
-                ) * 6;
-
-
-            if (
-                x === -20
-            ) {
-
-                ctx.moveTo(
-                    x,
-                    y
+                aleatorio(
+                    -fibra.espessura,
+                    fibra.espessura
                 );
-
-            } else {
-
-                ctx.lineTo(
-                    x,
-                    y
-                );
-            }
-        }
-
-
-        ctx.stroke();
-
-        ctx.globalAlpha =
-            1;
-
-
-        /*
-        SPLASH
-        */
-
-        if (
-            performance.now() -
-            tempoSplash <
-            350
-        ) {
-
-            const progresso =
-                (
-                    performance.now() -
-                    tempoSplash
-                ) / 350;
-
-
-            ctx.strokeStyle =
-                'rgba(230,245,240,' +
-                (1 - progresso) +
-                ')';
-
-
-            ctx.lineWidth =
-                2;
 
 
             ctx.beginPath();
 
 
-            ctx.ellipse(
-                nessie.x,
-                nivel,
-                12 +
-                progresso * 35,
-                (
-                    12 +
-                    progresso * 35
-                ) * 0.28,
-                0,
+            ctx.arc(
+                x,
+                y,
+                aleatorio(
+                    0.6,
+                    2.2
+                ),
                 0,
                 Math.PI * 2
             );
 
 
-            ctx.stroke();
+            ctx.fillStyle =
+                fibra.cor;
+
+
+            ctx.globalAlpha =
+                aleatorio(
+                    0.35,
+                    0.8
+                );
+
+
+            ctx.fill();
+
         }
+
+
+        ctx.globalAlpha =
+            1;
+
+
+        ctx.restore();
+
     }
 
 
-    /* ==================================================
-       DESENHO
-    ================================================== */
+    /*
+    ==================================================
+    GRADE
+    ==================================================
+    */
 
-    function desenhar(
-        tempo
-    ) {
+    function desenharGrade() {
 
         ctx.clearRect(
             0,
@@ -3078,284 +1101,1179 @@
         );
 
 
-        desenharCenario(
-            tempo
-        );
+        const espacamento =
+            34;
 
 
-        pedras.forEach(
-            desenharPedra
-        );
+        ctx.lineWidth =
+            0.5;
 
 
-        cabides.forEach(
-            desenharCabide
-        );
+        for (
+            let y = 0;
+            y <= altura;
+            y += espacamento
+        ) {
+
+            ctx.beginPath();
 
 
-        desenharNessie();
+            ctx.moveTo(
+                0,
+                y
+            );
+
+
+            ctx.lineTo(
+                largura,
+                y
+            );
+
+
+            ctx.strokeStyle =
+                'rgba(17,17,17,.075)';
+
+
+            ctx.stroke();
+
+        }
+
+
+        for (
+            let x = 0;
+            x <= largura;
+            x += espacamento
+        ) {
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                x,
+                0
+            );
+
+
+            ctx.lineTo(
+                x,
+                altura
+            );
+
+
+            ctx.strokeStyle =
+                'rgba(17,17,17,.075)';
+
+
+            ctx.stroke();
+
+        }
+
+
+        ctx.fillStyle =
+            'rgba(17,17,17,.12)';
+
+
+        for (
+            let y = 0;
+            y <= altura;
+            y += espacamento
+        ) {
+
+            for (
+                let x = 0;
+                x <= largura;
+                x += espacamento
+            ) {
+
+                ctx.fillRect(
+                    x - 0.5,
+                    y - 0.5,
+                    1,
+                    1
+                );
+
+            }
+
+        }
+
     }
 
 
-    /* ==================================================
-       INICIAR
-    ================================================== */
+    /*
+    ==================================================
+    CRIA TECIDO FINAL
+    ==================================================
+    */
+
+    function criarPadrao() {
+
+        const tamanho =
+            Math.min(
+                310,
+                largura * 0.42,
+                altura * 0.42
+            );
+
+
+        const tecidoLargura =
+            tamanho;
+
+
+        const tecidoAltura =
+            tamanho;
+
+
+        const x =
+            (
+                largura -
+                tecidoLargura
+            ) / 2;
+
+
+        let y;
+
+
+        if (
+            altura > 650
+        ) {
+
+            y =
+                altura * 0.18;
+
+        }
+
+
+        else {
+
+            y =
+                altura * 0.58;
+
+        }
+
+
+        const quantidade =
+            inteiro(
+                20,
+                31
+            );
+
+
+        const espaco =
+            tecidoLargura /
+            quantidade;
+
+
+        const verticais = [];
+        const horizontais = [];
+
+
+        /*
+        AS CORES DO TECIDO VÊM DA MESMA
+        PALETA DOS FIOS
+        */
+
+        const paleta =
+            [...cores]
+                .sort(
+                    () =>
+                        Math.random() -
+                        0.5
+                )
+                .slice(
+                    0,
+                    inteiro(
+                        4,
+                        7
+                    )
+                );
+
+
+        /*
+        O FUNDO TAMBÉM É UMA COR EXATA
+        DA MESMA PALETA.
+        */
+
+        const fundo =
+            cores[
+                inteiro(
+                    0,
+                    cores.length - 1
+                )
+            ];
+
+
+        /*
+        URDUME
+        */
+
+        for (
+            let i = 0;
+            i < quantidade;
+            i++
+        ) {
+
+            const cor =
+                paleta[
+                    inteiro(
+                        0,
+                        paleta.length - 1
+                    )
+                ];
+
+
+            verticais.push({
+
+                posicao:
+                    i * espaco,
+
+                cor,
+
+                espessura:
+                    aleatorio(
+                        1.2,
+                        3.2
+                    ),
+
+                opacidade:
+                    aleatorio(
+                        0.72,
+                        1
+                    ),
+
+                variacao:
+                    aleatorio(
+                        -1.8,
+                        1.8
+                    )
+
+            });
+
+        }
+
+
+        /*
+        TRAMA
+        */
+
+        for (
+            let i = 0;
+            i < quantidade;
+            i++
+        ) {
+
+            const cor =
+                paleta[
+                    inteiro(
+                        0,
+                        paleta.length - 1
+                    )
+                ];
+
+
+            horizontais.push({
+
+                posicao:
+                    i * espaco,
+
+                cor,
+
+                espessura:
+                    aleatorio(
+                        1.2,
+                        3.2
+                    ),
+
+                opacidade:
+                    aleatorio(
+                        0.72,
+                        1
+                    ),
+
+                variacao:
+                    aleatorio(
+                        -1.8,
+                        1.8
+                    )
+
+            });
+
+        }
+
+
+        padrao = {
+
+            verticais,
+
+            horizontais,
+
+            fundo,
+
+            tamanho,
+
+            x,
+
+            y,
+
+            largura:
+                tecidoLargura,
+
+            altura:
+                tecidoAltura
+
+        };
+
+    }
+
+
+    /*
+    ==================================================
+    DESENHA TECIDO FINAL
+    ==================================================
+    */
+
+    function desenharPadraoFinal() {
+
+        ctx.clearRect(
+            0,
+            0,
+            largura,
+            altura
+        );
+
+
+        /*
+        FUNDO DA PÁGINA
+        */
+
+        ctx.fillStyle =
+            '#ffffff';
+
+
+        ctx.fillRect(
+            0,
+            0,
+            largura,
+            altura
+        );
+
+
+        const tecido =
+            padrao;
+
+
+        if (
+            !tecido.verticais.length
+        ) {
+
+            return;
+
+        }
+
+
+        const x =
+            tecido.x;
+
+
+        const y =
+            tecido.y;
+
+
+        const w =
+            tecido.largura;
+
+
+        const h =
+            tecido.altura;
+
+
+        /*
+        SOMBRA
+        */
+
+        ctx.fillStyle =
+            'rgba(17,17,17,.025)';
+
+
+        ctx.fillRect(
+            x + 4,
+            y + 4,
+            w,
+            h
+        );
+
+
+        /*
+        FUNDO DO TECIDO
+
+        É EXATAMENTE UM DOS TONS
+        DA PALETA DOS FIOS.
+        */
+
+        ctx.fillStyle =
+            tecido.fundo;
+
+
+        ctx.fillRect(
+            x,
+            y,
+            w,
+            h
+        );
+
+
+        /*
+        URDUME — VERTICAIS
+        */
+
+        tecido.verticais.forEach(
+            (fio, indice) => {
+
+                const px =
+                    x +
+                    fio.posicao;
+
+
+                ctx.save();
+
+
+                ctx.beginPath();
+
+
+                ctx.moveTo(
+                    px,
+                    y
+                );
+
+
+                ctx.bezierCurveTo(
+
+                    px +
+                    fio.variacao,
+
+                    y +
+                    h * 0.28,
+
+                    px -
+                    fio.variacao,
+
+                    y +
+                    h * 0.72,
+
+                    px +
+                    Math.sin(
+                        indice
+                    ) *
+                    0.8,
+
+                    y + h
+
+                );
+
+
+                ctx.strokeStyle =
+                    fio.cor;
+
+
+                ctx.globalAlpha =
+                    fio.opacidade;
+
+
+                ctx.lineWidth =
+                    fio.espessura;
+
+
+                ctx.lineCap =
+                    'round';
+
+
+                ctx.stroke();
+
+
+                ctx.restore();
+
+            }
+        );
+
+
+        /*
+        TRAMA — HORIZONTAIS
+        */
+
+        tecido.horizontais.forEach(
+            (fio, indice) => {
+
+                const py =
+                    y +
+                    fio.posicao;
+
+
+                ctx.save();
+
+
+                ctx.beginPath();
+
+
+                ctx.moveTo(
+                    x,
+                    py
+                );
+
+
+                ctx.bezierCurveTo(
+
+                    x +
+                    w * 0.28,
+
+                    py +
+                    fio.variacao,
+
+                    x +
+                    w * 0.72,
+
+                    py -
+                    fio.variacao,
+
+                    x + w,
+
+                    py +
+                    Math.sin(
+                        indice
+                    ) *
+                    0.8
+
+                );
+
+
+                ctx.strokeStyle =
+                    fio.cor;
+
+
+                ctx.globalAlpha =
+                    fio.opacidade;
+
+
+                ctx.lineWidth =
+                    fio.espessura;
+
+
+                ctx.lineCap =
+                    'round';
+
+
+                ctx.stroke();
+
+
+                ctx.restore();
+
+            }
+        );
+
+
+        /*
+        CRUZAMENTOS
+
+        Pequenas irregularidades dão à trama
+        uma aparência menos perfeitamente digital.
+        */
+
+        const cruzamentos =
+            tecido.verticais.length *
+            tecido.horizontais.length;
+
+
+        for (
+            let i = 0;
+            i < cruzamentos;
+            i++
+        ) {
+
+            if (
+                Math.random() >
+                0.42
+            ) {
+
+                continue;
+
+            }
+
+
+            const vertical =
+                tecido.verticais[
+                    inteiro(
+                        0,
+                        tecido.verticais.length - 1
+                    )
+                ];
+
+
+            const horizontal =
+                tecido.horizontais[
+                    inteiro(
+                        0,
+                        tecido.horizontais.length - 1
+                    )
+                ];
+
+
+            const px =
+                x +
+                vertical.posicao;
+
+
+            const py =
+                y +
+                horizontal.posicao;
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                px,
+                py,
+                aleatorio(
+                    0.6,
+                    1.5
+                ),
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+                Math.random() >
+                0.5
+                    ? vertical.cor
+                    : horizontal.cor;
+
+
+            ctx.globalAlpha =
+                0.65;
+
+
+            ctx.fill();
+
+        }
+
+
+        /*
+        BORDA
+        */
+
+        ctx.globalAlpha =
+            1;
+
+
+        ctx.strokeStyle =
+            'rgba(17,17,17,.14)';
+
+
+        ctx.lineWidth =
+            0.7;
+
+
+        ctx.strokeRect(
+            x,
+            y,
+            w,
+            h
+        );
+
+
+        /*
+        FRANJAS
+        */
+
+        for (
+            let i = 0;
+            i < 18;
+            i++
+        ) {
+
+            const fx =
+                x +
+                (w / 17) *
+                i;
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                fx,
+                y + h
+            );
+
+
+            ctx.quadraticCurveTo(
+
+                fx +
+                aleatorio(
+                    -3,
+                    3
+                ),
+
+                y +
+                h +
+                8,
+
+                fx +
+                aleatorio(
+                    -3,
+                    3
+                ),
+
+                y +
+                h +
+                aleatorio(
+                    12,
+                    20
+                )
+
+            );
+
+
+            ctx.strokeStyle =
+                cores[
+                    inteiro(
+                        0,
+                        cores.length - 1
+                    )
+                ];
+
+
+            ctx.globalAlpha =
+                0.55;
+
+
+            ctx.lineWidth =
+                aleatorio(
+                    0.5,
+                    1.2
+                );
+
+
+            ctx.stroke();
+
+        }
+
+
+        ctx.globalAlpha =
+            1;
+
+    }
+
+
+    /*
+    ==================================================
+    VERIFICA COLETA
+    ==================================================
+    */
+
+    function verificarColeta() {
+
+        if (
+            !mouse.ativo ||
+            terminou
+        ) {
+
+            return;
+
+        }
+
+
+        const tempoAtual =
+            performance.now() /
+            1000;
+
+
+        fibras.forEach(
+            fibra => {
+
+                if (
+                    fibra.coletado
+                ) {
+
+                    return;
+
+                }
+
+
+                const pos =
+                    posicaoFibra(
+                        fibra,
+                        tempoAtual
+                    );
+
+
+                const dx =
+                    mouse.x -
+                    pos.x;
+
+
+                const dy =
+                    mouse.y -
+                    pos.y;
+
+
+                const distancia =
+                    Math.sqrt(
+                        dx * dx +
+                        dy * dy
+                    );
+
+
+                const raio =
+                    Math.max(
+                        20,
+                        fibra.comprimento *
+                        0.22
+                    );
+
+
+                if (
+                    distancia <
+                    raio
+                ) {
+
+                    fibra.coletado =
+                        true;
+
+
+                    coletados++;
+
+
+                    pontosEl.textContent =
+                        coletados;
+
+
+                    /*
+                    CADA FIO PRODUZ UMA NOVA
+                    NOTA DA MELODIA.
+                    */
+
+                    somFio(
+                        coletados - 1
+                    );
+
+
+                    if (
+                        coletados >=
+                        TOTAL
+                    ) {
+
+                        finalizar(
+                            true
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /*
+    ==================================================
+    INICIA JOGO
+    ==================================================
+    */
 
     function iniciar() {
 
         iniciarAudio();
 
-        cursorNativo();
+
+        coletados =
+            0;
 
 
-        jogando =
+        tempo =
+            TEMPO_TOTAL;
+
+
+        iniciado =
             true;
+
 
         terminou =
             false;
 
 
-        pontos =
-            0;
+        venceu =
+            false;
 
 
         pontosEl.textContent =
             '0';
 
 
-        tempoJogo =
-            0;
+        tempoEl.textContent =
+            TEMPO_TOTAL;
 
 
-        velocidade =
-            VELOCIDADE_INICIAL;
+        mensagem.classList.remove(
+            'visivel'
+        );
 
 
-        camisetaVestida =
-            false;
-
-        saiaVestida =
-            false;
-
-        boneVestido =
-            false;
+        criarFibras();
 
 
-        vidas =
-            0;
-
-
-        profundezas =
-            false;
-
-        iniciandoProfundezas =
-            false;
-
-        inicioTransicaoProfundezas =
-            0;
-
-
-        ultimoMarcoTrovao =
-            0;
-
-
-        invertidoAte =
-            0;
-
-
-        relampagos =
-            [];
-
-
-        nessie.x =
-            150;
-
-
-        nessie.y =
-            altura * 0.25;
-
-
-        nessie.velocidadeY =
-            0;
-
-
-        ultimoNivelAgua =
-            nessie.y >
-            altura * ALTURA_AGUA;
-
-
-        criarObstaculos();
-
-
-        if (botao) {
-
-            botao.style.display =
-                'none';
-        }
-
-
-        if (mensagem) {
-
-            mensagem.classList.remove(
-                'visivel'
-            );
-        }
-
-
-        tempoUltimo =
+        ultimoTempo =
             performance.now();
+
     }
 
 
-    /* ==================================================
-       FIM
-    ================================================== */
+    /*
+    ==================================================
+    FINALIZA
+    ==================================================
+    */
 
-    function fim() {
-
-        if (
-            terminou
-        ) return;
-
-
-        jogando =
-            false;
+    function finalizar(
+        vitoria
+    ) {
 
         terminou =
             true;
 
 
-        iniciarAudio();
-
-        somColisao();
-
-
-        const novoRecorde =
-            pontos > recorde;
+        iniciado =
+            false;
 
 
         if (
-            novoRecorde
+            vitoria
         ) {
 
-            recorde =
-                pontos;
+            venceu =
+                true;
 
 
-            localStorage.setItem(
-                'jogo2-recorde',
-                recorde
+            /*
+            PEQUENO RESPIRO ANTES DO DESFECHO
+            */
+
+            setTimeout(
+                () => {
+
+                    somVitoria();
+
+                },
+                250
             );
 
 
-            somRecorde();
+            criarPadrao();
 
 
-            if (mensagemTexto) {
+            mensagemTexto.innerHTML =
+                'o têxtil está pronto.<br>' +
+                'você construiu a trama.';
 
-                mensagemTexto.innerHTML =
-                    'você bateu o recorde.<br>' +
-                    'o lago ainda é seu.';
-            }
-
-        } else {
-
-            if (mensagemTexto) {
-
-                mensagemTexto.innerHTML =
-                    'o monstro bateu.<br>' +
-                    'cabides devorados: ' +
-                    pontos;
-            }
         }
 
 
-        if (recordeEl) {
+        else {
 
-            recordeEl.textContent =
-                'recorde ' +
-                recorde;
+            mensagemTexto.innerHTML =
+                'o tempo acabou.<br>' +
+                'a trama ficou incompleta.';
+
         }
 
 
-        if (mensagem) {
+        mensagem.classList.add(
+            'visivel'
+        );
 
-            mensagem.classList.add(
-                'visivel'
-            );
-        }
     }
 
 
-    /* ==================================================
-       LOOP
-    ================================================== */
+    /*
+    ==================================================
+    ATUALIZA TEMPO
+    ==================================================
+    */
+
+    function atualizarTempo(
+        agora
+    ) {
+
+        if (
+            !iniciado ||
+            terminou
+        ) {
+
+            ultimoTempo =
+                agora;
+
+            return;
+
+        }
+
+
+        const delta =
+            (
+                agora -
+                ultimoTempo
+            ) / 1000;
+
+
+        ultimoTempo =
+            agora;
+
+
+        tempo -=
+            delta;
+
+
+        if (
+            tempo <= 0
+        ) {
+
+            tempo =
+                0;
+
+
+            tempoEl.textContent =
+                '0';
+
+
+            finalizar(
+                false
+            );
+
+
+            return;
+
+        }
+
+
+        tempoEl.textContent =
+            Math.ceil(
+                tempo
+            );
+
+    }
+
+
+    /*
+    ==================================================
+    DESENHA
+    ==================================================
+    */
+
+    function desenhar(
+        tempoAtual
+    ) {
+
+        if (
+            venceu
+        ) {
+
+            desenharPadraoFinal();
+
+            return;
+
+        }
+
+
+        desenharGrade();
+
+
+        fibras.forEach(
+            fibra => {
+
+                desenharFibra(
+                    fibra,
+                    tempoAtual
+                );
+
+            }
+        );
+
+
+        /*
+        MARCADOR DISCRETO
+        */
+
+        if (
+            mouse.ativo &&
+            !terminou
+        ) {
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                mouse.x,
+                mouse.y,
+                12,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.strokeStyle =
+                'rgba(17,17,17,.16)';
+
+
+            ctx.lineWidth =
+                0.7;
+
+
+            ctx.stroke();
+
+        }
+
+    }
+
+
+    /*
+    ==================================================
+    LOOP
+    ==================================================
+    */
 
     function animar(
         agora
     ) {
 
-        const delta =
-            Math.min(
-                0.033,
-                (
-                    agora -
-                    tempoUltimo
-                ) / 1000
-            );
+        const tempoAtual =
+            agora / 1000;
 
 
-        tempoUltimo =
-            agora;
-
-
-        atualizarAmbiente(
+        atualizarTempo(
             agora
         );
 
 
-        if (
-            jogando
-        ) {
-
-            tempoJogo +=
-                delta;
-
-
-            atualizarNessie();
-
-            moverMundo();
-
-            coletarCabides();
-
-            verificarMarcos();
-
-            atualizarDificuldade();
-
-
-            if (
-                colisaoPedra()
-            ) {
-
-                fim();
-            }
-        }
+        verificarColeta();
 
 
         desenhar(
-            agora
+            tempoAtual
         );
 
 
         requestAnimationFrame(
             animar
         );
+
     }
 
 
-    /* ==================================================
-       MOUSE
-    ================================================== */
+    /*
+    ==================================================
+    MOUSE
+    ==================================================
+    */
 
     area.addEventListener(
         'mousemove',
@@ -3365,25 +2283,19 @@
                 area.getBoundingClientRect();
 
 
-            mouseY =
+            mouse.x =
+                event.clientX -
+                rect.left;
+
+
+            mouse.y =
                 event.clientY -
                 rect.top;
 
 
-            mouseAtivo =
+            mouse.ativo =
                 true;
-        }
-    );
 
-
-    area.addEventListener(
-        'mouseenter',
-        () => {
-
-            cursorNativo();
-
-            mouseAtivo =
-                true;
         }
     );
 
@@ -3392,92 +2304,102 @@
         'mouseleave',
         () => {
 
-            cursorSiteNormal();
-
-            mouseAtivo =
+            mouse.ativo =
                 false;
+
         }
     );
 
 
-    /* ==================================================
-       CLIQUE
-    ================================================== */
-
-    area.addEventListener(
-        'click',
-        event => {
-
-            event.preventDefault();
-
-            iniciarAudio();
-
-
-            if (
-                !jogando
-            ) {
-
-                iniciar();
-            }
-        }
-    );
-
-
-    /* ==================================================
-       REDIMENSIONAMENTO
-    ================================================== */
+    /*
+    ==================================================
+    REDIMENSIONAMENTO
+    ==================================================
+    */
 
     window.addEventListener(
         'resize',
         () => {
 
             tamanhoCanvas();
+
+
+            if (
+                !terminou
+            ) {
+
+                criarFibras();
+
+            }
+
+
+            else if (
+                venceu
+            ) {
+
+                criarPadrao();
+
+            }
+
         }
     );
 
 
-    /* ==================================================
-       INICIALIZAÇÃO
-    ================================================== */
+    /*
+    ==================================================
+    BOTÃO REINICIAR
+    ==================================================
+    */
+
+    reiniciar.addEventListener(
+        'click',
+        event => {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+
+            iniciar();
+
+        }
+    );
+
+
+    /*
+    ==================================================
+    TECLA R
+    ==================================================
+    */
+
+    document.addEventListener(
+        'keydown',
+        event => {
+
+            if (
+                event.key.toLowerCase() ===
+                'r'
+            ) {
+
+                iniciar();
+
+            }
+
+        }
+    );
+
+
+    /*
+    ==================================================
+    INICIALIZAÇÃO
+    ==================================================
+    */
 
     tamanhoCanvas();
 
+    criarFibras();
 
-    if (recordeEl) {
-
-        recordeEl.textContent =
-            'recorde ' +
-            recorde;
-    }
-
-
-    if (mensagem) {
-
-        mensagem.classList.add(
-            'visivel'
-        );
-    }
-
-
-    if (botao) {
-
-        botao.style.display =
-            'none';
-    }
-
-
-    jogando =
-        false;
-
-    terminou =
-        false;
-
-
-    tempoUltimo =
-        performance.now();
-
-
-    cursorSiteNormal();
+    iniciar();
 
 
     requestAnimationFrame(

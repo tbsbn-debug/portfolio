@@ -8,6 +8,7 @@
     const recordeEl = document.getElementById('jogo2Recorde');
     const mensagem = document.getElementById('jogo2Mensagem');
     const mensagemTexto = document.getElementById('jogo2MensagemTexto');
+    const botao = document.getElementById('jogo2Botao');
 
 
     /* ==================================================
@@ -537,12 +538,12 @@
 
 
         ganho.gain.setValueAtTime(
-            0.0011,
+            0.0001,
             agora
         );
 
         ganho.gain.exponentialRampToValueAtTime(
-            0.70,
+            0.35,
             agora + 0.035
         );
 
@@ -570,7 +571,7 @@
             48,
             1.4,
             'sine',
-            0.20
+            0.11
         );
     }
 
@@ -1086,26 +1087,27 @@
             ctx.fillStyle =
                 '#f4df83';
 
+
             ctx.beginPath();
 
             ctx.moveTo(
-                -12,
+                5,
                 8
             );
 
             ctx.lineTo(
-                20,
+                30,
                 8
             );
 
             ctx.lineTo(
-                27,
-                18
+                39,
+                29
             );
 
             ctx.lineTo(
-                -19,
-                18
+                -4,
+                29
             );
 
             ctx.closePath();
@@ -1122,13 +1124,13 @@
             ctx.beginPath();
 
             ctx.moveTo(
-                -19,
-                18
+                -4,
+                29
             );
 
             ctx.lineTo(
-                27,
-                18
+                39,
+                29
             );
 
             ctx.stroke();
@@ -1146,26 +1148,33 @@
             ctx.fillStyle =
                 '#c92922';
 
-                       ctx.beginPath();
+
+            /*
+            O boné é propositalmente
+            colocado no corpo, como
+            um pequeno acessório têxtil.
+            */
+
+            ctx.beginPath();
 
             ctx.moveTo(
-                25,
-                -48
+                27,
+                -21
             );
 
             ctx.lineTo(
-                46,
-                -48
+                47,
+                -21
             );
 
             ctx.lineTo(
                 53,
-                -42
+                -13
             );
 
             ctx.lineTo(
-                29,
-                -42
+                30,
+                -13
             );
 
             ctx.closePath();
@@ -1174,8 +1183,8 @@
 
 
             ctx.fillRect(
-                30,
-                -54,
+                31,
+                -27,
                 13,
                 7
             );
@@ -1974,35 +1983,12 @@
                     }
 
 
-                    somCabideEspecial();
+                    somCabide();
                 }
 
 
                 pontosEl.textContent =
                     pontos;
-
-                                    if (
-                        cabide.tipo ===
-                        'saia'
-                    ) {
-
-                        saiaVestida =
-                            true;
-
-                        pontos += 5;
-                    }
-
-
-                    if (
-                        cabide.tipo ===
-                        'bone'
-                    ) {
-
-                        boneVestido =
-                            true;
-
-                        pontos += 5;
-                    }
             }
         }
     }
@@ -2146,7 +2132,6 @@
 
     function verificarTrovão() {
 
-
         /*
         Trovão a cada 100 cabides,
         mas apenas uma vez por marco.
@@ -2156,15 +2141,6 @@
         antes do próximo marco.
         */
 
-        if (
-            profundezas ||
-            iniciandoProfundezas
-        ) return;
-
-        const marco =
-            Math.floor(
-                pontos / 100
-            ) * 100;
         const marco =
             Math.floor(
                 pontos / 100
@@ -2771,23 +2747,17 @@
                 );
 
 
-            /*
-            o topo da água sobe
-            progressivamente pela tela
-            */
-
             const nivelAgua =
                 altura *
                 (
-                    1 -
+                    ALTURA_AGUA +
+                    (
+                        1 -
+                        ALTURA_AGUA
+                    ) *
                     progresso
                 );
 
-
-            /*
-            o fundo vai escurecendo
-            junto com a subida da água
-            */
 
             const escurecimento =
                 progresso *
@@ -2818,8 +2788,7 @@
                     fundo[2] *
                     (
                         1 -
-                        escurecimento *
-                        0.65
+                        escurecimento * 0.65
                     )
                 ]);
 
@@ -2828,14 +2797,9 @@
                 0,
                 0,
                 largura,
-                altura
+                nivelAgua
             );
 
-
-            /*
-            as próprias ondas coloridas
-            sobem junto com a água
-            */
 
             desenharAgua(
                 tempo,
@@ -2843,11 +2807,6 @@
                 escurecimento
             );
 
-
-            /*
-            mantém o céu acima da água
-            visível enquanto a transição acontece
-            */
 
             ctx.fillStyle =
                 rgb([
@@ -2866,30 +2825,12 @@
                     fundo[2] *
                     (
                         1 -
-                        escurecimento *
-                        0.65
+                        escurecimento * 0.65
                     )
                 ]);
 
+
             ctx.fillRect(
-                0,
-                0,
-                largura,
-                nivelAgua
-            );
-
-
-            /*
-            quando a água sobe,
-            desenharAgua continua ocupando
-            progressivamente a área inferior
-            */
-
-            ctx.save();
-
-            ctx.beginPath();
-
-            ctx.rect(
                 0,
                 nivelAgua,
                 largura,
@@ -2897,15 +2838,31 @@
                 nivelAgua
             );
 
-            ctx.clip();
 
-            desenharAgua(
-                tempo,
+            /*
+            A água vai tomando a tela.
+            */
+
+            ctx.fillStyle =
+                rgb([
+                    65 -
+                    progresso * 25,
+
+                    95 -
+                    progresso * 35,
+
+                    145 -
+                    progresso * 50
+                ]);
+
+
+            ctx.fillRect(
+                0,
                 nivelAgua,
-                escurecimento
+                largura,
+                altura -
+                nivelAgua
             );
-
-            ctx.restore();
 
 
             return;
@@ -3230,6 +3187,13 @@
         criarObstaculos();
 
 
+        if (botao) {
+
+            botao.style.display =
+                'none';
+        }
+
+
         if (mensagem) {
 
             mensagem.classList.remove(
@@ -3492,6 +3456,13 @@
         mensagem.classList.add(
             'visivel'
         );
+    }
+
+
+    if (botao) {
+
+        botao.style.display =
+            'none';
     }
 
 

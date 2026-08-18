@@ -474,7 +474,7 @@
             audioContext.currentTime;
 
         const duracao =
-            1.8;
+            3.8;
 
 
         const buffer =
@@ -534,11 +534,11 @@
             'lowpass';
 
         filtro.frequency.value =
-            180;
+            280;
 
 
         ganho.gain.setValueAtTime(
-            0.0001,
+            0.0011,
             agora
         );
 
@@ -571,7 +571,7 @@
             48,
             1.4,
             'sine',
-            0.20
+            0.15
         );
     }
 
@@ -1080,60 +1080,73 @@
            SAIA AMARELO-CLARA
         ================================================== */
 
-        if (
-            saiaVestida
-        ) {
+if (
+    saiaVestida
+) {
 
-              ctx.fillStyle =
-                '#f4df83';
+    ctx.save();
 
-            ctx.beginPath();
+    ctx.translate(
+        -28,
+        0
+    );
 
-            ctx.moveTo(
-                -12,
-                8
-            );
+    ctx.rotate(
+        Math.PI / 2
+    );
 
-            ctx.lineTo(
-                20,
-                8
-            );
+    ctx.fillStyle =
+        '#f4df83';
 
-            ctx.lineTo(
-                27,
-                18
-            );
+    ctx.beginPath();
 
-            ctx.lineTo(
-                -19,
-                18
-            );
+    ctx.moveTo(
+        -12,
+        8
+    );
 
-            ctx.closePath();
+    ctx.lineTo(
+        20,
+        8
+    );
 
-            ctx.fill();
+    ctx.lineTo(
+        27,
+        18
+    );
+
+    ctx.lineTo(
+        -19,
+        18
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
 
 
-            ctx.strokeStyle =
-                '#ddc663';
+    ctx.strokeStyle =
+        '#ddc663';
 
-            ctx.lineWidth =
-                2;
+    ctx.lineWidth =
+        2;
 
-            ctx.beginPath();
+    ctx.beginPath();
 
-            ctx.moveTo(
-                -19,
-                18
-            );
+    ctx.moveTo(
+        -19,
+        18
+    );
 
-            ctx.lineTo(
-                27,
-                18
-            );
+    ctx.lineTo(
+        27,
+        18
+    );
 
-            ctx.stroke();
-        }
+    ctx.stroke();
+
+    ctx.restore();
+}
 
 
         /* ==================================================
@@ -1791,30 +1804,6 @@
                 y
             );
         }
-                            if (
-                        cabide.tipo ===
-                        'saia'
-                    ) {
-
-                        saiaVestida =
-                            true;
-
-                        pontos += 4;
-                    }
-
-
-                    if (
-                        cabide.tipo ===
-                        'bone'
-                    ) {
-
-                        boneVestido =
-                            true;
-
-                        pontos += 4;
-                    }
-    }
-
 
     /* ==================================================
        COLISÃO
@@ -1979,33 +1968,41 @@
 
                     somCabideEspecial();
 
-                } else {
+} else {
 
-                    pontos += 1;
+    if (
+        cabide.tipo ===
+        'saia'
+    ) {
 
-                    if (
-                        cabide.tipo ===
-                        'saia'
-                    ) {
+        saiaVestida =
+            true;
 
-                        saiaVestida =
-                            true;
+        pontos += 5;
 
-                    }
+          somCabideEspecial()
 
+    } else if (
+        cabide.tipo ===
+        'bone'
+    ) {
 
-                    if (
-                        cabide.tipo ===
-                        'bone'
-                    ) {
+        boneVestido =
+            true;
 
-                        boneVestido =
-                            true;
-                    }
+        pontos += 5;
 
+          somCabideEspecial()
 
-                    somCabide();
-                }
+    } else {
+
+        pontos += 1;
+
+        
+    somCabide();
+
+    }
+}
 
 
                 pontosEl.textContent =

@@ -1805,6 +1805,8 @@ if (
             );
         }
 
+        }
+
     /* ==================================================
        COLISÃO
     ================================================== */
@@ -2211,11 +2213,6 @@ if (
 
         somGlub();
     }
-
-    atualizarNessie();
-moverMundo();
-coletarCabides();
-atualizarDificuldade();
 
     function atualizarProfundezas() {
 

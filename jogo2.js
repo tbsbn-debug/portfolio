@@ -2210,11 +2210,15 @@
 
         inicioTransicaoProfundezas =
             performance.now();
-
+        
 
         somGlub();
     }
 
+    atualizarNessie();
+moverMundo();
+coletarCabides();
+atualizarDificuldade();
 
     function atualizarProfundezas() {
 
@@ -2249,7 +2253,6 @@
                 true;
         }
     }
-
 
     /* ==================================================
        MARCOS
@@ -2768,17 +2771,23 @@
                 );
 
 
+            /*
+            o topo da água sobe
+            progressivamente pela tela
+            */
+
             const nivelAgua =
                 altura *
                 (
-                    ALTURA_AGUA +
-                    (
-                        1 -
-                        ALTURA_AGUA
-                    ) *
+                    1 -
                     progresso
                 );
 
+
+            /*
+            o fundo vai escurecendo
+            junto com a subida da água
+            */
 
             const escurecimento =
                 progresso *
@@ -2809,7 +2818,8 @@
                     fundo[2] *
                     (
                         1 -
-                        escurecimento * 0.65
+                        escurecimento *
+                        0.65
                     )
                 ]);
 
@@ -2818,9 +2828,14 @@
                 0,
                 0,
                 largura,
-                nivelAgua
+                altura
             );
 
+
+            /*
+            as próprias ondas coloridas
+            sobem junto com a água
+            */
 
             desenharAgua(
                 tempo,
@@ -2828,6 +2843,11 @@
                 escurecimento
             );
 
+
+            /*
+            mantém o céu acima da água
+            visível enquanto a transição acontece
+            */
 
             ctx.fillStyle =
                 rgb([
@@ -2846,44 +2866,46 @@
                     fundo[2] *
                     (
                         1 -
-                        escurecimento * 0.65
+                        escurecimento *
+                        0.65
                     )
                 ]);
 
-
             ctx.fillRect(
                 0,
-                nivelAgua,
+                0,
                 largura,
-                altura -
                 nivelAgua
             );
 
 
             /*
-            A água vai tomando a tela.
+            quando a água sobe,
+            desenharAgua continua ocupando
+            progressivamente a área inferior
             */
 
-            ctx.fillStyle =
-                rgb([
-                    65 -
-                    progresso * 25,
+            ctx.save();
 
-                    95 -
-                    progresso * 35,
+            ctx.beginPath();
 
-                    145 -
-                    progresso * 50
-                ]);
-
-
-            ctx.fillRect(
+            ctx.rect(
                 0,
                 nivelAgua,
                 largura,
                 altura -
                 nivelAgua
             );
+
+            ctx.clip();
+
+            desenharAgua(
+                tempo,
+                nivelAgua,
+                escurecimento
+            );
+
+            ctx.restore();
 
 
             return;

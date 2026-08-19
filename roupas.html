@@ -15,8 +15,6 @@
 
 <body class="pagina-roupas">
 
-<div class="cursor"></div>
-
 
 <header>
 
@@ -268,56 +266,6 @@
 
 
 </main>
-
-        <script>
-
-        window.addEventListener('mousemove', function(event) {
-
-            const cursor = document.querySelector('.cursor');
-
-            cursor.style.left = event.clientX + 'px';
-            cursor.style.top = event.clientY + 'px';
-
-
-            const elemento = event.target.closest(
-                'a, button, [role="button"]'
-            );
-
-
-            if (elemento) {
-
-                cursor.classList.add('clicavel');
-
-            } else {
-
-                cursor.classList.remove('clicavel');
-
-            }
-
-
-            if (!elemento) {
-
-                const rastro = document.createElement('div');
-
-                rastro.classList.add('cursor-rastro');
-
-                rastro.style.left = event.clientX + 'px';
-                rastro.style.top = event.clientY + 'px';
-
-                document.body.appendChild(rastro);
-
-
-                setTimeout(function() {
-
-                    rastro.remove();
-
-                }, 1000);
-
-            }
-
-        });
-
-    </script>
 
 </body>
 

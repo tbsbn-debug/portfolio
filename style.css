@@ -2004,7 +2004,7 @@ main.catalogo-roupas {
     margin-bottom: 80px;
     margin-left: auto;
 
-    padding-top: 0 !important;
+    padding-top: 3opx !important;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);

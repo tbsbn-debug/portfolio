@@ -1995,3 +1995,20 @@ LIGHTBOX
     }
 
 }
+
+main.catalogo-roupas {
+    width: calc(100% - 80px);
+
+    margin-top: 0 !important;
+    margin-right: auto;
+    margin-bottom: 80px;
+    margin-left: auto;
+
+    padding-top: 0 !important;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    column-gap: 28px;
+    row-gap: 70px;
+}

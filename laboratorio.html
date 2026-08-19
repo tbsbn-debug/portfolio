@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>laboratorio - opus</title>
+
+<link rel="stylesheet" href="style.css?v=2">
+
+</head>
+
+
+<body>
+
+    <div class="cursor"></div>
+
+
+    <header class="cabecalho-projetos">
+
+
+        <a href="index.html" class="logo-projetos">
+
+            <img
+                src="imagens/simbolo-opus.png"
+                alt="opus"
+            >
+
+        </a>
+  <nav class="menu-principal">
+
+            <a href="roupas.html">roupas</a>
+
+          <div class="menu-projetos">
+
+    <a href="projetos.html" class="projetos-link">
+        projetos
+    </a>
+
+    <div class="subcategorias">
+                    <a href="editorial-de-moda.html">editorial de moda</a>
+                    <a href="design-grafico.html">design gráfico</a>
+                    <a href="objetos.html">objetos</a>
+                    <a href="texteis.html">têxteis</a>
+                    <a href="etc.html">etc.</a>
+
+                </div>
+
+            </div>
+
+            <a href="textos.html">textos</a>
+            <a href="pesquisa.html">pesquisa</a>
+            <a href="sobre.html">sobre</a>
+            <a href="contato.html">contato</a>
+
+        </nav>
+
+
+        <nav class="subcategorias-projetos">
+
+            <a href="editorial-de-moda.html">
+                editorial de moda
+            </a>
+
+            <a href="design-grafico.html">
+                design gráfico
+            </a>
+
+            <a href="objetos.html">
+                objetos
+            </a>
+
+            <a href="texteis.html">
+                têxteis
+            </a>
+
+            <a href="etc.html">
+                etc.
+            </a>
+
+        </nav>
+
+
+    </header>
+
+  <main>
+
+     <section class="laboratorio-titulo">
+
+            <h1>LAB</h1>
+
+<div class="texto-contato">
+
+<p class="abertura-lab">
+    opus laboratório.
+</p>
+
+  </div>
+
+</main>
+
+<script>
+
+    window.addEventListener('mousemove', function(event) {
+
+        const cursor = document.querySelector('.cursor');
+
+        cursor.style.left = event.clientX + 'px';
+        cursor.style.top = event.clientY + 'px';
+
+
+        const elemento = event.target.closest(
+            'a, button, [role="button"]'
+        );
+
+
+        if (elemento) {
+
+            cursor.classList.add('clicavel');
+
+        } else {
+
+            cursor.classList.remove('clicavel');
+
+        }
+
+
+        if (!elemento) {
+
+            const rastro = document.createElement('div');
+
+            rastro.classList.add('cursor-rastro');
+
+            rastro.style.left = event.clientX + 'px';
+            rastro.style.top = event.clientY + 'px';
+
+            document.body.appendChild(rastro);
+
+
+            setTimeout(function() {
+
+                rastro.remove();
+
+            }, 1000);
+
+        }
+
+    });
+
+</script>
+
+</body>
+
+</html>

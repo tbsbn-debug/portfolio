@@ -1908,7 +1908,7 @@ main.catalogo-roupas {
 .produto-imagem {
     display: block;
     width: 100%;
-    height: 520px;
+    
     overflow: hidden;
 }
 
@@ -1916,7 +1916,7 @@ main.catalogo-roupas {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    
 }
 
 

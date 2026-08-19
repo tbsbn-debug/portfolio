@@ -1879,3 +1879,120 @@ LIGHTBOX
 .lightbox {
     z-index: 9999;
 }
+
+/* ==================================================
+   roupas — catálogo
+   ================================================== */
+
+.catalogo-roupas {
+    width: calc(100% - 80px);
+    margin: 140px auto 80px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    column-gap: 28px;
+    row-gap: 70px;
+}
+
+
+/* produto */
+
+.produto-roupa {
+    min-width: 0;
+}
+
+
+/* imagem */
+
+.produto-imagem {
+    display: block;
+
+    width: 100%;
+    height: 520px;
+
+    overflow: hidden;
+}
+
+
+.produto-imagem img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+
+/* informações */
+
+.produto-informacoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    margin-top: 10px;
+
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+
+.produto-informacoes a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+.produto-informacoes span {
+    color: inherit;
+}
+
+
+/* ==================================================
+   responsividade
+   ================================================== */
+
+@media (max-width: 900px) {
+
+    .catalogo-roupas {
+        width: calc(100% - 40px);
+
+        grid-template-columns: repeat(2, 1fr);
+
+        column-gap: 20px;
+        row-gap: 50px;
+    }
+
+
+    .produto-imagem {
+        height: 420px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .catalogo-roupas {
+        width: calc(100% - 30px);
+
+        grid-template-columns: 1fr;
+
+        row-gap: 50px;
+    }
+
+
+    .produto-imagem {
+        height: auto;
+    }
+
+
+    .produto-imagem img {
+        height: auto;
+        object-fit: initial;
+    }
+
+}

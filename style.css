@@ -1995,3 +1995,23 @@ main.catalogo-roupas {
     }
 
 }
+
+.produto-imagem {
+    display: block;
+    width: 100%;
+    isolation: isolate;
+    position: relative;
+    z-index: 1;
+}
+
+.produto-imagem img {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.cursor {
+    z-index: 99999 !important;
+}

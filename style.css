@@ -2015,3 +2015,14 @@ main.catalogo-roupas {
 .cursor {
     z-index: 99999 !important;
 }
+
+/* cursor nativo em roupas */
+
+.pagina-roupas,
+.pagina-roupas * {
+    cursor: auto !important;
+}
+
+.pagina-roupas .cursor {
+    display: none !important;
+}

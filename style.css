@@ -1884,9 +1884,9 @@ LIGHTBOX
    roupas — catálogo
    ================================================== */
 
-.catalogo-roupas {
+main.catalogo-roupas {
     width: calc(100% - 80px);
-    margin: 0 auto 80px;
+    margin: 40px auto 80px;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1894,6 +1894,7 @@ LIGHTBOX
     column-gap: 28px;
     row-gap: 70px;
 }
+
 
 /* produto */
 
@@ -1906,20 +1907,15 @@ LIGHTBOX
 
 .produto-imagem {
     display: block;
-
     width: 100%;
     height: 520px;
-
     overflow: hidden;
 }
 
-
 .produto-imagem img {
     display: block;
-
     width: 100%;
     height: 100%;
-
     object-fit: contain;
 }
 
@@ -1938,15 +1934,22 @@ LIGHTBOX
     line-height: 1.2;
 }
 
-
 .produto-informacoes a {
     color: inherit;
     text-decoration: none;
 }
 
-
 .produto-informacoes span {
     color: inherit;
+}
+
+
+/* ==================================================
+   roupas — cabeçalho
+   ================================================== */
+
+.pagina-roupas header {
+    min-height: auto;
 }
 
 
@@ -1956,7 +1959,7 @@ LIGHTBOX
 
 @media (max-width: 900px) {
 
-    .catalogo-roupas {
+    main.catalogo-roupas {
         width: calc(100% - 40px);
 
         grid-template-columns: repeat(2, 1fr);
@@ -1964,7 +1967,6 @@ LIGHTBOX
         column-gap: 20px;
         row-gap: 50px;
     }
-
 
     .produto-imagem {
         height: 420px;
@@ -1975,7 +1977,7 @@ LIGHTBOX
 
 @media (max-width: 600px) {
 
-    .catalogo-roupas {
+    main.catalogo-roupas {
         width: calc(100% - 30px);
 
         grid-template-columns: 1fr;
@@ -1983,38 +1985,13 @@ LIGHTBOX
         row-gap: 50px;
     }
 
-
     .produto-imagem {
         height: auto;
     }
-
 
     .produto-imagem img {
         height: auto;
         object-fit: initial;
     }
 
-}
-
-main.catalogo-roupas {
-    width: calc(100% - 80px);
-
-    margin-top: 50px !important;
-    margin-right: auto;
-    margin-bottom: 80px;
-    margin-left: auto;
-
-    padding-top: 3opx !important;
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-
-    column-gap: 28px;
-    row-gap: 70px;
-}
-
-/* roupas — cabeçalho */
-
-.pagina-roupas header {
-    min-height: auto;
 }

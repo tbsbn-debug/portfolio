@@ -2012,3 +2012,9 @@ main.catalogo-roupas {
     column-gap: 28px;
     row-gap: 70px;
 }
+
+/* roupas — cabeçalho */
+
+.pagina-roupas header {
+    min-height: auto;
+}

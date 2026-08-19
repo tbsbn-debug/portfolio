@@ -2026,3 +2026,28 @@ main.catalogo-roupas {
 .pagina-roupas .cursor {
     display: none !important;
 }
+
+
+
+main.catalogo-roupas {
+    display: block !important;
+}
+
+.produto-roupa {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.produto-imagem {
+    display: block;
+    width: 100%;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.produto-imagem img {
+    display: block;
+    width: 100%;
+    height: auto !important;
+    object-fit: initial !important;
+}

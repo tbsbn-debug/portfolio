@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
 
@@ -8,7 +8,7 @@
 
     <title>roupas — opus</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?=v2">
 
 </head>
 
@@ -116,7 +116,7 @@
         <div class="produto-informacoes">
 
             <a href="roupa-op1-no1.html">
-                calça op.1 no.1
+                <b>calça op.1 no.1</b>
             </a>
 
             <span>
@@ -144,7 +144,7 @@
         <div class="produto-informacoes">
 
             <a href="roupa-op1-no2.html">
-                camiseta op.1 no.2
+                <b>camiseta op.1 no.2</b>
             </a>
 
             <span>
@@ -172,7 +172,7 @@
         <div class="produto-informacoes">
 
             <a href="roupa-op1-no4.html">
-                camisa op.1 no.4
+                <b>camisa op.1 no.4</b>
             </a>
 
             <span>
@@ -200,7 +200,7 @@
         <div class="produto-informacoes">
 
             <a href="roupa-op1-no5.html">
-                bermuda op.1 no.5
+                <b>bermuda op.1 no.5</b>
             </a>
 
             <span>
@@ -228,7 +228,7 @@
         <div class="produto-informacoes">
 
             <a href="roupa-op1-no6.html">
-                colete op.1 no.6
+                <b>colete op.1 no.6</b>
             </a>
 
             <span>
@@ -256,7 +256,7 @@
         <div class="produto-informacoes">
 
             <a href="roupa-op1-no8.html">
-                camiseta op.1 no.8
+                <b>camiseta op.1 no.8</b>
             </a>
 
             <span>
@@ -270,6 +270,55 @@
 
 </main>
 
+        <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            cursor.style.left = event.clientX + 'px';
+            cursor.style.top = event.clientY + 'px';
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (elemento) {
+
+                cursor.classList.add('clicavel');
+
+            } else {
+
+                cursor.classList.remove('clicavel');
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
 
 </body>
 

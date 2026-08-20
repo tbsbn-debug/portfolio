@@ -1886,7 +1886,7 @@ LIGHTBOX
 
 main.catalogo-roupas {
     width: calc(100% - 80px);
-    margin: 30px auto 80px;
+    margin: 120px auto 80px;
 
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));

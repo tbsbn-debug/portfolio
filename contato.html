@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>opus</title>
+    <title>contato –– opus</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -167,8 +167,9 @@
 
     </div>
 
-    <img
+<img
     src="imagens/contato.gif"
+    class="gif-contato"
     alt=""
     style="
         position: fixed;
@@ -234,6 +235,25 @@
 
     </script>
 
+    <script>
+    const gifContato = document.querySelector('.gif-contato');
+
+    function reiniciarGif() {
+        const src = gifContato.src;
+
+        gifContato.src = '';
+
+        requestAnimationFrame(() => {
+            gifContato.src = src;
+        });
+    }
+
+    gifContato.addEventListener('load', () => {
+        // duração aproximada do gif
+        setTimeout(reiniciarGif, 3000);
+    });
+</script>
+    
 </body>
 
 </html>

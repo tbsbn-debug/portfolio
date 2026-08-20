@@ -167,10 +167,14 @@
 
     </div>
 
-<img
-    src="imagens/contato.gif"
+<video
     class="gif-contato"
-    alt=""
+    src="imagens/contato.mov"
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="auto"
     style="
         position: fixed;
         right: 6vw;
@@ -179,9 +183,11 @@
         height: auto;
         transform: translateY(-50%);
         z-index: 9999;
+        pointer-events: none;
     "
->
+></video>
 
+    
 </main>
 
 
@@ -232,27 +238,6 @@
             }
 
         });
-
-    </script>
-
-    <script>
-    const gifContato = document.querySelector('.gif-contato');
-
-    function reiniciarGif() {
-        const src = gifContato.src;
-
-        gifContato.src = '';
-
-        requestAnimationFrame(() => {
-            gifContato.src = src;
-        });
-    }
-
-    gifContato.addEventListener('load', () => {
-        // duração aproximada do gif
-        setTimeout(reiniciarGif, 3000);
-    });
-</script>
     
 </body>
 

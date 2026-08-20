@@ -1983,3 +1983,26 @@ main.catalogo-roupas {
     }
 
 }
+
+.produto-imagem {
+    position: relative;
+}
+
+.produto-imagem .imagem-principal,
+.produto-imagem .imagem-hover {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.produto-imagem .imagem-hover {
+    position: absolute;
+    inset: 0;
+
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.produto-imagem:hover .imagem-hover {
+    opacity: 1;
+}

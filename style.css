@@ -2025,7 +2025,7 @@ main.catalogo-roupas {
 .pagina-produto {
     width: calc(100% - 80px);
 
-    margin: -40px auto -10px;
+    margin: -40px auto -30px;
 
     display: grid;
     grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);

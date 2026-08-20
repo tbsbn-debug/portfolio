@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>calça op.1 no.1 — opus</title>
+
+    <link rel="stylesheet" href="style.css?=v2">
+
+</head>
+
+
+<body class="pagina-roupa">
+
+<div class="cursor"></div>
+
+
+<header>
+
+    <div class="identidade">
+
+        <a href="index.html" class="logo-projetos">
+
+            <img
+                src="imagens/simbolo-opus.png"
+                alt="opus"
+            >
+
+        </a>
+
+    </div>
+
+
+    <nav class="menu-principal">
+
+        <a href="roupas.html">
+            roupas
+        </a>
+
+
+        <div class="menu-projetos">
+
+            <a href="projetos.html" class="projetos-link">
+                projetos
+            </a>
+
+            <div class="subcategorias">
+
+                <a href="editorial-de-moda.html">
+                    editorial de moda
+                </a>
+
+                <a href="design-grafico.html">
+                    design gráfico
+                </a>
+
+                <a href="objetos.html">
+                    objetos
+                </a>
+
+                <a href="texteis.html">
+                    têxteis
+                </a>
+
+                <a href="etc.html">
+                    etc.
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <a href="textos.html">
+            textos
+        </a>
+
+        <a href="pesquisa.html">
+            pesquisa
+        </a>
+
+        <a href="sobre.html">
+            sobre
+        </a>
+
+        <a href="contato.html">
+            contato
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="pagina-produto">
+
+
+    <section class="produto-galeria">
+
+        <div class="produto-foto">
+
+            <img
+                src="imagens/roupas/op1-no1/op-1no1-1.jpg"
+                alt="calça op.1 no.1"
+            >
+
+        </div>
+
+
+        <div class="produto-foto">
+
+            <img
+                src="imagens/roupas/op1-no1/op-1no1-2.jpg"
+                alt="calça op.1 no.1"
+            >
+
+        </div>
+
+    </section>
+
+
+    <section class="produto-detalhes">
+
+
+        <div class="produto-titulo">
+
+            <h1>
+                calça op.1 no.1
+            </h1>
+
+            <span>
+                R$ 1.450
+            </span>
+
+        </div>
+
+
+        <div class="produto-descricao">
+
+            <p>
+                calça em algodão cru estruturada com barbatanas plásticas
+                em ondulação e cós entretelado, com elástico na parte
+                traseira. internamente, acabamento com costura francesa
+                nos fechamentos que unem cada parte das pernas e cós.
+            </p>
+
+        </div>
+
+
+        <dl class="produto-especificacoes">
+
+            <div>
+
+                <dt>composição</dt>
+
+                <dd>
+                    100% algodão cru
+                </dd>
+
+            </div>
+
+
+            <div>
+
+                <dt>compra</dt>
+
+                <dd>
+                    sob encomenda
+                </dd>
+
+            </div>
+
+
+            <div>
+
+                <dt>locação</dt>
+
+                <dd>
+                    consulte
+                </dd>
+
+            </div>
+
+        </dl>
+
+
+        <div class="produto-contato">
+
+            <a href="mailto:contato@atelieopus.com">
+                solicitar peça
+            </a>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+window.addEventListener('mousemove', function(event) {
+
+    const cursor = document.querySelector('.cursor');
+
+    cursor.style.left = event.clientX + 'px';
+    cursor.style.top = event.clientY + 'px';
+
+
+    const elemento = event.target.closest(
+        'a, button, [role="button"]'
+    );
+
+
+    if (elemento) {
+
+        cursor.classList.add('clicavel');
+
+    } else {
+
+        cursor.classList.remove('clicavel');
+
+    }
+
+
+    if (!elemento) {
+
+        const rastro = document.createElement('div');
+
+        rastro.classList.add('cursor-rastro');
+
+        rastro.style.left = event.clientX + 'px';
+        rastro.style.top = event.clientY + 'px';
+
+        document.body.appendChild(rastro);
+
+
+        setTimeout(function() {
+
+            rastro.remove();
+
+        }, 1000);
+
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>

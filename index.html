@@ -10,6 +10,25 @@
     <link rel="stylesheet" href="style.css">
 
     <link rel="icon" type="image/png" href="favicon.png">
+
+        <style>
+
+        .galeria-final {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .galeria-final img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+    </style>
+    
 </head>
 
 <body>
@@ -67,7 +86,145 @@
     <main>
     </main>
 
+ <section class="galeria-final">
 
+        <img
+            id="imagem-galeria-final"
+            src=""
+            alt=""
+        >
+
+    </section>
+
+    <script>
+
+        const imagensGaleria = [
+
+            "imagens/projetos/inventario/inventario-01.png",
+            "imagens/projetos/inventario/inventario-02.png",
+            "imagens/projetos/inventario/inventario-03.png",
+            "imagens/projetos/inventario/inventario-04.png",
+            "imagens/projetos/a-coisa-queima!/a-coisa-queima!-01.jpg",
+            " imagens/projetos/a-coisa-queima!/a-coisa-queima!-02.jpg ",
+            "imagens/projetos/a-coisa-queima!/a-coisa-queima!-03.jpg",
+"portfolio/imagens/projetos/arranging-things/arranging-things-01.png",
+"portfolio/imagens/projetos/arranging-things/arranging-things-02.png",
+"portfolio/imagens/projetos/arranging-things/arranging-things-03.png",
+"portfolio/imagens/projetos/arranging-things/arranging-things-04.png"
+"portfolio/imagens/projetos/arranging-things/arranging-things-05.jpg",
+"portfolio/imagens/projetos/arranging-things/arranging-things-06.jpg",
+"portfolio/imagens/projetos/arranging-things/arranging-things-07.jpg",
+"portfolio/imagens/projetos/arranging-things/arranging-things-08.jpg",
+"portfolio/imagens/projetos/arranging-things/arranging-things-09.jpg",
+    "portfolio/imagens/projetos/instituto-niemeyer/instituto-niemeyer-01.jpg",
+"portfolio/imagens/projetos/instituto-niemeyer/instituto-niemeyer-02.png",
+"portfolio/imagens/projetos/instituto-niemeyer/instituto-niemeyer-03.jpg",
+"portfolio/imagens/projetos/instituto-niemeyer/instituto-niemeyer-04.jpg",
+"portfolio/imagens/projetos/instituto-niemeyer/instituto-niemeyer-05.jpg",
+    "portfolio/imagens/projetos/narcissus/narcissus-01.jpg",
+"portfolio/imagens/projetos/narcissus/narcissus-02.png",
+"portfolio/imagens/projetos/narcissus/narcissus-03.png",
+"portfolio/imagens/projetos/narcissus/narcissus-04.png",
+"portfolio/imagens/projetos/narcissus/narcissus-05.jpg",
+"portfolio/imagens/projetos/narcissus/narcissus-06.png",
+    "portfolio/imagens/projetos/neonewnouvelle/neonewnouvelle-02.png",
+    "portfolio/imagens/projetos/o-novo-rio/o-novo-rio-01.jpg",
+"portfolio/imagens/projetos/o-novo-rio/o-novo-rio-02.jpg",
+    "portfolio/imagens/projetos/o-rio-flui/o-rio-flui-01.png",
+"portfolio/imagens/projetos/o-rio-flui/o-rio-flui-02.png",
+"portfolio/imagens/projetos/o-rio-flui/o-rio-flui-03.png",
+"portfolio/imagens/projetos/o-rio-flui/o-rio-flui-04.png",
+"portfolio/imagens/projetos/o-rio-flui/o-rio-flui-05.png",
+"portfolio/imagens/projetos/o-rio-flui/o-rio-flui-06.png",
+"portfolio/imagens/projetos/o-rio-flui/o-rio-flui-07.png",
+"portfolio/imagens/projetos/o-rio-flui/o-rio-flui-08.png",
+"portfolio/imagens/projetos/o-rio-flui/o-rio-flui-09.png",
+"portfolio/imagens/projetos/o-rio-flui/o-rio-flui-10.png",
+"portfolio/imagens/projetos/o-rio-flui/o-rio-flui-11.png ",
+    "portfolio/imagens/projetos/retrato/retrato-01.jpg",
+"portfolio/imagens/projetos/retrato/retrato-02.jpg",
+"portfolio/imagens/projetos/retrato/retrato-03.jpg",
+    "portfolio/imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-01.jpg",
+"portfolio/imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-02.jpg",
+"portfolio/imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-03.jpg",
+"portfolio/imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-04.jpg",
+"portfolio/imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-05.jpg",
+"portfolio/imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-06.jpg",
+"portfolio/imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-07.jpg",
+"portfolio/imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-08.jpg",
+"portfolio/imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-09.jpg"'
+"portfolio/imagens/projetos/terras-raras/terras-raras-01.png",
+"portfolio/imagens/projetos/terras-raras/terras-raras-02.png",
+"portfolio/imagens/projetos/terras-raras/terras-raras-03.png",
+"portfolio/imagens/projetos/terras-raras/terras-raras-04.png",
+"portfolio/imagens/projetos/terras-raras/terras-raras-05.png",
+"portfolio/imagens/projetos/terras-raras/terras-raras-06.png","
+"portfolio/imagens/projetos/vogue-portugal/vogue-portugal-01.png","
+"portfolio/imagens/projetos/texteis/texteis-01.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-02.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-03.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-04.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-05.jpeg ",
+"portfolio/imagens/projetos/texteis/texteis-06.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-07.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-08.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-09.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-10.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-11.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-12.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-13.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-14.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-15.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-16.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-17.jpeg",
+"portfolio/imagens/projetos/texteis/texteis-18.jpeg",
+    "imagens/projetos/ways-of-not-seeing/ways-of-not-seeing-01.jpg",
+    "imagens/projetos/ways-of-not-seeing/ways-of-not-seeing-02.jpg",
+    "imagens/projetos/ways-of-not-seeing/ways-of-not-seeing-03.jpg",
+    "imagens/roupas/op1-no4/op1_no4-01.jpg",
+
+        ];
+
+
+        const imagemGaleria =
+            document.getElementById("imagem-galeria-final");
+
+
+        let imagemAtual = -1;
+
+
+        function trocarImagem() {
+
+            let proximaImagem;
+
+            do {
+
+                proximaImagem =
+                    Math.floor(
+                        Math.random() * imagensGaleria.length
+                    );
+
+            } while (
+                proximaImagem === imagemAtual &&
+                imagensGaleria.length > 1
+            );
+
+
+            imagemAtual = proximaImagem;
+
+            imagemGaleria.src =
+                imagensGaleria[proximaImagem];
+
+        }
+
+
+        trocarImagem();
+
+
+        setInterval(trocarImagem, 5000);
+
+    </script>
+    
     <script>
 
         window.addEventListener('load', function() {

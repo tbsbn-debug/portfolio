@@ -1,1 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>bichinhos em folha de madeira –– ateliê opus</title>
+
+    <link rel="stylesheet" href="style.css?v=8">
+
+</head>
+
+
+<body>
+
+    <div class="cursor"></div>
+
+
+    <header class="projeto-header">
+
+        <a href="projetos.html" class="projeto-voltar">
+            projetos
+        </a>
+
+        <div class="projeto-categoria">
+            <a href="objetos.html">objetos</a>
+        </div>
+
+    </header>
+
+
+    <main class="pagina-projeto">
+
+
+        <!-- título -->
+
+        <section class="projeto-titulo">
+
+            <h1>bichinhos em folha de madeira</h1>
+
+            <span>2022</span>
+
+        </section>
+
+
+        <!-- imagem 01 -->
+
+        <section class="projeto-bloco bloco-01">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/bichinhos-em-folha-de-madeira/bichinhos-em-folha-de-madeira-01.png"
+                    alt="bichinhos em folha de madeira"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- texto -->
+
+        <section class="projeto-bloco bloco-02">
+
+            <div class="texto-projeto">
+
+                <p>
+                    bichinhos (na foto, boi e piranha) são pequenos objetos de folha de madeira natural montados por sistema de encaixe.
+                  o objeto remontado pode sugerir outro bicho ou assumir novas versões dele, como o boi ferido.
+                  <br><br>foram utilizadas folhas de Angelim e Freijó.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- imagem 02 -->
+
+        <section class="projeto-bloco bloco-03">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/bichinhos-em-folha-de-madeira/bichinhos-em-folha-de-madeira-01.jpeg"
+                    alt="bichinhos em folha de madeira"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- ficha técnica -->
+
+        <section class="ficha-tecnica">
+
+            <h2>team</h2>
+
+
+            <div class="creditos">
+
+
+                <div class="credito">
+
+                    <h3>designers</h3>
+
+                    <p>Breno Samel @brenosamel</p>
+
+                </div>
+
+
+                <div class="credito">
+
+                    <h3></h3>
+
+                    <p>Teo Bressane-Sabadin @teobressanesabadin</p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- rodapé -->
+
+        <footer class="projeto-footer">
+
+            <span>® ATELIÊ OPUS ALL RIGHTS RESERVED</span>
+
+        </footer>
+
+
+    </main>
+
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            if (cursor) {
+
+                cursor.style.left = event.clientX + 'px';
+                cursor.style.top = event.clientY + 'px';
+
+            }
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (cursor) {
+
+                if (elemento) {
+
+                    cursor.classList.add('clicavel');
+
+                } else {
+
+                    cursor.classList.remove('clicavel');
+
+                }
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

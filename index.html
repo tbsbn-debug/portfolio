@@ -2,7 +2,6 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,39 +10,11 @@
     <link rel="stylesheet" href="style.css">
 
     <link rel="icon" type="image/png" href="favicon.png">
-
-
-    <style>
-
-        .galeria-final {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-        }
-
-
-        .galeria-final img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-            opacity: 1;
-            transition: opacity 0.8s ease;
-        }
-
-    </style>
-
 </head>
-
 
 <body>
 
     <div class="cursor"></div>
-
 
     <header>
 
@@ -55,10 +26,8 @@
             >
 
             <div class="descricao">
-
                 <p>pesquisa em design e artesania.</p>
                 <p>processos multidisciplinares.</p>
-
             </div>
 
         </div>
@@ -66,60 +35,29 @@
 
         <nav class="menu-principal">
 
-            <a href="roupas.html">
-                roupas
-            </a>
+            <a href="roupas.html">roupas</a>
 
+          <div class="menu-projetos">
 
-            <div class="menu-projetos">
+    <a href="projetos.html" class="projetos-link">
+        projetos
+    </a>
 
-                <a href="projetos.html" class="projetos-link">
-                    projetos
-                </a>
-
-
-                <div class="subcategorias">
-
-                    <a href="editorial-de-moda.html">
-                        editorial de moda
-                    </a>
-
-                    <a href="design-grafico.html">
-                        design gráfico
-                    </a>
-
-                    <a href="objetos.html">
-                        objetos
-                    </a>
-
-                    <a href="texteis.html">
-                        têxteis
-                    </a>
-
-                    <a href="etc.html">
-                        etc.
-                    </a>
+    <div class="subcategorias">
+                    <a href="editorial-de-moda.html">editorial de moda</a>
+                    <a href="design-grafico.html">design gráfico</a>
+                    <a href="objetos.html">objetos</a>
+                    <a href="texteis.html">têxteis</a>
+                    <a href="etc.html">etc.</a>
 
                 </div>
 
             </div>
 
-
-            <a href="textos.html">
-                textos
-            </a>
-
-            <a href="pesquisa.html">
-                pesquisa
-            </a>
-
-            <a href="sobre.html">
-                sobre
-            </a>
-
-            <a href="contato.html">
-                contato
-            </a>
+            <a href="textos.html">textos</a>
+            <a href="pesquisa.html">pesquisa</a>
+            <a href="sobre.html">sobre</a>
+            <a href="contato.html">contato</a>
 
         </nav>
 
@@ -127,176 +65,7 @@
 
 
     <main>
-
     </main>
-
-
-    <!-- galeria final -->
-
-    <section class="galeria-final">
-
-        <img
-            id="imagem-galeria-final"
-            src=""
-            alt=""
-        >
-
-    </section>
-
-
-    <script>
-
-        const imagensGaleria = [
-
-            "imagens/projetos/inventario/inventario-01.png",
-            "imagens/projetos/inventario/inventario-02.png",
-            "imagens/projetos/inventario/inventario-03.png",
-            "imagens/projetos/inventario/inventario-04.png",
-
-            "imagens/projetos/a-coisa-queima!/a-coisa-queima!-01.jpg",
-            "imagens/projetos/a-coisa-queima!/a-coisa-queima!-02.jpg",
-            "imagens/projetos/a-coisa-queima!/a-coisa-queima!-03.jpg",
-
-            "imagens/projetos/arranging-things/arranging-things-01.png",
-            "imagens/projetos/arranging-things/arranging-things-02.png",
-            "imagens/projetos/arranging-things/arranging-things-03.png",
-            "imagens/projetos/arranging-things/arranging-things-04.png",
-            "imagens/projetos/arranging-things/arranging-things-05.jpg",
-            "imagens/projetos/arranging-things/arranging-things-06.jpg",
-            "imagens/projetos/arranging-things/arranging-things-07.jpg",
-            "imagens/projetos/arranging-things/arranging-things-08.jpg",
-            "imagens/projetos/arranging-things/arranging-things-09.jpg",
-
-            "imagens/projetos/instituto-niemeyer/instituto-niemeyer-01.jpg",
-            "imagens/projetos/instituto-niemeyer/instituto-niemeyer-02.png",
-            "imagens/projetos/instituto-niemeyer/instituto-niemeyer-03.jpg",
-            "imagens/projetos/instituto-niemeyer/instituto-niemeyer-04.jpg",
-            "imagens/projetos/instituto-niemeyer/instituto-niemeyer-05.jpg",
-
-            "imagens/projetos/narcissus/narcissus-01.jpg",
-            "imagens/projetos/narcissus/narcissus-02.png",
-            "imagens/projetos/narcissus/narcissus-03.png",
-            "imagens/projetos/narcissus/narcissus-04.png",
-            "imagens/projetos/narcissus/narcissus-05.jpg",
-            "imagens/projetos/narcissus/narcissus-06.png",
-
-            "imagens/projetos/neonewnouvelle/neonewnouvelle-02.png",
-
-            "imagens/projetos/o-novo-rio/o-novo-rio-01.jpg",
-            "imagens/projetos/o-novo-rio/o-novo-rio-02.jpg",
-
-            "imagens/projetos/o-rio-flui/o-rio-flui-01.png",
-            "imagens/projetos/o-rio-flui/o-rio-flui-02.png",
-            "imagens/projetos/o-rio-flui/o-rio-flui-03.png",
-            "imagens/projetos/o-rio-flui/o-rio-flui-04.png",
-            "imagens/projetos/o-rio-flui/o-rio-flui-05.png",
-            "imagens/projetos/o-rio-flui/o-rio-flui-06.png",
-            "imagens/projetos/o-rio-flui/o-rio-flui-07.png",
-            "imagens/projetos/o-rio-flui/o-rio-flui-08.png",
-            "imagens/projetos/o-rio-flui/o-rio-flui-09.png",
-            "imagens/projetos/o-rio-flui/o-rio-flui-10.png",
-            "imagens/projetos/o-rio-flui/o-rio-flui-11.png",
-
-            "imagens/projetos/retrato/retrato-01.jpg",
-            "imagens/projetos/retrato/retrato-02.jpg",
-            "imagens/projetos/retrato/retrato-03.jpg",
-
-            "imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-01.jpg",
-            "imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-02.jpg",
-            "imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-03.jpg",
-            "imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-04.jpg",
-            "imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-05.jpg",
-            "imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-06.jpg",
-            "imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-07.jpg",
-            "imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-08.jpg",
-            "imagens/projetos/stories-collective-organic-extravaganza/stories-collective-organic-extravaganza-09.jpg",
-
-            "imagens/projetos/terras-raras/terras-raras-01.png",
-            "imagens/projetos/terras-raras/terras-raras-02.png",
-            "imagens/projetos/terras-raras/terras-raras-03.png",
-            "imagens/projetos/terras-raras/terras-raras-04.png",
-            "imagens/projetos/terras-raras/terras-raras-05.png",
-            "imagens/projetos/terras-raras/terras-raras-06.png",
-
-            "imagens/projetos/vogue-portugal/vogue-portugal-01.png",
-
-            "imagens/projetos/texteis/texteis-01.jpeg",
-            "imagens/projetos/texteis/texteis-02.jpeg",
-            "imagens/projetos/texteis/texteis-03.jpeg",
-            "imagens/projetos/texteis/texteis-04.jpeg",
-            "imagens/projetos/texteis/texteis-05.jpeg",
-            "imagens/projetos/texteis/texteis-06.jpeg",
-            "imagens/projetos/texteis/texteis-07.jpeg",
-            "imagens/projetos/texteis/texteis-08.jpeg",
-            "imagens/projetos/texteis/texteis-09.jpeg",
-            "imagens/projetos/texteis/texteis-10.jpeg",
-            "imagens/projetos/texteis/texteis-11.jpeg",
-            "imagens/projetos/texteis/texteis-12.jpeg",
-            "imagens/projetos/texteis/texteis-13.jpeg",
-            "imagens/projetos/texteis/texteis-14.jpeg",
-            "imagens/projetos/texteis/texteis-15.jpeg",
-            "imagens/projetos/texteis/texteis-16.jpeg",
-            "imagens/projetos/texteis/texteis-17.jpeg",
-            "imagens/projetos/texteis/texteis-18.jpeg",
-
-            "imagens/projetos/ways-of-not-seeing/ways-of-not-seeing-01.jpg",
-            "imagens/projetos/ways-of-not-seeing/ways-of-not-seeing-02.jpg",
-            "imagens/projetos/ways-of-not-seeing/ways-of-not-seeing-03.jpg",
-
-            "imagens/roupas/op1-no4/op1_no4-01.jpg"
-
-        ];
-
-
-        const imagemGaleria =
-            document.getElementById("imagem-galeria-final");
-
-
-        let imagemAtual = -1;
-
-
-        function trocarImagem() {
-
-            let proximaImagem;
-
-
-            do {
-
-                proximaImagem =
-                    Math.floor(
-                        Math.random() * imagensGaleria.length
-                    );
-
-            } while (
-                proximaImagem === imagemAtual &&
-                imagensGaleria.length > 1
-            );
-
-
-            imagemAtual = proximaImagem;
-
-
-            imagemGaleria.style.opacity = 0;
-
-
-            setTimeout(function() {
-
-                imagemGaleria.src =
-                    imagensGaleria[proximaImagem];
-
-                imagemGaleria.style.opacity = 1;
-
-            }, 800);
-
-        }
-
-
-        trocarImagem();
-
-
-        setInterval(trocarImagem, 5000);
-
-    </script>
 
 
     <script>
@@ -312,13 +81,8 @@
 
             const cursor = document.querySelector('.cursor');
 
-
-            if (cursor) {
-
-                cursor.style.left = event.clientX + 'px';
-                cursor.style.top = event.clientY + 'px';
-
-            }
+            cursor.style.left = event.clientX + 'px';
+            cursor.style.top = event.clientY + 'px';
 
 
             const elemento = event.target.closest(
@@ -326,17 +90,13 @@
             );
 
 
-            if (cursor) {
+            if (elemento) {
 
-                if (elemento) {
+                cursor.classList.add('clicavel');
 
-                    cursor.classList.add('clicavel');
+            } else {
 
-                } else {
-
-                    cursor.classList.remove('clicavel');
-
-                }
+                cursor.classList.remove('clicavel');
 
             }
 
@@ -352,7 +112,6 @@
 
                 document.body.appendChild(rastro);
 
-
                 setTimeout(function() {
 
                     rastro.remove();
@@ -364,8 +123,109 @@
         });
 
     </script>
+<script>
+const canvas = document.getElementById("cursor-pincel");
+const ctx = canvas.getContext("2d");
+
+let desenhando = false;
+let ultimoX = 0;
+let ultimoY = 0;
+
+function ajustarCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+ajustarCanvas();
+window.addEventListener("resize", ajustarCanvas);
 
 
+document.addEventListener("mousedown", function(event) {
+
+    if (event.button !== 0) return;
+
+    const elemento = event.target;
+
+    if (
+        elemento.closest("a") ||
+        elemento.closest("button") ||
+        elemento.closest("img") ||
+        elemento.closest("input") ||
+        elemento.closest("textarea") ||
+        elemento.closest("select")
+    ) {
+        return;
+    }
+
+    desenhando = true;
+
+    ultimoX = event.clientX;
+    ultimoY = event.clientY;
+
+    ctx.beginPath();
+    ctx.moveTo(ultimoX, ultimoY);
+});
+
+
+document.addEventListener("mousemove", function(event) {
+
+    if (!desenhando) return;
+
+    const x = event.clientX;
+    const y = event.clientY;
+
+    ctx.beginPath();
+    ctx.moveTo(ultimoX, ultimoY);
+    ctx.lineTo(x, y);
+
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "#f5d000";
+    ctx.globalAlpha = 1;
+
+    ctx.stroke();
+
+    ultimoX = x;
+    ultimoY = y;
+});
+
+
+document.addEventListener("mouseup", function(event) {
+
+    if (event.button !== 0) return;
+
+    desenhando = false;
+
+    ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
+});
+
+
+document.addEventListener("mouseleave", function() {
+
+    desenhando = false;
+
+    ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
+});
+</script>
+    
 </body>
 
 </html>

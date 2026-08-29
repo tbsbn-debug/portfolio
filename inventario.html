@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>inventário —— ateliê opus</title>
+
+    <link rel="stylesheet" href="style.css?v=8">
+
+</head>
+
+
+<body>
+
+    <div class="cursor"></div>
+
+
+    <header class="projeto-header">
+
+        <a href="projetos.html" class="projeto-voltar">
+            projetos
+        </a>
+
+        <div class="projeto-categoria">
+            <a href="objetos.html">objetos</a>
+        </div>
+
+    </header>
+
+
+    <main class="pagina-projeto">
+
+
+        <!-- título -->
+
+        <section class="projeto-titulo">
+
+            <h1>INVENTÁRIO — inventário carioca</h1>
+
+            <span>2023</span>
+
+        </section>
+
+
+        <!-- imagem 01 -->
+
+        <section class="projeto-bloco bloco-01">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/inventario/inventario-01.png"
+                    alt="INVENTÁRIO <br>inventário carioca"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- texto -->
+
+        <section class="projeto-bloco bloco-02">
+
+            <div class="texto-projeto">
+
+                <p>
+                    o inventário carioca — INVENTÁRIO foi desenvolvido no âmbito do projeto HRZNT_Rio de Janeiro com a proposta de registrar e apresentar uma cartografia
+                  urbana a partir de um levantamento arquitetônico do patrimônio moderno da cidade.
+                </p>
+
+            </div>
+
+
+            <div class="texto-projeto">
+
+                <p>
+                  a organização do material publicado parte do entendimento das dicotomias formais sustentadas pelo espaço urbano: dentro/fora, cheio/vazio, liso/áspero,
+                  opaco/translúcido, orgânico/linear, etc., que são delimitados por elementos diversos: curvas, escadas, texturas, frestas, planos, luzes, pontos e coisas.
+                  <br><br> o INVENTARIO propõe uma disposição cruzada na relação entre esses dispositivos imagéticos-sensoriais de forma que as imagens produzidas passem a ser
+                  apresentadas conforme os elementos determinados para cada dispositivo, e os projetos arquitetônicos se mostrem em relação, embaralhados, sobrepostos e interligados.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- imagem 02 -->
+
+        <section class="projeto-bloco bloco-03">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/inventario/inventario-02.png"
+                    alt="inventário"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- imagem 03 -->
+
+        <section class="projeto-bloco bloco-04">
+
+            <div class="midia-projeto">
+
+                <img
+                    src="imagens/projetos/inventario/inventario-03.png"
+                    alt="inventário"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- ficha técnica -->
+
+        <section class="ficha-tecnica">
+
+            <h2>team</h2>
+
+
+            <div class="creditos">
+
+
+                <div class="credito">
+
+                    <h3>orientação</h3>
+
+                    <p>Alziro Neto<br>
+                      Mariana Vieira</p>
+
+              
+                    <h3>apoio</h3>
+
+                    <p>Departamento de Arquitetura e Urbanismo - PUC-Rio<br>
+                    HRZNT_Rio de Janeiro</p>
+                  
+                </div>
+
+
+                <div class="credito">
+
+                    <h3>produção</h3>
+
+                    <p>Breno Samel<br>
+                    Eduardo Schuch<br>
+                    Pamella Bandini<br></p>
+
+                    <h3>participação</h3>
+
+                    <p>Teo Bressane-Sabadin</p>
+
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- rodapé -->
+
+        <footer class="projeto-footer">
+
+            <span>® ATELIÊ OPUS ALL RIGHTS RESERVED</span>
+
+        </footer>
+
+
+    </main>
+
+
+    <script>
+
+        window.addEventListener('mousemove', function(event) {
+
+            const cursor = document.querySelector('.cursor');
+
+            if (cursor) {
+
+                cursor.style.left = event.clientX + 'px';
+                cursor.style.top = event.clientY + 'px';
+
+            }
+
+
+            const elemento = event.target.closest(
+                'a, button, [role="button"]'
+            );
+
+
+            if (cursor) {
+
+                if (elemento) {
+
+                    cursor.classList.add('clicavel');
+
+                } else {
+
+                    cursor.classList.remove('clicavel');
+
+                }
+
+            }
+
+
+            if (!elemento) {
+
+                const rastro = document.createElement('div');
+
+                rastro.classList.add('cursor-rastro');
+
+                rastro.style.left = event.clientX + 'px';
+                rastro.style.top = event.clientY + 'px';
+
+                document.body.appendChild(rastro);
+
+
+                setTimeout(function() {
+
+                    rastro.remove();
+
+                }, 1000);
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>
